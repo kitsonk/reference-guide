@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Frequently Asked Questions &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="DojoX" href="../contents.html" />
+    <link rel="next" title="Internationalization (i18n)" href="internationalization.html" />
+    <link rel="prev" title="Dynamic Content Loading" href="dynamic-content-loading.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="frequently-asked-questions">
+<span id="dojox-mobile-faq"></span><h1><a class="toc-backref" href="#id1">Frequently Asked Questions</a><a class="headerlink" href="#frequently-asked-questions" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Yoshiroh Kamiyama</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#frequently-asked-questions" id="id1">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#dojox-mobile-parser" id="id2">dojox.mobile.parser</a></li>
+<li><a class="reference internal" href="#android-issues" id="id3">Android Issues</a></li>
+<li><a class="reference internal" href="#miscellaneous" id="id4">Miscellaneous</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="dojox-mobile-parser">
+<h2><a class="toc-backref" href="#id2">dojox.mobile.parser</a><a class="headerlink" href="#dojox-mobile-parser" title="Permalink to this headline">¶</a></h2>
+<p>dojox.mobile.parser is an extremely small subset of dojo.parser. It has no extended features, so there is no reason you have to use dojox.mobile.parser instead of dojo.parser. However, if dojox.mobile.parser&#8217;s capability is enough for your application, use of it could reduce the code size.</p>
+<div class="section" id="what-is-the-difference-between-dojox-mobile-parser-and-dojo-parser">
+<h3>What is the difference between dojox.mobile.parser and dojo.parser?<a class="headerlink" href="#what-is-the-difference-between-dojox-mobile-parser-and-dojo-parser" title="Permalink to this headline">¶</a></h3>
+<p>Some of the advanced features of dojo.parser, such as &lt;script type=&#8221;dojo/method&#8221;&gt; and &lt;script type=&#8221;dojo/connect&#8221;&gt;, are missing. Basic features are compatible with dojo.parser.</p>
+</div>
+<div class="section" id="how-is-the-size-of-dojox-mobile-parser-compared-to-dojo-parser">
+<h3>How is the size of dojox.mobile.parser compared to dojo.parser?<a class="headerlink" href="#how-is-the-size-of-dojox-mobile-parser-compared-to-dojo-parser" title="Permalink to this headline">¶</a></h3>
+<p>As of dojo-1.7 beta3, the size of dojox.mobile.parser is 1KB (built &amp; gzipped), while dojo.parser (plus its dependent modules that are not required by the dojox.mobile base) is 10KB.</p>
+</div>
+<div class="section" id="do-i-have-to-use-dojox-mobile-parser-for-dojox-mobile-applications">
+<h3>Do I have to use dojox.mobile.parser for dojox.mobile applications?<a class="headerlink" href="#do-i-have-to-use-dojox-mobile-parser-for-dojox-mobile-applications" title="Permalink to this headline">¶</a></h3>
+<p>No, you don&#8217;t have to. dojox.mobile.parser is a subset of dojo.parser. Usage and how it works are basically the same. If your application unfortunately does not work with dojox.mobile.parser, you can replace it with dojo.parser.</p>
+</div>
+<div class="section" id="can-i-use-dojox-mobile-parser-for-desktop-dojo-applications">
+<h3>Can I use dojox.mobile.parser for desktop dojo applications?<a class="headerlink" href="#can-i-use-dojox-mobile-parser-for-desktop-dojo-applications" title="Permalink to this headline">¶</a></h3>
+<p>Yes. Use of dojox.mobile.parser is not limited to mobile. It has enough capability to bootstrap simple dojo applications. This may sound strange, but dojox.mobile.parser has no dependency on dojox.mobile. (And dojox.mobile has no dependency on dojox.mobile.parser either.) So you can pick up only dojox.mobile.parser and use it for your desktop applications. Actually, this parser was originally developed for very lightweight desktop dojo applications a few years before dojox.mobile was born.</p>
+<p>However, dojox.mobile.parser cannot be used for applications that contain ContentPane subclasses
+with nested widgets, since those nested widgets will try to be instantiated twice.   For example:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span><span class="nt">&gt;</span>
+    ...
+    <span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>OK<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot;&gt;
+    ...
+    &lt;button data-dojo-type=&quot;dijit.form.Button&quot;&gt;OK&lt;/button&gt;
+&lt;/div&gt;</textarea></div><p>Also note that loading some desktop widgets may implicitly load the dojo.parser.</p>
+</div>
+</div>
+<div class="section" id="android-issues">
+<h2><a class="toc-backref" href="#id3">Android Issues</a><a class="headerlink" href="#android-issues" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="i-can-t-seem-to-run-dojo-mobile-pages-on-android-devices-when-using-libraries-like-phonegap-what-am-i-doing-wrong">
+<h3>I can&#8217;t seem to run Dojo Mobile pages on Android devices when using libraries like PhoneGap, what am I doing wrong?<a class="headerlink" href="#i-can-t-seem-to-run-dojo-mobile-pages-on-android-devices-when-using-libraries-like-phonegap-what-am-i-doing-wrong" title="Permalink to this headline">¶</a></h3>
+<p>There is a known bug in the Android WebKit browser implementation that does not allow files starting with an underscore &#8216;_&#8217; character to be loaded from local file system (for example when using Dojo Mobile in conjunction with PhoneGap to create a native app).  The way around this problem is to create a built version of your files (you&#8217;ll want to do this anyway for performance).</p>
+</div>
+<div class="section" id="mblalwayshideaddressbar-does-not-work-on-my-android-device-what-s-going-on">
+<h3>mblAlwaysHideAddressBar does not work on my Android device. What&#8217;s going on?<a class="headerlink" href="#mblalwayshideaddressbar-does-not-work-on-my-android-device-what-s-going-on" title="Permalink to this headline">¶</a></h3>
+<p>mblAlwaysHideAddressBar does not work on some Android devices when overflow:hidden style is applied to html and body tags. This overflow:hidden style is used in some test cases including test_ScrollableMixin-custom.html for desktop browsers not to show scroll bar, but you can remove it for mobile browsers so that you can hide address bar.</p>
+</div>
+</div>
+<div class="section" id="miscellaneous">
+<h2><a class="toc-backref" href="#id4">Miscellaneous</a><a class="headerlink" href="#miscellaneous" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="why-does-body-in-many-of-tests-html-files-have-style-visibility-hidden">
+<h3>Why does &lt;body&gt; in many of tests html files have style=&#8221;visibility:hidden;&#8221;?<a class="headerlink" href="#why-does-body-in-many-of-tests-html-files-have-style-visibility-hidden" title="Permalink to this headline">¶</a></h3>
+<p>It is to prevent raw HTML rendering result from being shown before dojo&#8217;s rendering finishes. The visibility will be restored by the initialization code in dojox.mobile.common.</p>
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Frequently Asked Questions</a><ul>
+<li><a class="reference internal" href="#dojox-mobile-parser">dojox.mobile.parser</a><ul>
+<li><a class="reference internal" href="#what-is-the-difference-between-dojox-mobile-parser-and-dojo-parser">What is the difference between dojox.mobile.parser and dojo.parser?</a></li>
+<li><a class="reference internal" href="#how-is-the-size-of-dojox-mobile-parser-compared-to-dojo-parser">How is the size of dojox.mobile.parser compared to dojo.parser?</a></li>
+<li><a class="reference internal" href="#do-i-have-to-use-dojox-mobile-parser-for-dojox-mobile-applications">Do I have to use dojox.mobile.parser for dojox.mobile applications?</a></li>
+<li><a class="reference internal" href="#can-i-use-dojox-mobile-parser-for-desktop-dojo-applications">Can I use dojox.mobile.parser for desktop dojo applications?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#android-issues">Android Issues</a><ul>
+<li><a class="reference internal" href="#i-can-t-seem-to-run-dojo-mobile-pages-on-android-devices-when-using-libraries-like-phonegap-what-am-i-doing-wrong">I can&#8217;t seem to run Dojo Mobile pages on Android devices when using libraries like PhoneGap, what am I doing wrong?</a></li>
+<li><a class="reference internal" href="#mblalwayshideaddressbar-does-not-work-on-my-android-device-what-s-going-on">mblAlwaysHideAddressBar does not work on my Android device. What&#8217;s going on?</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#miscellaneous">Miscellaneous</a><ul>
+<li><a class="reference internal" href="#why-does-body-in-many-of-tests-html-files-have-style-visibility-hidden">Why does &lt;body&gt; in many of tests html files have style=&#8221;visibility:hidden;&#8221;?</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="dynamic-content-loading.html"
+                        title="previous chapter">Dynamic Content Loading</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="internationalization.html"
+                        title="next chapter">Internationalization (i18n)</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,356 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.registerModulePath &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.removeAttr" href="removeAttr.html" />
+    <link rel="prev" title="dojo.regexp" href="regexp.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-registermodulepath">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.registerModulePath</a><a class="headerlink" href="#dojo-registermodulepath" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V0.9</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-registermodulepath" id="id2">dojo.registerModulePath</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#example" id="id5">Example</a></li>
+<li><a class="reference internal" href="#see-also" id="id6">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Maps a module name to a path.</p>
+<p><strong>Warning</strong>: <tt class="docutils literal"><span class="pre">dojo.registerModulePath</span></tt> and the <tt class="docutils literal"><span class="pre">modulePaths</span></tt> configuration property
+have been deprecated in Dojo 1.7 in favor of the <tt class="docutils literal"><span class="pre">packages</span></tt> configuration property.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Dojo module loader maps module names used in dojo.require or require() calls to paths names.  By default, Dojo uses a
+couple pieces of information to map a module name to a path name:</p>
+<p>The first part is dojo.baseUrl: the path to the Dojo directory. For example, assume the path to dojo.js is &#8220;/web/scripts/dojo-1.3/dojo/dojo.js&#8221;. The baseUrl is &#8220;/web/scripts/dojo-1.3/dojo/&#8221;. Dojo automatically determines this path, but you can explicitly set it via dojoConfig.baseUrl.</p>
+<p>Next, Dojo assumes that the path for any module names that start with a prefix other than &#8220;dojo&#8221; are in a sibling directory to the dojo directory.</p>
+<p>For instance, if &#8220;/web/scripts/dojo-1.3/dojo/dojo.js&#8221; is the path to dojo.js, and you do dojo.require(&#8220;some.module&#8221;), Dojo will try to load the JavaScript file using the path &#8220;/web/scripts/dojo-1.3/some/module.js&#8221;.</p>
+<p>If you want to load &#8220;some.module&#8221; from a different path, dojo.registerModulePath can be used to change the path. However, it is more common to use dojoConfig.modulePaths instead of dojo.registerModulePath directly. Dojo will call dojo.registerModulePath for each entry in dojoConfig.modulePaths.</p>
+<p>Note that the path given to dojo.registerModulePath is always assumed to be relative to dojo.baseUrl, unless the module path starts with at &#8220;/&#8221; or &#8220;http&#8221;. In those cases, dojo.baseUrl will not be used to determine the final path.</p>
+<p>The second argument to dojo.registerModulePath, the path, should <em>not</em> end with a slash. Otherwise the calculated path could be inefficient and generate a path that has two slashes together. For paths that actually point to a file, the ending slash will generate the wrong path.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7+ (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<p><tt class="docutils literal"><span class="pre">dojo.registerModulePath</span></tt> is deprecated in Dojo 1.7+.  Going forward,
+the <tt class="docutils literal"><span class="pre">packages</span></tt> configuration property should be used.  For example:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">dojoConfig</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">packages</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;lib&quot;</span><span class="p">,</span>
+      <span class="nx">location</span><span class="o">:</span> <span class="s2">&quot;../../lib&quot;</span>
+    <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">};</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var dojoConfig = {
+  packages: [
+    {
+      name: &quot;lib&quot;,
+      location: &quot;../../lib&quot;
+    }
+  ]
+};</textarea></div><p>For more information on <tt class="docutils literal"><span class="pre">packages</span></tt> and other loader configuration properties,
+see the documentation for <a class="reference internal" href="../loader/amd.html#loader-amd"><em>the Dojo Loader</em></a>.</p>
+</div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Register &quot;lib&quot; to be a peer to Dojo&#39;s parent folder.</span>
+<span class="c1">// Make sure the module path does *not* end in a slash.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s2">&quot;lib&quot;</span><span class="p">,</span> <span class="s2">&quot;../../lib&quot;</span><span class="p">);</span>
+
+<span class="c1">// This module path is relative to the dojo baseUrl,</span>
+<span class="c1">// so we can find resources without knowing details</span>
+<span class="c1">// of the file structure.</span>
+
+<span class="c1">// E.g. if dojo lives at /somepath/dojotoolkit/dojo/dojo.js</span>
+<span class="c1">// then baseURL is &quot;/somepath/dojotoolkit/dojo/&quot;</span>
+<span class="c1">// and &quot;lib&quot; module path refers to &quot;/somepath/lib&quot;</span>
+
+<span class="c1">// lib.foo is required from /somepath/lib/foo.js</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;lib.foo&quot;</span><span class="p">);</span>
+
+<span class="c1">// get a dojo.URI that points to &quot;/somepath/lib/foo/images&quot;</span>
+<span class="kd">var</span> <span class="nx">images</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">moduleUrl</span><span class="p">(</span><span class="s2">&quot;lib.foo.images&quot;</span><span class="p">);</span>
+
+<span class="c1">// module paths can be overridden, e.g.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s2">&quot;lib.css&quot;</span><span class="p">,</span> <span class="s2">&quot;../../css&quot;</span><span class="p">);</span>
+<span class="c1">// module &quot;lib&quot; is unchanged except that &quot;lib.css&quot;</span>
+<span class="c1">// now refers to &quot;/somepath/css&quot;</span>
+
+<span class="c1">// we can set an absolute path by prefixing it with &quot;/&quot; or &quot;http:&quot;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s2">&quot;aoldojo&quot;</span><span class="p">,</span> <span class="s2">&quot;http://o.aolcdn.com/dojo/1.5/dojo&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Register &quot;lib&quot; to be a peer to Dojo's parent folder.
+// Make sure the module path does *not* end in a slash.
+dojo.registerModulePath(&quot;lib&quot;, &quot;../../lib&quot;);
+
+// This module path is relative to the dojo baseUrl,
+// so we can find resources without knowing details
+// of the file structure.
+
+// E.g. if dojo lives at /somepath/dojotoolkit/dojo/dojo.js
+// then baseURL is &quot;/somepath/dojotoolkit/dojo/&quot;
+// and &quot;lib&quot; module path refers to &quot;/somepath/lib&quot;
+
+// lib.foo is required from /somepath/lib/foo.js
+dojo.require(&quot;lib.foo&quot;);
+
+// get a dojo.URI that points to &quot;/somepath/lib/foo/images&quot;
+var images = dojo.moduleUrl(&quot;lib.foo.images&quot;);
+
+// module paths can be overridden, e.g.
+dojo.registerModulePath(&quot;lib.css&quot;, &quot;../../css&quot;);
+// module &quot;lib&quot; is unchanged except that &quot;lib.css&quot;
+// now refers to &quot;/somepath/css&quot;
+
+// we can set an absolute path by prefixing it with &quot;/&quot; or &quot;http:&quot;
+dojo.registerModulePath(&quot;aoldojo&quot;, &quot;http://o.aolcdn.com/dojo/1.5/dojo&quot;);</textarea></div></div>
+</div>
+<div class="section" id="example">
+<h2><a class="toc-backref" href="#id5">Example</a><a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="custom-button">
+<h3>Custom Button<a class="headerlink" href="#custom-button" title="Permalink to this headline">¶</a></h3>
+<p>The following example uses a custom button for a &#8220;span&#8221;.
+Note: The custom button is simply an extension of &#8220;dijit.form.Button&#8221;.</p>
+<p>[Dojo 1.7 (AMD)]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s1">&#39;dojo/_base/kernel&#39;</span><span class="p">,</span> <span class="s1">&#39;dojo/ready&#39;</span><span class="p">,</span> <span class="s1">&#39;dojo/parser&#39;</span><span class="p">,</span> <span class="s1">&#39;dojo/_base/loader&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">,</span> <span class="nx">ready</span><span class="p">,</span> <span class="nx">parser</span><span class="p">){</span>
+
+  <span class="c1">// Paths default to dojo.baseUrl (&quot;scripts/dojotoolkit/dojo/&quot;),</span>
+  <span class="c1">// so we point any module beginning with &quot;my&quot; to the path &quot;scripts/my&quot;</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;../../my&#39;</span><span class="p">);</span>
+
+  <span class="c1">// Now that the path is set, load my new button class</span>
+  <span class="nx">require</span><span class="p">([</span><span class="s1">&#39;my/form/Button&#39;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// Parse the declarative markup</span>
+    <span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+      <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require(['dojo/_base/kernel', 'dojo/ready', 'dojo/parser', 'dojo/_base/loader'], function(dojo, ready, parser){
+
+  // Paths default to dojo.baseUrl (&quot;scripts/dojotoolkit/dojo/&quot;),
+  // so we point any module beginning with &quot;my&quot; to the path &quot;scripts/my&quot;
+  dojo.registerModulePath('my', '../../my');
+
+  // Now that the path is set, load my new button class
+  require(['my/form/Button'], function(){
+    // Parse the declarative markup
+    ready(function(){
+      parser.parse();
+    });
+  });
+});</textarea></div><p>[Dojo &lt; 1.7]</p>
+<div class="highlight"><pre><span class="c1">// Paths default to dojo.baseUrl (&quot;scripts/dojotoolkit/dojo/&quot;),</span>
+<span class="c1">// so we point any module beginning with &quot;my&quot; to the path &quot;scripts/my&quot;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s1">&#39;my&#39;</span><span class="p">,</span> <span class="s1">&#39;../../my&#39;</span><span class="p">);</span>
+
+<span class="c1">// Now that the path is set, load my new button class</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;my.form.Button&#39;</span><span class="p">);</span>
+
+<span class="c1">// Parse the declarative markup</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dojo.parser&#39;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">addOnLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Paths default to dojo.baseUrl (&quot;scripts/dojotoolkit/dojo/&quot;),
+// so we point any module beginning with &quot;my&quot; to the path &quot;scripts/my&quot;
+dojo.registerModulePath('my', '../../my');
+
+// Now that the path is set, load my new button class
+dojo.require('my.form.Button');
+
+// Parse the declarative markup
+dojo.require('dojo.parser');
+dojo.addOnLoad(function(){
+  dojo.parser.parse();
+});</textarea></div><div class="highlight"><pre><span class="nc">.red</span> <span class="p">{</span>
+  <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span>
+  <span class="k">background</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.red {
+  color: red;
+  background: black;
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;span</span> <span class="na">data-dojo-type=</span><span class="s">&quot;my.form.Button&quot;</span><span class="nt">&gt;</span>my.form.button<span class="nt">&lt;/span&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;span data-dojo-type=&quot;my.form.Button&quot;&gt;my.form.button&lt;/span&gt;</textarea></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id6">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="_base/config.html#dojo-config"><em>dojoConfig.modulePaths</em></a></li>
+<li><a class="reference internal" href="moduleUrl.html#dojo-moduleurl"><em>dojo.moduleUrl</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.registerModulePath</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7+ (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#example">Example</a><ul>
+<li><a class="reference internal" href="#custom-button">Custom Button</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="regexp.html"
+                        title="previous chapter">dojo.regexp</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="removeAttr.html"
+                        title="next chapter">dojo.removeAttr</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

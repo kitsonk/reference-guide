@@ -1,0 +1,258 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.fx &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="DojoX" href="contents.html" />
+    <link rel="next" title="dojox.fx.Timeline" href="fx/Timeline.html" />
+    <link rel="prev" title="dojox.form.uploader.FileList" href="form/uploader/FileList.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-fx">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojox.fx</a><a class="headerlink" href="#dojox-fx" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Peter Higgins, Jonathan Bond-Caron, Shane O&#8217;Sullivan, Bryan Forbes</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojox-fx" id="id2">dojox.fx</a><ul>
+<li><a class="reference internal" href="#base-dojox-fx-animations" id="id3">Base dojox.fx Animations</a></li>
+<li><a class="reference internal" href="#additional-fx-modules" id="id4">Additional FX Modules</a></li>
+<li><a class="reference internal" href="#nodelist-plugins" id="id5">NodeList Plugins</a></li>
+<li><a class="reference internal" href="#base-dojo-extensions" id="id6">Base Dojo Extensions</a></li>
+<li><a class="reference internal" href="#see-also" id="id7">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>dojox.fx provides a class of animation effects to use, and other animation and Effects additions to <a class="reference internal" href="../dojo/fx.html#dojo-fx"><em>Dojo FX</em></a>.</p>
+<div class="section" id="base-dojox-fx-animations">
+<h2><a class="toc-backref" href="#id3">Base dojox.fx Animations</a><a class="headerlink" href="#base-dojox-fx-animations" title="Permalink to this headline">¶</a></h2>
+<p>These are the animations provided by calling <tt class="docutils literal"><span class="pre">dojo.require(&quot;dojox.fx&quot;);</span></tt></p>
+<ul class="simple">
+<li><a class="reference internal" href="fx/wipeTo.html#dojox-fx-wipeto"><em>dojox.fx.wipeTo</em></a> - allows you to wipe a node to a specific height or width</li>
+<li>dojox.fx.sizeTo - animates a node about it&#8217;s center to a defined width and height</li>
+<li>dojox.fx.slideBy - slide a node by a defined offset</li>
+<li>dojox.fx.crossFade - conveniently fade two nodes simultaneously</li>
+<li>dojox.fx.highlight - highlights a node for a short timespan</li>
+<li>dojox.fx.fadeTo - fade a node to a defined opacity</li>
+</ul>
+<p>Additionally, dojox.fx includes the Dojo Core <a class="reference internal" href="../dojo/fx.html#dojo-fx"><em>animations</em></a>, and creates aliases to them in the dojox.fx namespace. For instance:</p>
+<div class="highlight"><pre><span class="nx">dojox</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span> <span class="o">==</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span>
+<span class="nx">dojox</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">chain</span> <span class="o">==</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">chain</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojox.fx.fadeIn == dojo.fadeIn
+dojox.fx.chain == dojo.fx.chain</textarea></div></div>
+<div class="section" id="additional-fx-modules">
+<h2><a class="toc-backref" href="#id4">Additional FX Modules</a><a class="headerlink" href="#additional-fx-modules" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">dojox.fx</span></tt> project also contains additional modules, providing even more animation functions:</p>
+<ul class="simple">
+<li>dojox.fx.scroll - Provides window and node scrolling animation: dojox.fx.smoothScroll</li>
+<li>dojox.fx.Shadow - An experimental cross-browser drop-shadow</li>
+<li><a class="reference internal" href="fx/style.html#dojox-fx-style"><em>dojox.fx.style</em></a> - <strong>experimental</strong> API to animate the effects of adding, toggling, and removing class names from nodes.<ul>
+<li>dojox.fx.addClass</li>
+<li>dojox.fx.removeClass</li>
+<li>dojox.fx.toggleClass</li>
+</ul>
+</li>
+<li>dojox.fx.flip - An experimental simulated 3d effect API</li>
+<li>dojox.fx.split - A series of animations for breaking nodes into parts, and transitioning them</li>
+<li>dojox.fx.text - An extension of fx.split, which works exclusively on text nodes.</li>
+<li><a class="reference internal" href="fx/Timeline.html#dojox-fx-timeline"><em>dojox.fx.Timeline</em></a> - An advanced <em>dojo._Line</em> replacement</li>
+</ul>
+</div>
+<div class="section" id="nodelist-plugins">
+<h2><a class="toc-backref" href="#id5">NodeList Plugins</a><a class="headerlink" href="#nodelist-plugins" title="Permalink to this headline">¶</a></h2>
+<p>A cross-namespace module which mixes all the <a class="reference internal" href="#base-dojox-fx-animations">base dojox.fx animations</a> into <a class="reference internal" href="../dojo/NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a> is available with the module <tt class="docutils literal"><span class="pre">dojox/fx/ext-dojo/NodeList</span></tt></p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojox/fx/ext-dojo/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="c1">// ...</span>
+<span class="p">})</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.fx.ext-dojo.NodeList&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+
+require([&quot;dojo/query&quot;, &quot;dojox/fx/ext-dojo/NodeList&quot;], function(query){
+    // ...
+})
+
+// Dojo &lt; 1.7
+dojo.require(&quot;dojox.fx.ext-dojo.NodeList&quot;);</textarea></div><p>This allows you to use <a class="reference internal" href="../dojo/query.html#dojo-query"><em>dojo.query</em></a> to select groups of nodes and create animation instances from them. If you <em>only</em> want stock Dojo Core animations in your <tt class="docutils literal"><span class="pre">dojo.query</span></tt> lists, check out <a class="reference internal" href="../dojo/NodeList-fx.html#dojo-nodelist-fx"><em>dojo.NodeList-fx</em></a></p>
+<p>Additionally, a module in dojox.fx also provides the <a class="reference internal" href="fx/style.html#dojox-fx-style"><em>dojox.fx.style</em></a> APIs to <a class="reference internal" href="../dojo/query.html#dojo-query"><em>dojo.query</em></a> as well:</p>
+<div class="highlight"><pre><span class="c1">// 1.7+</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojox/fx/ext-dojo/NodeList-style&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">});</span>
+<span class="c1">// or &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.fx.ext-dojo.NodeList-style&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// 1.7+
+require([&quot;dojox/fx/ext-dojo/NodeList-style&quot;], function(){ });
+// or &lt; 1.7
+dojo.require(&quot;dojox.fx.ext-dojo.NodeList-style&quot;);</textarea></div><p>Read more about CSS morphing at <a class="reference internal" href="fx/style.html#dojox-fx-style"><em>dojox.fx.style docs</em></a></p>
+</div>
+<div class="section" id="base-dojo-extensions">
+<h2><a class="toc-backref" href="#id6">Base Dojo Extensions</a><a class="headerlink" href="#base-dojo-extensions" title="Permalink to this headline">¶</a></h2>
+<p>A few modules mix into the <a class="reference internal" href="../dojo/index.html#dojo-index"><em>dojo</em></a> namespace, as denoted by their module names:</p>
+<ul class="simple">
+<li><a class="reference internal" href="fx/ext-dojo/complex.html#dojox-fx-ext-dojo-complex"><em>dojox.fx.ext-dojo.complex</em></a></li>
+<li><a class="reference internal" href="fx/ext-dojo/reverse.html#dojox-fx-ext-dojo-reverse"><em>dojox.fx.ext-dojo.reverse</em></a></li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id7">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../quickstart/Animation.html#quickstart-animation"><em>Beginning dojo Animations</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.fx</a><ul>
+<li><a class="reference internal" href="#base-dojox-fx-animations">Base dojox.fx Animations</a></li>
+<li><a class="reference internal" href="#additional-fx-modules">Additional FX Modules</a></li>
+<li><a class="reference internal" href="#nodelist-plugins">NodeList Plugins</a></li>
+<li><a class="reference internal" href="#base-dojo-extensions">Base Dojo Extensions</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="form/uploader/FileList.html"
+                        title="previous chapter">dojox.form.uploader.FileList</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fx/Timeline.html"
+                        title="next chapter">dojox.fx.Timeline</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

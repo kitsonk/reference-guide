@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>How to release &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="next" title="So You’ve Been Offered a Spot as a Committer..." href="rules.html" />
+    <link rel="prev" title="Future Projects" href="projects.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="how-to-release">
+<span id="developer-release"></span><h1><a class="toc-backref" href="#id1">How to release</a><a class="headerlink" href="#how-to-release" title="Permalink to this headline">¶</a></h1>
+<p>Let’s make some magic together.</p>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#how-to-release" id="id1">How to release</a><ul>
+<li><a class="reference internal" href="#creating-a-dojo-release-rc-beta" id="id2">Creating a Dojo Release/RC/Beta</a></li>
+<li><a class="reference internal" href="#creating-a-new-dtk-branch-for-new-major-versions" id="id3">Creating a new DTK branch (for new major versions)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="creating-a-dojo-release-rc-beta">
+<h2><a class="toc-backref" href="#id2">Creating a Dojo Release/RC/Beta</a><a class="headerlink" href="#creating-a-dojo-release-rc-beta" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Log into your shell account at &lt;username&gt;.dojotoolkit.org</p>
+</li>
+<li><p class="first">Check out a copy of the appropriate branch</p>
+</li>
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">util/build_release.sh</span> <span class="pre">&lt;version&gt;</span> <span class="pre">&lt;username&gt;</span> <span class="pre">&lt;revision&gt;</span></tt>, where:</p>
+<p><tt class="docutils literal"><span class="pre">version</span></tt> is the version number, e.g. 1.7.1rc1</p>
+<p><tt class="docutils literal"><span class="pre">username</span></tt> is your subversion username</p>
+<p><tt class="docutils literal"><span class="pre">revision</span></tt> is the revision of the version to tag as the release. If unspecified, the head revision will be used.</p>
+</li>
+<li><p class="first">Press a key to start the build</p>
+</li>
+<li><p class="first">Press &#8220;Enter&#8221; when asked whether you want to do any manual packaging</p>
+</li>
+<li><p class="first">Move the release to /srv/www/vhosts/download.dojotoolkit.org
+(if you built it locally, then copy it to &lt;username&gt;.dojotoolkit.org first, using the command suggested by the
+build script)</p>
+</li>
+<li><p class="first">Update download.dojotoolkit.org/index.html with the new version information. If it’s a new major release, make sure to list the previous release under “Releases”.</p>
+</li>
+<li><p class="first">Update the tags on the GitHub repos.</p>
+</li>
+<li><p class="first">Add new version and milestone numbers to Trac.</p>
+</li>
+<li><p class="first">Bulk move all open tickets to the next release number in Trac.</p>
+</li>
+<li><p class="first">Do a CDN build! Ant 1.8 does not work, so use peller’s copy of 1.7.1:</p>
+<p><tt class="docutils literal"><span class="pre">ANT_HOME=/home/peller/ant-1.7.1/</span> <span class="pre">./cdnBuild.sh</span> <span class="pre">&lt;version&gt;</span></tt>, where:</p>
+<p><tt class="docutils literal"><span class="pre">version</span></tt> is the version number, just like before</p>
+<p>If this is the first time you have run ant, it will not work. You will need to ctrl+c after it fails and start over.</p>
+<p>You will also need to comment out the &lt;property name=&#8221;locales&#8221;/&gt; node in <tt class="docutils literal"><span class="pre">util/buildscripts/cldr/build.xml</span></tt>.</p>
+<p><strong>READ THE CDNBUILD.TXT INSTRUCTIONS OR YOU MIGHT BUILD THE WRONG VERSION</strong>.</p>
+</li>
+<li><p class="first">Transfer the CDN build directory to archive.dojotoolkit.org/cdn. You probably wanna archive it first or else it
+will take forever and ever.</p>
+</li>
+<li><p class="first">Send an email to dojo-contributors and dojo-interest mailing lists. If possible, include a picture of a puppy or
+something.</p>
+</li>
+<li><p class="first">Send an email to your friendly CDN manager asking them to copy over the new CDN build.</p>
+</li>
+<li><p class="first">Celebrate!</p>
+</li>
+</ol>
+</div>
+<div class="section" id="creating-a-new-dtk-branch-for-new-major-versions">
+<h2><a class="toc-backref" href="#id3">Creating a new DTK branch (for new major versions)</a><a class="headerlink" href="#creating-a-new-dtk-branch-for-new-major-versions" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Run <tt class="docutils literal"><span class="pre">mk_branch.sh</span> <span class="pre">&lt;version&gt;</span> <span class="pre">&lt;revision&gt;</span></tt>, where:</p>
+<p><tt class="docutils literal"><span class="pre">version</span></tt> is the new branch number, e.g. 1.7
+<tt class="docutils literal"><span class="pre">revision</span></tt> is the revision of the version to branch from</p>
+</li>
+<li><p class="first">Check out the new branch and update <tt class="docutils literal"><span class="pre">build_release.sh</span></tt> to point to the release branch, not trunk.</p>
+</li>
+<li><p class="first">Have a beer.</p>
+</li>
+</ol>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">How to release</a><ul>
+<li><a class="reference internal" href="#creating-a-dojo-release-rc-beta">Creating a Dojo Release/RC/Beta</a></li>
+<li><a class="reference internal" href="#creating-a-new-dtk-branch-for-new-major-versions">Creating a new DTK branch (for new major versions)</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="projects.html"
+                        title="previous chapter">Future Projects</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="rules.html"
+                        title="next chapter">So You&#8217;ve Been Offered a Spot as a Committer...</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

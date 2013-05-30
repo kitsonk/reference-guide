@@ -1,0 +1,152 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Special Dojo Build: WebKit Mobile &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo Build" href="contents.html" />
+    <link rel="next" title="Build System: Cross-Domain (xDomain) Builds" href="xDomain.html" />
+    <link rel="prev" title="Build Transform writeOptimized" href="transforms/writeOptimized.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="special-dojo-build-webkit-mobile">
+<span id="build-webkit-mobile"></span><h1>Special Dojo Build: WebKit Mobile<a class="headerlink" href="#special-dojo-build-webkit-mobile" title="Permalink to this headline">¶</a></h1>
+<p>This is a simple build one can run to remove a percentage of the base <tt class="docutils literal"><span class="pre">dojo.js</span></tt> by omitting branches of code designed to accommodate Internet Explorer.</p>
+<p>To create this special <tt class="docutils literal"><span class="pre">dojo.js</span></tt> file, invoke the build with a <strong>webkitMobile=true</strong> parameter.</p>
+<div class="highlight"><pre><span class="nx">cd</span> <span class="nx">util</span><span class="o">/</span><span class="nx">buildscripts</span><span class="o">/</span>
+<span class="p">.</span><span class="o">/</span><span class="nx">build</span><span class="p">.</span><span class="nx">sh</span> <span class="nx">profile</span><span class="o">=</span><span class="nx">base</span> <span class="nx">webkitMobile</span><span class="o">=</span><span class="kc">true</span> <span class="nx">version</span><span class="o">=</span><span class="mf">1.5</span><span class="p">.</span><span class="mi">0</span> <span class="nx">action</span><span class="o">=</span><span class="nx">release</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">cd util/buildscripts/
+./build.sh profile=base webkitMobile=true version=1.5.0 action=release</textarea></div></div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="transforms/writeOptimized.html"
+                        title="previous chapter">Build Transform writeOptimized</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="xDomain.html"
+                        title="next chapter">Build System:  Cross-Domain (xDomain) Builds</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1090 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DOH Robot &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Utilities" href="contents.html" />
+    <link rel="next" title="Util" href="index.html" />
+    <link rel="prev" title="D.O.H.: Dojo Objective Harness" href="doh.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="doh-robot">
+<span id="util-dohrobot"></span><h1><a class="toc-backref" href="#id3">DOH Robot</a><a class="headerlink" href="#doh-robot" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#doh-robot" id="id3">DOH Robot</a><ul>
+<li><a class="reference internal" href="#the-challenge-of-web-ui-testing" id="id4">The challenge of Web UI testing</a></li>
+<li><a class="reference internal" href="#what-doh-robot-can-do-for-you" id="id5">What doh.robot can do for you</a></li>
+<li><a class="reference internal" href="#the-3-robots" id="id6">The 3 robots</a></li>
+<li><a class="reference internal" href="#the-doh-robot-api" id="id7">The doh.robot API</a></li>
+<li><a class="reference internal" href="#writing-doh-robot-tests" id="id8">Writing doh.robot tests</a></li>
+<li><a class="reference internal" href="#dojo-robot-and-dijit-robot-s-value-add" id="id9">dojo.robot and dijit.robot&#8217;s value-add</a></li>
+<li><a class="reference internal" href="#dojox-robot-recorder" id="id10">dojox.robot.recorder</a></li>
+<li><a class="reference internal" href="#separating-robot-test-code-from-application-code" id="id11">Separating Robot Test Code From Application Code</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>doh.robot adds an API to the Dojo Object Harness (DOH) unit test framework that enables testers to automate their UI tests using real, cross-platform, system-level input events.   This document describes the value of doh.robot for unit and accessibility testing, and how to get started using it.</p>
+<div class="section" id="the-challenge-of-web-ui-testing">
+<h2><a class="toc-backref" href="#id4">The challenge of Web UI testing</a><a class="headerlink" href="#the-challenge-of-web-ui-testing" title="Permalink to this headline">¶</a></h2>
+<p>Web UI testing frameworks like Selenium and Windmill already contain browser automation elements suitable for many different types of unit and acceptance tests of application code. But each of these frameworks has an underlying catch: the input events they create are synthetic. On one hand, synthetic events are great because synthetic events don&#8217;t use the native input queue; you can run your tests in parallel across multiple browsers and windows all on one machine without a fight for the mouse and keyboard.</p>
+<p>But the problem with synthetic events is that browsers don&#8217;t trust synthetic events enough to let them execute their default action. For example, if you create a synthetic Tab keypress (expecting the browser to shift focus to the next element in the tab order), the focus won&#8217;t actually move, because the browser doesn&#8217;t trust the synthetic keypress enough to allow it to execute its default action. In a worse case, if you have a widget with onmouseover and onmousedown events, you would expect that the user would not be able to trigger the onmousedown without first triggering the onmouseover. But with synthetic events, this sort of common sense fails; you can easily send a click to an element without registering mouse movement over it, never mind the onmouseout from the previous element and the <em>hundreds</em> of onmousemoves a real user would generate in between. The result is that existing Web UI frameworks fail to support the testing of common requirements of Web applications like keyboard accessibility, and can be frustrating to deal with when you have to manually dispatch synthetic mouse events that would fire automatically for a human tester.</p>
+</div>
+<div class="section" id="what-doh-robot-can-do-for-you">
+<h2><a class="toc-backref" href="#id5">What doh.robot can do for you</a><a class="headerlink" href="#what-doh-robot-can-do-for-you" title="Permalink to this headline">¶</a></h2>
+<p>We designed the doh.robot to enhance the DOH runner&#8217;s ability to drive unit tests. Like other test frameworks, doh.robot provides testers with an API that enables them to simulate user interaction. However, we took a different approach to dispatching events: instead of using synthetic events, we used the cross-browser and cross-platform Java applet technology to place real events on the native event queue, as if a real person performed the action. This means that when you use doh.robot to execute your unit tests, browsers will trust the events doh.robot creates from your commands and will handle any and all contingent events for you. So when you tell doh.robot to send a Tab keypress, you can fully expect the Tab to move focus to the next element in the Tab order, as if a real user pressed Tab. And when you tell doh.robot to click an element, you can fully expect to get the onmouseover before the onmousedown, as well as all of those hundreds of onmousemoves a real user would generate in between. When you use the DOH test runner in conjunction with doh.robot, you can easily automate and report the results of numerous accessibility and UI unit tests that would otherwise require manual, visual inspection by a real person.</p>
+</div>
+<div class="section" id="the-3-robots">
+<h2><a class="toc-backref" href="#id6">The 3 robots</a><a class="headerlink" href="#the-3-robots" title="Permalink to this headline">¶</a></h2>
+<p>From a high level perspective, DOH comes with three incrementally more powerful versions of the doh.robot automation suitable for different testing requirements:</p>
+<blockquote>
+<div><ul class="simple">
+<li>doh.robot</li>
+<li>dojo.robot</li>
+<li>dijit.robot</li>
+</ul>
+</div></blockquote>
+<div class="section" id="id1">
+<h3>doh.robot<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<p>Like DOH, the basic doh.robot was built to run without Dojo. You can load it into a unit test by adding a script tag pointing to util/doh/robot.js. doh.robot is perfect for automatically testing keyboard accessibility in any Web application, even applications that don&#8217;t use Dojo or simply use a version of Dojo older than 1.2.</p>
+</div>
+<div class="section" id="dojo-robot">
+<h3>dojo.robot<a class="headerlink" href="#dojo-robot" title="Permalink to this headline">¶</a></h3>
+<p>dojo.robot is an extension to the doh.robot. You load it using dojo.require(&#8220;dojo.robot&#8221;). Using Dojo Core technology, the dojo.robot adds mouse movement commands to the DOH API so test writers with access to Dojo 1.2 can consistently move the mouse to UI elements even across a wide variety of browser window sizes and resolutions.</p>
+</div>
+<div class="section" id="dijit-robot">
+<h3>dijit.robot<a class="headerlink" href="#dijit-robot" title="Permalink to this headline">¶</a></h3>
+<p>dijit.robot is the final extension to the doh.robot packaged with dijit. You load it using dojo.require(&#8220;dijit.robot&#8221;). It further augments the dojo.robot&#8217;s mouse handling with dijit&#8217;s cross-browser automatic scrolling. If you are concerned about writing tests that involve scrolling a lot of elements into view, dijit.robot is the best way to ensure that elements are always in view for the mouse to click them.</p>
+</div>
+</div>
+<div class="section" id="the-doh-robot-api">
+<h2><a class="toc-backref" href="#id7">The doh.robot API</a><a class="headerlink" href="#the-doh-robot-api" title="Permalink to this headline">¶</a></h2>
+<p>Since there are 3 robots, you can find the latest APIs documented in util/doh/robot.js, dojo/robot.js, and dijit/robot.js. The commands all have certain semantics in common, so I will describe them here using doh.robot.typeKeys as an example:</p>
+<div class="highlight"><pre><span class="nx">typeKeys</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*String||Number*/</span> <span class="nx">chars</span><span class="p">,</span> <span class="cm">/*Integer, optional*/</span> <span class="nx">delay</span><span class="p">,</span> <span class="cm">/*Integer, optional*/</span> <span class="nx">duration</span><span class="p">){</span>
+      <span class="c1">// summary:</span>
+      <span class="c1">//            Types a string of characters in order, or types a dojo.keys.* constant.</span>
+      <span class="c1">//</span>
+      <span class="c1">// description:</span>
+      <span class="c1">//           Types a string of characters in order, or types a dojo.keys.* constant.</span>
+      <span class="c1">//           Example: doh.robot.typeKeys(&quot;dijit.ed&quot;, 500);</span>
+      <span class="c1">//</span>
+      <span class="c1">// chars:</span>
+      <span class="c1">//            String of characters to type, or a dojo.keys.* constant</span>
+      <span class="c1">//</span>
+      <span class="c1">// delay:</span>
+      <span class="c1">//            Delay, in milliseconds, to wait before firing.</span>
+      <span class="c1">//            The delay is a delta with respect to the previous automation call.</span>
+      <span class="c1">//            For example, the following code ends after 600ms:</span>
+      <span class="c1">//                  doh.robot.mouseClick({left:true}, 100) // first call; wait 100ms</span>
+      <span class="c1">//                  doh.robot.typeKeys(&quot;dij&quot;, 500) // 500ms AFTER previous call; 600ms in all</span>
+      <span class="c1">//</span>
+      <span class="c1">// duration:</span>
+      <span class="c1">//            Time, in milliseconds, to spend pressing all of the keys.</span>
+      <span class="c1">//</span>
+  <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">typeKeys: function(/*String||Number*/ chars, /*Integer, optional*/ delay, /*Integer, optional*/ duration){
+      // summary:
+      //            Types a string of characters in order, or types a dojo.keys.* constant.
+      //
+      // description:
+      //           Types a string of characters in order, or types a dojo.keys.* constant.
+      //           Example: doh.robot.typeKeys(&quot;dijit.ed&quot;, 500);
+      //
+      // chars:
+      //            String of characters to type, or a dojo.keys.* constant
+      //
+      // delay:
+      //            Delay, in milliseconds, to wait before firing.
+      //            The delay is a delta with respect to the previous automation call.
+      //            For example, the following code ends after 600ms:
+      //                  doh.robot.mouseClick({left:true}, 100) // first call; wait 100ms
+      //                  doh.robot.typeKeys(&quot;dij&quot;, 500) // 500ms AFTER previous call; 600ms in all
+      //
+      // duration:
+      //            Time, in milliseconds, to spend pressing all of the keys.
+      //
+  }</textarea></div><div class="section" id="delay">
+<h3>delay<a class="headerlink" href="#delay" title="Permalink to this headline">¶</a></h3>
+<p>Each doh.robot method takes a delay parameter. Rather than forcing you to litter your code with setTimeouts, we call setTimeout for you behind the scenes. We also do some additional thread synchronization on the Java side to ensure that your events fire in the order you called them and not the order the browser feels like evaluating the setTimeouts.</p>
+<p>As the comments show, delays are incremental. Normally, when you write setTimeouts one after another other in a sequence, you have to specify the exact time each one should execute. This is fine, but when you go back to maintain your test and decide to add new actions in between the setTimeouts, you normally have to go back and add time to each and every setTimeout. But with doh.robot&#8217;s incremental model, test maintenance is easy: you can freely insert or remove commands and the doh.robot will adjust the timings for you automatically. And you don&#8217;t have to worry about how long it takes a command to execute; the next doh.robot command won&#8217;t happen until the current one has absolutely finished. Still, it&#8217;s a good idea to give the browser&#8217;s rendering system and event dispatcher enough time to catch up with the robot between commands; 500ms is a good delay to use for each command.</p>
+<p>Also, if you are making AJAX requests to a remote system, such as loading data into a Grid, keep in mind that the request might take a variable amount of time. You could just set a really long timeout, but another practice would be to dojo.connect into an event handler and continue the test from there, when you are absolutely sure that the data has arrived.</p>
+</div>
+<div class="section" id="duration">
+<h3>duration<a class="headerlink" href="#duration" title="Permalink to this headline">¶</a></h3>
+<p>Several doh.robot methods also take a duration parameter. The duration tells doh.robot approximately how much time it should take to execute the command. For example, calling doh.robot.typeKeys(&#8220;dij&#8221;, 500, 1800) will instruct doh.robot to start typing dij after 500ms and to wait (1800 ms)/(3 chars) = 600 ms/char before each keypress. As with the delay parameter, doh.robot automatically sequences calls to account for the duration, so you don&#8217;t have to add the duration into the next command&#8217;s delay; doh.robot will add it in for you at runtime.</p>
+</div>
+</div>
+<div class="section" id="writing-doh-robot-tests">
+<h2><a class="toc-backref" href="#id8">Writing doh.robot tests</a><a class="headerlink" href="#writing-doh-robot-tests" title="Permalink to this headline">¶</a></h2>
+<p>Here is a &#8220;hi again&#8221; test using the doh.robot that clicks in a textbox containing &#8220;hi&#8221; and adds &#8221; again&#8221;:</p>
+<div class="highlight"><pre><span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">&quot;doh.robot&quot;</span><span class="p">,</span>
+<span class="p">{</span>
+    <span class="nx">name</span><span class="o">:</span><span class="s2">&quot;dojorobot1&quot;</span><span class="p">,</span>
+    <span class="nx">timeout</span><span class="o">:</span><span class="mi">6900</span><span class="p">,</span>
+    <span class="nx">setUp</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">runTest</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+            <span class="kd">var</span> <span class="nx">d</span><span class="o">=</span><span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMove</span><span class="p">(</span><span class="mi">30</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">typeKeys</span><span class="p">(</span><span class="s2">&quot; again&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">2500</span><span class="p">);</span>
+            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                    <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">==</span><span class="s2">&quot;hi again&quot;</span><span class="p">){</span>
+                            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">+=</span> <span class="s2">&quot;: passed&quot;</span><span class="p">;</span>
+                            <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                            <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">+=</span> <span class="s2">&quot;: failed&quot;</span><span class="p">;</span>
+                            <span class="nx">d</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Expected value &#39;hi again&#39;, got &quot;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">));</span>
+                    <span class="p">}</span>
+            <span class="p">},</span> <span class="mi">900</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">doh.register(&quot;doh.robot&quot;,
+{
+    name:&quot;dojorobot1&quot;,
+    timeout:6900,
+    setUp:function(){
+            document.getElementById('textbox').value=&quot;hi&quot;;
+    },
+    runTest:function(){
+            var d=new doh.Deferred();
+            doh.robot.mouseMove(30, 30, 500);
+            doh.robot.mouseClick({left:true}, 500);
+            doh.robot.typeKeys(&quot; again&quot;, 500, 2500);
+            doh.robot.sequence(function(){
+                    if(document.getElementById('textbox').value==&quot;hi again&quot;){
+                            document.getElementById('textbox').value += &quot;: passed&quot;;
+                            d.resolve(true);
+                    }else{
+                            document.getElementById('textbox').value += &quot;: failed&quot;;
+                            d.reject(new Error(&quot;Expected value 'hi again', got &quot;+document.getElementById('textbox').value));
+                    }
+            }, 900);
+            return d;
+    }
+});
+doh.run();</textarea></div><p>See it in action:
+<a class="reference external" href="http://archive.dojotoolkit.org/nightly/checkout/util/doh/tests/robot.html">http://archive.dojotoolkit.org/nightly/checkout/util/doh/tests/robot.html</a>.</p>
+<p>If you&#8217;ve ever written a DOH test or a JUnit test before, the structure should look very familiar. You register tests to groups, like &#8220;doh.robot&#8221; in this case. A test has a unique name, and a timeout where it gives up and moves on to the next test. You drive a test using setUp, runTest, and tearDown functions.</p>
+<p>You write doh.robot tests like deferred DOH tests. DOh&#8217;s deferred test model indirectly enables test writers to pause the test while AJAX requests happen. doh.robot uses the deferred model to pause the test while it interacts with the page. For the uninitiated, here is how a typical deferred DOH test flows on a high level:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Instantiate a doh.Deferred object.</li>
+<li>Execute your commands.</li>
+<li>Set a timeout to check whether the test passed.</li>
+<li>Return the Deferred object to runTest immediately.</li>
+</ol>
+</div></blockquote>
+<p>You can see what the concrete implementation of this flow looks like in the runTest function above. You store the doh.Deferred in a variable called d. Next, you write the robot commands themselves: the mouse moves to 30,30 on the screen, clicks the left mouse button, and types &#8221; again&#8221;. Between each command, the robot waits 500ms. After about another second has elapsed, the test asserts that everything worked. You tell DOH a test passed in the Deferred model by calling d.resolve(true). You tell DOH that something bad happened by calling d.reject and pass a new Error with the problem description. You can also do some visual formatting to indicate whether the test passed, for users running the test standalone (like you). Finally, you return the doh.Deferred object to the runTest function, signaling the DOH runner to wait for this test to finish.</p>
+</div>
+<div class="section" id="dojo-robot-and-dijit-robot-s-value-add">
+<h2><a class="toc-backref" href="#id9">dojo.robot and dijit.robot&#8217;s value-add</a><a class="headerlink" href="#dojo-robot-and-dijit-robot-s-value-add" title="Permalink to this headline">¶</a></h2>
+<p>The above test uses the basic doh.robot, and as such has two issues that could pose a problem in more sophisticated unit tests: first, it has to manually indicate that the test passed. If you either ran the test in the DOH runner, or ran the test standalone with Dojo available, you would be able to better see the results either in the runner&#8217;s log or in the console at the bottom of the page. Second, it assumes that you have an absolutely positioned text element to click. For unit tests that rely on the browser&#8217;s layout manager, or percent or em measurements, to lay out the page, pixel mouse movement isn&#8217;t the ideal way to move the mouse. Fortunately Dojo 1.2 fills in this gap by adding a doh.robot.mouseMoveAt command:</p>
+<div class="highlight"><pre><span class="nx">mouseMoveAt</span> <span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*String||DOMNode||Function*/</span> <span class="nx">node</span><span class="p">,</span> <span class="cm">/*Integer, optional*/</span> <span class="nx">delay</span><span class="p">,</span> <span class="cm">/*Number, optional*/</span> <span class="nx">offsetX</span><span class="p">,</span> <span class="cm">/*Number, optional*/</span> <span class="nx">offsetY</span><span class="p">,</span> <span class="cm">/*Integer, optional*/</span> <span class="nx">duration</span><span class="p">){</span>
+    <span class="c1">// summary:</span>
+    <span class="c1">//            Moves the mouse over the specified node at the specified relative x,y offset.</span>
+    <span class="c1">//</span>
+    <span class="c1">// description:</span>
+    <span class="c1">//           Moves the mouse over the specified node at the specified relative x,y offset.</span>
+    <span class="c1">//           You should manually scroll off-screen nodes into view; use dijit.robot for automatic scrolling support.</span>
+    <span class="c1">//           If you do not specify an offset, mouseMove will default to move to the middle of the node.</span>
+    <span class="c1">//           Example: to move the mouse over a ComboBox&#39;s down arrow node, call doh.mouseMoveAt(dijit.byId(&#39;setvaluetest&#39;).downArrowNode);</span>
+    <span class="c1">//</span>
+    <span class="c1">// node:</span>
+    <span class="c1">//            The id of the node, or the node itself, to move the mouse to.</span>
+    <span class="c1">//            If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.</span>
+    <span class="c1">//            This is useful if you need to move the mouse to an node that is not yet present.</span>
+    <span class="c1">//</span>
+    <span class="c1">// delay:</span>
+    <span class="c1">//            Delay, in milliseconds, to wait before firing.</span>
+    <span class="c1">//            The delay is a delta with respect to the previous automation call.</span>
+    <span class="c1">//            For example, the following code ends after 600ms:</span>
+    <span class="c1">//                  doh.mouseClick({left:true}, 100) // first call; wait 100ms</span>
+    <span class="c1">//                  doh.typeKeys(&quot;dij&quot;, 500) // 500ms AFTER previous call; 600ms in all</span>
+    <span class="c1">//</span>
+    <span class="c1">// offsetX:</span>
+    <span class="c1">//            x offset relative to the node, in pixels, to move the mouse. The default is half the node&#39;s width.</span>
+    <span class="c1">//</span>
+    <span class="c1">// offsetY:</span>
+    <span class="c1">//            y offset relative to the node, in pixels, to move the mouse. The default is half the node&#39;s height.</span>
+    <span class="c1">//</span>
+    <span class="c1">// duration:</span>
+    <span class="c1">//            Approximate time Robot will spend moving the mouse.</span>
+    <span class="c1">//            The default is 100ms.</span>
+    <span class="c1">//</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">mouseMoveAt : function(/*String||DOMNode||Function*/ node, /*Integer, optional*/ delay, /*Number, optional*/ offsetX, /*Number, optional*/ offsetY, /*Integer, optional*/ duration){
+    // summary:
+    //            Moves the mouse over the specified node at the specified relative x,y offset.
+    //
+    // description:
+    //           Moves the mouse over the specified node at the specified relative x,y offset.
+    //           You should manually scroll off-screen nodes into view; use dijit.robot for automatic scrolling support.
+    //           If you do not specify an offset, mouseMove will default to move to the middle of the node.
+    //           Example: to move the mouse over a ComboBox's down arrow node, call doh.mouseMoveAt(dijit.byId('setvaluetest').downArrowNode);
+    //
+    // node:
+    //            The id of the node, or the node itself, to move the mouse to.
+    //            If you pass an id or a function that returns a node, the node will not be evaluated until the movement executes.
+    //            This is useful if you need to move the mouse to an node that is not yet present.
+    //
+    // delay:
+    //            Delay, in milliseconds, to wait before firing.
+    //            The delay is a delta with respect to the previous automation call.
+    //            For example, the following code ends after 600ms:
+    //                  doh.mouseClick({left:true}, 100) // first call; wait 100ms
+    //                  doh.typeKeys(&quot;dij&quot;, 500) // 500ms AFTER previous call; 600ms in all
+    //
+    // offsetX:
+    //            x offset relative to the node, in pixels, to move the mouse. The default is half the node's width.
+    //
+    // offsetY:
+    //            y offset relative to the node, in pixels, to move the mouse. The default is half the node's height.
+    //
+    // duration:
+    //            Approximate time Robot will spend moving the mouse.
+    //            The default is 100ms.
+    //</textarea></div><p>Where as the simple mouseMove needs to know ahead of time where to move on the page, mouseMoveAt can compute the position of elements on the fly even for elements not on the DOM or off the screen at the start of the test! So if we were to rewrite the above DOH test using dojo.robot, it would look like:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.robot&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">&quot;doh.robot&quot;</span><span class="p">,</span>
+  <span class="p">{</span>
+      <span class="nx">name</span><span class="o">:</span><span class="s2">&quot;dojorobot1&quot;</span><span class="p">,</span>
+      <span class="nx">timeout</span><span class="o">:</span><span class="mi">6900</span><span class="p">,</span>
+      <span class="nx">setUp</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+              <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">=</span><span class="s2">&quot;hi&quot;</span><span class="p">;</span>
+      <span class="p">},</span>
+      <span class="nx">runTest</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+              <span class="kd">var</span> <span class="nx">d</span><span class="o">=</span><span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+              <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">),</span> <span class="mi">500</span><span class="p">);</span>
+              <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+              <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">typeKeys</span><span class="p">(</span><span class="s2">&quot; again&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">2500</span><span class="p">);</span>
+              <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                      <span class="k">if</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="o">==</span><span class="s2">&quot;hi again&quot;</span><span class="p">){</span>
+                              <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">+=</span> <span class="s2">&quot;: passed&quot;</span><span class="p">;</span>
+                              <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                      <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                              <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span> <span class="o">+=</span> <span class="s2">&quot;: failed&quot;</span><span class="p">;</span>
+                              <span class="nx">d</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s2">&quot;Expected value &#39;hi again&#39;, got &quot;</span><span class="o">+</span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s1">&#39;textbox&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">));</span>
+                      <span class="p">}</span>
+              <span class="p">},</span> <span class="mi">900</span><span class="p">);</span>
+              <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">});</span>
+  <span class="nx">doh</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.robot&quot;);
+
+dojo.ready(function(){
+  doh.register(&quot;doh.robot&quot;,
+  {
+      name:&quot;dojorobot1&quot;,
+      timeout:6900,
+      setUp:function(){
+              document.getElementById('textbox').value=&quot;hi&quot;;
+      },
+      runTest:function(){
+              var d=new doh.Deferred();
+              doh.robot.mouseMoveAt(document.getElementById('textbox'), 500);
+              doh.robot.mouseClick({left:true}, 500);
+              doh.robot.typeKeys(&quot; again&quot;, 500, 2500);
+              doh.robot.sequence(function(){
+                      if(document.getElementById('textbox').value==&quot;hi again&quot;){
+                              document.getElementById('textbox').value += &quot;: passed&quot;;
+                              d.resolve(true);
+                      }else{
+                              document.getElementById('textbox').value += &quot;: failed&quot;;
+                              d.reject(new Error(&quot;Expected value 'hi again', got &quot;+document.getElementById('textbox').value));
+                      }
+              }, 900);
+              return d;
+      }
+  });
+  doh.run();
+});</textarea></div><p>This would cause the mouse to click the middle of the textbox before it starts typing. The dojo.robot tries to scroll the element into view using the browser&#8217;s native scrollIntoView function so that no matter where the element is, even if it is presently off the screen, the dojo.robot can scroll it in and click it. But this approach still has one problem: native scrollIntoView does not work consistently across all browsers. Enter dijit.robot: dijit.robot enhances the dojo.robot with dijit&#8217;s scrollIntoView algorithm, making scrollIntoView view consistent across all browsers. It&#8217;s trivial to use this feature: just swap dojo.require(&#8220;dojo.robot&#8221;) with dojo.require(&#8220;dijit.robot&#8221;) and everything will start scrolling correctly automatically.</p>
+</div>
+<div class="section" id="dojox-robot-recorder">
+<h2><a class="toc-backref" href="#id10">dojox.robot.recorder</a><a class="headerlink" href="#dojox-robot-recorder" title="Permalink to this headline">¶</a></h2>
+<p>doh.robot includes a powerful record feature, called dojox.robot.recorder, that can track your interactions with a unit test and play them back. Record features of other frameworks do a good job tracking user interaction with native widgets, but have some trouble recording interactions with Dojo-enabled widgets and drag and drop in general. Fortunately, dojox.robot.recorder is specifically designed to record user interaction with both native and Dojo-style widgets in mind. The recorder even generates code for drag and drop, which can be a useful guideline for writing tests that work across the different browsers you test.</p>
+<div class="section" id="to-use-dojox-robot-recorder">
+<h3>To use dojox.robot.recorder<a class="headerlink" href="#to-use-dojox-robot-recorder" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ol class="arabic simple">
+<li>Add dojo.require(&#8220;dojox.robot.recorder&#8221;) to your unit test.</li>
+<li>Load the unit test and click the body of the page.</li>
+<li>Press Ctrl+Alt+Enter. You will get an alert verifying that the recording process started.</li>
+<li>Interact with the unit test. Note: it&#8217;s easiest to debug test failures when you break them up into only a few actions each.</li>
+<li>When you are finished, click the body again and press Ctrl+Alt+Enter. Autogenerated code will appear on the page for you to copy into a dojo.ready in the unit test.</li>
+<li>Fill in the test passed condition (it is a /<em>comment</em>/ in the if) and make any tweaks you would like to the auto-generated code.</li>
+<li>When you have recorded all of your tests, remember to add a doh.run() call after all of the tests. Otherwise, the tests will not start!</li>
+</ol>
+</div></blockquote>
+</div>
+<div class="section" id="examples">
+<h3>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h3>
+<p>Here are some example tests modeling common UI interactions. These tests were generated by the dojox.robot.recorder and then tweaked to work across all browsers. View each page&#8217;s source to see the test code.</p>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference external" href="http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_ComboBox.html">http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_ComboBox.html</a> (Pressing Tab to cycle focus, clicking elements, typing text)</li>
+<li><a class="reference external" href="http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_Slider.html">http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_Slider.html</a> (drag and drop of percent width Slider)</li>
+<li><a class="reference external" href="http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_Spinner.html">http://archive.dojotoolkit.org/nightly/dojotoolkit/dijit/tests/form/robot/test_Spinner.html</a> (holding a key down to test a typematic widget, mouse wheel support in doh.robot)</li>
+<li><a class="reference external" href="http://archive.dojotoolkit.org/nightly/dojotoolkit/dojo/tests/dnd/robot/test_dnd.html">http://archive.dojotoolkit.org/nightly/dojotoolkit/dojo/tests/dnd/robot/test_dnd.html</a> (drag and drop of elements into containers)</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="separating-robot-test-code-from-application-code">
+<h2><a class="toc-backref" href="#id11">Separating Robot Test Code From Application Code</a><a class="headerlink" href="#separating-robot-test-code-from-application-code" title="Permalink to this headline">¶</a></h2>
+<p>The previous sections describe methods for unit testing: they assume that you are perfectly ok with modifying the test page to contain DOH test code. But what if you are testing application code, say during an acceptance test phase, and you absolutely can&#8217;t modify your application code? Or what if you are using doh.robot for accessibility testing and you want to test the tab order of your <em>application</em> and not the tab order of some insignificant unit test? The methods described in the previous post just won&#8217;t work for you: you would also have to insert test code into your application logic, which is bad. What you really want is a test framework that can run in the background and won&#8217;t interfere with your application code.</p>
+<div class="section" id="clicking-links">
+<h3>Clicking links<a class="headerlink" href="#clicking-links" title="Permalink to this headline">¶</a></h3>
+<p>The previous sections also assumed that your tests are constrained to one page. What if you need to write a test that clicks a link or a form submit button? This is a very common requirement for testing Web applications: your customer gives you user stories, scenarios an end-user might face while visiting your Web site. The user is naturally going to click links that change the page. But all of the examples you have seen so far of the DOH test framework assume that the DOH framework lives in the Web page and is destroyed when the page changes. You might wonder how to keep the DOH test framework running even as the robot navigates away from the page that DOH first loaded.</p>
+</div>
+<div class="section" id="what-dijit-robotx-can-do-for-you">
+<h3>What dijit.robotx can do for you<a class="headerlink" href="#what-dijit-robotx-can-do-for-you" title="Permalink to this headline">¶</a></h3>
+<p>dijit.robotx can load an arbitrary application and run automated doh.robot test scripts on the application environment. This serves two purposes:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li>It enables you to execute automated tests on release candidate builds of your applications, with no modifications to your application.</li>
+<li>It enables you to write long-lived tests that can smartly cross page boundaries and continue execution.</li>
+</ol>
+</div></blockquote>
+<p>This is huge. Whereas with the plain doh.robot you had to insert test code into your application code, now with dijit.robotx you can keep your test code somewhere else. And whereas with doh.robot you had to embed test code into every page that the user story visited to ensure that the robot kept moving, now with dijit.robotx you can write the entire user story into just one file that spans any number of page changes in the user story. And whereas with doh.robot you had to upgrade your application to Dojo 1.2 to take full advantage of the robot&#8217;s features, with dijit.robotx you can test any Web application with zero modifications, irrespective of the AJAX framework the application uses.</p>
+</div>
+<div class="section" id="the-dijit-robotx-api">
+<h3>The dijit.robotx API<a class="headerlink" href="#the-dijit-robotx-api" title="Permalink to this headline">¶</a></h3>
+<p>The dijit.robotx include mixes in two functions:doh.robot.initRobot() and doh.robot.waitForPageToLoad(), into the doh.robot namespace, which exactly map to the two features listed above.</p>
+<div class="section" id="doh-robot-initrobot">
+<h4>doh.robot.initRobot()<a class="headerlink" href="#doh-robot-initrobot" title="Permalink to this headline">¶</a></h4>
+<p>You use initRobot() to load an application for testing. Here is the syntax:</p>
+<div class="highlight"><pre><span class="nx">initRobot</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*String*/</span> <span class="nx">url</span><span class="p">){</span>
+    <span class="c1">// summary:</span>
+    <span class="c1">//            Opens the application at the specified URL for testing, redirecting dojo to point to the application environment instead of the test environment.</span>
+    <span class="c1">//</span>
+
+    <span class="c1">// url:</span>
+    <span class="c1">//            URL to open. Any of the test&#39;s dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls (e.g. dijit.byId()) will point to elements and widgets inside this application.</span>
+    <span class="c1">//</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">initRobot: function(/*String*/ url){
+    // summary:
+    //            Opens the application at the specified URL for testing, redirecting dojo to point to the application environment instead of the test environment.
+    //
+
+    // url:
+    //            URL to open. Any of the test's dojo.doc calls (e.g. dojo.byId()), and any dijit.registry calls (e.g. dijit.byId()) will point to elements and widgets inside this application.
+    //
+}</textarea></div><p>When you call initRobot, the browser loads the application into a frame and points the test&#8217;s Dojo context to the frame&#8217;s content. This means:</p>
+<p>The global variable dojo.doc will point to your application&#8217;s document.
+Functions part of Dojo, like dojo.byId(), will fetch elements from your application&#8217;s context.
+If you application uses Dijit widgets, the test script will use the application&#8217;s Dijit registry, so dijit.byId will point to widgets in your application.
+Standard global variables, like window and document, will point to the test script&#8217;s environment, not the application environment.
+You will only be able to assign variables their values once the tests execute.
+I stress the last point. initRobot returns immediately, before your application is finished loading. If you create variables outside of the scope of a test block and try to assign them values or DOM elements from your application, they will all be invalid, because the application hasn&#8217;t loaded yet.</p>
+<p>So what do you do? Declare your variable names like you normally would, but don&#8217;t assign them values yet. Instead, make your first test assign the values. That way, you are guaranteed that your application&#8217;s environment is available.</p>
+</div>
+<div class="section" id="example">
+<h4>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h4>
+<p>Here is an example of a test that uses initRobot. The test is interacting with a completely separate page consisting of three dijit.Spinner widgets, residing here: <a class="reference external" href="http://archive.dojotoolkit.org/nightly/checkout/dijit/tests/form/test_Spinner.html">http://archive.dojotoolkit.org/nightly/checkout/dijit/tests/form/test_Spinner.html</a>
+Notice that there is no robot code in the page that the robot is testing. Now here is the separate test script that is automating that page:</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;</span>
+<span class="cp">            &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+    <span class="nt">&lt;head&gt;</span>
+            <span class="nt">&lt;title&gt;</span>doh.robot Spinner Test<span class="nt">&lt;/title&gt;</span>
+
+            <span class="nt">&lt;style&gt;</span>
+                    <span class="k">@import</span> <span class="s2">&quot;../../../../util/doh/robot/robot.css&quot;</span><span class="p">;</span>
+            <span class="nt">&lt;/style&gt;</span>
+
+            <span class="c">&lt;!-- required: dojo.js --&gt;</span>
+            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../../../dojo/dojo.js&quot;</span>
+                    <span class="na">data-dojo-config=</span><span class="s">&quot;isDebug: true, parseOnLoad: true&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+            <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span><span class="nt">&gt;</span>
+                    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.dijit&quot;</span><span class="p">);</span> <span class="c1">// optimize: load dijit layer</span>
+                    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.robotx&quot;</span><span class="p">);</span> <span class="c1">// load the robot</span>
+
+                    <span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                            <span class="c1">// declare variables but do not assign them values</span>
+                            <span class="kd">var</span> <span class="nx">spin1</span><span class="p">;</span>
+                            <span class="kd">var</span> <span class="nx">spin2</span><span class="p">;</span>
+                            <span class="kd">var</span> <span class="nx">spin3</span><span class="p">;</span>
+                            <span class="kd">var</span> <span class="nx">safeClick</span><span class="p">;</span>
+                            <span class="kd">var</span> <span class="nx">delta</span><span class="o">=</span><span class="mi">1</span><span class="p">;</span> <span class="c1">// redefine with doh.robot.mouseWheelSize when it is available</span>
+
+                            <span class="c1">// the initRobot call goes here</span>
+                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">initRobot</span><span class="p">(</span><span class="s1">&#39;../test_Spinner.html&#39;</span><span class="p">);</span>
+
+                            <span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">&quot;setUp&quot;</span><span class="p">,{</span>
+                                    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;setUp&quot;</span><span class="p">,</span>
+                                    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">15000</span><span class="p">,</span>
+                                    <span class="nx">setUp</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+                                            <span class="c1">// assign variables HERE</span>
+                                            <span class="nx">spin1</span><span class="o">=</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;integerspinner1&#39;</span><span class="p">);</span>
+                                            <span class="nx">spin2</span><span class="o">=</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;integerspinner2&#39;</span><span class="p">);</span>
+                                            <span class="nx">spin3</span><span class="o">=</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;realspinner1&#39;</span><span class="p">);</span>
+                                            <span class="nx">safeClick</span><span class="o">=</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;form1&#39;</span><span class="p">);</span>
+                                    <span class="p">},</span>
+                                    <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                                            <span class="c1">// assert onChange not fired</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="s2">&quot;not fired yet!&quot;</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;oc1&#39;</span><span class="p">).</span><span class="nx">value</span><span class="p">);</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nx">spin1</span><span class="p">.</span><span class="nx">smallDelta</span><span class="p">);</span>
+                                            <span class="kd">var</span> <span class="nx">s</span><span class="o">=</span><span class="s2">&quot;: 900\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;integerspinner1: 900\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;: not fired yet!\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;: 1,000\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;integerspinner2: 1000\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;: \n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;integertextbox3: NaN\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;: 1.0\n&quot;</span>
+                                            <span class="o">+</span><span class="s2">&quot;realspinner1: 1\n&quot;</span><span class="p">;</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">displayData</span><span class="p">().</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/[a-zA-Z0-9_]*_displayed_/g</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">));</span>
+                                    <span class="p">}</span>
+                            <span class="p">});</span>
+                            <span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s2">&quot;arrowButton&quot;</span><span class="p">,{</span>
+                                    <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;spinner1_invalid&quot;</span><span class="p">,</span>
+                                    <span class="nx">timeout</span><span class="o">:</span> <span class="mi">15000</span><span class="p">,</span>
+                                    <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                                            <span class="c1">// assert invalid works</span>
+                                            <span class="kd">var</span> <span class="nx">d</span><span class="o">=</span><span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="nx">spin1</span><span class="p">.</span><span class="nx">focusNode</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                                                    <span class="nx">spin1</span><span class="p">.</span><span class="nx">focusNode</span><span class="p">.</span><span class="nx">value</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">;</span>
+                                            <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">typeKeys</span><span class="p">(</span><span class="s2">&quot;0.5&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">300</span><span class="p">);</span>
+                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                                                    <span class="k">try</span><span class="p">{</span>
+                                                            <span class="nx">doh</span><span class="p">.</span><span class="nx">is</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="nx">spin1</span><span class="p">.</span><span class="nx">isValid</span><span class="p">());</span>
+                                                            <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                                                    <span class="p">}</span><span class="k">catch</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+                                                            <span class="nx">d</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+                                                    <span class="p">}</span>
+                                            <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+                                            <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+                                    <span class="p">},</span>
+
+                                    <span class="nx">tearDown</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+                                            <span class="nx">spin1</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+                                    <span class="p">}</span>
+                            <span class="p">});</span>
+                            <span class="c1">// ... some more tests</span>
+                            <span class="c1">// all tests registered; notify DOH</span>
+                            <span class="nx">doh</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+                    <span class="p">});</span>
+            <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;/head&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot;
+            &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+    &lt;head&gt;
+            &lt;title&gt;doh.robot Spinner Test&lt;/title&gt;
+
+            &lt;style&gt;
+                    &#64;import &quot;../../../../util/doh/robot/robot.css&quot;;
+            &lt;/style&gt;
+
+            &lt;!-- required: dojo.js --&gt;
+            &lt;script type=&quot;text/javascript&quot; src=&quot;../../../../dojo/dojo.js&quot;
+                    data-dojo-config=&quot;isDebug: true, parseOnLoad: true&quot;&gt;&lt;/script&gt;
+
+            &lt;script type=&quot;text/javascript&quot;&gt;
+                    dojo.require(&quot;dijit.dijit&quot;); // optimize: load dijit layer
+                    dojo.require(&quot;dijit.robotx&quot;); // load the robot
+
+                    dojo.ready(function(){
+                            // declare variables but do not assign them values
+                            var spin1;
+                            var spin2;
+                            var spin3;
+                            var safeClick;
+                            var delta=1; // redefine with doh.robot.mouseWheelSize when it is available
+
+                            // the initRobot call goes here
+                            doh.robot.initRobot('../test_Spinner.html');
+
+                            doh.register(&quot;setUp&quot;,{
+                                    name: &quot;setUp&quot;,
+                                    timeout: 15000,
+                                    setUp:function(){
+                                            // assign variables HERE
+                                            spin1=dijit.byId('integerspinner1');
+                                            spin2=dijit.byId('integerspinner2');
+                                            spin3=dijit.byId('realspinner1');
+                                            safeClick=dojo.byId('form1');
+                                    },
+                                    runTest: function(){
+                                            // assert onChange not fired
+                                            doh.is(&quot;not fired yet!&quot;, dojo.byId('oc1').value);
+                                            doh.is(1, spin1.smallDelta);
+                                            var s=&quot;: 900\n&quot;
+                                            +&quot;integerspinner1: 900\n&quot;
+                                            +&quot;: not fired yet!\n&quot;
+                                            +&quot;: 1,000\n&quot;
+                                            +&quot;integerspinner2: 1000\n&quot;
+                                            +&quot;: \n&quot;
+                                            +&quot;integertextbox3: NaN\n&quot;
+                                            +&quot;: 1.0\n&quot;
+                                            +&quot;realspinner1: 1\n&quot;;
+                                            doh.is(s, dojo.doc.displayData().replace(/[a-zA-Z0-9_]*_displayed_/g, &quot;&quot;));
+                                    }
+                            });
+                            doh.register(&quot;arrowButton&quot;,{
+                                    name: &quot;spinner1_invalid&quot;,
+                                    timeout: 15000,
+                                    runTest: function(){
+                                            // assert invalid works
+                                            var d=new doh.Deferred();
+                                            doh.robot.mouseMoveAt(spin1.focusNode, 500);
+                                            doh.robot.mouseClick({left:true}, 500);
+                                            doh.robot.sequence(function(){
+                                                    spin1.focusNode.value=&quot;&quot;;
+                                            }, 500);
+                                            doh.robot.typeKeys(&quot;0.5&quot;, 500, 300);
+                                            doh.robot.sequence(function(){
+                                                    try{
+                                                            doh.is(false, spin1.isValid());
+                                                            d.resolve(true);
+                                                    }catch(e){
+                                                            d.reject(e);
+                                                    }
+                                            }, 500);
+                                            return d;
+                                    },
+
+                                    tearDown:function(){
+                                            spin1.set('value', 1);
+                                    }
+                            });
+                            // ... some more tests
+                            // all tests registered; notify DOH
+                            doh.run();
+                    });
+            &lt;/script&gt;
+    &lt;/head&gt;</textarea></div><p>See the real test in action/view the full source code:
+<a class="reference external" href="http://archive.dojotoolkit.org/nightly/checkout/dijit/tests/form/robot/Spinner_a11y.html">http://archive.dojotoolkit.org/nightly/checkout/dijit/tests/form/robot/Spinner_a11y.html</a> and ttp://archive.dojotoolkit.org/nightly/checkout/dijit/tests/form/robot/Spinner_mouse.html</p>
+<dl class="docutils">
+<dt>The test consists of 5 steps:</dt>
+<dd><ol class="first last arabic simple">
+<li>The test declares variables spin1-3, to store convenient references to the Spinner widgets when the application loads.</li>
+<li>The test calls initRobot, passing the URL of the page it wants to test.</li>
+<li>The test registers a setUp test to assign the variables spin1-3 their values. Note that you are not required to have a test named setUp; this is just a sensible name for a test whose purpose is to assign variables their values.</li>
+<li>The test registers any number of DOH tests, such as the &#8220;spinner1_invalid&#8221; test here, as usual. The test assumes that it is executing in the context of the application.</li>
+<li>The test calls doh.run() to tell DOH that all tests are registered.</li>
+</ol>
+</dd>
+</dl>
+<p>When your external application loads and DOH receives the doh.run() call from the test script, DOH begins executing your tests on the application.</p>
+</div>
+</div>
+<div class="section" id="digression-cross-domain-security">
+<h3>Digression: cross-domain security<a class="headerlink" href="#digression-cross-domain-security" title="Permalink to this headline">¶</a></h3>
+<p>The initRobot call in the above example loads an application that resides on the same server. If your testing requirements enable you to stash your tests on the same server as your application, then this works just fine for you. But what if you absolutely have to test an application residing on a different domain? If you just throw the URL at initRobot, initRobot will faithfully load the application at the URL, but the browser will deny DOH access to the application&#8217;s content.</p>
+<dl class="docutils">
+<dt>In this scenario, you have two options:</dt>
+<dd><ul class="first last simple">
+<li>Run the browser in trusted mode (firefox -chrome command line flag, mshta instead of IE)</li>
+<li>Trick the browser into thinking that the application and test script are running on the same server</li>
+</ul>
+</dd>
+</dl>
+<p>One possible implementation of to the second solution is to create a simple reverse-proxy Web server. The reverse-proxy is an ordinary Web server than joins local files and remote servers. To browsers connecting to the reverse-proxy, the application files and test files appear to be on the same server!</p>
+<p>This is easy to implement. Suppose you have an application server running an application called Application at <a class="reference external" href="http://192.168.0.6:8080/Application/">http://192.168.0.6:8080/Application/</a>. Your test files sit on an Apache Web server at <a class="reference external" href="http://192.168.0.7/tests/Application/">http://192.168.0.7/tests/Application/</a>. To fix the cross-domain problem, you want requests by the test to the application to ask for <a class="reference external" href="http://192.168.0.7/Application/">http://192.168.0.7/Application/</a> instead of <a class="reference external" href="http://192.168.0.6:8080/Application/">http://192.168.0.6:8080/Application/</a>. In your httpd.conf, you add:</p>
+<div class="highlight-text"><div class="highlight"><pre>LoadModule proxy_module modules/mod_proxy.so
+LoadModule proxy_http_module modules/mod_proxy_http.so
+LoadModule rewrite_module modules/mod_rewrite.so
+&lt;IfModule mod_rewrite.c&gt;
+RewriteEngine on
+RewriteRule     /Application/(.*)    http://192.168.0.6:8080/Application/$1 [P]
+&lt;/IfModule&gt;
+</pre></div>
+</div>
+<p>Now the reverse-proxy will silently route requests from <a class="reference external" href="http://192.168.0.7/Application/">http://192.168.0.7/Application/</a> to <a class="reference external" href="http://192.168.0.8:8080/Application/">http://192.168.0.8:8080/Application/</a>. You can write your initRobot call to load your application with this relative URL:
+doh.robot.initRobot('/Application/');
+To load your tests, you still use the URL to your test server: <a class="reference external" href="http://192.168.0.7/tests/Application/">http://192.168.0.7/tests/Application/</a>, and the browser will think that your application resides on the same server, so doh.robot will work.</p>
+<p>By all means though, if your testing requirements enable you to physically put your test files on the same server as your application, go for it.</p>
+</div>
+<div class="section" id="waitforpagetoload">
+<h3>waitForPageToLoad<a class="headerlink" href="#waitforpagetoload" title="Permalink to this headline">¶</a></h3>
+<p>You can load an external application, so now you want to click links and open new pages within that application. Here is the syntax for waitForPageToLoad:</p>
+<div class="highlight"><pre><span class="nx">waitForPageToLoad</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*Function*/</span> <span class="nx">submitActions</span><span class="p">){</span>
+    <span class="c1">// summary:</span>
+    <span class="c1">//           Notifies DOH that the doh.robot is about to make a page change in the application it is driving,</span>
+    <span class="c1">//            returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.</span>
+    <span class="c1">//</span>
+    <span class="c1">// description:</span>
+    <span class="c1">//           Notifies DOH that the doh.robot is about to make a page change in the application it is driving,</span>
+    <span class="c1">//            returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.</span>
+    <span class="c1">//            Example:</span>
+    <span class="c1">//                  runTest:function(){</span>
+    <span class="c1">//                        return waitForPageToLoad(function(){ doh.robot.keyPress(dojo.keys.ENTER, 500); });</span>
+    <span class="c1">//                  }</span>
+    <span class="c1">//</span>
+    <span class="c1">// submitActions:</span>
+    <span class="c1">//            The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),</span>
+    <span class="c1">//            expecting these actions to create a page change (like a form submit).</span>
+    <span class="c1">//            After these actions execute and the resulting page loads, the next test will start.</span>
+    <span class="c1">//</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">waitForPageToLoad: function(/*Function*/ submitActions){
+    // summary:
+    //           Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
+    //            returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
+    //
+    // description:
+    //           Notifies DOH that the doh.robot is about to make a page change in the application it is driving,
+    //            returning a doh.Deferred object the user should return in their runTest function as part of a DOH test.
+    //            Example:
+    //                  runTest:function(){
+    //                        return waitForPageToLoad(function(){ doh.robot.keyPress(dojo.keys.ENTER, 500); });
+    //                  }
+    //
+    // submitActions:
+    //            The doh.robot will execute the actions the test passes into the submitActions argument (like clicking the submit button),
+    //            expecting these actions to create a page change (like a form submit).
+    //            After these actions execute and the resulting page loads, the next test will start.
+    //
+}</textarea></div><p>waitForPageToLoad takes a function called submitActions. The robot expects submitActions to contain the final instructions you want to execute on this page. For example, if you want to navigate away from the page by clicking a link, your submitActions function should contain doh.robot instructions that click the link. The DOH runner will wait while the robot is executing code in this block until it receives a page load event. When that happens, DOH loads the next test you registered and proceeds from there.</p>
+<p>waitForPageToLoad returns a Deferred object. The idea is that you can, in turn, return this Deferred object to DOH so that it knows to halt execution of further tests until the next page loads.</p>
+<div class="section" id="id2">
+<h4>Example<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>The following sample uses waitForPageToLoad to test a user story for PlantsByWebSphereAjax, an application available in IBM WebSphere Application Server Feature Pack for Web 2.0. The user story flows like this:</p>
+<p>The user is looking to buy flowers on PlantsByWebSphereAjax.
+The user adds two flowers to the shopping cart.
+The user clicks checkout.
+When the next page loads (a login screen), the user logs onto the website.
+When the next page loads (a shipping info page), the user fills in the shipping info and credit card information to finalize the sale.
+PlantsByWebSphereAjax contains a shopping cart built on Dojo DnD. Users literally drag images of products into the shopping cart to select them for purchase. When the user is ready to check the items out, the user clicks the checkout button and the contents of the DnD container are submitted to the server-side logic for processing.</p>
+<p>In the following sample, the robot uses initRobot to load the application. In the test, the robot acts just like a user and drags an item into the shopping cart. The robot uses waitForPageToLoad to click the checkout button, triggering a page to a login page. After the login page appears, the robot fills in its credentials. The robot again uses waitForPageToLoad to click login. The robot fills in its address and credit card information and the test concludes.</p>
+<div class="highlight"><pre><span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">initRobot</span><span class="p">(</span><span class="s1">&#39;/PlantsByWebSphereAjax/&#39;</span><span class="p">);</span>
+
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;selectitems&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+
+                <span class="c1">// select a flower</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="s1">&#39;dijit_layout__TabButton_1&#39;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">47</span><span class="p">,</span> <span class="mi">6</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;IMG&#39;</span><span class="p">)[</span><span class="mi">15</span><span class="p">];</span> <span class="p">},</span> <span class="mi">8000</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">58</span><span class="p">,</span> <span class="mi">45</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+                <span class="c1">// add selected flower to cart</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;BUTTON&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="p">},</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">36</span><span class="p">,</span> <span class="mi">15</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+                <span class="c1">// next page</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;A&#39;</span><span class="p">)[</span><span class="mi">15</span><span class="p">];</span> <span class="p">},</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">2000</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+                <span class="c1">// drag flower into shopping cart</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;IMG&#39;</span><span class="p">)[</span><span class="mi">14</span><span class="p">];</span> <span class="p">},</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">63</span><span class="p">,</span> <span class="mi">75</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mousePress</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;shoppingCart&#39;</span><span class="p">);</span> <span class="p">},</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseRelease</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+
+                <span class="c1">// assert price==$16</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                        <span class="k">if</span><span class="p">(</span><span class="sr">/\$16/</span><span class="p">.</span><span class="nx">test</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;ibm_widget_HtmlShoppingCart_0&#39;</span><span class="p">).</span><span class="nx">cartTotalPrice</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">)){</span>
+                                <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+                                <span class="nx">d</span><span class="p">.</span><span class="nx">reject</span><span class="p">(</span><span class="k">new</span> <span class="nb">Error</span><span class="p">(</span><span class="s1">&#39;Expected string containing $16, got &#39;</span><span class="o">+</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;ibm_widget_HtmlShoppingCart_0&#39;</span><span class="p">).</span><span class="nx">cartTotalPrice</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">));</span>
+                        <span class="p">}</span>
+                <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// use waitForPageToLoad to click the checkout button</span>
+<span class="c1">// tests will wait for the next page to load</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;selectitems_pagechange&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">waitForPageToLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                        <span class="c1">// click submit</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                                <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;checkout_button&#39;</span><span class="p">);</span>
+                        <span class="p">},</span> <span class="mi">1623</span><span class="p">,</span> <span class="mi">801</span><span class="p">);</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">992</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// next page has loaded; continue executing tests</span>
+<span class="c1">// in this case, the next page of the user story is a login page</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;login&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="c1">// log user in</span>
+                <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;email&#39;</span><span class="p">);</span> <span class="p">},</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">typeKeys</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">keyPress</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">keys</span><span class="p">.</span><span class="nx">TAB</span><span class="p">,</span> <span class="mi">500</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">typeKeys</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">5000</span><span class="p">);</span>
+                <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">sequence</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                        <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="kc">true</span><span class="p">);</span>
+                <span class="p">},</span> <span class="mi">1000</span><span class="p">);</span>
+                <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// use waitForPageToLoad to click the login button</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;login_pagechange&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">waitForPageToLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                        <span class="c1">// click login</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">getElementsByTagName</span><span class="p">(</span><span class="s1">&#39;input&#39;</span><span class="p">)[</span><span class="mi">2</span><span class="p">];</span> <span class="p">},</span> <span class="mi">1623</span><span class="p">,</span> <span class="mi">801</span><span class="p">);</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">992</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;shippinginfo&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+                <span class="c1">// fill out the shipping info form</span>
+                <span class="c1">// you get the idea</span>
+                <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">run</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">doh.robot.initRobot('/PlantsByWebSphereAjax/');
+
+doh.register('user_story1',{
+        name: 'selectitems',
+        timeout: 60000,
+        runTest: function(){
+                var d = new doh.Deferred();
+
+                // select a flower
+                doh.robot.mouseMoveAt('dijit_layout__TabButton_1', 500, 1000, 47, 6);
+                doh.robot.mouseClick({left:true, middle:false, right:false}, 1000);
+                doh.robot.mouseMoveAt(function(){ return dojo.doc.getElementsByTagName('IMG')[15]; }, 8000, 1500, 58, 45);
+                doh.robot.mouseClick({left:true, middle:false, right:false}, 1000);
+
+                // add selected flower to cart
+                doh.robot.mouseMoveAt(function(){ return dojo.doc.getElementsByTagName('BUTTON')[0]; }, 5000, 2000, 36, 15);
+                doh.robot.mouseClick({left:true, middle:false, right:false}, 1000);
+
+                // next page
+                doh.robot.mouseMoveAt(function(){ return dojo.doc.getElementsByTagName('A')[15]; }, 1000, 2000, 12, 10);
+                doh.robot.mouseClick({left:true, middle:false, right:false}, 1000);
+
+                // drag flower into shopping cart
+                doh.robot.mouseMoveAt(function(){ return dojo.doc.getElementsByTagName('IMG')[14]; }, 5000, 1000, 63, 75);
+                doh.robot.mousePress({left:true, middle:false, right:false}, 1000);
+                doh.robot.mouseMoveAt(function(){ return dojo.byId('shoppingCart'); }, 5000, 1000);
+                doh.robot.mouseRelease({left:true, middle:false, right:false}, 1000);
+
+                // assert price==$16
+                doh.robot.sequence(function(){
+                        if(/\$16/.test(dijit.byId('ibm_widget_HtmlShoppingCart_0').cartTotalPrice.innerHTML)){
+                                d.resolve(true);
+                        }else{
+                                d.reject(new Error('Expected string containing $16, got '+dijit.byId('ibm_widget_HtmlShoppingCart_0').cartTotalPrice.innerHTML));
+                        }
+                }, 1000);
+                return d;
+        }
+});
+
+// use waitForPageToLoad to click the checkout button
+// tests will wait for the next page to load
+doh.register('user_story1',{
+        name: 'selectitems_pagechange',
+        timeout: 60000,
+        runTest: function(){
+                return doh.robot.waitForPageToLoad(function(){
+                        // click submit
+                        doh.robot.mouseMoveAt(function(){
+                                return dojo.byId('checkout_button');
+                        }, 1623, 801);
+                        doh.robot.mouseClick({left:true, middle:false, right:false}, 992);
+                });
+        }
+});
+
+// next page has loaded; continue executing tests
+// in this case, the next page of the user story is a login page
+doh.register('user_story1',{
+        name: 'login',
+        timeout: 60000,
+        runTest: function(){
+                // log user in
+                var d = new doh.Deferred();
+                doh.robot.mouseMoveAt(function(){ return dojo.byId('email'); }, 500, 1000);
+                doh.robot.mouseClick({left:true, middle:false, right:false}, 500);
+                doh.robot.typeKeys(&quot;username&quot;, 500, 5000);
+                doh.robot.keyPress(dojo.keys.TAB, 500);
+                doh.robot.typeKeys(&quot;password&quot;, 500, 5000);
+                doh.robot.sequence(function(){
+                        d.resolve(true);
+                }, 1000);
+                return d;
+        }
+});
+
+// use waitForPageToLoad to click the login button
+doh.register('user_story1',{
+        name: 'login_pagechange',
+        timeout: 60000,
+        runTest: function(){
+                return doh.robot.waitForPageToLoad(function(){
+                        // click login
+                        doh.robot.mouseMoveAt(function(){ return dojo.doc.getElementsByTagName('input')[2]; }, 1623, 801);
+                        doh.robot.mouseClick({left:true, middle:false, right:false}, 992);
+                });
+        }
+});
+
+doh.register('user_story1',{
+        name: 'shippinginfo',
+        timeout: 60000,
+        runTest: function(){
+                var d = new doh.Deferred();
+                // fill out the shipping info form
+                // you get the idea
+                return d;
+        }
+});
+doh.run();</textarea></div><p>The above code uses waitForPageToLoad twice: once to click the checkout button, and once to click the login button.
+In each waitForPageToLoad call, you pass a function containing commands that will change the page.
+Let's examine the first waitForPageToLoad call more closely:</p>
+<div class="highlight"><pre><span class="c1">// use waitForPageToLoad to click the checkout button</span>
+<span class="c1">// tests will wait for the next page to load</span>
+<span class="nx">doh</span><span class="p">.</span><span class="nx">register</span><span class="p">(</span><span class="s1">&#39;user_story1&#39;</span><span class="p">,{</span>
+        <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;selectitems_pagechange&#39;</span><span class="p">,</span>
+        <span class="nx">timeout</span><span class="o">:</span> <span class="mi">60000</span><span class="p">,</span>
+        <span class="nx">runTest</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+                <span class="k">return</span> <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">waitForPageToLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                        <span class="c1">// click submit</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseMoveAt</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+                                <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;checkout_button&#39;</span><span class="p">);</span>
+                        <span class="p">},</span> <span class="mi">1623</span><span class="p">,</span> <span class="mi">801</span><span class="p">);</span>
+                        <span class="nx">doh</span><span class="p">.</span><span class="nx">robot</span><span class="p">.</span><span class="nx">mouseClick</span><span class="p">({</span><span class="nx">left</span><span class="o">:</span><span class="kc">true</span><span class="p">,</span> <span class="nx">middle</span><span class="o">:</span><span class="kc">false</span><span class="p">,</span> <span class="nx">right</span><span class="o">:</span><span class="kc">false</span><span class="p">},</span> <span class="mi">992</span><span class="p">);</span>
+                <span class="p">});</span>
+        <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="c1">// next page has loaded; continue executing tests</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// use waitForPageToLoad to click the checkout button
+// tests will wait for the next page to load
+doh.register('user_story1',{
+        name: 'selectitems_pagechange',
+        timeout: 60000,
+        runTest: function(){
+                return doh.robot.waitForPageToLoad(function(){
+                        // click submit
+                        doh.robot.mouseMoveAt(function(){
+                                return dojo.byId('checkout_button');
+                        }, 1623, 801);
+                        doh.robot.mouseClick({left:true, middle:false, right:false}, 992);
+                });
+        }
+});
+
+// next page has loaded; continue executing tests</textarea></div><p>As you can see from the above snippet, you use a waitForPageToLoad call as the return value of a test. No, the test doesn't actually test anything, but it is a convenient pattern to halt DOH while the page is changing. You give the test a long timeout so the page has sufficient time to load the next page. This is the <em>maximum</em> wait; test execution will resume immediately when the next page loads.</p>
+<p>You pass waitForPageToLoad a function containing robot commands that will do something to change the page. In this example, the robot moves the mouse to the checkout button. Then, the robot clicks the left mouse button on top of the checkout button, causing the application to submit the form and go to the login page. When the login page loads, DOH resumes test execution and executes the next test; in this case, the next test is named 'login' and so it executes. You can execute any number of tests after that, and can use waitForPageToLoad any number of times to navigate to more pages as your test requires.</p>
+<p>Using waitForPageToLoad in conjunction with initRobot in this way enables you to write long-running tests that can navigate across links and form submits within your application.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">DOH Robot</a><ul>
+<li><a class="reference internal" href="#the-challenge-of-web-ui-testing">The challenge of Web UI testing</a></li>
+<li><a class="reference internal" href="#what-doh-robot-can-do-for-you">What doh.robot can do for you</a></li>
+<li><a class="reference internal" href="#the-3-robots">The 3 robots</a><ul>
+<li><a class="reference internal" href="#id1">doh.robot</a></li>
+<li><a class="reference internal" href="#dojo-robot">dojo.robot</a></li>
+<li><a class="reference internal" href="#dijit-robot">dijit.robot</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#the-doh-robot-api">The doh.robot API</a><ul>
+<li><a class="reference internal" href="#delay">delay</a></li>
+<li><a class="reference internal" href="#duration">duration</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-doh-robot-tests">Writing doh.robot tests</a></li>
+<li><a class="reference internal" href="#dojo-robot-and-dijit-robot-s-value-add">dojo.robot and dijit.robot&#8217;s value-add</a></li>
+<li><a class="reference internal" href="#dojox-robot-recorder">dojox.robot.recorder</a><ul>
+<li><a class="reference internal" href="#to-use-dojox-robot-recorder">To use dojox.robot.recorder</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#separating-robot-test-code-from-application-code">Separating Robot Test Code From Application Code</a><ul>
+<li><a class="reference internal" href="#clicking-links">Clicking links</a></li>
+<li><a class="reference internal" href="#what-dijit-robotx-can-do-for-you">What dijit.robotx can do for you</a></li>
+<li><a class="reference internal" href="#the-dijit-robotx-api">The dijit.robotx API</a><ul>
+<li><a class="reference internal" href="#doh-robot-initrobot">doh.robot.initRobot()</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#digression-cross-domain-security">Digression: cross-domain security</a></li>
+<li><a class="reference internal" href="#waitforpagetoload">waitForPageToLoad</a><ul>
+<li><a class="reference internal" href="#id2">Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="doh.html"
+                        title="previous chapter">D.O.H.: Dojo Objective Harness</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="next chapter">Util</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

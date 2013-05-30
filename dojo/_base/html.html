@@ -1,0 +1,323 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo/_base/html &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dojo" href="../contents.html" />
+    <link rel="next" title="dojo/_base" href="index.html" />
+    <link rel="prev" title="dojo/_base/fx" href="fx.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-base-html">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo/_base/html</a><a class="headerlink" href="#dojo-base-html" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V?</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-base-html" id="id2">dojo/_base/html</a><ul>
+<li><a class="reference internal" href="#features" id="id3">Features</a></li>
+<li><a class="reference internal" href="#see-also" id="id4">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The <strong>dojo/_base/html</strong> module defines aliases to basic DOM &amp; HTML handling functions for backwards-compatibility.  As with all dojo/_base components, these functions are included within Dojo Base, which you get simply by loading <tt class="docutils literal"><span class="pre">dojo.js</span></tt>  (except when loading baseless with <tt class="docutils literal"><span class="pre">async:</span> <span class="pre">true</span></tt> in Dojo 1.7+).</p>
+<p>As of Dojo 1.7, the recommended practice going forward (with <tt class="docutils literal"><span class="pre">async:</span> <span class="pre">true</span></tt>) is to require just the individual dependencies you need, instead of <tt class="docutils literal"><span class="pre">dojo/_base/html</span></tt>.  The new locations of its functions are indicated in the list below.</p>
+<div class="section" id="features">
+<h2><a class="toc-backref" href="#id3">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="../byId.html#dojo-byid"><em>dojo.byId</em></a></p>
+<p>Returns the DOM node with the matching &#8216;id.  Alias of <tt class="docutils literal"><span class="pre">dom.byId</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.isDescendant</em></p>
+<p>Determines whether a node is a descendant of another.  Alias of <tt class="docutils literal"><span class="pre">dom.isDescendant</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.setSelectable</em></p>
+<p>Enables or disables selection on a node.  Alias of <tt class="docutils literal"><span class="pre">dom.setSelectable</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getAttr.html#dojo-getattr"><em>dojo.getAttr</em></a></p>
+<p>Gets an attribute on an HTML element. Alias of <tt class="docutils literal"><span class="pre">domAttr.get</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-attr</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../setAttr.html#dojo-setattr"><em>dojo.setAttr</em></a></p>
+<p>Sets an attribute on an HTML element. Alias of <tt class="docutils literal"><span class="pre">domAttr.set</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-attr</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../hasAttr.html#dojo-hasattr"><em>dojo.hasAttr</em></a></p>
+<p>Returns true if the requested attribute is specified on the given element, false otherwise. Alias of <tt class="docutils literal"><span class="pre">domAttr.has</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-attr</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../removeAttr.html#dojo-removeattr"><em>dojo.removeAttr</em></a></p>
+<p>Removes an attribute from an HTML element.  Alias of <tt class="docutils literal"><span class="pre">domAttr.remove</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-attr</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getNodeProp.html#dojo-getnodeprop"><em>dojo.getNodeProp</em></a></p>
+<p>Returns an effective value of a property or an attribute.  Alias of <tt class="docutils literal"><span class="pre">domAttr.getNodeProp</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-attr</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../attr.html#dojo-attr"><em>dojo.attr</em></a></p>
+<p>Gets or sets an attribute on an HTML element.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../hasClass.html#dojo-hasclass"><em>dojo.hasClass</em></a></p>
+<p>Returns whether or not the specified classes are a portion of the class list currently applied to the node.  Alias of <tt class="docutils literal"><span class="pre">domClass.contains</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-class</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../addClass.html#dojo-addclass"><em>dojo.addClass</em></a></p>
+<p>Adds the specified classes to the end of the class list on the passed node. Will not re-apply duplicate classes. Alias of <tt class="docutils literal"><span class="pre">domClass.add</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-class</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../removeClass.html#dojo-removeclass"><em>dojo.removeClass</em></a></p>
+<p>Removes the specified classes from node. No <tt class="docutils literal"><span class="pre">dojo.hasClass</span></tt> check is required.  Alias of <tt class="docutils literal"><span class="pre">domClass.remove</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-class</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../toggleClass.html#dojo-toggleclass"><em>dojo.toggleClass</em></a></p>
+<p>Adds a class to node if not present, or removes if present. Pass a boolean condition if you want to explicitly add or remove. Returns the condition that was specified directly or indirectly.  Alias of <tt class="docutils literal"><span class="pre">domClass.toggle</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-class</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../replaceClass.html#dojo-replaceclass"><em>dojo.replaceClass</em></a></p>
+<p>Replaces one or more classes on a node if not present. Operates more quickly than calling <tt class="docutils literal"><span class="pre">dojo.removeClass</span></tt> and <tt class="docutils literal"><span class="pre">dojo.addClass</span></tt>.  Alias of <tt class="docutils literal"><span class="pre">domClass.replace</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-class</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../toDom.html#dojo-todom"><em>dojo.toDom</em></a></p>
+<p>Instantiates an HTML fragment returning the corresponding DOM.  Alias of <tt class="docutils literal"><span class="pre">domConstruct.toDom</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../place.html#dojo-place"><em>dojo.place</em></a></p>
+<p>Attempt to insert node into the DOM, choosing from various positioning options. Returns the first argument resolved to a DOM node.  Alias of <tt class="docutils literal"><span class="pre">domConstruct.place</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../create.html#dojo-create"><em>dojo.create</em></a></p>
+<p>Create an element, allowing for optional attribute decoration and placement.  Alias of <tt class="docutils literal"><span class="pre">domConstruct.create</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../empty.html#dojo-empty"><em>dojo.empty</em></a></p>
+<p>Safely removes all children of the node.  Alias of <tt class="docutils literal"><span class="pre">domConstruct.empty</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../destroy.html#dojo-destroy"><em>dojo.destroy</em></a></p>
+<p>Removes a node from its parent, clobbering it and all of its children.  Alias of <tt class="docutils literal"><span class="pre">domConstruct.destroy</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getPadExtents</em></p>
+<p>Returns object with special values specifically useful for node fitting.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getPadExtents</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getBorderExtents</em></p>
+<p>Returns an object with properties useful for noting the border dimensions.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getBorderExtents</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getPadBorderExtents</em></p>
+<p>Returns object with properties useful for box fitting with regards to padding.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getPadBorderExtents</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getMarginExtents</em></p>
+<p>Returns object with properties useful for box fitting with regards to box margins (i.e., the outer-box).  Alias of <tt class="docutils literal"><span class="pre">domGeom.getMarginExtents</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getMarginSize</em></p>
+<p>Returns an object that encodes the width and height of the node&#8217;s margin box.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getMarginSize</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getMarginBox.html#dojo-getmarginbox"><em>dojo.getMarginBox</em></a></p>
+<p>Returns an object that encodes the width, height, left and top positions of the node&#8217;s margin box.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getMarginBox</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../setMarginBox.html#dojo-setmarginbox"><em>dojo.setMarginBox</em></a></p>
+<p>Set the size of the node&#8217;s margin box and placement (left/top), irrespective of box model. Think of it as a passthrough to setBox that handles box-model vagaries for you.  Alias of <tt class="docutils literal"><span class="pre">domGeom.setMarginBox</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getContentBox.html#dojo-getcontentbox"><em>dojo.getContentBox</em></a></p>
+<p>Returns an object that encodes the width, height, left and top positions of the node&#8217;s content box, irrespective of the current box model.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getContentBox</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../setContentSize.html#dojo-setcontentsize"><em>dojo.setContentSize</em></a></p>
+<p>Sets the size of the node&#8217;s contents, irrespective of margins, padding, or borders.  Alias of <tt class="docutils literal"><span class="pre">domGeom.setContentSize</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.isBodyLtr</em></p>
+<p>Returns true if the current language is left-to-right, and false otherwise.  Alias of <tt class="docutils literal"><span class="pre">domGeom.isBodyLtr</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.docScroll</em></p>
+<p>Returns an object with {node, x, y} with corresponding offsets.  Alias of <tt class="docutils literal"><span class="pre">domGeom.docScroll</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.getIeDocumentElementOffset</em></p>
+<p>Returns the offset in x and y from the document body to the visual edge of the page for IE.  Alias of <tt class="docutils literal"><span class="pre">domGeom.getIeDocumentElementOffset</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.fixIeBiDiScrollLeft</em></p>
+<p>In RTL direction, scrollLeft should be a negative value, but IE returns a positive one. All codes using documentElement.scrollLeft must call this function to fix this error, otherwise the position will offset to right when there is a horizontal scrollbar.  Alias of <tt class="docutils literal"><span class="pre">domGeom.fixIeBiDiScrollLeft</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../position.html#dojo-position"><em>dojo.position</em></a></p>
+<p>Gets the position and size of the passed element relative to the viewport (if includeScroll==false), or relative to the document root (if includeScroll==true).  Alias of <tt class="docutils literal"><span class="pre">domGeom.position</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-geometry</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../marginBox.html#dojo-marginbox"><em>dojo.marginBox</em></a></p>
+<p>Getter/setter for the margin-box of node.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../contentBox.html#dojo-contentbox"><em>dojo.contentBox</em></a></p>
+<p>Getter/setter for the content-box of node.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../coords.html#dojo-coords"><em>dojo.coords</em></a></p>
+<p>Deprecated: Use <tt class="docutils literal"><span class="pre">position()</span></tt> for border-box x/y/w/h or <tt class="docutils literal"><span class="pre">marginBox()</span></tt> for margin-box w/h/l/t. Returns an object representing a node&#8217;s size and position.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getProp.html#dojo-getprop"><em>dojo.getProp</em></a></p>
+<p>Gets a property on an HTML element.  Alias of <tt class="docutils literal"><span class="pre">domProp.get</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-prop</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../setProp.html#dojo-setprop"><em>dojo.setProp</em></a></p>
+<p>Sets a property on an HTML element.  Alias of <tt class="docutils literal"><span class="pre">domProp.set</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-prop</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../prop.html#dojo-prop"><em>dojo.prop</em></a></p>
+<p>Gets or sets a property on an HTML element.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getStyle.html#dojo-getstyle"><em>dojo.getStyle</em></a></p>
+<p>Accesses styles on a node.  Alias of <tt class="docutils literal"><span class="pre">domStyle.get</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../setStyle.html#dojo-setstyle"><em>dojo.setStyle</em></a></p>
+<p>Sets styles on a node.  Alias of <tt class="docutils literal"><span class="pre">domStyle.set</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../getComputedStyle.html#dojo-getcomputedstyle"><em>dojo.getComputedStyle</em></a></p>
+<p>Returns a <cite>computed style</cite> object.  Alias of <tt class="docutils literal"><span class="pre">domStyle.getComputedStyle</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt>.</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojo.toPixelValue</em></p>
+<p>Converts style value to pixels on IE or return a numeric value.  Alias of <tt class="docutils literal"><span class="pre">domStyle.toPixelValue</span></tt> in <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../style.html#dojo-style"><em>dojo.style</em></a></p>
+<p>Accesses styles on a node. If 2 arguments are passed, acts as a getter. If 3 arguments are passed, acts as a setter.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id4">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="../html.html#dojo-html"><em>dojo.html</em></a></p>
+<p>dojo.html.set() inserts (replaces) the given content into the given node</p>
+</li>
+<li><p class="first"><a class="reference internal" href="../../dojox/html.html#dojox-html"><em>dojox.html</em></a></p>
+<p>Additional HTML helper functions</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo/_base/html</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="fx.html"
+                        title="previous chapter">dojo/_base/fx</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="next chapter">dojo/_base</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

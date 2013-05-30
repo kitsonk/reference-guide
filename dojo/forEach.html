@@ -1,0 +1,285 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.forEach &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.formToJson" href="formToJson.html" />
+    <link rel="prev" title="dojo.filter" href="filter.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-foreach">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.forEach</a><a class="headerlink" href="#dojo-foreach" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-foreach" id="id2">dojo.forEach</a><ul>
+<li><a class="reference internal" href="#about" id="id3">About</a></li>
+<li><a class="reference internal" href="#see-also" id="id4">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="about">
+<h2><a class="toc-backref" href="#id3">About</a><a class="headerlink" href="#about" title="Permalink to this headline">¶</a></h2>
+<p>Since it&#8217;s not supported natively on every browser, <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> provides the <a class="reference external" href="https://developer.mozilla.org/En/Core_JavaScript_1.5_Reference:Objects:Array:forEach">standard JavaScript 1.6 forEach construct</a> everywhere. <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> lets you apply a function to each element of an array, emulating a <tt class="docutils literal"><span class="pre">for</span></tt> loop, but with fewer scoping compliations.</p>
+<p><tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> has a notable difference from the JavaScript 1.6 forEach: <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> runs over sparse arrays, passing the &#8220;holes&#8221; in the sparse array to the callback function. JavaScript 1.6&#8217;s forEach skips the holes in the sparse array.</p>
+<p>dojo.forEach() cannot terminate a loop (save for throwing an exception). Use dojo.some() or dojo.every() instead.</p>
+<p><tt class="docutils literal"><span class="pre">forEach</span></tt> is syntactic sugar for a regular &#8216;ol for loop:</p>
+<div class="highlight"><pre><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">&lt;</span><span class="nx">queueEntries</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">queueEntries</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="s2">&quot;at index&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">for(var i=0; i&lt;queueEntries.length; i++){
+  console.debug(queueEntries[i], &quot;at index&quot;, i);
+}</textarea></div><p>(From dojo 1.7 on) It can be written as:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">queueEntries</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="s2">&quot;at index&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/array&quot;], function(array){
+  array.forEach(queueEntries, function(entry, i){
+    console.debug(entry, &quot;at index&quot;, i);
+  });
+});</textarea></div><p>(Before dojo 1.7) It can be written as:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">queueEntries</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">entry</span><span class="p">,</span> <span class="s2">&quot;at index&quot;</span><span class="p">,</span> <span class="nx">i</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.forEach(queueEntries, function(entry, i){
+  console.debug(entry, &quot;at index&quot;, i);
+});</textarea></div><p>We use an anonymous function to define the operation. This function is always passed 3 arguments: the current item value, the index in the list being iterated over, an a reference to the list itself.</p>
+<p>For this simple loop, <cite>dojo.forEach</cite> isn&#8217;t anything exciting. But combined with other Dojo functions, especially <a class="reference internal" href="query.html#dojo-query"><em>dojo.query()</em></a>, it becomes remarkably useful. Consider this snippet, which disables all <tt class="docutils literal"><span class="pre">&lt;select&gt;</span></tt> tags on the page:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">query</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">),</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+      <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+    <span class="p">}</span>
+  <span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">),</span>
+  <span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+    <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;, &quot;dojo/query&quot;], function(array, query){
+  array.forEach(
+    query(&quot;select&quot;),
+    function(selectTag){
+      selectTag.disabled = true;
+    }
+  );
+});
+
+// Dojo &lt; 1.7
+dojo.forEach(
+  dojo.query(&quot;select&quot;),
+  function(selectTag){
+    selectTag.disabled = true;
+  }
+);</textarea></div><p>How cool is that? (Answer: very!) There&#8217;s no monkeying around with DOM functions, no using tedious names or id&#8217;s, and it continues to work even when you add new SELECT tags.</p>
+<p>Running <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> on a <tt class="docutils literal"><span class="pre">dojo.query</span></tt> result is so common, that Dojo defines a shortcut:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+    <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+    <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/query&quot;], function(query){
+  query(&quot;select&quot;).forEach(function(selectTag){
+    selectTag.disabled = true;
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.query(&quot;select&quot;).forEach(function(selectTag){
+    selectTag.disabled = true;
+});</textarea></div><p>does the same thing. But that&#8217;s not all! New in 1.0 you can collapse the function down to its body, passed in as a string like so:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="s2">&quot;item.disabled = true;&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="s2">&quot;item.disabled = true;&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/query&quot;], function(query){
+  query(&quot;select&quot;).forEach(&quot;item.disabled = true;&quot;);
+});
+
+// Dojo &lt; 1.7
+dojo.query(&quot;select&quot;).forEach(&quot;item.disabled = true;&quot;);</textarea></div><p>That&#8217;s a lot of functionality from a single method! Once you get used to the syntax, you&#8217;ll never want to go back.</p>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id4">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="map.html#dojo-map"><em>dojo.map</em></a> - The Dojo version of Array.map</li>
+<li><a class="reference internal" href="filter.html#dojo-filter"><em>dojo.filter</em></a> - Helps you narrow down the items in a list</li>
+<li><a class="reference internal" href="some.html#dojo-some"><em>dojo.some</em></a> - Does any item in the list meet your criteria?</li>
+<li><a class="reference internal" href="every.html#dojo-every"><em>dojo.every</em></a> - Do <em>all</em> items in the list meet your criteria?</li>
+<li><a class="reference internal" href="indexOf.html#dojo-indexof"><em>dojo.indexOf</em></a> - Find something in a list easily</li>
+<li><a class="reference internal" href="lastIndexOf.html#dojo-lastindexof"><em>dojo.lastIndexOf</em></a> - Find something in the list easily, but starting from the back</li>
+<li><a class="reference internal" href="query.html#dojo-query"><em>dojo.query</em></a> - A CSS query engine that returns instances of <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt></li>
+<li><a class="reference internal" href="NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a> - A subclass of Array which can also have forEach applied.</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.forEach</a><ul>
+<li><a class="reference internal" href="#about">About</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="filter.html"
+                        title="previous chapter">dojo.filter</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="formToJson.html"
+                        title="next chapter">dojo.formToJson</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

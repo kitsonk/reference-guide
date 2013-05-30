@@ -1,0 +1,656 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.style &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.subscribe" href="subscribe.html" />
+    <link rel="prev" title="dojo.string.trim" href="string/trim.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-style">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.style</a><a class="headerlink" href="#dojo-style" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">James Burke, Peter Higgins, Eugene Lazutkin, Marcus Reimann</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">V1.0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-style" id="id2">dojo.style</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#tips" id="id6">Tips</a></li>
+<li><a class="reference internal" href="#see-also" id="id7">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>A getter/setter for styles on a DOM node.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Accesses styles on a node. If 2 arguments are passed and the second argument is a string acts as a getter. If 2 arguments are passed, and the second is an Object, recursively acts as a setter for the key/value paris. If 3 arguments are passed, acts as a setter for a single property.</p>
+<p>See the Tips section below for caveats on getting style information, like when using a compound style value (like background or border), and getting node dimensions.</p>
+<p>Since Dojo 1.7, <tt class="docutils literal"><span class="pre">dojo.style</span></tt> is exposed via the <tt class="docutils literal"><span class="pre">get</span></tt> and <tt class="docutils literal"><span class="pre">set</span></tt> methods of the <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt> module.  An alias is kept in <tt class="docutils literal"><span class="pre">dojo/_base/html</span></tt> for backward-compatibility.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domStyle</span><span class="p">){</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">style</span><span class="p">);</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">style</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">style</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/dom-style&quot;], function(domStyle){
+  domStyle.get(node, style);
+  domStyle.set(node, style, value);
+});
+
+// Dojo &lt; 1.7
+dojo.style(node, style, value);</textarea></div><dl class="docutils">
+<dt>node</dt>
+<dd>id or reference of the DOM node to get/set style for</dd>
+<dt>style</dt>
+<dd>the style property to set in DOM-accessor format (&#8220;borderWidth&#8221;, not &#8220;border-width&#8221;) or an object with key/value pairs suitable for setting each property.</dd>
+<dt>value</dt>
+<dd>If passed, sets value on the node for style, handling cross-browser concerns. When setting a pixel value, be sure to include &#8220;px&#8221; in the value. For instance, top: &#8220;200px&#8221;. Otherwise, in some cases, some browsers will not apply the style.</dd>
+</dl>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7+ (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<p>When using AMD format in a fully baseless application, <tt class="docutils literal"><span class="pre">get</span></tt> and <tt class="docutils literal"><span class="pre">set</span></tt> are accessed from the <tt class="docutils literal"><span class="pre">dojo/dom-style</span></tt> module.</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domStyle</span><span class="p">,</span> <span class="nx">query</span><span class="p">){</span>
+  <span class="c1">// Passing only an ID or node returns the computed style object of the node:</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">);</span>
+
+  <span class="c1">// Passing a node and a style property returns the current normalized, computed value for that property:</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">);</span> <span class="c1">// 1 by default</span>
+
+  <span class="c1">// Passing a node, a style property, and a value changes the current display of the node and returns the new computed value</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span> <span class="c1">// == 0.5</span>
+
+  <span class="c1">// Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="s2">&quot;opacity&quot;</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+          <span class="s2">&quot;border&quot;</span><span class="o">:</span> <span class="s2">&quot;3px solid black&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;height&quot;</span><span class="o">:</span> <span class="s2">&quot;300px&quot;</span>
+  <span class="p">});</span>
+
+  <span class="c1">// When the CSS style property is hyphenated, the JavaScript property is camelCased.</span>
+  <span class="c1">// font-size becomes fontSize, and so on.</span>
+  <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;14pt&quot;</span><span class="p">,</span>
+          <span class="nx">letterSpacing</span><span class="o">:</span><span class="s2">&quot;1.2em&quot;</span>
+  <span class="p">});</span>
+
+  <span class="c1">// dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,</span>
+  <span class="c1">// calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList</span>
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.someClassName&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;visibility&quot;</span><span class="p">,</span> <span class="s2">&quot;hidden&quot;</span><span class="p">);</span>
+
+  <span class="c1">// or</span>
+
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#baz &gt; div&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span>
+         <span class="nx">opacity</span><span class="o">:</span><span class="mf">0.75</span><span class="p">,</span>
+         <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;13pt&quot;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/dom-style&quot;, &quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(domStyle, query){
+  // Passing only an ID or node returns the computed style object of the node:
+  domStyle.get(&quot;thinger&quot;);
+
+  // Passing a node and a style property returns the current normalized, computed value for that property:
+  domStyle.get(&quot;thinger&quot;, &quot;opacity&quot;); // 1 by default
+
+  // Passing a node, a style property, and a value changes the current display of the node and returns the new computed value
+  domStyle.set(&quot;thinger&quot;, &quot;opacity&quot;, 0.5); // == 0.5
+
+  // Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:
+  domStyle.set(&quot;thinger&quot;, {
+          &quot;opacity&quot;: 0.5,
+          &quot;border&quot;: &quot;3px solid black&quot;,
+          &quot;height&quot;: &quot;300px&quot;
+  });
+
+  // When the CSS style property is hyphenated, the JavaScript property is camelCased.
+  // font-size becomes fontSize, and so on.
+  domStyle.set(&quot;thinger&quot;, {
+          fontSize:&quot;14pt&quot;,
+          letterSpacing:&quot;1.2em&quot;
+  });
+
+  // dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,
+  // calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList
+  query(&quot;.someClassName&quot;).style(&quot;visibility&quot;, &quot;hidden&quot;);
+
+  // or
+
+  query(&quot;#baz &gt; div&quot;).style({
+         opacity:0.75,
+         fontSize:&quot;13pt&quot;
+  });
+});</textarea></div><p>Alternatively, you can load dojo base in AMD style and continue using <tt class="docutils literal"><span class="pre">dojo.style</span></tt> in the <tt class="docutils literal"><span class="pre">define</span></tt> or <tt class="docutils literal"><span class="pre">require</span></tt> callback:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="c1">// Passing only an ID or node returns the computed style object of the node:</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">);</span>
+
+  <span class="c1">// Passing a node and a style property returns the current normalized, computed value for that property:</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">);</span> <span class="c1">// 1 by default</span>
+
+  <span class="c1">// Passing a node, a style property, and a value changes the current display of the node and returns the new computed value</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span> <span class="c1">// == 0.5</span>
+
+  <span class="c1">// Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="s2">&quot;opacity&quot;</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+          <span class="s2">&quot;border&quot;</span><span class="o">:</span> <span class="s2">&quot;3px solid black&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;height&quot;</span><span class="o">:</span> <span class="s2">&quot;300px&quot;</span>
+  <span class="p">});</span>
+
+  <span class="c1">// When the CSS style property is hyphenated, the JavaScript property is camelCased.</span>
+  <span class="c1">// font-size becomes fontSize, and so on.</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+          <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;14pt&quot;</span><span class="p">,</span>
+          <span class="nx">letterSpacing</span><span class="o">:</span><span class="s2">&quot;1.2em&quot;</span>
+  <span class="p">});</span>
+
+  <span class="c1">// dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,</span>
+  <span class="c1">// calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.someClassName&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;visibility&quot;</span><span class="p">,</span> <span class="s2">&quot;hidden&quot;</span><span class="p">);</span>
+
+  <span class="c1">// or</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#baz &gt; div&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span>
+         <span class="nx">opacity</span><span class="o">:</span><span class="mf">0.75</span><span class="p">,</span>
+         <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;13pt&quot;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo&quot;], function(dojo){
+  // Passing only an ID or node returns the computed style object of the node:
+  dojo.style(&quot;thinger&quot;);
+
+  // Passing a node and a style property returns the current normalized, computed value for that property:
+  dojo.style(&quot;thinger&quot;, &quot;opacity&quot;); // 1 by default
+
+  // Passing a node, a style property, and a value changes the current display of the node and returns the new computed value
+  dojo.style(&quot;thinger&quot;, &quot;opacity&quot;, 0.5); // == 0.5
+
+  // Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:
+  dojo.style(&quot;thinger&quot;, {
+          &quot;opacity&quot;: 0.5,
+          &quot;border&quot;: &quot;3px solid black&quot;,
+          &quot;height&quot;: &quot;300px&quot;
+  });
+
+  // When the CSS style property is hyphenated, the JavaScript property is camelCased.
+  // font-size becomes fontSize, and so on.
+  dojo.style(&quot;thinger&quot;, {
+          fontSize:&quot;14pt&quot;,
+          letterSpacing:&quot;1.2em&quot;
+  });
+
+  // dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,
+  // calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList
+  dojo.query(&quot;.someClassName&quot;).style(&quot;visibility&quot;, &quot;hidden&quot;);
+
+  // or
+
+  dojo.query(&quot;#baz &gt; div&quot;).style({
+         opacity:0.75,
+         fontSize:&quot;13pt&quot;
+  });
+});</textarea></div></div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Passing only an ID or node returns the computed style object of the node:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">);</span>
+
+<span class="c1">// Passing a node and a style property returns the current normalized, computed value for that property:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">);</span> <span class="c1">// 1 by default</span>
+
+<span class="c1">// Passing a node, a style property, and a value changes the current display of the node and returns the new computed value</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span> <span class="c1">// == 0.5</span>
+
+<span class="c1">// Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="s2">&quot;opacity&quot;</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span>
+        <span class="s2">&quot;border&quot;</span><span class="o">:</span> <span class="s2">&quot;3px solid black&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;height&quot;</span><span class="o">:</span> <span class="s2">&quot;300px&quot;</span>
+<span class="p">});</span>
+
+<span class="c1">// When the CSS style property is hyphenated, the JavaScript property is camelCased.</span>
+<span class="c1">// font-size becomes fontSize, and so on.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;thinger&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;14pt&quot;</span><span class="p">,</span>
+        <span class="nx">letterSpacing</span><span class="o">:</span><span class="s2">&quot;1.2em&quot;</span>
+<span class="p">});</span>
+
+<span class="c1">// dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,</span>
+<span class="c1">// calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.someClassName&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;visibility&quot;</span><span class="p">,</span> <span class="s2">&quot;hidden&quot;</span><span class="p">);</span>
+
+<span class="c1">// or</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#baz &gt; div&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span>
+       <span class="nx">opacity</span><span class="o">:</span><span class="mf">0.75</span><span class="p">,</span>
+       <span class="nx">fontSize</span><span class="o">:</span><span class="s2">&quot;13pt&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Passing only an ID or node returns the computed style object of the node:
+dojo.style(&quot;thinger&quot;);
+
+// Passing a node and a style property returns the current normalized, computed value for that property:
+dojo.style(&quot;thinger&quot;, &quot;opacity&quot;); // 1 by default
+
+// Passing a node, a style property, and a value changes the current display of the node and returns the new computed value
+dojo.style(&quot;thinger&quot;, &quot;opacity&quot;, 0.5); // == 0.5
+
+// Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:
+dojo.style(&quot;thinger&quot;, {
+        &quot;opacity&quot;: 0.5,
+        &quot;border&quot;: &quot;3px solid black&quot;,
+        &quot;height&quot;: &quot;300px&quot;
+});
+
+// When the CSS style property is hyphenated, the JavaScript property is camelCased.
+// font-size becomes fontSize, and so on.
+dojo.style(&quot;thinger&quot;, {
+        fontSize:&quot;14pt&quot;,
+        letterSpacing:&quot;1.2em&quot;
+});
+
+// dojo.NodeList implements .style() using the same syntax, omitting the &quot;node&quot; parameter,
+// calling dojo.style() on every element of the list. See: dojo.query() and dojo.NodeList
+dojo.query(&quot;.someClassName&quot;).style(&quot;visibility&quot;, &quot;hidden&quot;);
+
+// or
+
+dojo.query(&quot;#baz &gt; div&quot;).style({
+       opacity:0.75,
+       fontSize:&quot;13pt&quot;
+});</textarea></div></div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-the-style-of-a-dom-node">
+<h3>Get the style of a DOM node<a class="headerlink" href="#get-the-style-of-a-dom-node" title="Permalink to this headline">¶</a></h3>
+<p>Passing only an ID or node returns the computed style object of the node:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.style1</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="nb">red</span> <span class="k">solid</span><span class="p">;</span> <span class="p">}</span>
+<span class="nf">#poorboy_styles</span> <span class="nt">li</span> <span class="p">{</span> <span class="k">display</span><span class="o">:</span><span class="k">inline</span><span class="p">;</span> <span class="p">}</span>
+<span class="nf">#poorboy_styles</span> <span class="nt">li</span> <span class="nc">.prop</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.style1 { color: red; padding: 10px; border: 1px red solid; }
+#poorboy_styles li { display:inline; }
+#poorboy_styles li .prop { color: blue; }</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;poorboy&quot;</span> <span class="na">class=</span><span class="s">&quot;style1&quot;</span><span class="nt">&gt;</span>Don&#39;t look at me - I&#39;m just a poor DOM node.<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;poorboy_styles&quot;</span><span class="nt">&gt;&lt;/ul&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+    get the current style
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Get the style from DOM node &quot;poorboy&quot;:</span>
+        <span class="kd">var</span> <span class="nx">s</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;poorboy&quot;</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">s</span><span class="p">){</span>
+            <span class="kd">var</span> <span class="nx">n</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;li&#39;</span><span class="p">);</span>
+            <span class="nx">n</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span> <span class="o">+</span> <span class="s2">&quot; = &lt;span class=&#39;prop&#39;&gt;&quot;</span> <span class="o">+</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;&lt;/span&gt;, &quot;</span><span class="p">;</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">place</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s2">&quot;poorboy_styles&quot;</span><span class="p">,</span> <span class="s2">&quot;last&quot;</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;poorboy&quot; class=&quot;style1&quot;&gt;Don't look at me - I'm just a poor DOM node.&lt;/div&gt;
+&lt;ul id=&quot;poorboy_styles&quot;&gt;&lt;/ul&gt;
+
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot;&gt;
+    get the current style
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Get the style from DOM node &quot;poorboy&quot;:
+        var s = dojo.style(&quot;poorboy&quot;);
+        for(var i in s){
+            var n = dojo.doc.createElement('li');
+            n.innerHTML = i + &quot; = &lt;span class='prop'&gt;&quot; + s[i] + &quot;&lt;/span&gt;, &quot;;
+            dojo.place(n, &quot;poorboy_styles&quot;, &quot;last&quot;);
+        }
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="get-a-single-style-property-of-a-dom-node">
+<h3>Get a single style property of a DOM node<a class="headerlink" href="#get-a-single-style-property-of-a-dom-node" title="Permalink to this headline">¶</a></h3>
+<p>Passing a node and a style property returns the current normalized, computed value for that property:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.style2</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">blue</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="nb">blue</span> <span class="k">solid</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.style2 { color: blue; padding: 10px; border: 1px blue solid; }</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;poorboy2&quot;</span> <span class="na">class=</span><span class="s">&quot;style2&quot;</span><span class="nt">&gt;</span>I will tell you anything...<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+    give me the color
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Get the color property from DOM node &quot;poorboy2&quot;:</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;poorboy2&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">));</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;poorboy2&quot; class=&quot;style2&quot;&gt;I will tell you anything...&lt;/div&gt;
+
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot;&gt;
+    give me the color
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Get the color property from DOM node &quot;poorboy2&quot;:
+        alert(dojo.style(&quot;poorboy2&quot;, &quot;color&quot;));
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="set-a-style-property">
+<h3>Set a style property<a class="headerlink" href="#set-a-style-property" title="Permalink to this headline">¶</a></h3>
+<p>Passing a node, a style property, and a value changes the current display of the node and returns the new computed value:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.style3</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="nb">green</span> <span class="k">solid</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.style3 { color: green; padding: 10px; border: 1px green solid; }</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;poorboy3&quot;</span> <span class="na">class=</span><span class="s">&quot;style3&quot;</span><span class="nt">&gt;</span>I don&#39;t like this green<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+    give me another color
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Set the color &#39;red&#39; to DOM node &quot;poorboy3&quot;:</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;poorboy3&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;red&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;poorboy3&quot; class=&quot;style3&quot;&gt;I don't like this green&lt;/div&gt;
+
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot;&gt;
+    give me another color
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Set the color 'red' to DOM node &quot;poorboy3&quot;:
+        dojo.style(&quot;poorboy3&quot;, &quot;color&quot;, &quot;red&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="set-multiple-style-properties-at-once">
+<h3>Set multiple style properties at once<a class="headerlink" href="#set-multiple-style-properties-at-once" title="Permalink to this headline">¶</a></h3>
+<p>Passing a node, an object-style style property sets each of the values in turn and returns the computed style object of the node:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.style4</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="nb">black</span> <span class="k">solid</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.nib</span> <span class="p">{</span> <span class="k">font-size</span><span class="o">:</span> <span class="m">4.2em</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.style4 { color: black; padding: 10px; border: 1px black solid; }
+.nib { font-size: 4.2em; }</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;poorboy4&quot;</span> <span class="na">class=</span><span class="s">&quot;style4&quot;</span><span class="nt">&gt;&lt;span</span> <span class="na">class=</span><span class="s">&quot;nib&quot;</span><span class="nt">&gt;</span>NIB<span class="nt">&lt;/span&gt;&lt;br/&gt;</span>NODE IN BLACK<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+    set multiple style properties
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Set the color to &#39;white&#39;, background-color to &quot;black&quot;, padding to &quot;20px&quot; to DOM node &quot;poorboy4&quot;:</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;poorboy4&quot;</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="o">:</span> <span class="s2">&quot;black&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;color&quot;</span><span class="o">:</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;padding&quot;</span><span class="o">:</span> <span class="s2">&quot;20px&quot;</span>
+        <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;poorboy4&quot; class=&quot;style4&quot;&gt;&lt;span class=&quot;nib&quot;&gt;NIB&lt;/span&gt;&lt;br/&gt;NODE IN BLACK&lt;/div&gt;
+
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot;&gt;
+    set multiple style properties
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Set the color to 'white', background-color to &quot;black&quot;, padding to &quot;20px&quot; to DOM node &quot;poorboy4&quot;:
+        dojo.style(&quot;poorboy4&quot;, {
+            &quot;backgroundColor&quot;: &quot;black&quot;,
+            &quot;color&quot;: &quot;white&quot;,
+            &quot;padding&quot;: &quot;20px&quot;
+        });
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="use-dojo-style-with-a-list-of-nodes">
+<h3>Use dojo.style() with a list of nodes<a class="headerlink" href="#use-dojo-style-with-a-list-of-nodes" title="Permalink to this headline">¶</a></h3>
+<p>dojo.NodeList implements .style() using the same syntax, omitting the &#8220;node&#8221; parameter, calling dojo.style() on every element of the list.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.style5</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">black</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">10px</span><span class="p">;</span> <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="nb">black</span> <span class="k">solid</span><span class="p">;</span> <span class="p">}</span>
+<span class="nc">.sweet</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="m">#FF8C8C</span><span class="p">;</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.style5 { color: black; padding: 10px; border: 1px black solid; }
+.sweet { color: #FF8C8C; }</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;poorboy5&quot;</span> <span class="na">class=</span><span class="s">&quot;style5&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>The different faces of dojo.style():<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;ul&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;sweet&quot;</span><span class="nt">&gt;</span>dojo.style(node);<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;sweet&quot;</span><span class="nt">&gt;</span>dojo.style(node, property);<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;sweet&quot;</span><span class="nt">&gt;</span>dojo.style(node, property, value);<span class="nt">&lt;/li&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">class=</span><span class="s">&quot;sweet&quot;</span><span class="nt">&gt;</span>dojo.style(node, object);<span class="nt">&lt;/li&gt;</span>
+    <span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+    change the style for each point
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Set the backgroundColor, color and opacity</span>
+        <span class="c1">// for each node found by dojo.query:</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.sweet&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span>
+            <span class="s2">&quot;backgroundColor&quot;</span><span class="o">:</span> <span class="s2">&quot;#B822B0&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;color&quot;</span><span class="o">:</span> <span class="s2">&quot;#FFFF00&quot;</span><span class="p">,</span>
+            <span class="s2">&quot;opacity&quot;</span><span class="o">:</span> <span class="mf">0.5</span>
+        <span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;poorboy5&quot; class=&quot;style5&quot;&gt;
+    &lt;p&gt;The different faces of dojo.style():&lt;/p&gt;
+    &lt;ul&gt;
+        &lt;li class=&quot;sweet&quot;&gt;dojo.style(node);&lt;/li&gt;
+        &lt;li class=&quot;sweet&quot;&gt;dojo.style(node, property);&lt;/li&gt;
+        &lt;li class=&quot;sweet&quot;&gt;dojo.style(node, property, value);&lt;/li&gt;
+        &lt;li class=&quot;sweet&quot;&gt;dojo.style(node, object);&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot;&gt;
+    change the style for each point
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Set the backgroundColor, color and opacity
+        // for each node found by dojo.query:
+        dojo.query(&quot;.sweet&quot;).style({
+            &quot;backgroundColor&quot;: &quot;#B822B0&quot;,
+            &quot;color&quot;: &quot;#FFFF00&quot;,
+            &quot;opacity&quot;: 0.5
+        });
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+<div class="section" id="tips">
+<h2><a class="toc-backref" href="#id6">Tips</a><a class="headerlink" href="#tips" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">If the CSS style property is hyphenated, the JavaScript property is camelCased.</p>
+<p>for example: &#8220;font-size&#8221; becomes &#8220;fontSize&#8221;, and so on</p>
+</li>
+<li><p class="first">You will get a &#8220;TypeError: n is null&#8221;, if you call dojo.style() on a non existent DOM node. It&#8217;s more safe to use dojo.query(&#8220;#a&#8221;).style(&#8220;b&#8221;, &#8220;c&#8221;);</p>
+</li>
+<li><p class="first">dojo.style uses getComputedStyle to get the style value, so the value will be a calculated value, not just the immediate node.style value.</p>
+</li>
+<li><p class="first">Getting the value for a compound style value (like background or border): you need to ask for specific properties, like bottomBorderWidth. Getting the &#8220;background&#8221; compound value is not reflected in the way you might think when using getComputedStyle.</p>
+</li>
+<li><p class="first">For getting a node&#8217;s dimensions, use <a class="reference internal" href="marginBox.html#dojo-marginbox"><em>dojo.marginBox</em></a> or <a class="reference internal" href="contentBox.html#dojo-contentbox"><em>dojo.contentBox</em></a>: the .width and .style properties are not accurate from getComputedStyle.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id7">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="getStyle.html#dojo-getstyle"><em>dojo.getStyle</em></a></li>
+<li><a class="reference internal" href="setStyle.html#dojo-setstyle"><em>dojo.setStyle</em></a></li>
+<li><a class="reference internal" href="addClass.html#dojo-addclass"><em>dojo.addClass</em></a></li>
+<li><a class="reference internal" href="hasClass.html#dojo-hasclass"><em>dojo.hasClass</em></a></li>
+<li><a class="reference internal" href="removeClass.html#dojo-removeclass"><em>dojo.removeClass</em></a></li>
+<li><a class="reference internal" href="toggleClass.html#dojo-toggleclass"><em>dojo.toggleClass</em></a></li>
+<li><a class="reference internal" href="query.html#dojo-query"><em>dojo.query</em></a></li>
+<li><a class="reference internal" href="NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.style</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7+ (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#get-the-style-of-a-dom-node">Get the style of a DOM node</a></li>
+<li><a class="reference internal" href="#get-a-single-style-property-of-a-dom-node">Get a single style property of a DOM node</a></li>
+<li><a class="reference internal" href="#set-a-style-property">Set a style property</a></li>
+<li><a class="reference internal" href="#set-multiple-style-properties-at-once">Set multiple style properties at once</a></li>
+<li><a class="reference internal" href="#use-dojo-style-with-a-list-of-nodes">Use dojo.style() with a list of nodes</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tips">Tips</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="string/trim.html"
+                        title="previous chapter">dojo.string.trim</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="subscribe.html"
+                        title="next chapter">dojo.subscribe</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

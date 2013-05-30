@@ -1,0 +1,261 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.app.module.history &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../../index.html" />
+    <link rel="up" title="DojoX" href="../../contents.html" />
+    <link rel="next" title="dojox.app.scene" href="../scene.html" />
+    <link rel="prev" title="dojox.app.model" href="../model.html" />
+
+    <link rel="stylesheet" href="../../../_static/css/site.css">
+    <link rel="stylesheet" href="../../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-app-module-history">
+<span id="id1"></span><h1>dojox.app.module.history<a class="headerlink" href="#dojox-app-module-history" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.7</td>
+</tr>
+</tbody>
+</table>
+<p>dojox.app.module.history manages transition forward and backward between views/scenes. A view can use &#8216;transitionOptions&#8217; or &#8216;href&#8217; to navigate forward or backward by utilizing HTML5 history API.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Forward transition using transitionOptions</p>
+<p>transitionOptions can be used on any dojox.mobile widgets which inherited from dojox.mobile._ItemBase. The following sample will result in transition to the &#8216;second&#8217; view in &#8216;main&#8217; scene of the application.</p>
+<div class="highlight"><pre><span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">iconPos=</span><span class="s">&quot;0,0,29,29&quot;</span>  <span class="na">clickable=</span><span class="s">&quot;true&quot;</span> <span class="na">transitionOptions=</span><span class="s">&#39;{target:&quot;main,second&quot;,url: &quot;#main,second&quot;}&#39;</span><span class="nt">&gt;</span>
+  Main Scene::Second View
+<span class="nt">&lt;/li&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; iconPos=&quot;0,0,29,29&quot;  clickable=&quot;true&quot; transitionOptions='{target:&quot;main,second&quot;,url: &quot;#main,second&quot;}'&gt;
+  Main Scene::Second View
+&lt;/li&gt;</textarea></div><p>transitionOptions attributes</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="19%" />
+<col width="64%" />
+<col width="16%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Attribute</strong></td>
+<td><strong>Description</strong></td>
+<td><strong>Type</strong></td>
+</tr>
+<tr class="row-even"><td>target</td>
+<td>The target view or scene id path. Note the value for the target
+should be the complete id path from its ancestor scene to the
+leaf view</td>
+<td>String</td>
+</tr>
+<tr class="row-odd"><td>url</td>
+<td>The url that will be used to update the location value in
+browser&#8217;s address bar after the transition.</td>
+<td>String</td>
+</tr>
+</tbody>
+</table>
+<p>Forward transition using href</p>
+<p>Besides the transitionOptions on mobile widgets, href attribute in hyperlink can also start the transition in dojox.app. Following sample will result in transition to &#8216;main&#8217; view of &#8216;main&#8217; scene.</p>
+<div class="highlight"><pre><span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main,main&quot;</span><span class="nt">&gt;</span>to main,main<span class="nt">&lt;/a&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;a href=&quot;#main,main&quot;&gt;to main,main&lt;/a&gt;</textarea></div><p>Backward transition
+To start backward transition, all we need to do is to add a back button on the Heading widgets of dojox.mobile. The back attribute declares the back button label on the heading in the following sample.</p>
+<div class="highlight"><pre><span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span> <span class="na">back=</span><span class="s">&quot;Home&quot;</span><span class="nt">&gt;</span>Data Binding Example<span class="nt">&lt;/h1&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot; back=&quot;Home&quot;&gt;Data Binding Example&lt;/h1&gt;</textarea></div></div>
+<div class="section" id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h2>
+<p>Sample excerpt of view template with regarding to navigation and history</p>
+<p>main.html</p>
+<div class="highlight"><pre><span class="nt">&lt;ul</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectList&quot;</span> <span class="na">iconBase=</span><span class="s">&quot;../images/i-icon-all.png&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.EdgeToEdgeCategory&quot;</span><span class="nt">&gt;</span>Main Scene Views<span class="nt">&lt;/h2&gt;</span>
+
+  <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">iconPos=</span><span class="s">&quot;0,0,29,29&quot;</span> <span class="na">clickable=</span><span class="s">&quot;false&quot;</span><span class="nt">&gt;</span>
+    Main Scene::Main View (Current View)
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">iconPos=</span><span class="s">&quot;0,0,29,29&quot;</span>  <span class="na">clickable=</span><span class="s">&quot;true&quot;</span> <span class="na">transitionOptions=</span><span class="s">&#39;{title:&quot;Main Scene::SecondView&quot;,target:&quot;main,second&quot;,url: &quot;#main,second&quot;}&#39;</span><span class="nt">&gt;</span>
+    Main Scene::Second View
+  <span class="nt">&lt;/li&gt;</span>
+  <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">iconPos=</span><span class="s">&quot;0,0,29,29&quot;</span>  <span class="na">clickable=</span><span class="s">&quot;true&quot;</span> <span class="na">transitionOptions=</span><span class="s">&#39;{title:&quot;Main Scene::ThirdView&quot;,target:&quot;main,third&quot;,url: &quot;#main,third&quot;}&#39;</span><span class="nt">&gt;</span>
+    Main Scene::Third View
+  <span class="nt">&lt;/li&gt;</span>
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;ul data-dojo-type=&quot;dojox.mobile.RoundRectList&quot; iconBase=&quot;../images/i-icon-all.png&quot;&gt;
+  &lt;h2 data-dojo-type=&quot;dojox.mobile.EdgeToEdgeCategory&quot;&gt;Main Scene Views&lt;/h2&gt;
+
+  &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; iconPos=&quot;0,0,29,29&quot; clickable=&quot;false&quot;&gt;
+    Main Scene::Main View (Current View)
+  &lt;/li&gt;
+  &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; iconPos=&quot;0,0,29,29&quot;  clickable=&quot;true&quot; transitionOptions='{title:&quot;Main Scene::SecondView&quot;,target:&quot;main,second&quot;,url: &quot;#main,second&quot;}'&gt;
+    Main Scene::Second View
+  &lt;/li&gt;
+  &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; iconPos=&quot;0,0,29,29&quot;  clickable=&quot;true&quot; transitionOptions='{title:&quot;Main Scene::ThirdView&quot;,target:&quot;main,third&quot;,url: &quot;#main,third&quot;}'&gt;
+    Main Scene::Third View
+  &lt;/li&gt;
+&lt;/ul&gt;</textarea></div><p>second.html</p>
+<div class="highlight"><pre><span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span> <span class="na">back=</span><span class="s">&quot;Back&quot;</span><span class="nt">&gt;</span>View simple/second<span class="nt">&lt;/h1&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRect&quot;</span> <span class="na">shadow=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main,main&quot;</span><span class="nt">&gt;</span>to main,main<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main,second&quot;</span><span class="nt">&gt;</span>to main,second<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#main,third&quot;</span><span class="nt">&gt;</span>to main,third<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRect&quot;</span> <span class="na">shadow=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">&quot;#tabscene,tab2&quot;</span><span class="nt">&gt;</span>to tabscene,tab2<span class="nt">&lt;/a&gt;&lt;br&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot; back=&quot;Back&quot;&gt;View simple/second&lt;/h1&gt;
+&lt;div data-dojo-type=&quot;dojox.mobile.RoundRect&quot; shadow=&quot;true&quot;&gt;
+  &lt;a href=&quot;#main,main&quot;&gt;to main,main&lt;/a&gt;&lt;br&gt;
+  &lt;a href=&quot;#main,second&quot;&gt;to main,second&lt;/a&gt;&lt;br&gt;
+  &lt;a href=&quot;#main,third&quot;&gt;to main,third&lt;/a&gt;&lt;br&gt;
+&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dojox.mobile.RoundRect&quot; shadow=&quot;true&quot;&gt;
+  &lt;a href=&quot;#tabscene,tab2&quot;&gt;to tabscene,tab2&lt;/a&gt;&lt;br&gt;
+&lt;/div&gt;</textarea></div><p>Sample views are rendered as following. &#8216;Main Scene::Second View&#8217; will transition to &#8216;View simple/second&#8217; by  transitionOptions configuration, and &#8216;to main,main&#8217; link will transition to &#8216;Main Scene Views&#8217; by &#8216;href&#8217; configuration. And &#8216;back&#8217; button will backward to &#8216;Main Scene Views&#8217;.</p>
+<img alt="../../../_images/pic11.png" src="../../../_images/pic11.png" />
+<img alt="../../../_images/pic2.png" src="../../../_images/pic2.png" />
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../../index.html">Startpage</a></li>
+                            <li><a href="../../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.app.module.history</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../model.html"
+                        title="previous chapter">dojox.app.model</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../scene.html"
+                        title="next chapter">dojox.app.scene</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,342 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Build Transform writeAmd &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dojo Build" href="../contents.html" />
+    <link rel="next" title="Build Transform writeDojo" href="writeDojo.html" />
+    <link rel="prev" title="Build Transform write" href="write.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="build-transform-writeamd">
+<span id="build-transforms-writeamd"></span><h1><a class="toc-backref" href="#id1">Build Transform writeAmd</a><a class="headerlink" href="#build-transform-writeamd" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Rawld Gill</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#build-transform-writeamd" id="id1">Build Transform writeAmd</a><ul>
+<li><a class="reference internal" href="#summary" id="id2">Summary</a></li>
+<li><a class="reference internal" href="#description" id="id3">Description</a></li>
+<li><a class="reference internal" href="#profile-knobs" id="id4">Profile Knobs</a></li>
+<li><a class="reference internal" href="#source-location" id="id5">Source Location</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="summary">
+<h2><a class="toc-backref" href="#id2">Summary</a><a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>Writes a transformed AMD module to a destination location.</p>
+</div>
+<div class="section" id="description">
+<h2><a class="toc-backref" href="#id3">Description</a><a class="headerlink" href="#description" title="Permalink to this headline">¶</a></h2>
+<p>This transform writes AMD modules to a destination location, optionally bundling dependencies and other decorations. Any
+module that has been previously processed with the depsScan transform may be submitted to the writeAmd transform:</p>
+<ul class="simple">
+<li>AMD code modules</li>
+<li>AMD NLS modules</li>
+<li>legacy code modules, since depsScan transforms the module text to a valid AMD code module</li>
+<li>legacy NLS modules, since depsScan transforms the module text to a valid AMD NLS module</li>
+</ul>
+<p>A module may be designated as a &#8220;layer&#8221; module by including the module identifier in the profile property <tt class="docutils literal"><span class="pre">layers</span></tt>, a
+map from module identifier to a set of include and/or exclude modules identifiers that indicate modules to explicitly
+include and/or exclude when the module is written. The idea of a layer is to bundle a bunch of modules in a single
+resource to decrease the number of transactions required to load a set of modules.  An item in the <tt class="docutils literal"><span class="pre">layers</span></tt> map has
+the following properties:</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">include</span></tt></dt>
+<dd>An array of module identifiers giving a set of modules to explicitly include when the layer is written.</dd>
+<dt><tt class="docutils literal"><span class="pre">exclude</span></tt></dt>
+<dd>An array of module identifiers giving a set of modules to explicitly exclude when the layer is written.</dd>
+<dt><tt class="docutils literal"><span class="pre">discard</span></tt></dt>
+<dd>Optional. If present, should be truthy to indicate the layer is a synthetic layer used only to compute another layer&#8217;s
+contents. Deprecated as of 1.7; use <tt class="docutils literal"><span class="pre">exclude</span></tt> to explicitly exclude modules from layers instead.</dd>
+<dt><tt class="docutils literal"><span class="pre">boot</span></tt></dt>
+<dd>Optional. If present, should be truthy to indicate the layer should be written with the dojo loader to form a kind of
+bootstrap module.</dd>
+<dt><tt class="docutils literal"><span class="pre">copyright</span></tt></dt>
+<dd>Optional. If present, gives a copywrite message to include when the layer is written. Either a string or a filename
+of a resource containing the copyright text can be provided.</dd>
+</dl>
+<p>The modules to include in a particular layer are computed as follows:</p>
+<ol class="arabic simple">
+<li>The layer module itself.</li>
+<li>Plus the dependency graph implied by the AMD dependencies of the layer module. This is given by the dependency vector
+found in the define application associated with the target module, the modules found in the dependency vectors of
+those modules, and so on until all modules in the graph have been found (remember, though not desirable, there may
+be cycles, so the graph is not necessarily a tree).</li>
+<li>Plus all modules given in the include array, along with all of those modules&#8217; dependency graphs.</li>
+<li>Less all modules given in the exclude array, along with all of those modules&#8217; dependency graphs.</li>
+</ol>
+<p>The layer module is termed the &#8220;layer module&#8221;, all other modules that are computed by the algorithm are termed &#8220;layer
+member modules&#8221;. Heuristically, the idea is to bundle all the modules required to load the layer module as well as all
+modules in the include array, assuming all modules in the exclude array have already been loaded.</p>
+<p>If the module is not a layer, then the transformed module text is written. Any interned strings computed by the
+depsScan transform are also written. If the owning package configuration for the module includes the property
+<tt class="docutils literal"><span class="pre">copywrite</span></tt>, a copyright message, then the value of that property is included in the written resource.</p>
+<p>If the module is a layer and either of the layer properties <tt class="docutils literal"><span class="pre">discard</span></tt> or <tt class="docutils literal"><span class="pre">boot</span></tt> are truthy, then the transform
+computes and memorizes the contents of the module resource but does not write it. If the layer property <tt class="docutils literal"><span class="pre">boot</span></tt> is
+truthy, the resource should be processed by the writeDojo transform which will recall the memorized contents and write
+the layer along with the dojo loader so that the layer may serve as a boot module. See xxx.</p>
+<p>Otherwise, the layer module&#8217;s transformed text is written together with the transformed text or all the layer member
+modules. Member module layer text is written by providing a hash of module values for the dojo loader <tt class="docutils literal"><span class="pre">cache</span></tt>
+configuration property which gives a map from absolute module identifier to a function that causes the equivalent of the
+module resource to be evaluated. For example, if the resource text for the module &#8220;x/y/z&#8221; is given as....</p>
+<div class="highlight"><pre><span class="c1">// some code outside the AMD define application</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello, world; you shouldn&#39;t do this, but you can&quot;</span><span class="p">);</span>
+
+<span class="nx">define</span><span class="p">([</span><span class="cm">/* x/y/x dependencies */</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/* dependency lexical variables */</span><span class="p">){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;in x/y/z&#39;s factory&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+
+<span class="c1">// some more code outside the AMD define application</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;don&#39;t do this either...but you can&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// some code outside the AMD define application
+console.log(&quot;hello, world; you shouldn't do this, but you can&quot;);
+
+define([/* x/y/x dependencies */], function(/* dependency lexical variables */){
+  console.log(&quot;in x/y/z's factory&quot;);
+});
+
+
+// some more code outside the AMD define application
+console.log(&quot;don't do this either...but you can&quot;);</textarea></div><p>And x/y/z is a member module of a layer, then that layer will inject a loader cache configuration value as follows:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">({</span><span class="nx">cache</span><span class="o">:</span><span class="p">{</span>
+  <span class="s2">&quot;x/y/z&quot;</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// some code outside the AMD define application</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;hello, world; you shouldn&#39;t do this, but you can&quot;</span><span class="p">);</span>
+
+    <span class="nx">define</span><span class="p">([</span><span class="cm">/* x/y/x dependencies */</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/* dependency lexical variables */</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;in x/y/z&#39;s factory&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+
+
+    <span class="c1">// some more code outside the AMD define application</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;don&#39;t do this either...but you can&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+
+  <span class="c1">// other member modules as required</span>
+<span class="p">}});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require({cache:{
+  &quot;x/y/z&quot;:function(){
+    // some code outside the AMD define application
+    console.log(&quot;hello, world; you shouldn't do this, but you can&quot;);
+
+    define([/* x/y/x dependencies */], function(/* dependency lexical variables */){
+      console.log(&quot;in x/y/z's factory&quot;);
+    });
+
+
+    // some more code outside the AMD define application
+    console.log(&quot;don't do this either...but you can&quot;);
+  }
+
+  // other member modules as required
+}});</textarea></div><p>This causes the module to be available to the loader upon demand, but the contents of the module&#8217;s resource are <em>not</em>
+evaluated unless and until the module is actually demanded by the run-time execution path. At that point the function is
+evaluated which results in the same effect as if the module has been script injected.</p>
+<p>Similar to a non-layer, if the layer property <tt class="docutils literal"><span class="pre">copyright</span></tt> exists, then the value of that property is included in the
+written resource.</p>
+<p>Lastly, if the profile property <tt class="docutils literal"><span class="pre">insertAbsMids</span></tt> is truthy, then the transform will ensure that the define application
+that defines each AMD module includes a module identifier argument. This is a backcompat feature that is used to
+construct modules that can be loaded with a script tag in the context of the dojo loader operating in a legacy
+mode. Normally, this feature should be avoided.</p>
+</div>
+<div class="section" id="profile-knobs">
+<h2><a class="toc-backref" href="#id4">Profile Knobs</a><a class="headerlink" href="#profile-knobs" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">layers</span></tt> (default = <tt class="docutils literal"><span class="pre">undefined</span></tt>)</dt>
+<dd><ul class="first simple">
+<li>[<em>map from module identifier to layer item</em>] Indicates the given module should be written as a layer.</li>
+</ul>
+<p class="last">If multiple layer objects are given by multiple profile resources, they are mixed on a per-layer basis, as profile
+items are processed left to right on the command line. For example, if two profile resources define the &#8220;x/y/z&#8221; layer,
+the layer item that exists in the last profile processed will overwrite the first layer item completely.</p>
+</dd>
+<dt><tt class="docutils literal"><span class="pre">insertAbsMids</span></tt> (default = <tt class="docutils literal"><span class="pre">undefined</span></tt>)</dt>
+<dd><ul class="first last simple">
+<li>[<em>truthy</em>] Causes the transform to ensure that every AMD define application includes a module identifier argument.</li>
+<li>[<em>falsy</em>] The transform does nothing to the module identifier argument in define applications. In particular, a
+falsy value doe <em>not</em> cause the transform to remove a module identifier argument that exists in the source code.</li>
+</ul>
+</dd>
+</dl>
+<p>Layer items are Javascript objects with the following properties</p>
+<dl class="docutils">
+<dt><tt class="docutils literal"><span class="pre">include</span></tt> (default = <tt class="docutils literal"><span class="pre">[]</span></tt>)</dt>
+<dd>The set of module identifiers that, together with their dependency graphs, should be included in the layer, exclusive
+of the exclude module graph (see next).</dd>
+<dt><tt class="docutils literal"><span class="pre">exclude</span></tt> (default = <tt class="docutils literal"><span class="pre">[]</span></tt>)</dt>
+<dd>The set of module identifiers that, together with their dependency graphs, should be excluded from the layer after all
+include dependencies are computed.</dd>
+<dt><tt class="docutils literal"><span class="pre">discard</span></tt> (default = <tt class="docutils literal"><span class="pre">undefined</span></tt>)</dt>
+<dd>If truthy, then the layer is computed and memorized but not written. This feature is used to construct a layer that is
+used in the <tt class="docutils literal"><span class="pre">include</span></tt> or <tt class="docutils literal"><span class="pre">exclude</span></tt> arrays of other layers.</dd>
+<dt><tt class="docutils literal"><span class="pre">boot</span></tt> (default = <tt class="docutils literal"><span class="pre">undefined</span></tt>)</dt>
+<dd>If truthy, then the layer is computed and memorized but not written. The computed layer is used by the writeDojo
+transform to write the layer along with the dojo loader to form a boot layer.</dd>
+<dt><tt class="docutils literal"><span class="pre">copyright</span></tt> (default = &#8220;&#8221;)</dt>
+<dd>If a string that gives an existing filename, the contents of the named file is used as copyright text for the
+module. Relative filenames are computed with respect to the path that holds the profile resource that contains the
+layer item. If a string that does not give an existing filename, the string it interpreted as an explicit copyright
+message. If no string value is given, then no copyright text is output.</dd>
+</dl>
+</div>
+<div class="section" id="source-location">
+<h2><a class="toc-backref" href="#id5">Source Location</a><a class="headerlink" href="#source-location" title="Permalink to this headline">¶</a></h2>
+<p>util/build/transforms/writeAmd.js</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Build Transform writeAmd</a><ul>
+<li><a class="reference internal" href="#summary">Summary</a></li>
+<li><a class="reference internal" href="#description">Description</a></li>
+<li><a class="reference internal" href="#profile-knobs">Profile Knobs</a></li>
+<li><a class="reference internal" href="#source-location">Source Location</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="write.html"
+                        title="previous chapter">Build Transform write</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="writeDojo.html"
+                        title="next chapter">Build Transform writeDojo</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

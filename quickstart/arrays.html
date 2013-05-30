@@ -1,0 +1,735 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Arrays and Dojo &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Quickstart" href="contents.html" />
+    <link rel="next" title="Back buttons and Dojo" href="back.html" />
+    <link rel="prev" title="AJAX and Dojo" href="ajax.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="arrays-and-dojo">
+<span id="quickstart-arrays"></span><h1><a class="toc-backref" href="#id1">Arrays and Dojo</a><a class="headerlink" href="#arrays-and-dojo" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Nikolai Onken, Marcus Reimann, Josh Trutwin</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#arrays-and-dojo" id="id1">Arrays and Dojo</a><ul>
+<li><a class="reference internal" href="#dojo-indexof" id="id2">dojo.indexOf</a></li>
+<li><a class="reference internal" href="#dojo-lastindexof" id="id3">dojo.lastIndexOf</a></li>
+<li><a class="reference internal" href="#dojo-foreach" id="id4">dojo.forEach</a></li>
+<li><a class="reference internal" href="#dojo-filter" id="id5">dojo.filter</a></li>
+<li><a class="reference internal" href="#dojo-map" id="id6">dojo.map</a></li>
+<li><a class="reference internal" href="#dojo-some" id="id7">dojo.some</a></li>
+<li><a class="reference internal" href="#dojo-every" id="id8">dojo.every</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Dojo comes with a bunch of useful methods to deal with arrays, a few more than you get from your browser by default.</p>
+<div class="section" id="dojo-indexof">
+<h2><a class="toc-backref" href="#id2">dojo.indexOf</a><a class="headerlink" href="#dojo-indexof" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">valueToFind</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">,</span> <span class="nx">findLast</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">valueToFind</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">,</span> <span class="nx">findLast</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.indexOf(arrayObject, valueToFind, fromIndex, findLast);
+});
+
+// Dojo &lt; 1.7
+dojo.indexOf(array, valueToFind, fromIndex, findLast)</textarea></div><p>dojo.indexOf lets you easily determine the index of an element in an array. It locates the first index of the provided value in the passed array. If the value is not found, -1 is returned.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// this Button is just to make the demo look nicer:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">arrIndxOf</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;hoo&quot;</span><span class="p">,</span> <span class="s2">&quot;zoo&quot;</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">testIndxOf</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">arrIndxOf</span><span class="p">,</span> <span class="s2">&quot;zoo&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">place</span><span class="p">(</span>
+        <span class="s2">&quot;&lt;p&gt;The index of the word &#39;zoo&#39; within the array is &quot;</span> <span class="o">+</span> <span class="nx">position</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;result1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;after&quot;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// this Button is just to make the demo look nicer:
+dojo.require(&quot;dijit.form.Button&quot;);
+
+var arrIndxOf = [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;];
+
+var testIndxOf = function(){
+    var position = dojo.indexOf(arrIndxOf, &quot;zoo&quot;);
+    dojo.place(
+        &quot;&lt;p&gt;The index of the word 'zoo' within the array is &quot; + position + &quot;&lt;/p&gt;&quot;,
+        &quot;result1&quot;,
+        &quot;after&quot;
+    );
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;div&gt;</span>The content of our test array is [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;].<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;refButton1&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:testIndxOf&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show the index of the word &#39;zoo&#39; within the array.<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result1&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div&gt;The content of our test array is [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;].&lt;/div&gt;
+&lt;button id=&quot;refButton1&quot; data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:testIndxOf&quot; type=&quot;button&quot;&gt;Show the index of the word 'zoo' within the array.&lt;/button&gt;
+&lt;div id=&quot;result1&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="dojo-lastindexof">
+<h2><a class="toc-backref" href="#id3">dojo.lastIndexOf</a><a class="headerlink" href="#dojo-lastindexof" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">valueToFind</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">valueToFind</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.lastIndexOf(arrayObject, valueToFind, fromIndex);
+});
+
+// Dojo &lt; 1.7
+dojo.lastIndexOf(array, valueToFind, fromIndex)</textarea></div><p>dojo.lastIndexOf lets you easily determine the last index of an element in an array. It locates the last index of the provided value in the passed array. If the value is not found, -1 is returned.</p>
+<p><strong>Note</strong>: Calling <cite>indexOf</cite> with the <cite>findLast</cite> parameter set to true is the same as calling <cite>lastIndexOf</cite>.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// this Button is just to make the demo look nicer:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">arrLastIndxOf</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;hoo&quot;</span><span class="p">,</span> <span class="s2">&quot;zoo&quot;</span><span class="p">,</span> <span class="s2">&quot;shoe&quot;</span><span class="p">,</span> <span class="s2">&quot;zoo&quot;</span><span class="p">,</span> <span class="s2">&quot;nuu&quot;</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">testLastIndxOf</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">position</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">lastIndexOf</span><span class="p">(</span><span class="nx">arrLastIndxOf</span> <span class="p">,</span> <span class="s2">&quot;zoo&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">place</span><span class="p">(</span>
+        <span class="s2">&quot;&lt;p&gt;The last index of the word &#39;zoo&#39; within the array is &quot;</span> <span class="o">+</span> <span class="nx">position</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;result2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;after&quot;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// this Button is just to make the demo look nicer:
+dojo.require(&quot;dijit.form.Button&quot;);
+
+var arrLastIndxOf = [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;, &quot;shoe&quot;, &quot;zoo&quot;, &quot;nuu&quot;];
+
+var testLastIndxOf = function(){
+    var position = dojo.lastIndexOf(arrLastIndxOf , &quot;zoo&quot;);
+    dojo.place(
+        &quot;&lt;p&gt;The last index of the word 'zoo' within the array is &quot; + position + &quot;&lt;/p&gt;&quot;,
+        &quot;result2&quot;,
+        &quot;after&quot;
+    );
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;div&gt;</span>The content of our test array is [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;, &quot;shoe&quot;, &quot;zoo&quot;, &quot;nuu&quot;].<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;refButton2&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:testLastIndxOf&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show the last index of the word &#39;zoo&#39; within the array.<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result2&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div&gt;The content of our test array is [&quot;foo&quot;, &quot;hoo&quot;, &quot;zoo&quot;, &quot;shoe&quot;, &quot;zoo&quot;, &quot;nuu&quot;].&lt;/div&gt;
+&lt;button id=&quot;refButton2&quot; data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:testLastIndxOf&quot; type=&quot;button&quot;&gt;Show the last index of the word 'zoo' within the array.&lt;/button&gt;
+&lt;div id=&quot;result2&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="dojo-foreach">
+<h2><a class="toc-backref" href="#id4">dojo.forEach</a><a class="headerlink" href="#dojo-foreach" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">fromIndex</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.forEach(arrayObject, callback, fromIndex);
+});
+
+// Dojo &lt; 1.7
+dojo.forEach(array, callback, fromIndex)</textarea></div><p>This is a heavy lifter you will use often when writing your apps using Dojo. dojo.forEach lets you iterate over arrays, node lists and provides you with ways to filter your results. Lets take a look at a very basic example.
+Note the &#8220;i&#8221; variable which returns the current position of an iteration</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span> <span class="c1">// this is just to make the demo look nicer</span>
+
+<span class="kd">var</span> <span class="nx">arrFruit</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="s2">&quot;kiwis&quot;</span><span class="p">,</span> <span class="s2">&quot;pineapples&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">populateData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arrFruit</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;forEach-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;); // this is just to make the demo look nicer
+
+var arrFruit = [&quot;apples&quot;, &quot;kiwis&quot;, &quot;pineapples&quot;];
+var populateData = function(){
+  dojo.forEach(arrFruit, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. &quot;+item;
+    dojo.byId(&quot;forEach-items&quot;).appendChild(li);
+  });
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:populateData&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Populate data<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;forEach-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:populateData&quot; type=&quot;button&quot;&gt;Populate data&lt;/button&gt;
+&lt;ul id=&quot;forEach-items&quot;&gt;
+
+&lt;/ul&gt;</textarea></div></div></div><p>Now let&#8217;s use dojo.forEach with a list of dom nodes we retrieve using dojo.query. Note that dojo.query returns the list of dom nodes as an array. This way you can easily iterate over each dom node using dojo.forEach</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span> <span class="c1">// this is just to make the demo look nicer</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;apples&quot;</span><span class="p">,</span> <span class="s2">&quot;kiwis&quot;</span><span class="p">,</span> <span class="s2">&quot;pineapples&quot;</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">populateQueryData</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;forEachQuery-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;); // this is just to make the demo look nicer
+
+var arr = [&quot;apples&quot;, &quot;kiwis&quot;, &quot;pineapples&quot;];
+var populateQueryData = function(){
+  dojo.forEach(arr, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. &quot;+item;
+    dojo.byId(&quot;forEachQuery-items&quot;).appendChild(li);
+  });
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:populateQueryData&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Populate data<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;forEachQuery-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:populateQueryData&quot; type=&quot;button&quot;&gt;Populate data&lt;/button&gt;
+&lt;ul id=&quot;forEachQuery-items&quot;&gt;
+
+&lt;/ul&gt;</textarea></div></div></div><p>To break the forEach-Loop you should use dojo.some</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="kd">function</span> <span class="nx">arrayLoopTest</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">myArray</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">];</span>
+    <span class="kd">var</span> <span class="nx">count</span><span class="p">;</span>
+
+    <span class="c1">// let&#39;s iterate ALL entries of myArray</span>
+    <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">myArray</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">){</span>
+        <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;iterated &quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot; entries (dojo.forEach)&quot;</span><span class="p">);</span> <span class="c1">// will show &quot;iterated 10 entries&quot;</span>
+
+    <span class="c1">// let&#39;s only iterate the first 4 entries of myArray</span>
+    <span class="nx">count</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">myArray</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">entry</span><span class="p">){</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="nx">count</span> <span class="o">&gt;=</span> <span class="mi">4</span><span class="p">)</span>
+        <span class="p">{</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="nx">count</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;iterated &quot;</span><span class="o">+</span><span class="nx">count</span><span class="o">+</span><span class="s2">&quot; entries (dojo.some)&quot;</span><span class="p">);</span> <span class="c1">// will show &quot;iterated 4 entries&quot;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+
+function arrayLoopTest(){
+    var myArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+    var count;
+
+    // let's iterate ALL entries of myArray
+    count = 0;
+    dojo.forEach(myArray, function(entry){
+        count++;
+    });
+
+    alert(&quot;iterated &quot;+count+&quot; entries (dojo.forEach)&quot;); // will show &quot;iterated 10 entries&quot;
+
+    // let's only iterate the first 4 entries of myArray
+    count = 0;
+    dojo.some(myArray, function(entry){
+
+        if(count &gt;= 4)
+        {
+            return false;
+        }
+
+        count++;
+    });
+
+    alert(&quot;iterated &quot;+count+&quot; entries (dojo.some)&quot;); // will show &quot;iterated 4 entries&quot;
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){arrayLoopTest()}&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Start Testloops<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:function(){arrayLoopTest()}&quot; type=&quot;button&quot;&gt;Start Testloops&lt;/button&gt;</textarea></div></div></div></div>
+<div class="section" id="dojo-filter">
+<h2><a class="toc-backref" href="#id5">dojo.filter</a><a class="headerlink" href="#dojo-filter" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">filteredArray</span> <span class="o">=</span> <span class="nx">array</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">unfilteredArray</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">filteredArray</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">unfilteredArray</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  filteredArray = array.filter(unfilteredArray, callback, thisObject);
+});
+
+// Dojo &lt; 1.7
+filteredArray = dojo.filter(unfilteredArray, callback, thisObject)</textarea></div><p>There are many cases when you have an array and want to filter it by a certain condition, <tt class="docutils literal"><span class="pre">dojo.filter</span></tt> will only keep values from <tt class="docutils literal"><span class="pre">unfilteredArray</span></tt> for which <tt class="docutils literal"><span class="pre">callback</span></tt> returns <tt class="docutils literal"><span class="pre">true</span></tt>. The original array is not modified.</p>
+<p>Say you have an array of people with a last name.
+You would like to filter those having a certain last name.
+Let&#8217;s take a look at an example:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span> <span class="c1">// this is just to make the demo look nicer</span>
+
+<span class="kd">var</span> <span class="nx">arr</span> <span class="o">=</span> <span class="p">[{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Washington&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Paul&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Gordon&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Amie&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Meyer&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Sofie&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Jaysons&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Josh&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Washington&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;George&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Doormat&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Amber&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Smith&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Susan&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Hill&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Strawberry&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Washington&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Dan&quot;</span><span class="p">},</span>
+           <span class="p">{</span><span class="nx">surname</span><span class="o">:</span> <span class="s2">&quot;Dojo&quot;</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;Master&quot;</span><span class="p">}];</span>
+
+<span class="kd">var</span> <span class="nx">filterArray</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">filteredArr</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">filter</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">surname</span> <span class="o">==</span> <span class="s2">&quot;Washington&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">filteredArr</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">surname</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;filtered-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arr</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">surname</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">.</span><span class="nx">name</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;unFiltered-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;); // this is just to make the demo look nicer
+
+var arr = [{surname: &quot;Washington&quot;, name: &quot;Paul&quot;},
+           {surname: &quot;Gordon&quot;, name: &quot;Amie&quot;},
+           {surname: &quot;Meyer&quot;, name: &quot;Sofie&quot;},
+           {surname: &quot;Jaysons&quot;, name: &quot;Josh&quot;},
+           {surname: &quot;Washington&quot;, name: &quot;George&quot;},
+           {surname: &quot;Doormat&quot;, name: &quot;Amber&quot;},
+           {surname: &quot;Smith&quot;, name: &quot;Susan&quot;},
+           {surname: &quot;Hill&quot;, name: &quot;Strawberry&quot;},
+           {surname: &quot;Washington&quot;, name: &quot;Dan&quot;},
+           {surname: &quot;Dojo&quot;, name: &quot;Master&quot;}];
+
+var filterArray = function(){
+  var filteredArr = dojo.filter(arr, function(item){
+    return item.surname == &quot;Washington&quot;;
+  });
+
+  dojo.forEach(filteredArr, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. &quot;+item.surname+&quot;, &quot;+item.name;
+    dojo.byId(&quot;filtered-items&quot;).appendChild(li);
+  });
+
+  dojo.forEach(arr, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. &quot;+item.surname+&quot;, &quot;+item.name;
+    dojo.byId(&quot;unFiltered-items&quot;).appendChild(li);
+  });
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:filterArray&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Filter array<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; float: left;&quot;</span><span class="nt">&gt;</span>
+Filtered items<span class="nt">&lt;br</span> <span class="nt">/&gt;</span>(only people with &quot;Washington&quot; as surname)
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;filtered-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; float: left;&quot;</span><span class="nt">&gt;</span>
+Unfiltered items<span class="nt">&lt;br</span> <span class="nt">/&gt;</span> (all people are represented in the list)
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;unFiltered-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:filterArray&quot; type=&quot;button&quot;&gt;Filter array&lt;/button&gt;
+&lt;div style=&quot;width: 300px; float: left;&quot;&gt;
+Filtered items&lt;br /&gt;(only people with &quot;Washington&quot; as surname)
+&lt;ul id=&quot;filtered-items&quot;&gt;
+
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width: 300px; float: left;&quot;&gt;
+Unfiltered items&lt;br /&gt; (all people are represented in the list)
+&lt;ul id=&quot;unFiltered-items&quot;&gt;
+
+&lt;/ul&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="dojo-map">
+<h2><a class="toc-backref" href="#id6">dojo.map</a><a class="headerlink" href="#dojo-map" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.map(arrayObject, callback, thisObject);
+});
+
+// Dojo &lt; 1.7
+dojo.map(array, callback, thisObject)</textarea></div><p>Another great function provided by Dojo is dojo.map. dojo.map lets you run a function on all elements of an array and returns a new array with the changed values. A very good example is the &#8220;Give all my employees a 10% salary rise&#8221;:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span> <span class="c1">// this is just to make the demo look nicer</span>
+
+<span class="kd">var</span> <span class="nx">arrSalary</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200</span><span class="p">,</span> <span class="mi">300</span><span class="p">,</span> <span class="mi">1500</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">4500</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">raiseSalary</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">raisedSalaries</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">map</span><span class="p">(</span><span class="nx">arrSalary</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">item</span><span class="o">+</span><span class="p">(</span><span class="nx">item</span><span class="o">/</span><span class="mi">100</span><span class="p">)</span><span class="o">*</span><span class="mi">10</span><span class="p">;</span>
+  <span class="p">});</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">raisedSalaries</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. New salary: &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;filteredSalary-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">arrSalary</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">li</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;li&quot;</span><span class="p">);</span>
+    <span class="nx">li</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="o">+</span><span class="s2">&quot;. Old salary: &quot;</span><span class="o">+</span><span class="nx">item</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;unFilteredSalary-items&quot;</span><span class="p">).</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">li</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;); // this is just to make the demo look nicer
+
+var arrSalary = [200, 300, 1500, 5, 4500];
+
+var raiseSalary = function(){
+  var raisedSalaries = dojo.map(arrSalary, function(item){
+    return item+(item/100)*10;
+  });
+
+  dojo.forEach(raisedSalaries, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. New salary: &quot;+item;
+    dojo.byId(&quot;filteredSalary-items&quot;).appendChild(li);
+  });
+
+  dojo.forEach(arrSalary, function(item, i){
+    var li = dojo.doc.createElement(&quot;li&quot;);
+    li.innerHTML = i+1+&quot;. Old salary: &quot;+item;
+    dojo.byId(&quot;unFilteredSalary-items&quot;).appendChild(li);
+  });
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:raiseSalary&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Raise the salary<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; float: left;&quot;</span><span class="nt">&gt;</span>
+Peoples salaries after raise:
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;filteredSalary-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; float: left;&quot;</span><span class="nt">&gt;</span>
+Peoples salaries before raise:
+<span class="nt">&lt;ul</span> <span class="na">id=</span><span class="s">&quot;unFilteredSalary-items&quot;</span><span class="nt">&gt;</span>
+
+<span class="nt">&lt;/ul&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:raiseSalary&quot; type=&quot;button&quot;&gt;Raise the salary&lt;/button&gt;
+&lt;div style=&quot;width: 300px; float: left;&quot;&gt;
+Peoples salaries after raise:
+&lt;ul id=&quot;filteredSalary-items&quot;&gt;
+
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div style=&quot;width: 300px; float: left;&quot;&gt;
+Peoples salaries before raise:
+&lt;ul id=&quot;unFilteredSalary-items&quot;&gt;
+
+&lt;/ul&gt;
+&lt;/div&gt;</textarea></div></div></div><p>For complete documentation and more examples please check the <a class="reference internal" href="../dojo/map.html#dojo-map"><em>dojo.map documentation</em></a></p>
+</div>
+<div class="section" id="dojo-some">
+<h2><a class="toc-backref" href="#id7">dojo.some</a><a class="headerlink" href="#dojo-some" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.some(arrayObject, callback, thisObject);
+});
+
+// Dojo &lt; 1.7
+dojo.some(array, callback, thisObject);</textarea></div><p>Semantically, calling <tt class="docutils literal"><span class="pre">dojo.some</span></tt> is like asking, &#8220;does the test this function performs hold true for at least one item (&#8216;some item&#8217;) in the array?&#8221;  Like <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt>, <tt class="docutils literal"><span class="pre">dojo.some</span></tt> iterates over the items in an array; however, it stops and returns <tt class="docutils literal"><span class="pre">true</span></tt> as soon as it encounters an item for which the provided callback returns <tt class="docutils literal"><span class="pre">true</span></tt>.  If the callback doesn&#8217;t return <tt class="docutils literal"><span class="pre">true</span></tt> for even a single item, <tt class="docutils literal"><span class="pre">dojo.some</span></tt> returns <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+<p>For example, imagine you are a manager of a famous bank. A client of you comes and visits your office asking for another million dollars as a credit.
+Now your bank policies only allow you to give each client one credit over 1 million, not two, not three - though you may have several smaller credits. Even 3 credits a 500.000 - weird bank.. anyways. dojo.some is the perfect function to tell you whether an array has some values satisfying this condition:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// this Button is just to make the demo look nicer:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">arrIndxSome</span> <span class="o">=</span> <span class="p">[</span><span class="mi">200000</span><span class="p">,</span> <span class="mi">500000</span><span class="p">,</span> <span class="mi">350000</span><span class="p">,</span> <span class="mi">1000000</span><span class="p">,</span> <span class="mi">75</span><span class="p">,</span> <span class="mi">3</span><span class="p">];</span>
+
+<span class="kd">var</span> <span class="nx">testIndxSome</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">some</span><span class="p">(</span><span class="nx">arrIndxSome</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span> <span class="k">return</span> <span class="nx">item</span><span class="o">&gt;=</span><span class="mi">1000000</span><span class="p">})){</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;yes, there are&#39;</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;no, there are no such items&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">place</span><span class="p">(</span>
+        <span class="s2">&quot;&lt;p&gt;The answer is: &quot;</span> <span class="o">+</span> <span class="nx">result</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;result6&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;after&quot;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// this Button is just to make the demo look nicer:
+dojo.require(&quot;dijit.form.Button&quot;);
+
+var arrIndxSome = [200000, 500000, 350000, 1000000, 75, 3];
+
+var testIndxSome = function(){
+    if(dojo.some(arrIndxSome, function(item){ return item&gt;=1000000})){
+        result = 'yes, there are';
+    }else{
+        result = 'no, there are no such items';
+    }
+    dojo.place(
+        &quot;&lt;p&gt;The answer is: &quot; + result + &quot;&lt;/p&gt;&quot;,
+        &quot;result6&quot;,
+        &quot;after&quot;
+    );
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;div&gt;</span>The content of our test array is [200000, 500000, 350000, 1000000, 75, 3].<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;refButton6&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:testIndxSome&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Are there some items &gt;=1000000 within the array?<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result6&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div&gt;The content of our test array is [200000, 500000, 350000, 1000000, 75, 3].&lt;/div&gt;
+&lt;button id=&quot;refButton6&quot; data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:testIndxSome&quot; type=&quot;button&quot;&gt;Are there some items &gt;=1000000 within the array?&lt;/button&gt;
+&lt;div id=&quot;result6&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="dojo-every">
+<h2><a class="toc-backref" href="#id8">dojo.every</a><a class="headerlink" href="#dojo-every" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">){</span>
+  <span class="nx">array</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">arrayObject</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">callback</span><span class="p">,</span> <span class="nx">thisObject</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/array&quot;], function(array){
+  array.every(arrayObject, callback, thisObject);
+});
+
+// Dojo &lt; 1.7
+dojo.every(array, callback, thisObject);</textarea></div><p><tt class="docutils literal"><span class="pre">dojo.every</span></tt> is somewhat of a spiritual opposite to <tt class="docutils literal"><span class="pre">dojo.some</span></tt> - in this case, it&#8217;s like asking, &#8220;does this test hold true for <em>every</em> item in the array?&#8221;  In other words, if even one invocation of the callback returns <tt class="docutils literal"><span class="pre">false</span></tt>, <tt class="docutils literal"><span class="pre">dojo.every</span></tt> immediately short-circuits and returns false.  If all iterations of the callback return <tt class="docutils literal"><span class="pre">true</span></tt>, so does <tt class="docutils literal"><span class="pre">dojo.every</span></tt>.</p>
+<p>Let&#8217;s get back to our bank manager example.  A client wants another credit, but you only allow a credit if every income transfer is at least 3000,-
+An example:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// this Button is just to make the demo look nicer:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">arrIndxEvery</span> <span class="o">=</span> <span class="p">[{</span><span class="s1">&#39;month&#39;</span><span class="o">:</span> <span class="s1">&#39;january&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="o">:</span> <span class="mi">2000</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;month&#39;</span><span class="o">:</span> <span class="s1">&#39;february&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="o">:</span> <span class="mi">3200</span><span class="p">},</span> <span class="p">{</span><span class="s1">&#39;month&#39;</span><span class="o">:</span> <span class="s1">&#39;march&#39;</span><span class="p">,</span> <span class="s1">&#39;income&#39;</span><span class="o">:</span> <span class="mi">2100</span><span class="p">}];</span>
+
+<span class="kd">var</span> <span class="nx">testIndxSome</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">every</span><span class="p">(</span><span class="nx">arrIndxEvery</span> <span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span> <span class="k">return</span> <span class="nx">item</span><span class="p">.</span><span class="nx">income</span><span class="o">&gt;=</span><span class="mi">3000</span><span class="p">})){</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;yes, he is allowed&#39;</span><span class="p">;</span>
+    <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+        <span class="nx">result</span> <span class="o">=</span> <span class="s1">&#39;no, unfortunately not&#39;</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">place</span><span class="p">(</span>
+        <span class="s2">&quot;&lt;p&gt;The answer is: &quot;</span> <span class="o">+</span> <span class="nx">result</span> <span class="o">+</span> <span class="s2">&quot;&lt;/p&gt;&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;result7&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;after&quot;</span>
+    <span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// this Button is just to make the demo look nicer:
+dojo.require(&quot;dijit.form.Button&quot;);
+
+var arrIndxEvery = [{'month': 'january', 'income': 2000}, {'month': 'february', 'income': 3200}, {'month': 'march', 'income': 2100}];
+
+var testIndxSome = function(){
+    if(dojo.every(arrIndxEvery , function(item){ return item.income&gt;=3000})){
+        result = 'yes, he is allowed';
+    }else{
+        result = 'no, unfortunately not';
+    }
+    dojo.place(
+        &quot;&lt;p&gt;The answer is: &quot; + result + &quot;&lt;/p&gt;&quot;,
+        &quot;result7&quot;,
+        &quot;after&quot;
+    );
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;div&gt;</span>The content of our test array is [{&#39;month&#39;: &#39;january&#39;, &#39;income&#39;: 2000}, {&#39;month&#39;: &#39;february&#39;, &#39;income&#39;: 3200}, {&#39;month&#39;: &#39;march&#39;, &#39;income&#39;: 2100}].<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;refButton7&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:testIndxSome&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Is the client allowed to get the credit?<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result7&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div&gt;The content of our test array is [{'month': 'january', 'income': 2000}, {'month': 'february', 'income': 3200}, {'month': 'march', 'income': 2100}].&lt;/div&gt;
+&lt;button id=&quot;refButton7&quot; data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:testIndxSome&quot; type=&quot;button&quot;&gt;Is the client allowed to get the credit?&lt;/button&gt;
+&lt;div id=&quot;result7&quot;&gt;&lt;/div&gt;</textarea></div></div></div><p>As you may have guessed, due to the short-circuiting nature of <tt class="docutils literal"><span class="pre">dojo.some</span></tt> and <tt class="docutils literal"><span class="pre">dojo.every</span></tt>, they can be cleverly employed as more efficient alternatives to <tt class="docutils literal"><span class="pre">forEach</span></tt> in cases where there is potential to break out of the loop early and save processing.</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Arrays and Dojo</a><ul>
+<li><a class="reference internal" href="#dojo-indexof">dojo.indexOf</a></li>
+<li><a class="reference internal" href="#dojo-lastindexof">dojo.lastIndexOf</a></li>
+<li><a class="reference internal" href="#dojo-foreach">dojo.forEach</a></li>
+<li><a class="reference internal" href="#dojo-filter">dojo.filter</a></li>
+<li><a class="reference internal" href="#dojo-map">dojo.map</a></li>
+<li><a class="reference internal" href="#dojo-some">dojo.some</a></li>
+<li><a class="reference internal" href="#dojo-every">dojo.every</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ajax.html"
+                        title="previous chapter">AJAX and Dojo</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="back.html"
+                        title="next chapter">Back buttons and Dojo</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

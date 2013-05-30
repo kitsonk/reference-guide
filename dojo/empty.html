@@ -1,0 +1,364 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.empty &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.eval" href="eval.html" />
+    <link rel="prev" title="dojo/domReady!" href="domReady.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-empty">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.empty</a><a class="headerlink" href="#dojo-empty" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Project owner:</th><td class="field-body">Peter Higgins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">V1.0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-empty" id="id2">dojo.empty</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#see-also" id="id6">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Empty the contents of a DOM element. dojo.empty deletes all children but keeps the node there.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>dojo.empty safely removes all children of the node.</p>
+<p>Since Dojo 1.7, <tt class="docutils literal"><span class="pre">dojo.empty</span></tt> is exposed via the <tt class="docutils literal"><span class="pre">empty</span></tt> method of the <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt> module.  An alias is kept in <tt class="docutils literal"><span class="pre">dojo/_base/html</span></tt> for backward-compatibility.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7+ (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<p>When using AMD format in a fully baseless application, <tt class="docutils literal"><span class="pre">empty</span></tt> is accessed from the <tt class="docutils literal"><span class="pre">dojo/dom-construct</span></tt> module.</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-construct&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domConstruct</span><span class="p">){</span>
+  <span class="c1">// Empty node&#39;s children byId:</span>
+  <span class="nx">domConstruct</span><span class="p">.</span><span class="nx">empty</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/dom-construct&quot;], function(domConstruct){
+  // Empty node's children byId:
+  domConstruct.empty(&quot;someId&quot;);
+});</textarea></div><p>Alternatively, you can load dojo base in AMD style and continue using <tt class="docutils literal"><span class="pre">dojo.empty</span></tt> in the <tt class="docutils literal"><span class="pre">define</span></tt> or <tt class="docutils literal"><span class="pre">require</span></tt> callback:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="c1">// Empty node&#39;s children byId:</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">empty</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo&quot;], function(dojo){
+  // Empty node's children byId:
+  dojo.empty(&quot;someId&quot;);
+});</textarea></div></div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Empty node&#39;s children byId:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">empty</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Empty node's children byId:
+dojo.empty(&quot;someId&quot;);</textarea></div><p>This function only works with DomNodes, and returns nothing.</p>
+</div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="empty-a-single-node">
+<h3>Empty a single node<a class="headerlink" href="#empty-a-single-node" title="Permalink to this headline">¶</a></h3>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><blockquote>
+<div>Empty a DomNode</div></blockquote>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// Create a button programmatically:</span>
+    <span class="kd">var</span> <span class="nx">button</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Empty TestNode1&quot;</span><span class="p">,</span>
+        <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="c1">// Empty TestNode1:</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">empty</span><span class="p">(</span><span class="s2">&quot;testnode1&quot;</span><span class="p">);</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;result1&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;TestNode1 has been emptied.&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="s2">&quot;progButtonNode&quot;</span><span class="p">);</span>
+
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+
+dojo.ready(function(){
+    // Create a button programmatically:
+    var button = new dijit.form.Button({
+        label: &quot;Empty TestNode1&quot;,
+        onClick: function(){
+            // Empty TestNode1:
+            dojo.empty(&quot;testnode1&quot;);
+            dojo.byId(&quot;result1&quot;).innerHTML = &quot;TestNode1 has been emptied.&quot;;
+        }
+    }, &quot;progButtonNode&quot;);
+
+});</textarea></div><p>Some DomNodes</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;testnode1&quot;</span><span class="nt">&gt;</span>TestNode 1<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;progButtonNode&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result1&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;testnode1&quot;&gt;TestNode 1&lt;/div&gt;
+&lt;button id=&quot;progButtonNode&quot; type=&quot;button&quot;&gt;&lt;/button&gt;
+&lt;div id=&quot;result1&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="empty-all-nodes-in-a-list-by-reference">
+<h3>Empty all nodes in a list by reference<a class="headerlink" href="#empty-all-nodes-in-a-list-by-reference" title="Permalink to this headline">¶</a></h3>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nc">.green</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span> <span class="k">min-width</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span> <span class="k">min-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#4d4d4d</span> <span class="k">solid</span><span class="p">;</span> <span class="k">margin-top</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">green</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">2px</span> <span class="p">}</span>
+<span class="nc">.red</span> <span class="p">{</span> <span class="k">color</span><span class="o">:</span> <span class="nb">white</span><span class="p">;</span> <span class="k">min-width</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span> <span class="k">min-height</span><span class="o">:</span> <span class="m">30px</span><span class="p">;</span>
+    <span class="k">border</span><span class="o">:</span> <span class="m">1px</span> <span class="m">#4d4d4d</span> <span class="k">solid</span><span class="p">;</span> <span class="k">margin-top</span><span class="o">:</span> <span class="m">4px</span><span class="p">;</span> <span class="k">margin-right</span><span class="o">:</span> <span class="m">5px</span><span class="p">;</span>
+    <span class="k">float</span><span class="o">:</span> <span class="k">left</span><span class="p">;</span> <span class="k">background-color</span><span class="o">:</span> <span class="nb">red</span><span class="p">;</span> <span class="k">padding</span><span class="o">:</span> <span class="m">2px</span> <span class="p">}</span>
+<span class="nf">#panel</span> <span class="p">{</span> <span class="k">clear</span><span class="o">:</span> <span class="k">both</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.green { color: white; min-width: 30px; min-height: 30px;
+    border: 1px #4d4d4d solid; margin-top: 4px; margin-right: 5px;
+    float: left; background-color: green; padding: 2px }
+.red { color: white; min-width: 30px; min-height: 30px;
+    border: 1px #4d4d4d solid; margin-top: 4px; margin-right: 5px;
+    float: left; background-color: red; padding: 2px }
+#panel { clear: both }</textarea></div><p>Empty all Nodes in a list by reference</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// Create a button programmatically:</span>
+    <span class="kd">var</span> <span class="nx">button2</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">form</span><span class="p">.</span><span class="nx">Button</span><span class="p">({</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s2">&quot;Empty all red nodes&quot;</span><span class="p">,</span>
+        <span class="nx">onClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+            <span class="c1">// Empty all nodes in a list by reference:</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.red&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">empty</span><span class="p">);</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;result2&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;All red nodes were emptied.&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">},</span> <span class="s2">&quot;progButtonNode2&quot;</span><span class="p">);</span>
+
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+
+dojo.ready(function(){
+    // Create a button programmatically:
+    var button2 = new dijit.form.Button({
+        label: &quot;Empty all red nodes&quot;,
+        onClick: function(){
+            // Empty all nodes in a list by reference:
+            dojo.query(&quot;.red&quot;).forEach(dojo.empty);
+            dojo.byId(&quot;result2&quot;).innerHTML = &quot;All red nodes were emptied.&quot;;
+        }
+    }, &quot;progButtonNode2&quot;);
+
+});</textarea></div><p>Some DomNodes</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;green&quot;</span><span class="nt">&gt;</span>greenNode<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;red&quot;</span><span class="nt">&gt;</span>redNode<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;panel&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;progButtonNode2&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;&lt;/button&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;result2&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;green&quot;&gt;greenNode&lt;/div&gt;
+&lt;div class=&quot;red&quot;&gt;redNode&lt;/div&gt;
+
+&lt;div id=&quot;panel&quot;&gt;
+    &lt;button id=&quot;progButtonNode2&quot; type=&quot;button&quot;&gt;&lt;/button&gt;
+    &lt;div id=&quot;result2&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id6">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="create.html#dojo-create"><em>dojo.create</em></a></li>
+<li><a class="reference internal" href="place.html#dojo-place"><em>dojo.place</em></a></li>
+<li><a class="reference internal" href="destroy.html#dojo-destroy"><em>dojo.destroy</em></a></li>
+<li><a class="reference internal" href="../quickstart/dom.html#quickstart-dom"><em>DOM Utilities</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.empty</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7+ (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#empty-a-single-node">Empty a single node</a></li>
+<li><a class="reference internal" href="#empty-all-nodes-in-a-list-by-reference">Empty all nodes in a list by reference</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="domReady.html"
+                        title="previous chapter">dojo/domReady!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="eval.html"
+                        title="next chapter">dojo.eval</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

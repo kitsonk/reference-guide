@@ -1,0 +1,457 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.Stateful &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo._Url" href="Url.html" />
+    <link rel="prev" title="dojo.NodeList.removeAttr" href="NodeList/removeAttr.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-stateful">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.Stateful</a><a class="headerlink" href="#dojo-stateful" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Kris Zyp, Marcus Reimann</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Project owner:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.5</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-stateful" id="id2">dojo.Stateful</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#available-methods" id="id5">Available Methods</a></li>
+<li><a class="reference internal" href="#examples" id="id6">Examples</a></li>
+<li><a class="reference internal" href="#see-also" id="id7">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>A new generic interface and base class for getting, setting, and watching for property changes (with getters and setters) in a consistent manner.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>dojo.Stateful provides the ability to get and set named properties in conjunction with the ability to monitor these properties for changes. dojo.Stateful is intended to be a base class that can be extended by other components that wish to support watchable properties. This can be very useful for creating live bindings that utilize current property states and must react to any changes in properties.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7 (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/Stateful&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Stateful</span><span class="p">){</span>
+     <span class="c1">// create a new Stateful object:</span>
+     <span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stateful</span><span class="p">();</span>
+     <span class="c1">// watch changes of property &#39;foo&#39;:</span>
+     <span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+         <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;foo changed to &quot;</span> <span class="o">+</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">));</span>
+     <span class="p">});</span>
+     <span class="c1">// test: change obj.foo:</span>
+     <span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/Stateful&quot;], function(Stateful){
+     // create a new Stateful object:
+     var myObj = new Stateful();
+     // watch changes of property 'foo':
+     myObj.watch(&quot;foo&quot;, function(){
+         console.log(&quot;foo changed to &quot; + myObj.get(&quot;foo&quot;));
+     });
+     // test: change obj.foo:
+     myObj.set(&quot;foo&quot;, &quot;bar&quot;);
+});</textarea></div></div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s1">&#39;dojo.Stateful&#39;</span><span class="p">);</span>
+
+<span class="c1">// create a new Stateful object:</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">();</span>
+<span class="c1">// watch changes of property &#39;foo&#39;:</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;foo changed to &quot;</span> <span class="o">+</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">));</span>
+<span class="p">});</span>
+<span class="c1">// test: change obj.foo:</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require('dojo.Stateful');
+
+// create a new Stateful object:
+var myObj = new dojo.Stateful();
+// watch changes of property 'foo':
+myObj.watch(&quot;foo&quot;, function(){
+    console.log(&quot;foo changed to &quot; + myObj.get(&quot;foo&quot;));
+});
+// test: change obj.foo:
+myObj.set(&quot;foo&quot;, &quot;bar&quot;);</textarea></div></div>
+</div>
+<div class="section" id="available-methods">
+<h2><a class="toc-backref" href="#id5">Available Methods</a><a class="headerlink" href="#available-methods" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="#dojo-stateful"><em>Stateful.get</em></a></p>
+<p>Get a property on a Stateful instance. <strong>*new in 1.5*</strong></p>
+</li>
+<li><p class="first"><a class="reference internal" href="#dojo-stateful"><em>Stateful.set</em></a></p>
+<p>Set a property on a Stateful instance. <strong>*new in 1.5*</strong></p>
+</li>
+<li><p class="first"><a class="reference internal" href="#dojo-stateful"><em>Stateful.watch</em></a></p>
+<p>Watches a property for changes. <strong>*new in 1.5*</strong></p>
+</li>
+</ul>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id6">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get">
+<h3>get<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h3>
+<p>Get a property on a Stateful instance. <strong>*new in 1.5*</strong></p>
+<p>Get a named property on a Stateful object. The property may
+potentially be retrieved via a getter method in subclasses. In the base class
+this just retrieves the object&#8217;s property.</p>
+<div class="highlight"><pre> <span class="c1">// dojo 1.7 (AMD)</span>
+ <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/Stateful&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Stateful</span><span class="p">){</span>
+    <span class="c1">// create a new Stateful object with foo = 3:</span>
+    <span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stateful</span><span class="p">({</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span><span class="p">});</span>
+    <span class="c1">// call the getter for property &#39;foo&#39;:</span>
+    <span class="nx">myObj</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>  <span class="c1">// returns 3</span>
+    <span class="c1">// alternative syntax:</span>
+    <span class="nx">myObj</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span>         <span class="c1">// returns 3</span>
+<span class="p">});</span>
+
+<span class="c1">// dojo &lt; 1.7</span>
+
+<span class="c1">// create a new Stateful object with foo = 3:</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">({</span><span class="nx">foo</span><span class="o">:</span> <span class="mi">3</span><span class="p">});</span>
+<span class="c1">// call the getter for property &#39;foo&#39;:</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">);</span>  <span class="c1">// returns 3</span>
+<span class="c1">// alternative syntax:</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">foo</span><span class="p">;</span>         <span class="c1">// returns 3</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none"> // dojo 1.7 (AMD)
+ require([&quot;dojo/Stateful&quot;], function(Stateful){
+    // create a new Stateful object with foo = 3:
+    var myObj = new Stateful({foo: 3});
+    // call the getter for property 'foo':
+    myObj.get('foo');  // returns 3
+    // alternative syntax:
+    myObj.foo;         // returns 3
+});
+
+// dojo &lt; 1.7
+
+// create a new Stateful object with foo = 3:
+var myObj = new dojo.Stateful({foo: 3});
+// call the getter for property 'foo':
+myObj.get('foo');  // returns 3
+// alternative syntax:
+myObj.foo;         // returns 3</textarea></div></div>
+<div class="section" id="set">
+<h3>set<a class="headerlink" href="#set" title="Permalink to this headline">¶</a></h3>
+<p>Set a property on a Stateful instance. <strong>*new in 1.5*</strong></p>
+<p>Sets named properties on a stateful object and notifies any watchers of
+the property. A programmatic setter may be defined in subclasses.</p>
+<div class="highlight"><pre> <span class="c1">// dojo 1.7 (AMD)</span>
+ <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/Stateful&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Stateful</span><span class="p">){</span>
+    <span class="c1">// create a new Stateful object:</span>
+    <span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">();</span>
+    <span class="c1">// watch changes of each property:</span>
+    <span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">oldValue</span><span class="p">,</span> <span class="nx">value</span><span class="p">){</span>
+        <span class="c1">// this will be called on the set below</span>
+    <span class="p">}</span>
+    <span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// dojo &lt; 1.7</span>
+
+<span class="c1">// create a new Stateful object:</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">();</span>
+<span class="c1">// watch changes of each property:</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">oldValue</span><span class="p">,</span> <span class="nx">value</span><span class="p">){</span>
+    <span class="c1">// this will be called on the set below</span>
+<span class="p">}</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">foo</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none"> // dojo 1.7 (AMD)
+ require([&quot;dojo/Stateful&quot;], function(Stateful){
+    // create a new Stateful object:
+    var myObj = new dojo.Stateful();
+    // watch changes of each property:
+    myObj.watch(function(name, oldValue, value){
+        // this will be called on the set below
+    }
+    myObj.set(foo, 5);
+});
+
+// dojo &lt; 1.7
+
+// create a new Stateful object:
+var myObj = new dojo.Stateful();
+// watch changes of each property:
+myObj.watch(function(name, oldValue, value){
+    // this will be called on the set below
+}
+myObj.set(foo, 5);</textarea></div><p>set() may also be called with a hash of name/value pairs, ex:</p>
+<div class="highlight"><pre> <span class="c1">// dojo 1.7 (AMD)</span>
+ <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/Stateful&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Stateful</span><span class="p">){</span>
+    <span class="c1">// create a new Stateful object:</span>
+    <span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stateful</span><span class="p">();</span>
+    <span class="c1">// The following is equivalent to calling</span>
+    <span class="c1">// set(foo, &quot;Howdy&quot;) and set(bar, 3):</span>
+    <span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span>
+        <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;Howdy&quot;</span><span class="p">,</span>
+        <span class="nx">bar</span><span class="o">:</span> <span class="mi">3</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// dojo &lt; 1.7</span>
+
+<span class="c1">// create a new Stateful object:</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">();</span>
+<span class="c1">// The following is equivalent to calling</span>
+<span class="c1">// set(foo, &quot;Howdy&quot;) and set(bar, 3):</span>
+<span class="nx">myObj</span><span class="p">.</span><span class="nx">set</span><span class="p">({</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;Howdy&quot;</span><span class="p">,</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="mi">3</span>
+<span class="p">})</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none"> // dojo 1.7 (AMD)
+ require([&quot;dojo/Stateful&quot;], function(Stateful){
+    // create a new Stateful object:
+    var myObj = new Stateful();
+    // The following is equivalent to calling
+    // set(foo, &quot;Howdy&quot;) and set(bar, 3):
+    myObj.set({
+        foo: &quot;Howdy&quot;,
+        bar: 3
+    });
+});
+
+// dojo &lt; 1.7
+
+// create a new Stateful object:
+var myObj = new dojo.Stateful();
+// The following is equivalent to calling
+// set(foo, &quot;Howdy&quot;) and set(bar, 3):
+myObj.set({
+    foo: &quot;Howdy&quot;,
+    bar: 3
+})</textarea></div></div>
+<div class="section" id="watch">
+<h3>watch<a class="headerlink" href="#watch" title="Permalink to this headline">¶</a></h3>
+<p>Watches a property for changes. <strong>*new in 1.5*</strong></p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>name:</dt>
+<dd>Indicates the property to watch. This is optional (the callback may be the only parameter), and if omitted, all the properties will be watched</dd>
+<dt>callback:</dt>
+<dd>The function to execute when the property changes. This will be called after the property has been changed. The callback will be called with the <strong>this</strong> set to the instance, the first argument as the name of the property, the second argument as the old value and the third argument as the new value.</dd>
+<dt>returns:</dt>
+<dd>An object handle for the watch. The unwatch method of this object can be used to discontinue watching this property:</dd>
+</dl>
+<div class="highlight"><pre> <span class="c1">// dojo 1.7 (AMD)</span>
+ <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/Stateful&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Stateful</span><span class="p">){</span>
+    <span class="c1">// create a new Stateful object:</span>
+    <span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Stateful</span><span class="p">();</span>
+    <span class="c1">// watch changes of property &#39;foo&#39;:</span>
+    <span class="kd">var</span> <span class="nx">watchHandle</span> <span class="o">=</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+    <span class="c1">// ...</span>
+    <span class="c1">// discontinue watching this property:</span>
+    <span class="nx">watchHandle</span><span class="p">.</span><span class="nx">unwatch</span><span class="p">();</span> <span class="c1">// callback won&#39;t be called now</span>
+<span class="p">});</span>
+
+<span class="c1">// dojo &lt; 1.7</span>
+
+<span class="c1">// create a new Stateful object:</span>
+<span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Stateful</span><span class="p">();</span>
+<span class="c1">// watch changes of property &#39;foo&#39;:</span>
+<span class="kd">var</span> <span class="nx">watchHandle</span> <span class="o">=</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">watch</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">callback</span><span class="p">);</span>
+<span class="c1">// ...</span>
+<span class="c1">// discontinue watching this property:</span>
+<span class="nx">watchHandle</span><span class="p">.</span><span class="nx">unwatch</span><span class="p">();</span> <span class="c1">// callback won&#39;t be called now</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none"> // dojo 1.7 (AMD)
+ require([&quot;dojo/Stateful&quot;], function(Stateful){
+    // create a new Stateful object:
+    var myObj = new Stateful();
+    // watch changes of property 'foo':
+    var watchHandle = myObj.watch(&quot;foo&quot;, callback);
+    // ...
+    // discontinue watching this property:
+    watchHandle.unwatch(); // callback won't be called now
+});
+
+// dojo &lt; 1.7
+
+// create a new Stateful object:
+var myObj = new dojo.Stateful();
+// watch changes of property 'foo':
+var watchHandle = myObj.watch(&quot;foo&quot;, callback);
+// ...
+// discontinue watching this property:
+watchHandle.unwatch(); // callback won't be called now</textarea></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id7">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../dijit/_Widget.html#dijit-widget"><em>dijit._Widget.set/get</em></a> a setter or getter for properties of Dijits</li>
+<li>Introductory article on dojo.Stateful - <a class="reference external" href="http://www.sitepen.com/blog/2010/05/04/consistent-interaction-with-stateful-objects-in-dojo/">http://www.sitepen.com/blog/2010/05/04/consistent-interaction-with-stateful-objects-in-dojo/</a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.Stateful</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7 (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#available-methods">Available Methods</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#get">get</a></li>
+<li><a class="reference internal" href="#set">set</a></li>
+<li><a class="reference internal" href="#watch">watch</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="NodeList/removeAttr.html"
+                        title="previous chapter">dojo.NodeList.removeAttr</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Url.html"
+                        title="next chapter">dojo._Url</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

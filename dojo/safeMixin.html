@@ -1,0 +1,333 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.safeMixin &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo/selector" href="selector.html" />
+    <link rel="prev" title="dojo.rpc.RpcService" href="rpc/RpcService.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-safemixin">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.safeMixin</a><a class="headerlink" href="#dojo-safemixin" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Author:</th><td class="field-body">Eugene Lazutkin</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">V1.4</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-safemixin" id="id2">dojo.safeMixin</a><ul>
+<li><a class="reference internal" href="#basic-usage" id="id3">Basic Usage</a></li>
+<li><a class="reference internal" href="#technical-details" id="id4">Technical details</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><tt class="docutils literal"><span class="pre">dojo.safeMixin</span></tt> is a companion function for <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>. It has the same functionality as <a class="reference internal" href="mixin.html#dojo-mixin"><em>dojo.mixin</em></a>, but additionally it annotates all copied methods compatibly with <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>. This decoration can affect how <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> works in mixed-in methods.</p>
+<div class="section" id="basic-usage">
+<h2><a class="toc-backref" href="#id3">Basic Usage</a><a class="headerlink" href="#basic-usage" title="Permalink to this headline">¶</a></h2>
+<p>The function is usually used with classes and instances produced by <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>. It takes two parameters (both objects): target and source of properties. Just like <a class="reference internal" href="mixin.html#dojo-mixin"><em>dojo.mixin</em></a> it returns <tt class="docutils literal"><span class="pre">target</span></tt>.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">A</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">declare</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">m1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+  <span class="nx">m2</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+  <span class="nx">m3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+  <span class="nx">m4</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+  <span class="nx">m5</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span> <span class="cm">/*...*/</span> <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">B</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">declare</span><span class="p">(</span><span class="nx">A</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">m1</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// we can do that because m1 is annotated by dojo.declare()</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span> <span class="c1">// calls A.m1</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">B</span><span class="p">.</span><span class="nx">extend</span><span class="p">({</span>
+  <span class="nx">m2</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// we can do that because m2 is annotated by class.extend()</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span> <span class="c1">// calls A.m2</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">B</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">m3</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// we have to specify the name because</span>
+    <span class="c1">// this method is not annotated properly</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="s2">&quot;m3&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span> <span class="c1">// calls A.m3</span>
+<span class="p">});</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">B</span><span class="p">();</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">safeMixin</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">m4</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// we can do that because m4 is annotated by dojo.safeMixin()</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span> <span class="c1">// calls A.m4</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">m5</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// we have to specify the name because</span>
+    <span class="c1">// this method is not annotated properly</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="s2">&quot;m5&quot;</span><span class="p">,</span> <span class="nx">arguments</span><span class="p">);</span> <span class="c1">// calls A.m5</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var A = dojo.declare(null, {
+  m1: function(){ /*...*/ },
+  m2: function(){ /*...*/ },
+  m3: function(){ /*...*/ },
+  m4: function(){ /*...*/ },
+  m5: function(){ /*...*/ }
+});
+
+var B = dojo.declare(A, {
+  m1: function(){
+    // we can do that because m1 is annotated by dojo.declare()
+    return this.inherited(arguments); // calls A.m1
+  }
+});
+
+B.extend({
+  m2: function(){
+    // we can do that because m2 is annotated by class.extend()
+    return this.inherited(arguments); // calls A.m2
+  }
+});
+
+dojo.extend(B, {
+  m3: function(){
+    // we have to specify the name because
+    // this method is not annotated properly
+    return this.inherited(&quot;m3&quot;, arguments); // calls A.m3
+});
+
+var x = new B();
+
+dojo.safeMixin(x, {
+  m4: function(){
+    // we can do that because m4 is annotated by dojo.safeMixin()
+    return this.inherited(arguments); // calls A.m4
+  }
+});
+
+dojo.mixin(x, {
+  m5: function(){
+    // we have to specify the name because
+    // this method is not annotated properly
+    return this.inherited(&quot;m5&quot;, arguments); // calls A.m5
+});</textarea></div></div>
+<div class="section" id="technical-details">
+<h2><a class="toc-backref" href="#id4">Technical details</a><a class="headerlink" href="#technical-details" title="Permalink to this headline">¶</a></h2>
+<p>While copying properties <tt class="docutils literal"><span class="pre">dojo.safeMixin</span></tt> (and <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>) annotates methods. All other properties are copied unmodified. On any function it adds a single property: <tt class="docutils literal"><span class="pre">nom</span></tt>, which value is a name of the function property.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">safeMixin</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+  <span class="nx">b</span><span class="o">:</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span>
+  <span class="nx">c</span><span class="o">:</span> <span class="p">{</span>
+     <span class="nx">x</span><span class="o">:</span> <span class="mi">42</span>
+  <span class="p">},</span>
+  <span class="nx">d</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){}</span>
+<span class="p">});</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">d</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span> <span class="c1">// prints: d</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var x = {};
+dojo.safeMixin(x, {
+  a: 1,
+  b: &quot;two&quot;,
+  c: {
+     x: 42
+  },
+  d: function(){}
+});
+
+console.log(x.d.nom); // prints: d</textarea></div><p>This way <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> and <tt class="docutils literal"><span class="pre">this.getInherited()</span></tt> know what superclass method to call. If this property is not there, you have to specify the name as the first argument in <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> or <tt class="docutils literal"><span class="pre">this.getInherited()</span></tt>.</p>
+<p>JavaScript treats functions as objects (not values) and uses them by reference. It means that if you add a function to two (or more) objects, it will be annotated several times leading to wrong annotations in different contexts:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fun</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">inherited</span><span class="p">(</span><span class="nx">arguments</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">x</span> <span class="o">=</span> <span class="p">{},</span> <span class="nx">y</span> <span class="o">=</span> <span class="p">{};</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">safeMixin</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span> <span class="p">{</span><span class="nx">doSomething</span><span class="o">:</span> <span class="nx">fun</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fun</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span>            <span class="c1">// doSomething</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span>  <span class="c1">// doSomething</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">safeMixin</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="p">{</span><span class="nx">anotherName</span><span class="o">:</span> <span class="nx">fun</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">fun</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span>            <span class="c1">// anotherName</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">y</span><span class="p">.</span> <span class="nx">anotherName</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span> <span class="c1">// anotherName</span>
+
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">x</span><span class="p">.</span><span class="nx">doSomething</span><span class="p">.</span><span class="nx">nom</span><span class="p">);</span>  <span class="c1">// anotherName</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var fun = function(){
+  this.inherited(arguments);
+};
+
+var x = {}, y = {};
+
+dojo.safeMixin(x, {doSomething: fun});
+console.log(fun.nom);            // doSomething
+console.log(x.doSomething.nom);  // doSomething
+
+dojo.safeMixin(y, {anotherName: fun});
+console.log(fun.nom);            // anotherName
+console.log(y. anotherName.nom); // anotherName
+
+console.log(x.doSomething.nom);  // anotherName</textarea></div><p>As you can see we reused the same function as a method, and it was annotated twice. It will break <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> and <tt class="docutils literal"><span class="pre">this.getInherited()</span></tt> in all objects but the last one.</p>
+<p>How to prevent this problem?</p>
+<ul class="simple">
+<li>Try to avoid this situations. In most cases it can be done easily because functions are frequently created from literals and not reused in this manner (99% of all cases).</li>
+<li>Use function wrappers. Downside: it introduces an extra function call, which may affect the performance of short fast methods.</li>
+<li>Use a name in calls to <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> and <tt class="docutils literal"><span class="pre">this.getInherited()</span></tt>. Downside: you have to know the name, and it is not always possible.</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.safeMixin</a><ul>
+<li><a class="reference internal" href="#basic-usage">Basic Usage</a></li>
+<li><a class="reference internal" href="#technical-details">Technical details</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="rpc/RpcService.html"
+                        title="previous chapter">dojo.rpc.RpcService</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="selector.html"
+                        title="next chapter">dojo/selector</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

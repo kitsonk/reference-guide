@@ -1,0 +1,970 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Animations and Effects with Dojo &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Quickstart" href="contents.html" />
+    <link rel="next" title="AJAX and Dojo" href="ajax.html" />
+    <link rel="prev" title="Quickstart" href="contents.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="animations-and-effects-with-dojo">
+<span id="quickstart-animation"></span><h1><a class="toc-backref" href="#id1">Animations and Effects with Dojo</a><a class="headerlink" href="#animations-and-effects-with-dojo" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#animations-and-effects-with-dojo" id="id1">Animations and Effects with Dojo</a><ul>
+<li><a class="reference internal" href="#getting-to-know-dojo-animation" id="id2">Getting to know dojo.Animation</a></li>
+<li><a class="reference internal" href="#base-animations" id="id3">Base Animations</a></li>
+<li><a class="reference internal" href="#core-animations-advanced-helpers" id="id4">Core Animations: Advanced helpers</a></li>
+<li><a class="reference internal" href="#chaining-and-combining-animations" id="id5">Chaining and Combining Animations</a></li>
+<li><a class="reference internal" href="#animation-easing" id="id6">Animation Easing</a></li>
+<li><a class="reference internal" href="#text-effects" id="id7">Text Effects</a></li>
+<li><a class="reference internal" href="#animation-in-dijit-widget-1-5" id="id8">Animation in Dijit Widget 1.5+</a></li>
+<li><a class="reference internal" href="#see-also" id="id9">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Dojo provides several layers of Animation helpers, starting with Base Dojo (dojo.js), and adding in levels of incremental
+additions through the module system. All Animations in Dojo revolve around a single class: dojo.Animation, which acts as
+the underlying control mechanism for the flexible FX API Dojo provides.</p>
+<div class="section" id="getting-to-know-dojo-animation">
+<h2><a class="toc-backref" href="#id2">Getting to know dojo.Animation</a><a class="headerlink" href="#getting-to-know-dojo-animation" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned, dojo.Animation is the foundation class for all Dojo animations. It provides several simple methods good for
+controlling your animation, such as <cite>play</cite>, <cite>pause</cite>, <cite>stop</cite>, and <cite>gotoPercent</cite>. The most simple method which is required
+of all animations is <cite>play</cite>:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">animation</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="c1">// returns a dojo._Animation</span>
+       <span class="c1">// this is an Object containing properties used to define the</span>
+       <span class="c1">// animation</span>
+       <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;aStringId&quot;</span>
+   <span class="p">});</span>
+   <span class="c1">// call play() on the returned _Animation instance:</span>
+   <span class="nx">animation</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;], function(fx){
+   var animation = fx.fadeOut({ // returns a dojo._Animation
+       // this is an Object containing properties used to define the
+       // animation
+       node:&quot;aStringId&quot;
+   });
+   // call play() on the returned _Animation instance:
+   animation.play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">animation</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="c1">// returns a dojo._Animation</span>
+    <span class="c1">// this is an Object containing properties used to define the animation</span>
+    <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;aStringId&quot;</span>
+<span class="p">});</span>
+<span class="c1">// call play() on the returned _Animation instance:</span>
+<span class="nx">animation</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var animation = dojo.fadeOut({ // returns a dojo._Animation
+    // this is an Object containing properties used to define the animation
+    node:&quot;aStringId&quot;
+});
+// call play() on the returned _Animation instance:
+animation.play();</textarea></div><p>You can simplify the above code using chaining, if you don&#8217;t need to keep the animation object around for later use as follows:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">){</span>
+    <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someId&quot;</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;], function(fx){
+    fx.fadeOut({ node:&quot;someId&quot; }).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someId&quot;</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.fadeOut({ node:&quot;someId&quot; }).play();</textarea></div><p>All animations in Dojo (with the exception of <a class="reference internal" href="../dojo/anim.html#dojo-anim"><em>dojo.anim</em></a>) use predefined animation properties on
+the Object parameter to specify the animation settings. The <cite>node:</cite> property is the most important, and points to a node
+in the DOM on which to apply the animation. <cite>node</cite> can be a String ID of a DOM node, or a direct reference to a DOM node
+you already have:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dom</span><span class="p">,</span> <span class="nx">fx</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">).</span><span class="nx">parentNode</span><span class="p">;</span>
+    <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/dom&quot;, &quot;dojo/_base/fx&quot;], function(dom, fx){
+    var target = dom.byId(&quot;someId&quot;).parentNode;
+    fx.fadeOut({ node: target }).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">).</span><span class="nx">parentNode</span><span class="p">;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var target = dojo.byId(&quot;someId&quot;).parentNode;
+dojo.fadeOut({ node: target }).play();</textarea></div><div class="section" id="animation-properties">
+<h3>Animation Properties<a class="headerlink" href="#animation-properties" title="Permalink to this headline">¶</a></h3>
+<p>The standard set of properties for specifying animation settings (via the Object parameter to the animation function) are:</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">node:</th><td class="field-body">The domNode reference or string id of a node to apply the animation effects to. <strong>required</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">delay:</th><td class="field-body">Delay, in milliseconds, before the animation starts.  The default is 0ms. <strong>optional</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">duration:</th><td class="field-body">How long, in milliseconds, the animation will run.  The default is 350 milliseconds (.35 seconds) <strong>optional</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">easing:</th><td class="field-body">An easing (timing) function to apply to the effect, such as exponential curve, bounce, etc.  Dojo provides a number of easing functions in the
+<a class="reference internal" href="../dojo/fx/easing.html#dojo-fx-easing"><em>dojo.fx.easing</em></a> module. <strong>optional</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">rate:</th><td class="field-body">By default dojo runs its animations with 50 frames/second. This can be too fast in certain scenarios when want the whole animation to run a lot
+slower. To change the framerate you use the rate property which defines the pause/delay between each frame. Ex. if you want 5 frames per second you
+should specify a rate of 200 (milliseconds between each frame <strong>optional</strong></td>
+</tr>
+<tr class="field-even field"><th class="field-name">repeat:</th><td class="field-body">How many times the animation will be played.  Default: 0. <strong>optional</strong></td>
+</tr>
+<tr class="field-odd field"><th class="field-name">curve:</th><td class="field-body">An array two values, or an instance of a <cite>dojo._Line</cite>. Used as the start and end points for a given animation. Typically not used directly by
+end-users, though allows usage of the Animation class outside of Node effects</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="animation-events">
+<h3>Animation Events<a class="headerlink" href="#animation-events" title="Permalink to this headline">¶</a></h3>
+<p>Performing custom behavior at specific points during an animation is done using callback functions (also set via the Object parameter to the animation function).  These functions will be executed at various stages during an animation&#8217;s life-cycle.</p>
+<p>The standard set of events that are fired during stages of an animation are:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2"><strong>Property</strong></td>
+<td rowspan="2"><strong>Description</strong></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td>beforeBegin</td>
+<td><p class="first">A callback function which will be executed synchronously before playing the animation.</p>
+<p class="last"><strong>optional</strong> <strong>new in 1.4</strong>: passed node reference for the animation</p>
+</td>
+</tr>
+<tr class="row-even"><td>onBegin</td>
+<td><p class="first">A callback function which will be executed asynchronously immediately after starting the
+animation.</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td>onEnd</td>
+<td><p class="first">A callback function which will be executed synchronously when the animation ends.</p>
+<p class="last"><strong>optional</strong>  <strong>new in 1.4</strong>: passed node reference for the animation</p>
+</td>
+</tr>
+<tr class="row-even"><td>onPlay</td>
+<td><p class="first">A callback function which will be executed synchronously when the animation is played.</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td>onAnimate</td>
+<td><p class="first">A callback function fired for every step of the animation, passing
+a value from a dojo._Line for this animation.</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Consider this simple fade animation, and all the potential callbacks registered:</p>
+<div class="highlight"><pre>  <span class="c1">// Dojo 1.7+ (AMD)</span>
+  <span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">){</span>
+      <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+
+          <span class="c1">// some node, by id to animate:</span>
+          <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someId&quot;</span><span class="p">,</span>
+          <span class="nx">beforeBegin</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="c1">// executed synchronously before playing</span>
+          <span class="p">},</span>
+          <span class="nx">onBegin</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="c1">// executed asynchronously immediately after starting</span>
+          <span class="p">},</span>
+          <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="c1">// executed when the animation is done</span>
+          <span class="p">},</span>
+          <span class="nx">onPlay</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+              <span class="c1">// executed when the animation is played</span>
+          <span class="p">},</span>
+          <span class="nx">onAnimate</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">values</span><span class="p">){</span>
+              <span class="c1">// fired for every step of the animation, passing</span>
+              <span class="c1">// a value from a dojo._Line for this animation</span>
+          <span class="p">}</span>
+
+      <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">  // Dojo 1.7+ (AMD)
+  require([&quot;dojo/_base/fx&quot;], function(fx){
+      fx.fadeOut({
+
+          // some node, by id to animate:
+          node:&quot;someId&quot;,
+          beforeBegin: function(){
+              // executed synchronously before playing
+          },
+          onBegin: function(){
+              // executed asynchronously immediately after starting
+          },
+          onEnd: function(){
+              // executed when the animation is done
+          },
+          onPlay: function(){
+              // executed when the animation is played
+          },
+          onAnimate: function(values){
+              // fired for every step of the animation, passing
+              // a value from a dojo._Line for this animation
+          }
+
+      }).play();
+});</textarea></div><p>You can define these callback functions as part of the Object parameter used to define the animation initially (as seen
+above) or use <a class="reference internal" href="../dojo/connect.html#dojo-connect"><em>dojo.connect</em></a> to connect directly to the instance and listen for the function calls.</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/connect&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">connect</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">animation</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNodebyId&quot;</span> <span class="p">});</span>
+    <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">animation</span><span class="p">,</span> <span class="s2">&quot;onEnd&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// connect externally to this animation instance&#39;s onEnd function</span>
+    <span class="p">});</span>
+    <span class="nx">animation</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span> <span class="c1">// start it up</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/_base/connect&quot;], function(fx, connect){
+    var animation = fx.fadeOut({ node:&quot;someNodebyId&quot; });
+    connect.connect(animation, &quot;onEnd&quot;, function(){
+        // connect externally to this animation instance's onEnd function
+    });
+    animation.play(); // start it up
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">animation</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNodebyId&quot;</span> <span class="p">});</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">animation</span><span class="p">,</span> <span class="s2">&quot;onEnd&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// connect externally to this animation instance&#39;s onEnd function</span>
+<span class="p">});</span>
+<span class="nx">animation</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span> <span class="c1">// start it up</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var animation = dojo.fadeOut({ node:&quot;someNodebyId&quot; });
+dojo.connect(animation, &quot;onEnd&quot;, function(){
+    // connect externally to this animation instance's onEnd function
+});
+animation.play(); // start it up</textarea></div><p>The onEnd and beforeBegin events are fired passing a reference to the node being animated so that you may more easily manipulate a node immediately before or after an animation (<tt class="docutils literal"><span class="pre">1.4+</span></tt>):</p>
+<div class="highlight"><pre><span class="c1">// 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">){</span>
+    <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+        <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+        <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+            <span class="nx">n</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+        <span class="p">},</span>
+        <span class="nx">beforeBegin</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+            <span class="nx">n</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Bye!&quot;</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// 1.7+ (AMD)
+require([&quot;dojo/_base/fx&quot;], function(fx){
+    fx.fadeOut({
+        node:&quot;foo&quot;,
+        onEnd: function(n){
+            n.innerHTML = &quot;&quot;;
+        },
+        beforeBegin: function(n){
+            n.innerHTML = &quot;Bye!&quot;;
+        }
+    }).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.4+, &gt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+    <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+         <span class="nx">n</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">beforeBegin</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+         <span class="nx">n</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Bye!&quot;</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.4+, &gt; 1.7
+dojo.fadeOut({
+    node:&quot;foo&quot;,
+    onEnd: function(n){
+         n.innerHTML = &quot;&quot;;
+    },
+    beforeBegin: function(n){
+         n.innerHTML = &quot;Bye!&quot;;
+    }
+}).play();</textarea></div></div>
+</div>
+<div class="section" id="base-animations">
+<h2><a class="toc-backref" href="#id3">Base Animations</a><a class="headerlink" href="#base-animations" title="Permalink to this headline">¶</a></h2>
+<p>Base Dojo provides the animation framework as well as several simple helper animations for fading, and one incredibly useful function <cite>dojo.animateProperty</cite> (the workhorse of most CSS-based animations). All use the same Object parameter format for specifying properties of the animation, and several additional options are used in advanced cases.</p>
+<div class="section" id="fading-example">
+<h3>Fading Example<a class="headerlink" href="#fading-example" title="Permalink to this headline">¶</a></h3>
+<p>To fade out a node, alter it&#8217;s contents, and fade it back in:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">dom</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">);</span>
+   <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+       <span class="nx">node</span><span class="o">:</span> <span class="nx">node</span><span class="p">,</span>
+       <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+           <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;Like magic!&lt;/p&gt;&quot;</span>
+           <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span>
+               <span class="nx">node</span><span class="o">:</span> <span class="nx">node</span>
+           <span class="p">}).</span><span class="nx">play</span><span class="p">()</span>
+       <span class="p">}</span>
+   <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/dom&quot;], function(fx, dom){
+   var node = dom.byId(&quot;someId&quot;);
+   fx.fadeOut({
+       node: node,
+       onEnd: function(){
+           node.innerHTML = &quot;&lt;p&gt;Like magic!&lt;/p&gt;&quot;
+           dojo.fadeIn({
+               node: node
+           }).play()
+       }
+   }).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+    <span class="nx">node</span><span class="o">:</span> <span class="nx">node</span><span class="p">,</span>
+    <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;&lt;p&gt;Like magic!&lt;/p&gt;&quot;</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span>
+            <span class="nx">node</span><span class="o">:</span> <span class="nx">node</span>
+        <span class="p">}).</span><span class="nx">play</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var node = dojo.byId(&quot;someId&quot;);
+dojo.fadeOut({
+    node: node,
+    onEnd: function(){
+        node.innerHTML = &quot;&lt;p&gt;Like magic!&lt;/p&gt;&quot;
+        dojo.fadeIn({
+            node: node
+        }).play()
+    }
+}).play();</textarea></div><p>Here, we&#8217;ve created a fadeOut animation, and run it immediately. At the end of the animation (set here to use the default duration by omitting the <cite>duration:</cite> parameter), we set the node reference&#8217;s <cite>.innerHTML</cite> property to something new, and fade it back in, again using the default duration.</p>
+</div>
+<div class="section" id="animating-css-properties">
+<h3>Animating CSS Properties<a class="headerlink" href="#animating-css-properties" title="Permalink to this headline">¶</a></h3>
+<p>In addition to generic animations, Dojo provides shorthand helper functions for animating CSS properties via the <a class="reference internal" href="../dojo/animateProperty.html#dojo-animateproperty"><em>animateProperty</em></a> API. An example where this specialized animation API simplifies specifying animation would be when you need to fade a background color property from red to green to indicate status changes.</p>
+</div>
+</div>
+<div class="section" id="core-animations-advanced-helpers">
+<h2><a class="toc-backref" href="#id4">Core Animations: Advanced helpers</a><a class="headerlink" href="#core-animations-advanced-helpers" title="Permalink to this headline">¶</a></h2>
+<p>Above the Base Animations (those contained entirely within dojo.js), there are several modules
+available within the toolkit for advanced animation control.</p>
+<p>To use these extended functions, you must include the <cite>dojo.fx</cite> module:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+   <span class="c1">// write your code here</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;], function(fx, coreFx){
+   // write your code here
+});</textarea></div><p>The animation methods used to declared in <cite>dojo.fx</cite> namespace should be called separately in dojo 1.7.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2"><strong>Method</strong></td>
+<td rowspan="2"><strong>Usage</strong></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td>fadeIn</td>
+<td>require([&#8220;<strong>dojo/_base/fx</strong>&#8220;], function(fx){
+fx.fadeIn(&#8220;SomeNode&#8221;);});</td>
+</tr>
+<tr class="row-even"><td>fadeOut</td>
+<td>require([&#8220;<strong>dojo/_base/fx</strong>&#8220;], function(fx){
+fx.fadeIn(&#8220;SomeNode&#8221;);});</td>
+</tr>
+<tr class="row-odd"><td>combine</td>
+<td>require([&#8220;<strong>dojo/fx</strong>&#8220;], function(coreFx){
+coreFx.combine(&#8220;anim1&#8221;, &#8220;anim2&#8221;).play();});</td>
+</tr>
+<tr class="row-even"><td>wipeIn</td>
+<td>require([&#8220;<strong>dojo/fx</strong>&#8220;], function(coreFx){
+coreFx.wipeIn(node:&#8221;someId&#8221;).play();});</td>
+</tr>
+<tr class="row-odd"><td>wipeOut</td>
+<td>require([&#8220;<strong>dojo/fx</strong>&#8220;], function(coreFx){
+coreFx.wipeOut(node:&#8221;someId&#8221;).play();});</td>
+</tr>
+<tr class="row-even"><td>slideTo</td>
+<td>require([&#8220;<strong>dojo/fx</strong>&#8220;], function(coreFx){
+coreFx.slideTo({node: node, left:&#8221;40&#8221;, top:&#8221;50&#8221;, units:&#8221;px&#8221;}).play();});</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.require(&quot;dojo.fx&quot;);</textarea></div><p>The namespace <cite>dojo.fx</cite> has been reserved for all these animation, including <cite>dojo.fx.chain</cite> and <cite>dojo.fx.combine</cite>.</p>
+</div>
+<div class="section" id="chaining-and-combining-animations">
+<h2><a class="toc-backref" href="#id5">Chaining and Combining Animations</a><a class="headerlink" href="#chaining-and-combining-animations" title="Permalink to this headline">¶</a></h2>
+<p>Two convenience functions provided in the <cite>dojo.fx</cite> module named <cite>combine</cite> and <cite>chain</cite> create an animation from a series of animations in an array.</p>
+<p><cite>combine</cite> merges the array of animations them into one animation instance to control them all in parallel, whereas <cite>chain</cite> merges the animations into a single animation, playing back each of the animations in series, or one right after the other.</p>
+<p>To fade out two nodes simultaneously:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/ready&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">,</span> <span class="nx">ready</span><span class="p">){</span>
+   <span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+       <span class="c1">// create two animations</span>
+       <span class="kd">var</span> <span class="nx">anim1</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someId&quot;</span> <span class="p">});</span>
+       <span class="kd">var</span> <span class="nx">anim2</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someOtherId&quot;</span> <span class="p">});</span>
+       <span class="c1">// and play them at the same moment</span>
+       <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span><span class="nx">anim1</span><span class="p">,</span> <span class="nx">anim2</span><span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+   <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;, &quot;dojo/ready&quot;], function(fx, coreFx, ready){
+   ready(function(){
+       // create two animations
+       var anim1 = fx.fadeOut({ node: &quot;someId&quot; });
+       var anim2 = fx.fadeOut({ node: &quot;someOtherId&quot; });
+       // and play them at the same moment
+       coreFx.combine([anim1, anim2]).play();
+   });
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">addOnLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// create two animations</span>
+    <span class="kd">var</span> <span class="nx">anim1</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someId&quot;</span> <span class="p">});</span>
+    <span class="kd">var</span> <span class="nx">anim2</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someOtherId&quot;</span> <span class="p">});</span>
+    <span class="c1">// and play them at the same moment</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span><span class="nx">anim1</span><span class="p">,</span> <span class="nx">anim2</span><span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.require(&quot;dojo.fx&quot;);
+dojo.addOnLoad(function(){
+    // create two animations
+    var anim1 = dojo.fadeOut({ node: &quot;someId&quot; });
+    var anim2 = dojo.fadeOut({ node: &quot;someOtherId&quot; });
+    // and play them at the same moment
+    dojo.fx.combine([anim1, anim2]).play();
+});</textarea></div><p>(Notice we wrapped the animation call in and addOnLoad function this time. This is required always, as you cannot modify the DOM before the DOM is ready, which <a class="reference internal" href="../dojo/addOnLoad.html#dojo-addonload"><em>addOnLoad</em></a> alerts us to. Also, we need to ensure the <cite>dojo.fx</cite> module has been loaded properly)</p>
+<p>Javascript is rather flexible about return values and where functions are called. The above example can alternatively be written in a shorthand like:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/ready&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">,</span> <span class="nx">ready</span><span class="p">){</span>
+   <span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+       <span class="c1">// create and play two fade animations at the same moment</span>
+       <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span>
+           <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someId&quot;</span> <span class="p">}),</span>
+           <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someOtherId&quot;</span> <span class="p">})</span>
+       <span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+   <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;, &quot;dojo/ready&quot;], function(fx, coreFx, ready){
+   ready(function(){
+       // create and play two fade animations at the same moment
+       coreFx.combine([
+           fx.fadeOut({ node: &quot;someId&quot; }),
+           fx.fadeOut({ node: &quot;someOtherId&quot; })
+       ]).play();
+   });
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">addOnLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// create and play two fade animations at the same moment</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someId&quot;</span> <span class="p">}),</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;someOtherId&quot;</span> <span class="p">})</span>
+    <span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.require(&quot;dojo.fx&quot;);
+dojo.addOnLoad(function(){
+    // create and play two fade animations at the same moment
+    dojo.fx.combine([
+        dojo.fadeOut({ node: &quot;someId&quot; }),
+        dojo.fadeOut({ node: &quot;someOtherId&quot; })
+    ]).play();
+});</textarea></div><p>The same rules apply to a combined animation as do a normal animation, though with no direct way to mix event callbacks into the combine() call, you are left using the <cite>dojo.connect</cite> method to attach event handlers:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/connect&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">connect</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">anim</span> <span class="o">=</span> <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span>
+       <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span> <span class="p">}),</span>
+       <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;otherId&quot;</span><span class="p">,</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">2000</span> <span class="p">})</span>
+   <span class="p">]);</span>
+   <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">anim</span><span class="p">,</span> <span class="s2">&quot;onEnd&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+       <span class="c1">// fired after the full 2000ms</span>
+   <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/_base/connect&quot;, &quot;dojo/fx&quot;], function(fx, connect, coreFx){
+   var anim = coreFx.combine([
+       fx.fadeOut({ node: &quot;id&quot;, duration:1000 }),
+       fx.fadeIn({ node: &quot;otherId&quot;, duration:2000 })
+   ]);
+   connect.connect(anim, &quot;onEnd&quot;, function(){
+       // fired after the full 2000ms
+   });
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">anim</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span> <span class="p">}),</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;otherId&quot;</span><span class="p">,</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">2000</span> <span class="p">})</span>
+<span class="p">]);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">anim</span><span class="p">,</span> <span class="s2">&quot;onEnd&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// fired after the full 2000ms</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var anim = dojo.fx.combine([
+    dojo.fadeOut({ node: &quot;id&quot;, duration:1000 }),
+    dojo.fadeIn({ node: &quot;otherId&quot;, duration:2000 })
+]);
+dojo.connect(anim, &quot;onEnd&quot;, function(){
+    // fired after the full 2000ms
+});</textarea></div><p>Alternately, you can mix event handlers into your individual animations passed to dojo.fx.combine:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">animA</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+       <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span>
+       <span class="nx">duration</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+       <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+           <span class="c1">// fired after 500ms</span>
+       <span class="p">}</span>
+   <span class="p">});</span>
+   <span class="kd">var</span> <span class="nx">animB</span> <span class="o">=</span> <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;otherNode&quot;</span> <span class="p">});</span>
+   <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span><span class="nx">animA</span><span class="p">,</span> <span class="nx">animB</span><span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;], function(fx, coreFx){
+   var animA = fx.fadeOut({
+       node:&quot;someNode&quot;,
+       duration: 500,
+       onEnd: function(){
+           // fired after 500ms
+       }
+   });
+   var animB = fx.fadeIn({ node:&quot;otherNode&quot; });
+   coreFx.combine([animA, animB]).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">animA</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span>
+    <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span>
+    <span class="nx">duration</span><span class="o">:</span> <span class="mi">500</span><span class="p">,</span>
+    <span class="nx">onEnd</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// fired after 500ms</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="kd">var</span> <span class="nx">animB</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;otherNode&quot;</span> <span class="p">});</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">([</span><span class="nx">animA</span><span class="p">,</span> <span class="nx">animB</span><span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+var animA = dojo.fadeOut({
+    node:&quot;someNode&quot;,
+    duration: 500,
+    onEnd: function(){
+        // fired after 500ms
+    }
+});
+var animB = dojo.fadeIn({ node:&quot;otherNode&quot; });
+dojo.fx.combine([animA, animB]).play();</textarea></div><p>Chain works in much the same way - though plays each animation one right after the other:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+   <span class="nx">coreFx</span><span class="p">.</span><span class="nx">chain</span><span class="p">([</span>
+       <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">}),</span>
+       <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">})</span>
+   <span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;], function(fx, coreFx){
+   coreFx.chain([
+       fx.fadeIn({ node: &quot;foo&quot; }),
+       fx.fadeIn({ node: &quot;bar&quot; })
+   ]).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">chain</span><span class="p">([</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">}),</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">})</span>
+<span class="p">]).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.fx.chain([
+    dojo.fadeIn({ node: &quot;foo&quot; }),
+    dojo.fadeIn({ node: &quot;bar&quot; })
+]).play();</textarea></div><p>All of the same patterns apply to chain as to other animation instances.</p>
+<p>combine and chain accept an Array, and will work on a one-element array. This is interesting because you can manually create animations, pushing each into the array, and chain or combine the resulting set of animations. This is useful when you need to conditionally exclude some Animations from being created:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">array</span><span class="p">,</span> <span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+   <span class="c1">// create the array</span>
+   <span class="kd">var</span> <span class="nx">anims</span> <span class="o">=</span> <span class="p">[];</span>
+   <span class="c1">// simulated condition, an array of id&#39;s:</span>
+   <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">([</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+       <span class="k">if</span><span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="s2">&quot;two&quot;</span><span class="p">){</span>
+           <span class="c1">// only animate id=&quot;one&quot; and id=&quot;three&quot;</span>
+           <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">id</span> <span class="p">}));</span>
+       <span class="p">}</span>
+   <span class="p">});</span>
+   <span class="c1">// combine and play any available animations waiting</span>
+   <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="nx">anims</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/array&quot;, &quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;], function(array, fx, coreFx){
+   // create the array
+   var anims = [];
+   // simulated condition, an array of id's:
+   array.forEach([&quot;one&quot;, &quot;two&quot;, &quot;three&quot;], function(id){
+       if(id !== &quot;two&quot;){
+           // only animate id=&quot;one&quot; and id=&quot;three&quot;
+           anims.push(fx.fadeOut({ node: id }));
+       }
+   });
+   // combine and play any available animations waiting
+   coreFx.combine(anims).play();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="c1">// create the array</span>
+<span class="kd">var</span> <span class="nx">anims</span> <span class="o">=</span> <span class="p">[];</span>
+<span class="c1">// simulated condition, an array of id&#39;s:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">([</span><span class="s2">&quot;one&quot;</span><span class="p">,</span> <span class="s2">&quot;two&quot;</span><span class="p">,</span> <span class="s2">&quot;three&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">id</span><span class="p">){</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">id</span> <span class="o">!==</span> <span class="s2">&quot;two&quot;</span><span class="p">){</span>
+        <span class="c1">// only animate id=&quot;one&quot; and id=&quot;three&quot;</span>
+        <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">id</span> <span class="p">}));</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+<span class="c1">// combine and play any available animations waiting</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="nx">anims</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+// create the array
+var anims = [];
+// simulated condition, an array of id's:
+dojo.forEach([&quot;one&quot;, &quot;two&quot;, &quot;three&quot;], function(id){
+    if(id !== &quot;two&quot;){
+        // only animate id=&quot;one&quot; and id=&quot;three&quot;
+        anims.push(dojo.fadeOut({ node: id }));
+    }
+});
+// combine and play any available animations waiting
+dojo.fx.combine(anims).play();</textarea></div><p>Obviously, any logic for determining if a node should participate in an animation sequence is in the realm of the developer, but the syntax should be clear. Create an empty Array, push whichever style and types of animations you want into the Array, and call combine() on the list.</p>
+<div class="section" id="example">
+<h3>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h3>
+<p>Example with AMD syntax:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/domReady!&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">fx</span><span class="p">,</span> <span class="nx">coreFx</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">demoDoit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="kr">int</span> <span class="o">=</span> <span class="mi">175</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">delay</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">anims</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.entry p&quot;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">()</span>
+            <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+                <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fx</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="nx">n</span><span class="p">,</span> <span class="nx">delay</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">delay</span><span class="p">),</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">420</span> <span class="p">}));</span>
+                <span class="nx">delay</span> <span class="o">+=</span> <span class="kr">int</span><span class="p">;</span>
+            <span class="p">}).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+                <span class="nx">delay</span> <span class="o">+=</span> <span class="kr">int</span><span class="p">;</span>
+                <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">fx</span><span class="p">.</span><span class="nx">animateProperty</span><span class="p">({</span>
+                    <span class="nx">node</span><span class="o">:</span><span class="nx">n</span><span class="p">,</span>
+                    <span class="nx">delay</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">delay</span><span class="p">),</span>
+                    <span class="nx">duration</span><span class="o">:</span><span class="mi">500</span><span class="p">,</span> <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span> <span class="p">}</span>
+                <span class="p">}));</span>
+            <span class="p">});</span>
+        <span class="nx">coreFx</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="nx">anims</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+    <span class="p">};</span>
+    <span class="nx">demoDoit</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/fx&quot;, &quot;dojo/fx&quot;, &quot;dojo/domReady!&quot;], function(query, fx, coreFx){
+    var demoDoit = function(){
+        var int = 175;
+        var delay = 300;
+        var anims = [];
+        query(&quot;.entry p&quot;).reverse()
+            .forEach(function(n){
+                anims.push(fx.fadeOut({ node:n, delay: parseInt(delay), duration:420 }));
+                delay += int;
+            }).reverse().forEach(function(n){
+                delay += int;
+                anims.push(fx.animateProperty({
+                    node:n,
+                    delay: parseInt(delay),
+                    duration:500, properties: { height:1 }
+                }));
+            });
+        coreFx.combine(anims).play();
+    };
+    demoDoit();
+});</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div class=&quot;entry&quot;&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+&lt;/div&gt;</textarea></div></div></div><p>Same example with pre AMD &lt;1.7 syntax:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'async: false', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">demoDoit</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="kr">int</span> <span class="o">=</span> <span class="mi">175</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">delay</span> <span class="o">=</span> <span class="mi">300</span><span class="p">;</span>
+        <span class="kd">var</span> <span class="nx">anims</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.entry p&quot;</span><span class="p">).</span><span class="nx">reverse</span><span class="p">()</span>
+            <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+                <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeOut</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span><span class="nx">n</span><span class="p">,</span> <span class="nx">delay</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">delay</span><span class="p">),</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">420</span> <span class="p">}));</span>
+                <span class="nx">delay</span> <span class="o">+=</span> <span class="kr">int</span><span class="p">;</span>
+            <span class="p">}).</span><span class="nx">reverse</span><span class="p">().</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+                <span class="nx">delay</span> <span class="o">+=</span> <span class="kr">int</span><span class="p">;</span>
+                <span class="nx">anims</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">animateProperty</span><span class="p">({</span>
+                    <span class="nx">node</span><span class="o">:</span><span class="nx">n</span><span class="p">,</span>
+                    <span class="nx">delay</span><span class="o">:</span> <span class="nb">parseInt</span><span class="p">(</span><span class="nx">delay</span><span class="p">),</span>
+                    <span class="nx">duration</span><span class="o">:</span><span class="mi">500</span><span class="p">,</span> <span class="nx">properties</span><span class="o">:</span> <span class="p">{</span> <span class="nx">height</span><span class="o">:</span><span class="mi">1</span> <span class="p">}</span>
+                <span class="p">}));</span>
+            <span class="p">});</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">combine</span><span class="p">(</span><span class="nx">anims</span><span class="p">).</span><span class="nx">play</span><span class="p">();</span>
+    <span class="p">};</span>
+    <span class="nx">demoDoit</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.fx&quot;);
+dojo.ready(function(){
+    var demoDoit = function(){
+        var int = 175;
+        var delay = 300;
+        var anims = [];
+        dojo.query(&quot;.entry p&quot;).reverse()
+            .forEach(function(n){
+                anims.push(dojo.fadeOut({ node:n, delay: parseInt(delay), duration:420 }));
+                delay += int;
+            }).reverse().forEach(function(n){
+                delay += int;
+                anims.push(dojo.animateProperty({
+                    node:n,
+                    delay: parseInt(delay),
+                    duration:500, properties: { height:1 }
+                }));
+            });
+        dojo.fx.combine(anims).play();
+    };
+    demoDoit();
+});</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;entry&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;&lt;p&gt;</span>Lorem ipsum dolor sit amet<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div class=&quot;entry&quot;&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+    &lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;&lt;p&gt;Lorem ipsum dolor sit amet&lt;/p&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+<div class="section" id="animation-easing">
+<h2><a class="toc-backref" href="#id6">Animation Easing</a><a class="headerlink" href="#animation-easing" title="Permalink to this headline">¶</a></h2>
+<p>Have you ever wanted to perform an animated effect such as fade out, fade in, wipe in, but apply the effect in a non-linear way? For example, wouldn&#8217;t it be cool to have a fade in accelerate the rate at which the node appears the further along in the animation duration it is, or provide a bit of bounce to your slide in animation? The functions which control the timing of the animation is handled through the &#8216;easing&#8217; property of the arguments passed to the animation creation functions.</p>
+<p>Instead of having to write the easing function yourself, dojo provides a collection of standard easing functions to use as this parameter to get a variety of effects.  See <a class="reference internal" href="../dojo/fx/easing.html#dojo-fx-easing"><em>Easing functions</em></a> for more information on the easing function provided out of the box.</p>
+</div>
+<div class="section" id="text-effects">
+<h2><a class="toc-backref" href="#id7">Text Effects</a><a class="headerlink" href="#text-effects" title="Permalink to this headline">¶</a></h2>
+<p>As mentioned above, the dojox/fx module provides additional effects over and beyond these basic animation capabilities.  On of the effects in the dojox package that is especially neat is effects that can operate on text directly, which can allow you to easily do animations such as exploding all the characters in a paragraph all over your page.  Make sure to check out these additional text effects once you understand the basics.</p>
+</div>
+<div class="section" id="animation-in-dijit-widget-1-5">
+<h2><a class="toc-backref" href="#id8">Animation in Dijit Widget 1.5+</a><a class="headerlink" href="#animation-in-dijit-widget-1-5" title="Permalink to this headline">¶</a></h2>
+<p>Using the latest in CSS3 along with the Dojo APIs increases the performance of animation and makes it easier for designers to code the animation using CSS3.</p>
+<p>See details on application of animation in specific Digits in <a class="reference internal" href="../dijit/themes.html#dijit-themes"><em>Themes and theming</em></a>.</p>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id9">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../dojo/fx.html#dojo-fx"><em>dojo.fx</em></a></li>
+<li><a class="reference internal" href="../dojox/fx.html#dojox-fx"><em>dojox.fx</em></a></li>
+<li><a class="reference internal" href="../dojo/NodeList-fx.html#dojo-nodelist-fx"><em>dojo.NodeList-fx</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Animations and Effects with Dojo</a><ul>
+<li><a class="reference internal" href="#getting-to-know-dojo-animation">Getting to know dojo.Animation</a><ul>
+<li><a class="reference internal" href="#animation-properties">Animation Properties</a></li>
+<li><a class="reference internal" href="#animation-events">Animation Events</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#base-animations">Base Animations</a><ul>
+<li><a class="reference internal" href="#fading-example">Fading Example</a></li>
+<li><a class="reference internal" href="#animating-css-properties">Animating CSS Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#core-animations-advanced-helpers">Core Animations: Advanced helpers</a></li>
+<li><a class="reference internal" href="#chaining-and-combining-animations">Chaining and Combining Animations</a><ul>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#animation-easing">Animation Easing</a></li>
+<li><a class="reference internal" href="#text-effects">Text Effects</a></li>
+<li><a class="reference internal" href="#animation-in-dijit-widget-1-5">Animation in Dijit Widget 1.5+</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="contents.html"
+                        title="previous chapter">Quickstart</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ajax.html"
+                        title="next chapter">AJAX and Dojo</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

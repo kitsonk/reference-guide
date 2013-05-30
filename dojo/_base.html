@@ -1,0 +1,164 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo._base &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo._base.Color" href="_base/Color.html" />
+    <link rel="prev" title="dojo._Url" href="Url.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-base">
+<span id="id1"></span><h1>dojo._base<a class="headerlink" href="#dojo-base" title="Permalink to this headline">¶</a></h1>
+<p><strong>dojo._base</strong> is a roll-up file, and is used to create the core <tt class="docutils literal"><span class="pre">dojo.js</span></tt> after a build. You should never directly
+<tt class="docutils literal"><span class="pre">dojo.require(&quot;dojo._base&quot;)</span></tt> as all the functionality is provided by simply including <tt class="docutils literal"><span class="pre">dojo.js</span></tt> on a page.</p>
+<div class="highlight"><pre><span class="c">&lt;!-- load dojo.js from Google CDN --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;http://ajax.googleapis.com/ajax/libs/dojo/1.7/dojo/dojo.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!-- load dojo.js from Google CDN --&gt;
+&lt;script src=&quot;http://ajax.googleapis.com/ajax/libs/dojo/1.7/dojo/dojo.js&quot;&gt;&lt;/script&gt;</textarea></div><p>If you are using an un-built Dojo, the inclusion of <tt class="docutils literal"><span class="pre">dojo.js</span></tt> will trigger the inclusion of <tt class="docutils literal"><span class="pre">dojo._base</span></tt> when
+<tt class="docutils literal"><span class="pre">async:</span> <span class="pre">false</span></tt> is used in the <tt class="docutils literal"><span class="pre">dojoConfig</span></tt>, fetching each of the files in the dojo/_base/ folder within the source
+tree. This produces additional XHR activity, and should be avoided in production. After building, these files are
+concatenated into dojo.js, providing a 26k &#8220;Base Dojo&#8221; (~77k without gzip enabled).</p>
+<p>In the above example, we are including a X-Domain version of dojo.js, which is slightly larger in filesize (29k), though
+allows all modules and resources to be loaded from a different domain.</p>
+<p>Any function or class hanging off the dojo namespace is typically provided for in <tt class="docutils literal"><span class="pre">dojo._base</span></tt>. <tt class="docutils literal"><span class="pre">dojo.xhrGet</span></tt>,
+<tt class="docutils literal"><span class="pre">dojo.animateProperty</span></tt>, <a class="reference internal" href="connect.html#dojo-connect"><em>dojo.connect</em></a>, and <tt class="docutils literal"><span class="pre">dojo.require</span></tt> are examples of Base functionality.</p>
+<p>Note that use of Dojo in non-browser environments typically requires using Dojo from source so that the package system
+can detect the operating environment and include the correct sub-set of the <tt class="docutils literal"><span class="pre">dojo._base</span></tt> functionality. The
+Browser-specific subset is the most common and typically the most feature-rich. See the documentation for
+<a class="reference internal" href="require.html#dojo-require"><em>dojo.require</em></a> to understand conditional loading of modules.</p>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Url.html"
+                        title="previous chapter">dojo._Url</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="_base/Color.html"
+                        title="next chapter">dojo._base.Color</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

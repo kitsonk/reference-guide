@@ -1,0 +1,512 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.NodeList-data &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo/NodeList-dom" href="NodeList-dom.html" />
+    <link rel="prev" title="dojo.NodeList" href="NodeList.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-nodelist-data">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.NodeList-data</a><a class="headerlink" href="#dojo-nodelist-data" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-nodelist-data" id="id2">dojo.NodeList-data</a><ul>
+<li><a class="reference internal" href="#overview" id="id3">Overview</a></li>
+<li><a class="reference internal" href="#using-data" id="id4">Using data()</a></li>
+<li><a class="reference internal" href="#data-removal" id="id5">Data Removal</a></li>
+<li><a class="reference internal" href="#memory-considerations" id="id6">Memory Considerations</a></li>
+<li><a class="reference internal" href="#see-also" id="id7">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">author:</th><td class="field-body">Peter Higgins</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">1.6.0</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="overview">
+<h2><a class="toc-backref" href="#id3">Overview</a><a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Provides a simple Data abstraction API to <a class="reference internal" href="NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a>, which is the result of calling <a class="reference internal" href="query.html#dojo-query"><em>dojo.query</em></a>. This allows you to bind data items to individual nodes, knowing you will be able to retrieve the data later if you get a reference to that node.</p>
+<p>The public APIs for the module are exposed on <a class="reference internal" href="NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a> as <em>data</em> and <em>removeData</em>. The <em>data</em> method acts as a setter getter, and <em>removeData</em> does as it&#8217;s name suggests: remove all or some data from this node reference.</p>
+<p>For Dojo 1.6 and earlier, the include the <em>data</em> APIs in your environment issue an appropriate <a class="reference internal" href="require.html#dojo-require"><em>dojo.require</em></a> call:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.NodeList-data&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.NodeList-data&quot;);</textarea></div><p>Since Dojo 1.7, you need to use &#8216;require()&#8217; to import this module:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">nodeListData</span><span class="p">){</span>
+  <span class="c1">// your codes here</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/NodeList-data&quot;], function(nodeListData){
+  // your codes here
+});</textarea></div></div>
+<div class="section" id="using-data">
+<h2><a class="toc-backref" href="#id4">Using data()</a><a class="headerlink" href="#using-data" title="Permalink to this headline">¶</a></h2>
+<p>The API to <em>data</em> is very simple. Each node has some arbitrary object hash of data items. Set a data item by key by passing a string key name, and some data to set at that position.</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#mynode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;datakey&quot;</span><span class="p">,</span> <span class="s2">&quot;This is the data I&#39;m setting&quot;</span><span class="p">);</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#mynode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;datakey&quot;</span><span class="p">,</span> <span class="s2">&quot;This is the data I&#39;m setting&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+dojo.query(&quot;#mynode&quot;).data(&quot;datakey&quot;, &quot;This is the data I'm setting&quot;);
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    query(&quot;#mynode&quot;).data(&quot;datakey&quot;, &quot;This is the data I'm setting&quot;);
+});</textarea></div><p>Now, the node with id=&#8221;mynode&#8221; has a string data item under the key <em>datakey</em>. We can later get this data by calling <em>data</em> with only the key name:</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="kd">var</span> <span class="nx">mydata</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#mynode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;datakey&quot;</span><span class="p">);</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">mydata</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#mynode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;datakey&quot;</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="nx">mydata</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;This is the data I&#39;m setting&quot;</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;see?&quot;</span><span class="p">);</span> <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+var mydata = dojo.query(&quot;#mynode&quot;).data(&quot;datakey&quot;);
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    var mydata = query(&quot;#mynode&quot;).data(&quot;datakey&quot;);
+    if(mydata[0] == &quot;This is the data I'm setting&quot;){ alert(&quot;see?&quot;); }
+});</textarea></div><p>Notice we need to access the return of <a class="reference internal" href="query.html#dojo-query"><em>dojo.query</em></a> as if it were an array, despite there only being one node in the list. <em>data</em> always returns an Array when acting as a getter. If the list has more than one item, the return array will have that many items as well.</p>
+<p>We can set any type of data at some key name, be it a String, Array, Object, and even functions.</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#someNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;myarray&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#diffNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;handlerFunction&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">});</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#someNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;myarray&quot;</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]);</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#diffNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;handlerFunction&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span> <span class="p">...</span> <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+dojo.query(&quot;#someNode&quot;).data(&quot;myarray&quot;, [1,2]);
+dojo.query(&quot;#diffNode&quot;).data(&quot;handlerFunction&quot;, function(){ ... });
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    query(&quot;#someNode&quot;).data(&quot;myarray&quot;, [1,2]);
+    query(&quot;#diffNode&quot;).data(&quot;handlerFunction&quot;, function(){ ... });
+});</textarea></div><p>Or an example of using an object has <em>as</em> the actual data:</p>
+<p>[ Dojo 1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#navNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;special-information&quot;</span><span class="p">,</span> <span class="p">{</span>
+     <span class="nx">huh</span><span class="o">:</span> <span class="s2">&quot;the Data at `special-information` is this complex object&quot;</span><span class="p">,</span>
+     <span class="nx">anumber</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+     <span class="nx">thelist</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// get it back:</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#navNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;special-information&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">data</span><span class="p">.</span><span class="nx">anumber</span><span class="o">++</span><span class="p">;</span>
+<span class="nx">data</span><span class="p">.</span><span class="nx">thelist</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;#navNode&quot;).data(&quot;special-information&quot;, {
+     huh: &quot;the Data at `special-information` is this complex object&quot;,
+     anumber: 42,
+     thelist: [1,2,3]
+});
+
+// get it back:
+var data = dojo.query(&quot;#navNode&quot;).data(&quot;special-information&quot;)[0];
+data.anumber++;
+data.thelist.push(4);</textarea></div><p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+   <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#navNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;special-information&quot;</span><span class="p">,</span> <span class="p">{</span>
+     <span class="nx">huh</span><span class="o">:</span> <span class="s2">&quot;the Data at `special-information` is this complex object&quot;</span><span class="p">,</span>
+     <span class="nx">anumber</span><span class="o">:</span> <span class="mi">42</span><span class="p">,</span>
+     <span class="nx">thelist</span><span class="o">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+   <span class="p">});</span>
+
+   <span class="c1">// get it back:</span>
+   <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#navNode&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;special-information&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+   <span class="nx">data</span><span class="p">.</span><span class="nx">anumber</span><span class="o">++</span><span class="p">;</span>
+   <span class="nx">data</span><span class="p">.</span><span class="nx">thelist</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+   query(&quot;#navNode&quot;).data(&quot;special-information&quot;, {
+     huh: &quot;the Data at `special-information` is this complex object&quot;,
+     anumber: 42,
+     thelist: [1,2,3]
+   });
+
+   // get it back:
+   var data = query(&quot;#navNode&quot;).data(&quot;special-information&quot;)[0];
+   data.anumber++;
+   data.thelist.push(4);
+});</textarea></div><p>Like other Dojo APIs, <em>data</em> accepts an object argument, which would be mixed into the node&#8217;s data set. For example:</p>
+<p>[ Dojo 1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// like calling .data(&quot;a&quot;, &#39;b&quot;).data(&quot;c&quot;, &quot;d&quot;).data(&quot;e&quot;, [1,2,3]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">({</span>
+   <span class="nx">a</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// &quot;b&quot;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// [1,2,3]</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// like calling .data(&quot;a&quot;, 'b&quot;).data(&quot;c&quot;, &quot;d&quot;).data(&quot;e&quot;, [1,2,3]
+dojo.query(&quot;#foo&quot;).data({
+   a:&quot;b&quot;, c:&quot;d&quot;, e:[1,2,3]
+});
+
+dojo.query(&quot;#foo&quot;).data(&quot;a&quot;)[0]; // &quot;b&quot;
+dojo.query(&quot;#foo&quot;).data(&quot;e&quot;)[0]; // [1,2,3]</textarea></div><p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="c1">// like calling .data(&quot;a&quot;, &#39;b&quot;).data(&quot;c&quot;, &quot;d&quot;).data(&quot;e&quot;, [1,2,3]</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">({</span>
+       <span class="nx">a</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="p">});</span>
+
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// &quot;b&quot;</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span> <span class="c1">// [1,2,3]</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    // like calling .data(&quot;a&quot;, 'b&quot;).data(&quot;c&quot;, &quot;d&quot;).data(&quot;e&quot;, [1,2,3]
+    query(&quot;#foo&quot;).data({
+       a:&quot;b&quot;, c:&quot;d&quot;, e:[1,2,3]
+    });
+
+    query(&quot;#foo&quot;).data(&quot;a&quot;)[0]; // &quot;b&quot;
+    query(&quot;#foo&quot;).data(&quot;e&quot;)[0]; // [1,2,3]
+});</textarea></div><p>This is useful when needing to set multiple independent data keys. Note how this differs from calling:</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;stuff&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">a</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="p">});</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;stuff&quot;</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">a</span><span class="o">:</span><span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="nx">c</span><span class="o">:</span><span class="s2">&quot;d&quot;</span><span class="p">,</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+dojo.query(&quot;#foo&quot;).data(&quot;stuff&quot;, {
+    a:&quot;b&quot;, c:&quot;d&quot;, e:[1,2,3]
+});
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    query(&quot;#foo&quot;).data(&quot;stuff&quot;, {
+        a:&quot;b&quot;, c:&quot;d&quot;, e:[1,2,3]
+    });
+});</textarea></div><p>Here were stashing this object at the key <em>stuff</em>, as compared to the previous example where each of the object keys we used as data keys.</p>
+<div class="section" id="various-return-types">
+<h3>Various Return Types<a class="headerlink" href="#various-return-types" title="Permalink to this headline">¶</a></h3>
+<p>There are several different types of returns that can come from <em>NodeList.data</em>. First, when acting as a setter, <em>data</em> returns the NodeList, so you can continue chaining.</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="p">});</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+      <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span> <span class="nx">alert</span><span class="p">(</span><span class="nx">query</span><span class="p">(</span><span class="k">this</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">10</span><span class="p">)</span> <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+dojo.query(&quot;#bar&quot;).data(&quot;foo&quot;, 10).onclick(function(){ alert(dojo.query(this).data(&quot;foo&quot;)[0] == 10) });
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+      query(&quot;#bar&quot;).data(&quot;foo&quot;, 10).onclick(function(){ alert(query(this).data(&quot;foo&quot;)[0] == 10) });
+});</textarea></div><p>When acting as a getter, NodeList.data <em>always</em> returns an Array. The array is populated with either the data at the requested key, or the entire data set if called with no arguments.</p>
+<p>[ Dojo 1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">({</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">};</span>
+<span class="c1">// calling with no arguments return _entire_ data set bound to node.</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">c</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">e</span><span class="p">);</span> <span class="c1">// logs &quot;b&quot; &quot;d&quot; [1,2,3]</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;#bar&quot;).data(&quot;a&quot;, &quot;b&quot;).data(&quot;c&quot;, &quot;d&quot;).data({ e:[1,2,3] };
+// calling with no arguments return _entire_ data set bound to node.
+var data = dojo.query(&quot;#bar&quot;).data()[0];
+console.log(data.a, data.c, data.e); // logs &quot;b&quot; &quot;d&quot; [1,2,3]</textarea></div><p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;d&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">({</span> <span class="nx">e</span><span class="o">:</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="p">};</span>
+    <span class="c1">// calling with no arguments return _entire_ data set bound to node.</span>
+    <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">()[</span><span class="mi">0</span><span class="p">];</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">a</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">c</span><span class="p">,</span> <span class="nx">data</span><span class="p">.</span><span class="nx">e</span><span class="p">);</span> <span class="c1">// logs &quot;b&quot; &quot;d&quot; [1,2,3]</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    query(&quot;#bar&quot;).data(&quot;a&quot;, &quot;b&quot;).data(&quot;c&quot;, &quot;d&quot;).data({ e:[1,2,3] };
+    // calling with no arguments return _entire_ data set bound to node.
+    var data = query(&quot;#bar&quot;).data()[0];
+    console.log(data.a, data.c, data.e); // logs &quot;b&quot; &quot;d&quot; [1,2,3]
+});</textarea></div></div>
+<div class="section" id="private-apis">
+<h3>Private APIs<a class="headerlink" href="#private-apis" title="Permalink to this headline">¶</a></h3>
+<p>Though nonstandard, NodeList-data provides several &#8220;private&#8221; APIs. These functions are used with the NodeList &#8220;adapters&#8221;, and mixed in from the single-node variant. If you are more comfortable with using direct node access, feel free to use these APIs. There name may change, but their function signature cannot, as the power the public <em>data</em> and <em>removeData</em> exported to <a class="reference internal" href="NodeList.html#dojo-nodelist"><em>NodeList</em></a></p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">dojo._nodeData(node, key, value):</th></tr>
+<tr class="field-odd field"><td>&nbsp;</td><td class="field-body">Can be called by passing a String or DomNode reference in the first position. All other arguments are shifted over.</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">dojo._removeNodeData(node, key):</th></tr>
+<tr class="field-even field"><td>&nbsp;</td><td class="field-body">Can be called by passing a String or DomNode reference in the first position.</td>
+</tr>
+</tbody>
+</table>
+<p>Here is a comparison:</p>
+<p>[ Dojo 1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// setters:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">_nodeData</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+<span class="c1">// getter, _nodeData does _not_ return an Array:</span>
+<span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;baz&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+<span class="kd">var</span> <span class="nx">dat2</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">_nodeData</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">);</span>
+
+<span class="k">if</span><span class="p">(</span><span class="nx">data</span> <span class="o">==</span> <span class="nx">dat2</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;see?&quot;</span><span class="p">)</span> <span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// setters:
+dojo.query(&quot;#bar&quot;).data(&quot;baz&quot;, 10);
+dojo._nodeData(&quot;bar&quot;, &quot;baz&quot;, 10);
+
+// getter, _nodeData does _not_ return an Array:
+var data = dojo.query(&quot;#bar&quot;).data(&quot;baz&quot;)[0];
+var dat2 = dojo._nodeData(&quot;bar&quot;, &quot;baz&quot;);
+
+if(data == dat2){ alert(&quot;see?&quot;) }</textarea></div><p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+     <span class="c1">// setters:</span>
+     <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+     <span class="nx">dojo</span><span class="p">.</span><span class="nx">_nodeData</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+     <span class="c1">// getter, _nodeData does _not_ return an Array:</span>
+     <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">data</span><span class="p">(</span><span class="s2">&quot;baz&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">];</span>
+     <span class="kd">var</span> <span class="nx">dat2</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">_nodeData</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">);</span>
+
+     <span class="k">if</span><span class="p">(</span><span class="nx">data</span> <span class="o">==</span> <span class="nx">dat2</span><span class="p">){</span> <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;see?&quot;</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+     // setters:
+     query(&quot;#bar&quot;).data(&quot;baz&quot;, 10);
+     dojo._nodeData(&quot;bar&quot;, &quot;baz&quot;, 10);
+
+     // getter, _nodeData does _not_ return an Array:
+     var data = query(&quot;#bar&quot;).data(&quot;baz&quot;)[0];
+     var dat2 = dojo._nodeData(&quot;bar&quot;, &quot;baz&quot;);
+
+     if(data == dat2){ alert(&quot;see?&quot;) }
+});</textarea></div></div>
+</div>
+<div class="section" id="data-removal">
+<h2><a class="toc-backref" href="#id5">Data Removal</a><a class="headerlink" href="#data-removal" title="Permalink to this headline">¶</a></h2>
+<p>The <em>removeData</em> API works nearly the same as <em>data</em>. Calling <em>removeData</em> with no arguments will erase all data bound to the node, and passing a string key name will erase the data under the key of the same name in the cache.</p>
+<div class="highlight"><pre><span class="c1">// [ Dojo 1.6 and earlier ]</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">removeData</span><span class="p">();</span> <span class="c1">// erases all information</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#baz&quot;</span><span class="p">).</span><span class="nx">removeData</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">);</span> <span class="c1">// removed [1,2,3] for instance</span>
+
+<span class="c1">// [ Dojo 1.7 AMD ]</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#bar&quot;</span><span class="p">).</span><span class="nx">removeData</span><span class="p">();</span> <span class="c1">// erases all information</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#baz&quot;</span><span class="p">).</span><span class="nx">removeData</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">);</span> <span class="c1">// removed [1,2,3] for instance</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// [ Dojo 1.6 and earlier ]
+dojo.query(&quot;#bar&quot;).removeData(); // erases all information
+dojo.query(&quot;#baz&quot;).removeData(&quot;e&quot;); // removed [1,2,3] for instance
+
+// [ Dojo 1.7 AMD ]
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-data&quot;], function(query, nodeListData){
+    query(&quot;#bar&quot;).removeData(); // erases all information
+    query(&quot;#baz&quot;).removeData(&quot;e&quot;); // removed [1,2,3] for instance
+});</textarea></div><p>There is, however, no way to remove a list of keys. An example of how to do so would look like:</p>
+<p>[ Dojo 1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">remover</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">_removeNodeData</span><span class="p">,</span> <span class="s2">&quot;nodeId&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">([</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;otherkey&quot;</span><span class="p">,</span> <span class="s2">&quot;somekey&quot;</span><span class="p">],</span> <span class="nx">remover</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var remover = dojo.partial(dojo._removeNodeData, &quot;nodeId&quot;);
+dojo.forEach([&quot;key&quot;, &quot;otherkey&quot;, &quot;somekey&quot;], remover);</textarea></div><p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span><span class="s2">&quot;dojo/_base/array&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-data&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">array</span><span class="p">,</span> <span class="nx">nodeListData</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">remover</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="nx">nodeListData</span><span class="p">.</span><span class="nx">_removeNodeData</span><span class="p">,</span> <span class="s2">&quot;nodeId&quot;</span><span class="p">);</span>
+    <span class="nx">array</span><span class="p">.</span><span class="nx">forEach</span><span class="p">([</span><span class="s2">&quot;key&quot;</span><span class="p">,</span> <span class="s2">&quot;otherkey&quot;</span><span class="p">,</span> <span class="s2">&quot;somekey&quot;</span><span class="p">],</span> <span class="nx">remover</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/lang&quot;,&quot;dojo/_base/array&quot;, &quot;dojo/NodeList-data&quot;], function(lang, array, nodeListData){
+    var remover = lang.partial(nodeListData._removeNodeData, &quot;nodeId&quot;);
+    array.forEach([&quot;key&quot;, &quot;otherkey&quot;, &quot;somekey&quot;], remover);
+});</textarea></div></div>
+<div class="section" id="memory-considerations">
+<h2><a class="toc-backref" href="#id6">Memory Considerations</a><a class="headerlink" href="#memory-considerations" title="Permalink to this headline">¶</a></h2>
+<p>There is no automatic node-deletion tracking going on. If you bind data to a node, and destroy that node directly or indirectly, the data will persist in the cache. In small pages, the memory consumption of this data cache is probably not worth considering. In large pages, or single-page-ajax apps that seldom or never refresh, the memory could increase indefinitely, leading to what could be perceived as a <em>leak</em>. It is <strong>highly</strong> recommended you manually clear out data on nodes you no longer need. If this is not a possibility due to engineering, or loose coupling, a single garbage collection API is provided: <tt class="docutils literal"><span class="pre">dojo._gcNodeData()</span></tt></p>
+<p>You can call :ref:<tt class="docutils literal"><span class="pre">gcNodeData</span></tt> at any time. It will remove items from the cache for nodes that no longer exist in the DOM. This function could be <strong>wildly</strong> expensive, especially on pages with a large DOM. Again, though this API is provided, it is <strong>highly</strong> recommended you manually manage your Data items if in a scenario leading to these potential &#8220;leaks&#8221;.</p>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id7">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div><ul class="simple">
+<li><a class="reference internal" href="data.html#dojo-data"><em>dojo.data</em></a> - dojo.data is an opaque Data API, unrelated to direct node references. More powerful and abstract than this node-data module.</li>
+<li><a class="reference internal" href="../dijit/_Widget.html#dijit-widget"><em>dijit._Widget</em></a> - If you have complex data and relationships between components and nodes, perhaps you are thinking about it wrong. dijit._Widget provides another take on data-node binding by providing an API to Objects exclusively, each bound to at the least a top-level DomNode. This base class powers the entire Dijit UI library, and is very small.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.NodeList-data</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#using-data">Using data()</a><ul>
+<li><a class="reference internal" href="#various-return-types">Various Return Types</a></li>
+<li><a class="reference internal" href="#private-apis">Private APIs</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#data-removal">Data Removal</a></li>
+<li><a class="reference internal" href="#memory-considerations">Memory Considerations</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="NodeList.html"
+                        title="previous chapter">dojo.NodeList</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="NodeList-dom.html"
+                        title="next chapter">dojo/NodeList-dom</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

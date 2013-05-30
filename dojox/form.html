@@ -1,0 +1,214 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.form project &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="DojoX" href="contents.html" />
+    <link rel="next" title="dojox.form.BusyButton" href="form/BusyButton.html" />
+    <link rel="prev" title="dojox.flash" href="flash.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-form-project">
+<span id="dojox-form"></span><h1>dojox.form project<a class="headerlink" href="#dojox-form-project" title="Permalink to this headline">¶</a></h1>
+<p>The dojox.form project provides additional form-related widgets beyond <a class="reference internal" href="../dijit/form.html#dijit-form"><em>dijit.form</em></a> functionality.</p>
+<div class="section" id="available-widgets">
+<h2>Available Widgets<a class="headerlink" href="#available-widgets" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/BusyButton.html#dojox-form-busybutton"><em>dojox.form.BusyButton</em></a></p>
+<p>A new Button with progress indicator built in, for indicating processing after you press the button</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/CheckedMultiSelect.html#dojox-form-checkedmultiselect"><em>dojox.form.CheckedMultiSelect</em></a></p>
+<p>A multi-select widget (similar to html select with multiple=true) that uses check boxes</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/DateTextBox.html#dojox-form-datetextbox"><em>dojox.form.DateTextBox</em></a></p>
+<p>description?</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/DropDownSelect.html#dojox-form-dropdownselect"><em>dojox.form.DropDownSelect</em></a></p>
+<p>A styleable drop down select box (similar to html select element). Moved to dijit.form.Select. See also <a class="reference internal" href="../dijit/form/Select.html#dijit-form-select"><em>dijit.form.Select</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/DropDownStack.html#dojox-form-dropdownstack"><em>dojox.form.DropDownStack</em></a></p>
+<p>A widget for enabling/disabling parts of a form based on a selection</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/FileInput.html#dojox-form-fileinput"><em>dojox.form.FileInput</em></a> (covers base, Auto, and Blind)</p>
+<p>A series of experimental Vanilla input type=&#8221;file&#8221; widgets for uploading files. See also <a class="reference internal" href="form/FileUploader.html#dojox-form-fileuploader"><em>FileUploader</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/FilePickerTextBox.html#dojox-form-filepickertextbox"><em>dojox.form.FilePickerTextBox</em></a></p>
+<p>A dijit._FormWidget that adds a dojox.widget.FilePicker to a text box as a dropdown</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/FileUploader.html#dojox-form-fileuploader"><em>dojox.form.FileUploader</em></a></p>
+<p>Deprecated old multi-file uploader that shows progress as the files are uploading. Use <a class="reference internal" href="form/Uploader.html#dojox-form-uploader"><em>dojox.form.Uploader</em></a> instead.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/ListInput.html#dojox-form-listinput"><em>dojox.form.ListInput</em></a></p>
+<p>The ListInput widget allows you to create a list of elements.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/manager/index.html#dojox-form-manager-index"><em>dojox.form.manager</em></a></p>
+<p>A package to manage complex event-driven dynamic forms</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/Manager.html#dojox-form-manager"><em>dojox.form.Manager (widget)</em></a></p>
+<p>A widget that uses <a class="reference internal" href="form/manager/index.html#dojox-form-manager-index"><em>dojox.form.manager</em></a> to handle dynamic forms</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/MultiComboBox.html#dojox-form-multicombobox"><em>dojox.form.MultiComboBox</em></a></p>
+<p>Extension to ComboBox to allow &#8220;tag&#8221; style input using a datastore using a delimiter.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/PasswordValidator.html#dojox-form-passwordvalidator"><em>dojox.form.PasswordValidator</em></a></p>
+<p>A widget that simplifies the &#8220;Old/New/Verify&#8221; password construct used on many web pages</p>
+</li>
+<li><p class="first"><em class="xref std std-ref">dojox.form.RadioStack</em></p>
+<p>A widget for enabling/disabling parts of a form based on a selection</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/RangeSlider.html#dojox-form-rangeslider"><em>dojox.form.RangeSlider</em></a></p>
+<p>A widget that allows a range of values to be selected along a scale</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/Rating.html#dojox-form-rating"><em>dojox.form.Rating</em></a></p>
+<p>A widget that allows users to rate items</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/TimeSpinner.html#dojox-form-timespinner"><em>dojox.form.TimeSpinner</em></a></p>
+<p>This widget is the same as dijit.form.NumberSpinner, but for the time component of a date object instead</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/Uploader.html#dojox-form-uploader"><em>dojox.form.Uploader</em></a></p>
+<p>A widget that adds functionality to a standard HTML file input. It hides the actual uploader and substitutes a dijit.form.Button.</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.form project</a><ul>
+<li><a class="reference internal" href="#available-widgets">Available Widgets</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="flash.html"
+                        title="previous chapter">dojox.flash</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="form/BusyButton.html"
+                        title="next chapter">dojox.form.BusyButton</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

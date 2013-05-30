@@ -1,0 +1,532 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dijit.Tree examples &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dijit" href="contents.html" />
+    <link rel="next" title="dijit.WidgetSet" href="WidgetSet.html" />
+    <link rel="prev" title="dijit.Tree" href="Tree.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-tree-examples">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dijit.Tree examples</a><a class="headerlink" href="#dijit-tree-examples" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dijit-tree-examples" id="id2">dijit.Tree examples</a><ul>
+<li><a class="reference internal" href="#detect-when-tree-has-finished-loading" id="id3">Detect when tree has finished loading</a></li>
+<li><a class="reference internal" href="#expanding-and-focusing-tree-nodes-programmatically" id="id4">Expanding and Focusing tree nodes programmatically</a></li>
+<li><a class="reference internal" href="#how-can-i-prevent-expanding-of-nodes-when-clicking-on-them" id="id5">How can I prevent expanding of nodes when clicking on them?</a></li>
+<li><a class="reference internal" href="#example-using-local-data-and-markup" id="id6">Example using Local Data and Markup</a></li>
+<li><a class="reference internal" href="#example-how-to-build-a-tree-menu-with-links-on-nodes" id="id7">Example how to build a tree menu with links on nodes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="detect-when-tree-has-finished-loading">
+<h2><a class="toc-backref" href="#id3">Detect when tree has finished loading</a><a class="headerlink" href="#detect-when-tree-has-finished-loading" title="Permalink to this headline">¶</a></h2>
+<p>Use the onLoadDeferred to detect when the Tree has finished loading</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">tree</span> <span class="o">=</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;myTree&#39;</span><span class="p">);</span>
+
+<span class="c1">// Connect to tree onLoad to do work once it has initialized</span>
+<span class="nx">tree</span><span class="p">.</span><span class="nx">onLoadDeferred</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;tree onLoad here!&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">(</span><span class="nx">tmph</span><span class="p">);</span>
+
+    <span class="c1">// do work here</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var tree = dijit.byId('myTree');
+
+// Connect to tree onLoad to do work once it has initialized
+tree.onLoadDeferred.then(function(){
+    console.debug(&quot;tree onLoad here!&quot;);
+    dojo.disconnect(tmph);
+
+    // do work here
+});</textarea></div></div>
+<div class="section" id="expanding-and-focusing-tree-nodes-programmatically">
+<h2><a class="toc-backref" href="#id4">Expanding and Focusing tree nodes programmatically</a><a class="headerlink" href="#expanding-and-focusing-tree-nodes-programmatically" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">dijit.Tree</span></tt> in dojo 1.4 has a new &#8216;path&#8217; attribute, which can be set with the usual <tt class="docutils literal"><span class="pre">tree.set('path',</span> <span class="pre">thePath);</span></tt> syntax.  It serves two purposes: to expand the tree up to the node in question, and to highlight that node.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.data.ItemFileReadStore&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Tree&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+    <span class="nx">selectNode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">mytree</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="s1">&#39;continentRoot&#39;</span><span class="p">,</span> <span class="s1">&#39;NA&#39;</span><span class="p">,</span> <span class="s1">&#39;MX&#39;</span><span class="p">,</span> <span class="s1">&#39;Mexico City&#39;</span> <span class="p">]</span> <span class="p">);</span>
+    <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dojo.data.ItemFileReadStore&quot;);
+    dojo.require(&quot;dijit.Tree&quot;);
+    dojo.require(&quot;dijit.form.Button&quot;);
+
+    selectNode = function(){
+        mytree.set('path', [ 'continentRoot', 'NA', 'MX', 'Mexico City' ] );
+    }
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojo.data.ItemFileReadStore&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentStore&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;url:&#39;{{ dataUrl }}dijit/tests/_data/countries.json&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.tree.ForestStoreModel&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentModel&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;store:continentStore, query:{type:&#39;continent&#39;},</span>
+<span class="s">  rootId:&#39;continentRoot&#39;, rootLabel:&#39;Continents&#39;, childrenAttrs:&#39;children&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Tree&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;mytree&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;openOnClick:true, model:continentModel, showRoot:false, persist:false&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:selectNode}&quot;</span><span class="nt">&gt;</span>Highlight the node!<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dojo.data.ItemFileReadStore&quot; data-dojo-id=&quot;continentStore&quot;
+  data-dojo-props=&quot;url:'{{ dataUrl }}dijit/tests/_data/countries.json'&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.tree.ForestStoreModel&quot; data-dojo-id=&quot;continentModel&quot;
+  data-dojo-props=&quot;store:continentStore, query:{type:'continent'},
+  rootId:'continentRoot', rootLabel:'Continents', childrenAttrs:'children'&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.Tree&quot; data-dojo-id=&quot;mytree&quot;
+  data-dojo-props=&quot;openOnClick:true, model:continentModel, showRoot:false, persist:false&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:selectNode}&quot;&gt;Highlight the node!&lt;/div&gt;</textarea></div></div></div><p>One problem with using &#8216;path&#8217; is that you must know the full path to the node in your data you are trying to select.</p>
+<p>The following example contains workaround code for this problem, as well as an example call to tree.set(&#8216;path&#8217;).
+If you already know the full path to the tree node you want to highlight, you can simply call tree.set(&#8216;path&#8217;).</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.data.ItemFileReadStore&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Tree&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">recursiveHunt</span><span class="p">(</span><span class="nx">lookfor</span><span class="p">,</span> <span class="nx">model</span><span class="p">,</span> <span class="nx">buildme</span><span class="p">,</span> <span class="nx">item</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;&gt;&gt; recursiveHunt, item &quot;</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="s2">&quot; looking for &quot;</span><span class="p">,</span> <span class="nx">lookfor</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">id</span> <span class="o">=</span> <span class="nx">model</span><span class="p">.</span><span class="nx">getIdentity</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+        <span class="nx">buildme</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">id</span> <span class="o">==</span> <span class="nx">lookfor</span><span class="p">){</span>
+            <span class="c1">// Return the buildme array, indicating a match was found</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;++ FOUND item &quot;</span><span class="p">,</span> <span class="nx">item</span><span class="p">,</span> <span class="s2">&quot; buildme now = &quot;</span><span class="p">,</span> <span class="nx">buildme</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nx">buildme</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">idx</span> <span class="k">in</span> <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">){</span>
+            <span class="c1">// start a new branch of buildme, starting with what we have so far</span>
+            <span class="kd">var</span> <span class="nx">buildmebranch</span> <span class="o">=</span> <span class="nx">buildme</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+            <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Branching into &quot;</span><span class="p">,</span> <span class="nx">model</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">idx</span><span class="p">],</span> <span class="s1">&#39;name&#39;</span><span class="p">),</span> <span class="s2">&quot;, buildmebranch=&quot;</span><span class="p">,</span> <span class="nx">buildmebranch</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">r</span> <span class="o">=</span> <span class="nx">recursiveHunt</span><span class="p">(</span><span class="nx">lookfor</span><span class="p">,</span> <span class="nx">model</span><span class="p">,</span> <span class="nx">buildmebranch</span><span class="p">,</span> <span class="nx">item</span><span class="p">.</span><span class="nx">children</span><span class="p">[</span><span class="nx">idx</span><span class="p">]);</span>
+            <span class="c1">// If a match was found in that recurse, return it.</span>
+            <span class="c1">//  This unwinds the recursion on completion.</span>
+            <span class="k">if</span><span class="p">(</span><span class="nx">r</span><span class="p">){</span> <span class="k">return</span> <span class="nx">r</span><span class="p">;</span> <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="c1">// Return undefined, indicating no match was found</span>
+        <span class="k">return</span> <span class="kc">undefined</span><span class="p">;</span>
+    <span class="p">}</span>
+
+    <span class="kd">function</span> <span class="nx">selectTreeNodeById</span><span class="p">(</span><span class="nx">tree</span><span class="p">,</span> <span class="nx">lookfor</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;See model root=&quot;</span><span class="p">,</span> <span class="nx">tree</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">root</span><span class="p">);</span>
+        <span class="kd">var</span> <span class="nx">buildme</span> <span class="o">=</span> <span class="p">[];</span>
+        <span class="kd">var</span> <span class="nx">result</span> <span class="o">=</span> <span class="nx">recursiveHunt</span><span class="p">(</span><span class="nx">lookfor</span><span class="p">,</span> <span class="nx">tree</span><span class="p">.</span><span class="nx">model</span><span class="p">,</span> <span class="nx">buildme</span><span class="p">,</span> <span class="nx">tree</span><span class="p">.</span><span class="nx">model</span><span class="p">.</span><span class="nx">root</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;*** FINISHED: result &quot;</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="s2">&quot; buildme &quot;</span><span class="p">,</span> <span class="nx">buildme</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">dir</span><span class="p">(</span><span class="nx">result</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">result</span> <span class="o">&amp;&amp;</span> <span class="nx">result</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">){</span>
+            <span class="nx">tree</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s1">&#39;path&#39;</span><span class="p">,</span> <span class="nx">result</span><span class="p">);</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="nx">selectNode</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+
+        <span class="nx">selectTreeNodeById</span><span class="p">(</span><span class="nx">mytree2</span><span class="p">,</span> <span class="s1">&#39;Mexico City&#39;</span><span class="p">);</span>
+
+    <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dojo.data.ItemFileReadStore&quot;);
+    dojo.require(&quot;dijit.Tree&quot;);
+    dojo.require(&quot;dijit.form.Button&quot;);
+
+    function recursiveHunt(lookfor, model, buildme, item){
+        console.log(&quot;&gt;&gt; recursiveHunt, item &quot;, item, &quot; looking for &quot;, lookfor);
+        var id = model.getIdentity(item);
+        buildme.push(id);
+        if(id == lookfor){
+            // Return the buildme array, indicating a match was found
+            console.log(&quot;++ FOUND item &quot;, item, &quot; buildme now = &quot;, buildme);
+            return buildme;
+        }
+        for(var idx in item.children){
+            // start a new branch of buildme, starting with what we have so far
+            var buildmebranch = buildme.slice(0);
+            console.log(&quot;Branching into &quot;, model.store.getValue(item.children[idx], 'name'), &quot;, buildmebranch=&quot;, buildmebranch);
+            var r = recursiveHunt(lookfor, model, buildmebranch, item.children[idx]);
+            // If a match was found in that recurse, return it.
+            //  This unwinds the recursion on completion.
+            if(r){ return r; }
+        }
+        // Return undefined, indicating no match was found
+        return undefined;
+    }
+
+    function selectTreeNodeById(tree, lookfor){
+        console.log(&quot;See model root=&quot;, tree.model.root);
+        var buildme = [];
+        var result = recursiveHunt(lookfor, tree.model, buildme, tree.model.root);
+        console.log(&quot;*** FINISHED: result &quot;, result, &quot; buildme &quot;, buildme);
+        console.dir(result);
+        if(result &amp;&amp; result.length &gt; 0){
+            tree.set('path', result);
+        }
+    }
+
+    selectNode = function(){
+
+        selectTreeNodeById(mytree2, 'Mexico City');
+
+    }
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojo.data.ItemFileReadStore&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentStore&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;url:&#39;{{dataUrl}}dijit/tests/_data/countries.json&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.tree.ForestStoreModel&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentModel&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;store:continentStore,query:{type:&#39;continent&#39;},</span>
+<span class="s">  rootId:&#39;continentRoot&#39;, rootLabel:&#39;Continents&#39;, childrenAttrs:&#39;children&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Tree&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;mytree2&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;openOnClick:true, model:continentModel, showRoot:false, persist:false&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">onClick=</span><span class="s">&quot;selectNode();&quot;</span><span class="nt">&gt;</span>Highlight the node!<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dojo.data.ItemFileReadStore&quot; data-dojo-id=&quot;continentStore&quot;
+  data-dojo-props=&quot;url:'{{dataUrl}}dijit/tests/_data/countries.json'&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.tree.ForestStoreModel&quot; data-dojo-id=&quot;continentModel&quot;
+  data-dojo-props=&quot;store:continentStore,query:{type:'continent'},
+  rootId:'continentRoot', rootLabel:'Continents', childrenAttrs:'children'&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.Tree&quot; data-dojo-id=&quot;mytree2&quot;
+  data-dojo-props=&quot;openOnClick:true, model:continentModel, showRoot:false, persist:false&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.form.Button&quot; onClick=&quot;selectNode();&quot;&gt;Highlight the node!&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="how-can-i-prevent-expanding-of-nodes-when-clicking-on-them">
+<h2><a class="toc-backref" href="#id5">How can I prevent expanding of nodes when clicking on them?</a><a class="headerlink" href="#how-can-i-prevent-expanding-of-nodes-when-clicking-on-them" title="Permalink to this headline">¶</a></h2>
+<p>Simply set the <tt class="docutils literal"><span class="pre">openOnClick</span></tt> attribute to <tt class="docutils literal"><span class="pre">false</span></tt></p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.data.ItemFileReadStore&quot;</span><span class="p">);</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Tree&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+  dojo.require(&quot;dojo.data.ItemFileReadStore&quot;);
+  dojo.require(&quot;dijit.Tree&quot;);
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojo.data.ItemFileReadStore&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentStore&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;url:&#39;{{dataUrl}}dijit/tests/_data/countries.json&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.tree.ForestStoreModel&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;continentModel&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;store:continentStore, query:{type:&#39;continent&#39;},</span>
+<span class="s">  rootId:&#39;continentRoot&#39;, rootLabel:&#39;Continents&#39;, childrenAttrs:&#39;children&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Tree&quot;</span> <span class="na">id=</span><span class="s">&quot;mytree&quot;</span>
+  <span class="na">data-dojo-props=</span><span class="s">&quot;model:continentModel, openOnClick:false&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;item&quot;</span><span class="nt">&gt;</span>
+    <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Execute of node &quot;</span> <span class="o">+</span> <span class="nx">continentStore</span><span class="p">.</span><span class="nx">getLabel</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span>
+        <span class="o">+</span><span class="s2">&quot;, population=&quot;</span> <span class="o">+</span> <span class="nx">continentStore</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="s2">&quot;population&quot;</span><span class="p">));</span>
+  <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dojo.data.ItemFileReadStore&quot; data-dojo-id=&quot;continentStore&quot;
+  data-dojo-props=&quot;url:'{{dataUrl}}dijit/tests/_data/countries.json'&quot;&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.tree.ForestStoreModel&quot; data-dojo-id=&quot;continentModel&quot;
+  data-dojo-props=&quot;store:continentStore, query:{type:'continent'},
+  rootId:'continentRoot', rootLabel:'Continents', childrenAttrs:'children'&quot;&gt;&lt;/div&gt;
+
+&lt;div data-dojo-type=&quot;dijit.Tree&quot; id=&quot;mytree&quot;
+  data-dojo-props=&quot;model:continentModel, openOnClick:false&quot;&gt;
+  &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;item&quot;&gt;
+    alert(&quot;Execute of node &quot; + continentStore.getLabel(item)
+        +&quot;, population=&quot; + continentStore.getValue(item, &quot;population&quot;));
+  &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="example-using-local-data-and-markup">
+<h2><a class="toc-backref" href="#id6">Example using Local Data and Markup</a><a class="headerlink" href="#example-using-local-data-and-markup" title="Permalink to this headline">¶</a></h2>
+<p>Most of the examples have used the same url:json source of the data for the store.
+This example uses local data from a javascript object as the raw data.
+In addition, _createTreeNode is overridden to allow HTML markup in the tree.
+This is a hack, in the sense that the formatting may not be perfect for large (in pixels) elements.
+But the tree will display and work properly regardless, and for simple markup, eg bold, it works great.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.data.ItemFileReadStore&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span> <span class="s2">&quot;dijit.Tree&quot;</span> <span class="p">);</span>
+
+    <span class="kd">var</span> <span class="nx">rawdata</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Something &lt;b&gt;important&lt;/b&gt;&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;1&#39;</span><span class="p">,</span>
+        <span class="nx">children</span><span class="o">:</span>  <span class="p">[</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Life&#39;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;1.1&#39;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Liberty&#39;</span><span class="p">,</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;1.2&#39;</span> <span class="p">}</span> <span class="p">]</span>
+    <span class="p">},</span> <span class="p">{</span>
+        <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;Some links (note: the link is &lt;b&gt;not&lt;/b&gt; clickable)&#39;</span><span class="p">,</span>
+        <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;2&#39;</span><span class="p">,</span>
+        <span class="nx">children</span><span class="o">:</span> <span class="p">[</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;2.1&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;&lt;a href=&quot;http://dojotoolkit.org&quot;&gt;Dojo Toolkit&lt;/a&gt;&#39;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;2.2&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;&lt;img src=&quot;http://dojofoundation.org/media/img/dojo.logo.png&quot; alt=&quot;greatest ever&quot; height=&quot;32px&quot; /&gt;&#39;</span> <span class="p">},</span>
+            <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;2.3&#39;</span><span class="p">,</span> <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;&lt;a href=&quot;http://blog.nqzero.com&quot;&gt;my blog&lt;/a&gt;&#39;</span> <span class="p">}</span>
+        <span class="p">]</span>
+    <span class="p">}</span> <span class="p">];</span>
+
+    <span class="kd">function</span> <span class="nx">prepare</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ItemFileReadStore</span><span class="p">({</span>
+            <span class="nx">data</span><span class="o">:</span> <span class="p">{</span> <span class="nx">identifier</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="nx">label</span> <span class="o">:</span> <span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="nx">items</span><span class="o">:</span> <span class="nx">rawdata</span> <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">treeModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">tree</span><span class="p">.</span><span class="nx">ForestStoreModel</span><span class="p">({</span> <span class="nx">store</span><span class="o">:</span> <span class="nx">store</span> <span class="p">});</span>
+        <span class="kd">var</span> <span class="nx">treeControl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">Tree</span><span class="p">({</span>
+            <span class="nx">model</span><span class="o">:</span> <span class="nx">treeModel</span><span class="p">,</span>
+            <span class="nx">showRoot</span><span class="o">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="nx">_createTreeNode</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*Object*/</span> <span class="nx">args</span><span class="p">){</span>
+                <span class="kd">var</span> <span class="nx">tnode</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">_TreeNode</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+                <span class="nx">tnode</span><span class="p">.</span><span class="nx">labelNode</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">args</span><span class="p">.</span><span class="nx">label</span><span class="p">;</span>
+                <span class="k">return</span> <span class="nx">tnode</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">},</span> <span class="s2">&quot;treeOne&quot;</span> <span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">prepare</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dojo.data.ItemFileReadStore&quot;);
+    dojo.require( &quot;dijit.Tree&quot; );
+
+    var rawdata = [ {
+        label: 'Something &lt;b&gt;important&lt;/b&gt;',
+        id: '1',
+        children:  [ { label: 'Life', id: '1.1' }, { label: 'Liberty', id: '1.2' } ]
+    }, {
+        label: 'Some links (note: the link is &lt;b&gt;not&lt;/b&gt; clickable)',
+        id: '2',
+        children: [
+            { id: '2.1', label: '&lt;a href=&quot;http://dojotoolkit.org&quot;&gt;Dojo Toolkit&lt;/a&gt;' },
+            { id: '2.2', label: '&lt;img src=&quot;http://dojofoundation.org/media/img/dojo.logo.png&quot; alt=&quot;greatest ever&quot; height=&quot;32px&quot; /&gt;' },
+            { id: '2.3', label: '&lt;a href=&quot;http://blog.nqzero.com&quot;&gt;my blog&lt;/a&gt;' }
+        ]
+    } ];
+
+    function prepare(){
+        var store = new dojo.data.ItemFileReadStore({
+            data: { identifier: 'id', label : 'label', items: rawdata }
+        });
+        var treeModel = new dijit.tree.ForestStoreModel({ store: store });
+        var treeControl = new dijit.Tree({
+            model: treeModel,
+            showRoot: false,
+            _createTreeNode: function(/*Object*/ args){
+                var tnode = new dijit._TreeNode(args);
+                tnode.labelNode.innerHTML = args.label;
+                return tnode;
+            }
+        }, &quot;treeOne&quot; );
+    }
+
+    dojo.ready(prepare);
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;treeOne&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;treeOne&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="example-how-to-build-a-tree-menu-with-links-on-nodes">
+<h2><a class="toc-backref" href="#id7">Example how to build a tree menu with links on nodes</a><a class="headerlink" href="#example-how-to-build-a-tree-menu-with-links-on-nodes" title="Permalink to this headline">¶</a></h2>
+<p>This example shows you how to use a tree to build a navigation menu.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.data.ItemFileWriteStore&quot;</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span> <span class="s2">&quot;dijit.Tree&quot;</span> <span class="p">);</span>
+
+   <span class="kd">function</span> <span class="nx">initTree</span><span class="p">(){</span>
+      <span class="kd">var</span> <span class="nx">treeStore</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">data</span><span class="p">.</span><span class="nx">ItemFileWriteStore</span><span class="p">({</span> <span class="nx">data</span><span class="o">:</span>
+         <span class="p">{</span>
+            <span class="nx">identifier</span><span class="o">:</span> <span class="s1">&#39;id&#39;</span><span class="p">,</span>
+            <span class="nx">label</span><span class="o">:</span> <span class="s1">&#39;name&#39;</span><span class="p">,</span>
+            <span class="nx">items</span><span class="o">:</span> <span class="p">[</span>
+               <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dijit Tree API&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://dojotoolkit.org/api/1.6/dijit.Tree&#39;</span><span class="p">,</span> <span class="nx">root</span><span class="o">:</span> <span class="kc">true</span><span class="p">,</span>
+                  <span class="nx">children</span><span class="o">:</span><span class="p">[{</span><span class="nx">_reference</span><span class="o">:</span> <span class="mi">2</span><span class="p">},</span> <span class="p">{</span><span class="nx">_reference</span><span class="o">:</span> <span class="mi">3</span><span class="p">},</span> <span class="p">{</span><span class="nx">_reference</span><span class="o">:</span> <span class="mi">4</span><span class="p">}]</span> <span class="p">},</span>
+               <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">2</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dijit Tree.model API&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://dojotoolkit.org/api/1.6/dijit.Tree.model&#39;</span> <span class="p">},</span>
+               <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dijit Tree.ForestStoreModel API&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://dojotoolkit.org/api/1.6/dijit.tree.ForestStoreModel&#39;</span> <span class="p">},</span>
+               <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">4</span><span class="p">,</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;Dijit Tree.TreeStoreModel API&#39;</span><span class="p">,</span> <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;http://dojotoolkit.org/api/1.6/dijit.tree.TreeStoreModel&#39;</span> <span class="p">},</span>
+            <span class="p">]</span>
+         <span class="p">}</span>
+      <span class="p">});</span>
+
+      <span class="kd">var</span> <span class="nx">treeModel</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">tree</span><span class="p">.</span><span class="nx">ForestStoreModel</span><span class="p">({</span>
+         <span class="nx">store</span><span class="o">:</span> <span class="nx">treeStore</span><span class="p">,</span>
+         <span class="nx">query</span><span class="o">:</span> <span class="p">{</span> <span class="s1">&#39;root&#39;</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+      <span class="p">});</span>
+
+      <span class="kd">var</span> <span class="nx">navTree</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">Tree</span><span class="p">({</span><span class="nx">model</span><span class="o">:</span> <span class="nx">treeModel</span><span class="p">,</span> <span class="nx">showRoot</span><span class="o">:</span> <span class="kc">false</span> <span class="p">},</span> <span class="s2">&quot;navTree&quot;</span><span class="p">)</span>
+
+      <span class="nx">navTree</span><span class="p">.</span><span class="nx">onClick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+          <span class="cm">/* load the url from datastore */</span>
+          <span class="nx">location</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">item</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+      <span class="p">};</span>
+   <span class="p">}</span>
+
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">initTree</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">    &lt;script type=&quot;text/javascript&quot;&gt;
+   dojo.require(&quot;dojo.data.ItemFileWriteStore&quot;);
+   dojo.require( &quot;dijit.Tree&quot; );
+
+   function initTree(){
+      var treeStore = new dojo.data.ItemFileWriteStore({ data:
+         {
+            identifier: 'id',
+            label: 'name',
+            items: [
+               { id: 1, name: 'Dijit Tree API', url: 'http://dojotoolkit.org/api/1.6/dijit.Tree', root: true,
+                  children:[{_reference: 2}, {_reference: 3}, {_reference: 4}] },
+               { id: 2, name: 'Dijit Tree.model API', url: 'http://dojotoolkit.org/api/1.6/dijit.Tree.model' },
+               { id: 3, name: 'Dijit Tree.ForestStoreModel API', url: 'http://dojotoolkit.org/api/1.6/dijit.tree.ForestStoreModel' },
+               { id: 4, name: 'Dijit Tree.TreeStoreModel API', url: 'http://dojotoolkit.org/api/1.6/dijit.tree.TreeStoreModel' },
+            ]
+         }
+      });
+
+      var treeModel = new dijit.tree.ForestStoreModel({
+         store: treeStore,
+         query: { 'root': true }
+      });
+
+      var navTree = new dijit.Tree({model: treeModel, showRoot: false }, &quot;navTree&quot;)
+
+      navTree.onClick = function(item){
+          /* load the url from datastore */
+          location.href = item.url;
+      };
+   }
+
+   dojo.ready(initTree);
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;navTree&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;navTree&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dijit.Tree examples</a><ul>
+<li><a class="reference internal" href="#detect-when-tree-has-finished-loading">Detect when tree has finished loading</a></li>
+<li><a class="reference internal" href="#expanding-and-focusing-tree-nodes-programmatically">Expanding and Focusing tree nodes programmatically</a></li>
+<li><a class="reference internal" href="#how-can-i-prevent-expanding-of-nodes-when-clicking-on-them">How can I prevent expanding of nodes when clicking on them?</a></li>
+<li><a class="reference internal" href="#example-using-local-data-and-markup">Example using Local Data and Markup</a></li>
+<li><a class="reference internal" href="#example-how-to-build-a-tree-menu-with-links-on-nodes">Example how to build a tree menu with links on nodes</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Tree.html"
+                        title="previous chapter">dijit.Tree</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="WidgetSet.html"
+                        title="next chapter">dijit.WidgetSet</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

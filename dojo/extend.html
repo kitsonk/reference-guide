@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.extend &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.fadeIn" href="fadeIn.html" />
+    <link rel="prev" title="dojo.exists" href="exists.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-extend">
+<span id="id1"></span><h1>dojo.extend<a class="headerlink" href="#dojo-extend" title="Permalink to this headline">¶</a></h1>
+<p>Dojo extend works much like <a class="reference internal" href="mixin.html#dojo-mixin"><em>dojo.mixin</em></a>, though works directly on an object&#8217;s prototype. Following the same pattern as mixin, dojo.extend mixes members from the right-most object into the first object, modifying the object directly.</p>
+<p>We can use dojo.extend to extend functionality into existing classes. Consider the following:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dijit/TitlePane&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">TitlePane</span><span class="p">){</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">TitlePane</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">randomAttribute</span><span class="o">:</span><span class="s2">&quot;value&quot;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.TitlePane&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">TitlePane</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">randomAttribute</span><span class="o">:</span><span class="s2">&quot;value&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;, &quot;dijit/TitlePane&quot;], function(lang, TitlePane){
+  lang.extend(TitlePane, {
+    randomAttribute:&quot;value&quot;
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.require(&quot;dijit.TitlePane&quot;);
+dojo.extend(dijit.TitlePane, {
+    randomAttribute:&quot;value&quot;
+});</textarea></div><p>The way the <a class="reference internal" href="parser.html#dojo-parser"><em>dojo.parser</em></a> works, a custom attribute on the node will be recognized, as in the interest of performance, only declared members are mixed as part of the parsing process. Before the above dojo.extend() call, this sample would not recognize the follow markup:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.TitlePane&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;randomAttribute:&#39;newValue&#39;&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.TitlePane&quot; data-dojo-props=&quot;randomAttribute:'newValue'&quot;&gt;&lt;/div&gt;</textarea></div><p>After the extend, any new instances of a TitlePane will have the &#8216;randomAttribute&#8217; member mixed into the instance. dojo.extend affects all future instances of a Class (or rather, any object with a .prototype).</p>
+<div class="section" id="extending-widget">
+<h2>Extending _Widget<a class="headerlink" href="#extending-widget" title="Permalink to this headline">¶</a></h2>
+<p>A potentially confusing result of the above actually provides us a lot of flexibility. All Dijit widgets inherit from <tt class="docutils literal"><span class="pre">dijit._WidgetBase</span></tt> in one way or another. Some widgets, like the <a class="reference internal" href="../dijit/layout/BorderContainer.html#dijit-layout-bordercontainer"><em>BorderContainer</em></a> can contain arbitrary widgets, though require a &#8216;region&#8217; parameter on the contained widget, though rather than manually adding a &#8220;region&#8221; parameter to each declaration across Dijit, BorderContainer simply extends _WidgetBase with the member, and anyone using any widget within a BorderContainer can specify a region:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dijit/_WidgetBase&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">_WidgetBase</span><span class="p">){</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">_WidgetBase</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">region</span><span class="o">:</span><span class="s2">&quot;center&quot;</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">_WidgetBase</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">region</span><span class="o">:</span><span class="s2">&quot;center&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;, &quot;dijit/_WidgetBase&quot;], function(lang, _WidgetBase){
+  lang.extend(_WidgetBase, {
+    region:&quot;center&quot;
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.extend(dijit._WidgetBase, {
+    region:&quot;center&quot;
+});</textarea></div><p>The side-effect of this is a documentation nightmare. Now <tt class="docutils literal"><span class="pre">every</span></tt> Dijit appears to have a region variable, when in fact it is just there for the benefit of BorderContainer.</p>
+</div>
+<div class="section" id="example-dojo-extend-vs-dojo-mixin">
+<h2>Example: dojo.extend vs dojo.mixin<a class="headerlink" href="#example-dojo-extend-vs-dojo-mixin" title="Permalink to this headline">¶</a></h2>
+<p>[ Dojo 1.7+ (AMD) ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/json&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">json</span><span class="p">){</span>
+    <span class="c1">// define a class</span>
+    <span class="kd">var</span> <span class="nx">myClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">defaultProp</span> <span class="o">=</span> <span class="s2">&quot;default value&quot;</span><span class="p">;</span>
+    <span class="p">};</span>
+    <span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{};</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the class (unmodified):&quot;</span><span class="p">,</span> <span class="nx">json</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">));</span>
+
+    <span class="c1">// extend the class</span>
+    <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">myClass</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;extendedProp&quot;</span><span class="o">:</span> <span class="s2">&quot;extendedValue&quot;</span><span class="p">});</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the class (modified with lang.extend):&quot;</span><span class="p">,</span> <span class="nx">json</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">));</span>
+
+    <span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">myClass</span><span class="p">();</span>
+    <span class="c1">// add new properties to the instance of our class</span>
+    <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;myProp&quot;</span><span class="o">:</span> <span class="s2">&quot;myValue&quot;</span><span class="p">});</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the instance (modified with lang.mixin):&quot;</span><span class="p">,</span> <span class="nx">json</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">t</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/lang&quot;, &quot;dojo/json&quot;], function(lang, json){
+    // define a class
+    var myClass = function(){
+        this.defaultProp = &quot;default value&quot;;
+    };
+    myClass.prototype = {};
+    console.log(&quot;the class (unmodified):&quot;, json.stringify(myClass.prototype));
+
+    // extend the class
+    lang.extend(myClass, {&quot;extendedProp&quot;: &quot;extendedValue&quot;});
+    console.log(&quot;the class (modified with lang.extend):&quot;, json.stringify(myClass.prototype));
+
+    var t = new myClass();
+    // add new properties to the instance of our class
+    lang.mixin(t, {&quot;myProp&quot;: &quot;myValue&quot;});
+    console.log(&quot;the instance (modified with lang.mixin):&quot;, json.stringify(t));
+});</textarea></div><p>[ Dojo &lt; 1.7 ]</p>
+<div class="highlight"><pre><span class="c1">// define a class</span>
+<span class="kd">var</span> <span class="nx">myClass</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">defaultProp</span> <span class="o">=</span> <span class="s2">&quot;default value&quot;</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the class (unmodified):&quot;</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">toJson</span><span class="p">(</span><span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">));</span>
+
+<span class="c1">// extend the class</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">myClass</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;extendedProp&quot;</span><span class="o">:</span> <span class="s2">&quot;extendedValue&quot;</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the class (modified with dojo.extend):&quot;</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">toJson</span><span class="p">(</span><span class="nx">myClass</span><span class="p">.</span><span class="nx">prototype</span><span class="p">));</span>
+
+<span class="kd">var</span> <span class="nx">t</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">myClass</span><span class="p">();</span>
+<span class="c1">// add new properties to the instance of our class</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">t</span><span class="p">,</span> <span class="p">{</span><span class="s2">&quot;myProp&quot;</span><span class="o">:</span> <span class="s2">&quot;myValue&quot;</span><span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;the instance (modified with dojo.mixin):&quot;</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">toJson</span><span class="p">(</span><span class="nx">t</span><span class="p">));</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// define a class
+var myClass = function(){
+    this.defaultProp = &quot;default value&quot;;
+};
+myClass.prototype = {};
+console.log(&quot;the class (unmodified):&quot;, dojo.toJson(myClass.prototype));
+
+// extend the class
+dojo.extend(myClass, {&quot;extendedProp&quot;: &quot;extendedValue&quot;});
+console.log(&quot;the class (modified with dojo.extend):&quot;, dojo.toJson(myClass.prototype));
+
+var t = new myClass();
+// add new properties to the instance of our class
+dojo.mixin(t, {&quot;myProp&quot;: &quot;myValue&quot;});
+console.log(&quot;the instance (modified with dojo.mixin):&quot;, dojo.toJson(t));</textarea></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.extend</a><ul>
+<li><a class="reference internal" href="#extending-widget">Extending _Widget</a></li>
+<li><a class="reference internal" href="#example-dojo-extend-vs-dojo-mixin">Example: dojo.extend vs dojo.mixin</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="exists.html"
+                        title="previous chapter">dojo.exists</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="fadeIn.html"
+                        title="next chapter">dojo.fadeIn</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,187 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dijit.tree.TreeStoreModel &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dijit" href="../contents.html" />
+    <link rel="next" title="dijit.tree._dndContainer" href="_dndContainer.html" />
+    <link rel="prev" title="dijit.tree.Model" href="Model.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-tree-treestoremodel">
+<span id="id1"></span><h1>dijit.tree.TreeStoreModel<a class="headerlink" href="#dijit-tree-treestoremodel" title="Permalink to this headline">¶</a></h1>
+<p>The TreeStoreModel connects a data store with a single &#8220;root&#8221; item to a <a class="reference internal" href="../Tree.html#dijit-tree"><em>dijit.Tree</em></a>.</p>
+<p>An example might be an employee database where the company&#8217;s CEO is the root item, and all other
+employees report directly or indirectly to the CEO.</p>
+<p>Here&#8217;s an example of a declarative initialization for a TreeStoreModel and for the data store that it connects to:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojo.data.ItemFileWriteStore&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;store&quot;</span>
+    <span class="na">data-dojo-props=</span><span class="s">&quot;url:&#39;../tests/_data/treeTest.json&#39;&gt;&lt;/div&gt;</span>
+<span class="s">&lt;div data-dojo-type=&quot;</span><span class="na">dijit</span><span class="err">.</span><span class="na">tree</span><span class="err">.</span><span class="na">TreeStoreModel</span><span class="err">&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;model&quot;</span>
+    <span class="na">data-dojo-props=</span><span class="s">&quot;childrenAttrs:&#39;kids&#39;,</span>
+<span class="s">    store:store, query:{id:&#39;root&#39;}&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dojo.data.ItemFileWriteStore&quot; data-dojo-id=&quot;store&quot;
+    data-dojo-props=&quot;url:'../tests/_data/treeTest.json'&gt;&lt;/div&gt;
+&lt;div data-dojo-type=&quot;dijit.tree.TreeStoreModel&quot; data-dojo-id=&quot;model&quot;
+    data-dojo-props=&quot;childrenAttrs:'kids',
+    store:store, query:{id:'root'}&quot;&gt;&lt;/div&gt;</textarea></div><p>A few things to note here:</p>
+<blockquote>
+<div><ul class="simple">
+<li>The query {id:&#8217;root&#8217;}, when run against the data store, must return exactly one item</li>
+<li>That item should have an attribute named &#8220;kids&#8221; with a list of children items</li>
+</ul>
+</div></blockquote>
+<p>Here&#8217;s a much more complicated where we&#8217;ve overridden the getChildren() method because in the
+data store a child references it&#8217;s parent rather than vice-versa.</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.tree.TreeStoreModel&quot;</span> <span class="na">data-dojo-id=</span><span class="s">&quot;model&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;store:store&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;getChildren&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;item, onComplete&quot;</span><span class="nt">&gt;</span>
+        <span class="k">return</span> <span class="nx">store</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span><span class="nx">query</span><span class="o">:</span> <span class="p">{</span><span class="nx">parent</span><span class="o">:</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getIdentity</span><span class="p">(</span><span class="nx">item</span><span class="p">)},</span> <span class="nx">onComplete</span><span class="o">:</span> <span class="nx">onComplete</span><span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;mayHaveChildren&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;item&quot;</span><span class="nt">&gt;</span>
+        <span class="kd">var</span> <span class="nx">type</span> <span class="o">=</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getValue</span><span class="p">(</span><span class="nx">item</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">);</span>
+        <span class="k">return</span> <span class="p">(</span><span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;continent&quot;</span> <span class="o">||</span> <span class="nx">type</span> <span class="o">==</span> <span class="s2">&quot;country&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.tree.TreeStoreModel&quot; data-dojo-id=&quot;model&quot; data-dojo-props=&quot;store:store&quot;&gt;
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;getChildren&quot; data-dojo-args=&quot;item, onComplete&quot;&gt;
+        return store.fetch({query: {parent: store.getIdentity(item)}, onComplete: onComplete});
+    &lt;/script&gt;
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;mayHaveChildren&quot; data-dojo-args=&quot;item&quot;&gt;
+        var type = store.getValue(item, &quot;type&quot;);
+        return (type == &quot;continent&quot; || type == &quot;country&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Model.html"
+                        title="previous chapter">dijit.tree.Model</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="_dndContainer.html"
+                        title="next chapter">dijit.tree._dndContainer</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

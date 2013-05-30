@@ -1,0 +1,180 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Proposal for dojo.Node object &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.number" href="number.html" />
+    <link rel="prev" title="dojo/mouse" href="mouse.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="proposal-for-dojo-node-object">
+<span id="dojo-node"></span><h1><em>Proposal</em> for dojo.Node object<a class="headerlink" href="#proposal-for-dojo-node-object" title="Permalink to this headline">¶</a></h1>
+<p>A dojo.Node object could be developed to be a wrapper to the standard DOM Node object and add some useful extended functionality to it. This would be much like the dojo.NodeList object, which is a wrapper for the standard Array class, and extending the DOM Node &#8216;&#8217;&#8216;without&#8217;&#8216;&#8217; interfering with the standard Javascript namespace. The interface this object would have would be identical in as many ways as possible to the dojo.NodeList object so that learning one would be knowing the other.</p>
+<p>This might simplify the object hierarchy by allowing dojo.NodeList to actually contain a list of dojo.Node&#8217;s and most of the existing functionality of dojo.NodeList would be converted to just looping thought its internal array and calling the same function on each dojo.Node within.</p>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Creating a dojo.Node is done using the same semantics as dojo.byId(), i.e. dojo.Node(&#8216;nodeID&#8217;) would return a dojo.Node wrapping the DOM node with id of &#8216;nodeID&#8217;.</p>
+<p>Building additional functionality on top of dojo.Node would allow simple constructs like:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">Node</span><span class="p">(</span><span class="s1">&#39;myId&#39;</span><span class="p">).</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.Node('myId').css('display', 'none');</textarea></div><p>Compare this with the equivalent in today&#8217;s Dojo:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;myId&quot;</span><span class="p">,</span> <span class="s1">&#39;display&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#myId&quot;</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s1">&#39;display&#39;</span><span class="p">,</span> <span class="s1">&#39;none&#39;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.style(&quot;myId&quot;, 'display', 'none');
+dojo.query(&quot;#myId&quot;).style('display', 'none');</textarea></div><p>While not a huge difference in the number of characters, the semantic bonuses should be pretty evident.</p>
+<p>This would enable us to fill the current gap between a Nodelist, which offers rich functionality over a list of DOM nodes with simple semantics like nodelist.highlight() and nodelist.addContent(), and the DOM:element returned by dojo.byId() which is little more than a glorified data structure.</p>
+</div>
+<div class="section" id="reasoning">
+<h2>Reasoning<a class="headerlink" href="#reasoning" title="Permalink to this headline">¶</a></h2>
+<p>This idea simply follows the same design idea behind dojo.query() returning a Nodelist instead of just an Array of DOM Nodes. The Nodelist has proven to be a very powerful addition to the Dojo object library and reduces the amount of code required to do the tedious everyday tasks, which is what good API design aspires to do, and less code is easier to maintain by definition.</p>
+<p>Two of the most popular javascript frameworks in use today, Prototype has extensions to the DOM element which enables them to be treated as first class objects with extensible functionality.  Dojo has taken the approach that doing so is bad because it pollutes the global namespace.  However, Dojo already does something like this with dijit.byId(), which returns a widget instance. The DOM Node can be extended in the same way without changes to the global namespace and keep the developer aware that they are dealing with an extended dojo.Node type while still leaving them the option of using the original DOM Node if they so require.</p>
+<p>Javascript often involves a good amount of DOM manipulation. The harder we make it for developers to do so, the less willing they are to use the our framework.</p>
+<p><strong>NOTE</strong> This function exists in plugd, as dojo.node(someid) - It will be proposed to Dojo Core as node.js, perhaps landing in time for Dojo 1.6
+see: <a class="reference external" href="http://code.google.com/p/plugd/source/browse/trunk/node.js">http://code.google.com/p/plugd/source/browse/trunk/node.js</a></p>
+<p><strong>NOTE</strong> James Burke has an adaptation of plugd&#8217;s node.js which wraps NodeList directly, renaming the few APIs that are unable to translate to a single-node pattern. (eg: .style becomes .css and so on)</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><em>Proposal</em> for dojo.Node object</a><ul>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#reasoning">Reasoning</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mouse.html"
+                        title="previous chapter">dojo/mouse</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="number.html"
+                        title="next chapter">dojo.number</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

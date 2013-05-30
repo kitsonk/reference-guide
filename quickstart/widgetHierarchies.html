@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Widget Hierarchies: isContainer, dijit._Container, and startup() &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Quickstart" href="contents.html" />
+    <link rel="next" title="Writing Your Own Widget" href="writingWidgets.html" />
+    <link rel="prev" title="Dojo Topic System" href="topics.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="widget-hierarchies-iscontainer-dijit-container-and-startup">
+<span id="quickstart-widgethierarchies"></span><h1><a class="toc-backref" href="#id1">Widget Hierarchies: isContainer, dijit._Container, and startup()</a><a class="headerlink" href="#widget-hierarchies-iscontainer-dijit-container-and-startup" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Bill Keese</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#widget-hierarchies-iscontainer-dijit-container-and-startup" id="id1">Widget Hierarchies: isContainer, dijit._Container, and startup()</a></li>
+<li><a class="reference internal" href="#iscontainer" id="id2">isContainer</a><ul>
+<li><a class="reference internal" href="#dijit-container" id="id3">dijit._Container</a></li>
+<li><a class="reference internal" href="#dijit-contained" id="id4">dijit._Contained</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Often developers will build a hierarchy of widgets.  For example, a <a class="reference internal" href="../dijit/Menu.html#dijit-menu"><em>dijit.Menu</em></a> will contain <a class="reference internal" href="../dijit/MenuItem.html#dijit-menuitem"><em>dijit.MenuItem</em></a>&#8216;s, or a <a class="reference internal" href="../dijit/layout/BorderContainer.html#dijit-layout-bordercontainer"><em>dijit.layout.BorderContainer</em></a> will contain multiple <a class="reference internal" href="../dijit/layout/ContentPane.html#dijit-layout-contentpane"><em>dijit.layout.ContentPane</em></a>&#8216;s, each of which contains some other widgets like <a class="reference internal" href="../dijit/form/TextBox.html#dijit-form-textbox"><em>dijit.form.TextBox</em></a> and <a class="reference internal" href="../dijit/form/Button.html#dijit-form-button"><em>dijit.form.Button</em></a>.</p>
+<p>There are two levels of classification for widgets that contain other widgets, isContainer and _Container:</p>
+</div>
+<div class="section" id="iscontainer">
+<h1><a class="toc-backref" href="#id2">isContainer</a><a class="headerlink" href="#iscontainer" title="Permalink to this headline">¶</a></h1>
+<p>Widgets that define the isContainer flag are meant to contain other widgets.  They must:</p>
+<blockquote>
+<div><ul class="simple">
+<li>define a containerNode attribute pointing to the DOMNode containing the child widgets (either to the widget&#8217;s root node or a descendant)</li>
+<li>call startup() on the child widgets (when startup() is called on the isContainer widget)</li>
+</ul>
+</div></blockquote>
+<p>Since isContainer widgets promise to call startup() on their children, the parser (<a class="reference internal" href="../dojo/parser.html#dojo-parser"><em>dojo.parser</em></a>) will <strong>*not*</strong> call startup on those widgets.  This allows the parent widget to do processing both before and after the child widget is started.  Therefore, when adding child widgets to a parent widget, be sure to use the proper API, so that the parent knows the child exists.</p>
+<div class="section" id="dijit-container">
+<h2><a class="toc-backref" href="#id3">dijit._Container</a><a class="headerlink" href="#dijit-container" title="Permalink to this headline">¶</a></h2>
+<p>dijit._Container implements the isContainer contract above, and goes farther.   It is a base class for widgets with an ordered list of children, like a <a class="reference internal" href="../dijit/Menu.html#dijit-menu"><em>dijit.Menu</em></a>.</p>
+<p>In particular, dijit._Container implements the addChild() and removeChild() API, and a simple getChildren() method based on the assumption that all children are direct descendants of containerNode.</p>
+<p>All of the widgets named ***Container (ex: <a class="reference internal" href="../dijit/layout/TabContainer.html#dijit-layout-tabcontainer"><em>dijit.layout.TabContainer</em></a>) extend dijit._Container.</p>
+<p><a class="reference internal" href="../dijit/layout/ContentPane.html#dijit-layout-contentpane"><em>dijit.layout.ContentPane</em></a>, on the other hand, defines isContainer but does not extend dijit._Container (since it contains rich text rather than a simple list of widgets).</p>
+</div>
+<div class="section" id="dijit-contained">
+<h2><a class="toc-backref" href="#id4">dijit._Contained</a><a class="headerlink" href="#dijit-contained" title="Permalink to this headline">¶</a></h2>
+<p>This is the counterpart to dijit._Container.  It represents a widget that has a dijit._Container as a parent.   dijit._Contained.getParent() will find the immediate parent widget and return it, but only if it defines isContainer.   Essentially that means that it will always return the parent, since all widgets that can contain other widgets (at least those defined by dijit) define isContainer.</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Widget Hierarchies: isContainer, dijit._Container, and startup()</a></li>
+<li><a class="reference internal" href="#iscontainer">isContainer</a><ul>
+<li><a class="reference internal" href="#dijit-container">dijit._Container</a></li>
+<li><a class="reference internal" href="#dijit-contained">dijit._Contained</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="topics.html"
+                        title="previous chapter">Dojo Topic System</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="writingWidgets.html"
+                        title="next chapter">Writing Your Own Widget</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

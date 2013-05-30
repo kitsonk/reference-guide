@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.DeferredList &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo/on" href="Evented.html" />
+    <link rel="prev" title="dojo/Deferred" href="Deferred.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-deferredlist">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.DeferredList</a><a class="headerlink" href="#dojo-deferredlist" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-deferredlist" id="id2">dojo.DeferredList</a></li>
+</ul>
+</div>
+<p><a class="reference internal" href="Deferred.html#dojo-deferred"><em>dojo.Deferred</em></a> objects make asynchronous programming as easy as can be reasonably expected.
+The <a class="reference internal" href="#dojo-deferredlist"><em>dojo.DeferredList</em></a> class builds on the &#8220;one answer to one question&#8221; contract of
+<a class="reference internal" href="Deferred.html#dojo-deferred"><em>dojo.Deferred</em></a> to provide a &#8220;one answer to many questions&#8221; system.
+Let&#8217;s look at some cases when you might need such a thing:</p>
+<p>One common task is notifying some listener when a list of resources pulled in by different services all become available. For example, a search federated across several bookstores. Hearing about the results of a single search is a good job for a <a class="reference internal" href="Deferred.html#dojo-deferred"><em>Deferred</em></a>, but finding out about when they&#8217;ve all completed takes more juggling.</p>
+<p>Let&#8217;s assume we&#8217;ve installed several proxies for search services on our server.
+Once all the stores have been searched,
+we want to send an xhr call with search status to some logging service
+and provide the user an indication that we&#8217;ve finished up all the work we were doing on their behalf.</p>
+<p>The services are located at:</p>
+<ol class="arabic simple">
+<li>/books/amazon</li>
+<li>/books/bol</li>
+<li>/books/google</li>
+</ol>
+<p>Astute readers are now asking, &#8220;why provide different services when you could let the server do the coordination through a single URL?&#8221;, e.g.:</p>
+<ol class="arabic simple">
+<li>/books/search</li>
+</ol>
+<p>which in return searches all three stores through the server. You, of course, could but in our case it might be that you are accessing different servers. E.g. <a class="reference external" href="http://www.amazon.com/books/">http://www.amazon.com/books/</a> and <a class="reference external" href="http://www.bol.com/book">http://www.bol.com/book</a> via JSON-P.</p>
+<p>To give the user feedback about what&#8217;s happening with the searches they issue, we have couple of options:</p>
+<ol class="arabic simple">
+<li>We could chain the xhr requests. Once the first request has been executed we run the second and the third and then make the call to our server</li>
+</ol>
+<p><em>Drawback: this will take very long since you basically are executing 3 requests after each other. Imagine 2 searches are a bit slow. This is not good</em></p>
+<ol class="arabic simple" start="2">
+<li>We don&#8217;t chain the requests and give each request a timeout and run the request to our server when one request is complete</li>
+</ol>
+<p><em>Drawback: this is probably the worst thing you can do since there is no reliable way to tell whether the other requests executed.</em></p>
+<ol class="arabic simple" start="3">
+<li>We use dojo.Deferreds to issue all the requests in parallel. As soon as all 3 requests have been executed we will call our server:</li>
+</ol>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.DeferredList&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="c1">// stub search functions to simulate network delay</span>
+
+<span class="kd">function</span> <span class="nx">searchAmazon</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;We found books at amazon&quot;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">500</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">searchBol</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;We found books at bol&quot;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">700</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">searchGoogle</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">Deferred</span><span class="p">();</span>
+  <span class="nx">setTimeout</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">d</span><span class="p">.</span><span class="nx">resolve</span><span class="p">(</span><span class="s2">&quot;We found books at google&quot;</span><span class="p">);</span>
+  <span class="p">},</span> <span class="mi">200</span><span class="p">);</span>
+  <span class="k">return</span> <span class="nx">d</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">search</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">d1</span> <span class="o">=</span> <span class="nx">searchAmazon</span><span class="p">(),</span>
+      <span class="nx">d2</span> <span class="o">=</span> <span class="nx">searchBol</span><span class="p">(),</span>
+      <span class="nx">d3</span> <span class="o">=</span> <span class="nx">searchGoogle</span><span class="p">();</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;statusSearch&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Searching....&quot;</span><span class="p">;</span>
+
+  <span class="c1">// create a deferred list to aggregate the state</span>
+  <span class="kd">var</span> <span class="nx">dl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">DeferredList</span><span class="p">([</span><span class="nx">d1</span><span class="p">,</span> <span class="nx">d2</span><span class="p">,</span> <span class="nx">d3</span><span class="p">]);</span>
+
+  <span class="c1">// a DeferredList has much the same API as a Deferred</span>
+  <span class="nx">dl</span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">res</span><span class="p">){</span>
+    <span class="c1">// &quot;res&quot; is an array of results</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;statusSearch&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Result: &quot;</span><span class="o">+</span><span class="nx">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="nx">res</span><span class="p">[</span><span class="mi">1</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span><span class="o">+</span><span class="s2">&quot;, &quot;</span><span class="o">+</span><span class="nx">res</span><span class="p">[</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">];</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">res</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.DeferredList&quot;);
+dojo.require(&quot;dijit.form.Button&quot;);
+
+// stub search functions to simulate network delay
+
+function searchAmazon(){
+  var d = new dojo.Deferred();
+  setTimeout(function(){
+    d.resolve(&quot;We found books at amazon&quot;);
+  }, 500);
+  return d;
+}
+
+function searchBol(){
+  var d = new dojo.Deferred();
+  setTimeout(function(){
+    d.resolve(&quot;We found books at bol&quot;);
+  }, 700);
+  return d;
+}
+
+function searchGoogle(){
+  var d = new dojo.Deferred();
+  setTimeout(function(){
+    d.resolve(&quot;We found books at google&quot;);
+  }, 200);
+  return d;
+}
+
+function search(){
+  var d1 = searchAmazon(),
+      d2 = searchBol(),
+      d3 = searchGoogle();
+
+  dojo.byId(&quot;statusSearch&quot;).innerHTML = &quot;Searching....&quot;;
+
+  // create a deferred list to aggregate the state
+  var dl = new dojo.DeferredList([d1, d2, d3]);
+
+  // a DeferredList has much the same API as a Deferred
+  dl.then(function(res){
+    // &quot;res&quot; is an array of results
+    dojo.byId(&quot;statusSearch&quot;).innerHTML = &quot;Result: &quot;+res[0][1]+&quot;, &quot;+res[1][1]+&quot;, &quot;+res[2][1];
+    console.log(res);
+  });
+}</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;search&quot;</span> <span class="na">onClick=</span><span class="s">&quot;search();&quot;</span><span class="nt">&gt;</span>Search<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;margin: 10px;&quot;</span><span class="nt">&gt;</span>Status: <span class="nt">&lt;span</span> <span class="na">id=</span><span class="s">&quot;statusSearch&quot;</span><span class="nt">&gt;&lt;/span&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;search&quot; onClick=&quot;search();&quot;&gt;Search&lt;/button&gt;
+&lt;div style=&quot;margin: 10px;&quot;&gt;Status: &lt;span id=&quot;statusSearch&quot;&gt;&lt;/span&gt;&lt;/div&gt;</textarea></div></div></div><p>Now when you look at the code, you will see that the total amount of setTimeout milliseconds is 1400 which is 1.4 seconds. Since we used dojo.Deferred we were able to bring down the waiting time to 700 ms, which is roughly what we might expect worst-case same-domain network lag to be. Instead of having to try to serialize a group of tasks, <cite>DeferredList</cite> objects let you do multiple things at once and only deal with the results.</p>
+<p>To make the above example &#8220;live&#8221;, you only need to note that calls to <em class="xref std std-ref">dojo.xhr</em> already returned <cite>Deferred</cite> instances, so a function like <cite>searchAmazon</cite> might be re-written as:</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">searchAmazon</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">xhr</span><span class="p">(</span><span class="s2">&quot;GET&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;/books/amazon&quot;</span><span class="p">,</span>
+    <span class="nx">content</span><span class="o">:</span> <span class="p">{</span> <span class="nx">q</span><span class="o">:</span> <span class="nx">query</span> <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">function searchAmazon(query){
+  return dojo.xhr(&quot;GET&quot;, {
+    url: &quot;/books/amazon&quot;,
+    content: { q: query }
+  });
+}</textarea></div><p>Dojo makes these patterns easy to work with, reducing the pain of asynchronous programming by using the <cite>Deferred</cite> pattern ubiquitously.</p>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Deferred.html"
+                        title="previous chapter">dojo/Deferred</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Evented.html"
+                        title="next chapter">dojo/on</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

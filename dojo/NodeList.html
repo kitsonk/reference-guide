@@ -1,0 +1,1300 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.NodeList &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.NodeList-data" href="NodeList-data.html" />
+    <link rel="prev" title="dojo/on" href="Evented.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-nodelist">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.NodeList</a><a class="headerlink" href="#dojo-nodelist" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-nodelist" id="id2">dojo.NodeList</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#common-nodelist-functions" id="id4">Common NodeList Functions</a></li>
+<li><a class="reference internal" href="#events-with-nodelists" id="id5">Events with NodeLists</a></li>
+<li><a class="reference internal" href="#extending-nodelist" id="id6">Extending NodeList</a></li>
+<li><a class="reference internal" href="#nodelist-extensions" id="id7">NodeList extensions</a></li>
+<li><a class="reference internal" href="#api-details" id="id8">API Details</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>[Note]</strong> Since 1.7, dojo.NodeList is defined in dojo/query.js.</p>
+<p><strong>NodeLists</strong> are standard Arrays, decorated with many helpful functions which act on each DOM Node in the list.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p><a class="reference internal" href="query.html#dojo-query"><em>dojo.query</em></a> returns instances of <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt>:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.selectable&quot;</span><span class="p">);</span>
+    <span class="c1">// NodeLists have length like all other arrays</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">nl</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+
+    <span class="c1">// hide each element (using style method added by NodeList-dom module)</span>
+    <span class="nx">nl</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+    var nl = query(&quot;.selectable&quot;);
+    // NodeLists have length like all other arrays
+    console.log( nl.length );
+
+    // hide each element (using style method added by NodeList-dom module)
+    nl.style(&quot;display&quot;, &quot;none&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.selectable&quot;</span><span class="p">);</span>
+<span class="c1">// NodeLists have length like all other arrays</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span> <span class="nx">nl</span><span class="p">.</span><span class="nx">length</span> <span class="p">);</span>
+
+<span class="c1">// hide each element</span>
+<span class="nx">nl</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var nl = dojo.query(&quot;.selectable&quot;);
+// NodeLists have length like all other arrays
+console.log( nl.length );
+
+// hide each element
+nl.style(&quot;display&quot;, &quot;none&quot;);</textarea></div><p>You can also create NodeLists manually and since NodeLists are &#8220;just an Array&#8221; all of the Array methods you already know Just Work (TM):</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">dom</span><span class="p">){</span>
+    <span class="c1">// create an instance of a NodeList</span>
+    <span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">query</span><span class="p">.</span><span class="nx">NodeList</span><span class="p">();</span>
+    <span class="nx">nl</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">));</span>
+    <span class="nx">nl</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someOtherId&quot;</span><span class="p">));</span>
+
+    <span class="c1">// hide both</span>
+    <span class="nx">nl</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/dom&quot;, &quot;dojo/NodeList-dom&quot;], function(query, dom){
+    // create an instance of a NodeList
+    var nl = new query.NodeList();
+    nl.push(dom.byId(&quot;someId&quot;));
+    nl.push(dom.byId(&quot;someOtherId&quot;));
+
+    // hide both
+    nl.style(&quot;display&quot;, &quot;none&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// create an instance of a NodeList</span>
+<span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">NodeList</span><span class="p">();</span>
+<span class="nx">nl</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someId&quot;</span><span class="p">));</span>
+<span class="nx">nl</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someOtherId&quot;</span><span class="p">));</span>
+
+<span class="c1">// hide both</span>
+<span class="nx">nl</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;display&quot;</span><span class="p">,</span> <span class="s2">&quot;none&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// create an instance of a NodeList
+var nl = new dojo.NodeList();
+nl.push(dojo.byId(&quot;someId&quot;));
+nl.push(dojo.byId(&quot;someOtherId&quot;));
+
+// hide both
+nl.style(&quot;display&quot;, &quot;none&quot;);</textarea></div><p>The helper functions attached to the NodeList typically return the same instance of the <tt class="docutils literal"><span class="pre">NodeList</span></tt>, allowing you to call several methods in a row:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+      <span class="c1">// get all &quot;li&quot; elements</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;ul &gt; li&quot;</span><span class="p">).</span>
+      <span class="c1">// make them visible but, slightly transparent</span>
+      <span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nx">visibility</span><span class="o">:</span> <span class="s2">&quot;visible&quot;</span> <span class="p">}).</span>
+      <span class="c1">// and set a handler to make a clicked item fully opaque</span>
+      <span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="c1">// a node to dojo.query() is a fast way to get a list</span>
+        <span class="nx">query</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span><span class="mi">1</span> <span class="p">}).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">);</span>
+      <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+      // get all &quot;li&quot; elements
+    query(&quot;ul &gt; li&quot;).
+      // make them visible but, slightly transparent
+      style({ opacity: 0.5, visibility: &quot;visible&quot; }).
+      // and set a handler to make a clicked item fully opaque
+      onclick(function(e){
+        // a node to dojo.query() is a fast way to get a list
+        query(e.target).style({ opacity:1 }).toggleClass(&quot;clicked&quot;);
+      });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// get all &quot;li&quot; elements</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;ul &gt; li&quot;</span><span class="p">).</span>
+  <span class="c1">// make them visible but, slightly transparent</span>
+  <span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span> <span class="mf">0.5</span><span class="p">,</span> <span class="nx">visibility</span><span class="o">:</span> <span class="s2">&quot;visible&quot;</span> <span class="p">}).</span>
+  <span class="c1">// and set a handler to make a clicked item fully opaque</span>
+  <span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="c1">// a node to dojo.query() is a fast way to get a list</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">).</span><span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span><span class="mi">1</span> <span class="p">}).</span><span class="nx">toggleClass</span><span class="p">(</span><span class="s2">&quot;clicked&quot;</span><span class="p">);</span>
+  <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// get all &quot;li&quot; elements
+dojo.query(&quot;ul &gt; li&quot;).
+  // make them visible but, slightly transparent
+  style({ opacity: 0.5, visibility: &quot;visible&quot; }).
+  // and set a handler to make a clicked item fully opaque
+  onclick(function(e){
+    // a node to dojo.query() is a fast way to get a list
+    dojo.query(e.target).style({ opacity:1 }).toggleClass(&quot;clicked&quot;);
+  });</textarea></div></div>
+<div class="section" id="common-nodelist-functions">
+<h2><a class="toc-backref" href="#id4">Common NodeList Functions</a><a class="headerlink" href="#common-nodelist-functions" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference external" href="http://dojotoolkit.org/api/dojo.NodeList">entire NodeList API</a> is extensive,
+so let&#8217;s just focus on some of the most frequently used methods.</p>
+<p><tt class="docutils literal"><span class="pre">forEach</span></tt> - runs a function for each element in a NodeList. If you want the option to break out of the loop, use <tt class="docutils literal"><span class="pre">every</span></tt> or <tt class="docutils literal"><span class="pre">some</span></tt> instead.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;div &gt; h2&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">){</span>
+        <span class="c1">// append content to each h2 as a direct child of a &lt;div&gt;</span>
+        <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s2">&quot; - found&quot;</span><span class="p">;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    query(&quot;div &gt; h2&quot;).forEach(function(node, index, array){
+        // append content to each h2 as a direct child of a &lt;div&gt;
+        node.innerHTML += &quot; - found&quot;;
+    });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;div &gt; h2&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">){</span>
+    <span class="c1">// append content to each h2 as a direct child of a &lt;div&gt;</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">+=</span> <span class="s2">&quot; - found&quot;</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;div &gt; h2&quot;).forEach(function(node, index, array){
+    // append content to each h2 as a direct child of a &lt;div&gt;
+    node.innerHTML += &quot; - found&quot;;
+});</textarea></div><p>The syntax is the same as <a class="reference internal" href="forEach.html#dojo-foreach"><em>dojo.forEach</em></a> except that the first parameter (the array) is implicitly provided. This pattern is repeated throughout the <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> API.</p>
+<p>For instance, <a class="reference internal" href="style.html#dojo-style"><em>dojo.style()</em></a> styles a single Node around a defined API. That API is mapped into <tt class="docutils literal"><span class="pre">NodeList</span></tt>, dropping the node parameter and calling <tt class="docutils literal"><span class="pre">dojo.style</span></tt> on each node in the list:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="c1">// all elements with class=&quot;hidden&quot;</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.hidden&quot;</span><span class="p">).</span>
+      <span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">visibility</span><span class="o">:</span><span class="s2">&quot;visible&quot;</span> <span class="p">}).</span>
+      <span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;hidden&quot;</span><span class="p">).</span>
+      <span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;readyToFade&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+    // all elements with class=&quot;hidden&quot;
+    query(&quot;.hidden&quot;).
+      style({ opacity:0, visibility:&quot;visible&quot; }).
+      removeClass(&quot;hidden&quot;).
+      addClass(&quot;readyToFade&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// all elements with class=&quot;hidden&quot;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.hidden&quot;</span><span class="p">).</span>
+  <span class="nx">style</span><span class="p">({</span> <span class="nx">opacity</span><span class="o">:</span><span class="mi">0</span><span class="p">,</span> <span class="nx">visibility</span><span class="o">:</span><span class="s2">&quot;visible&quot;</span> <span class="p">}).</span>
+  <span class="nx">removeClass</span><span class="p">(</span><span class="s2">&quot;hidden&quot;</span><span class="p">).</span>
+  <span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;readyToFade&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// all elements with class=&quot;hidden&quot;
+dojo.query(&quot;.hidden&quot;).
+  style({ opacity:0, visibility:&quot;visible&quot; }).
+  removeClass(&quot;hidden&quot;).
+  addClass(&quot;readyToFade&quot;);</textarea></div><p>As is the case for <tt class="docutils literal"><span class="pre">removeClass()</span></tt>, <tt class="docutils literal"><span class="pre">addClass()</span></tt>, <tt class="docutils literal"><span class="pre">place()</span></tt>, and most other DOM-related functions in NodeList. All return the same NodeList, which allows for chaining. An exception is <tt class="docutils literal"><span class="pre">NodeList.coords</span></tt>, which returns an array of the coordinate values of the matched nodes when called as a getter.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.foo&quot;</span><span class="p">);</span> <span class="c1">// an array of nodes, NodeList</span>
+    <span class="kd">var</span> <span class="nx">coords</span> <span class="o">=</span> <span class="nx">nl</span><span class="p">.</span><span class="nx">coords</span><span class="p">();</span> <span class="c1">// an array of objects { w, h, t, l }</span>
+    <span class="nx">nl</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s2">&quot;has&quot;</span><span class="p">,</span> <span class="nx">coords</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">w</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+    var nl = query(&quot;.foo&quot;); // an array of nodes, NodeList
+    var coords = nl.coords(); // an array of objects { w, h, t, l }
+    nl.forEach(function(n, i){
+       console.log(n, &quot;has&quot;, coords[i].w, &quot;width&quot;);
+    });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">nl</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.foo&quot;</span><span class="p">);</span> <span class="c1">// an array of nodes, NodeList</span>
+<span class="kd">var</span> <span class="nx">coords</span> <span class="o">=</span> <span class="nx">nl</span><span class="p">.</span><span class="nx">coords</span><span class="p">();</span> <span class="c1">// an array of objects { w, h, t, l }</span>
+<span class="nx">nl</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="nx">i</span><span class="p">){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">n</span><span class="p">,</span> <span class="s2">&quot;has&quot;</span><span class="p">,</span> <span class="nx">coords</span><span class="p">[</span><span class="nx">i</span><span class="p">].</span><span class="nx">w</span><span class="p">,</span> <span class="s2">&quot;width&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var nl = dojo.query(&quot;.foo&quot;); // an array of nodes, NodeList
+var coords = nl.coords(); // an array of objects { w, h, t, l }
+nl.forEach(function(n, i){
+   console.log(n, &quot;has&quot;, coords[i].w, &quot;width&quot;);
+});</textarea></div></div>
+<div class="section" id="events-with-nodelists">
+<h2><a class="toc-backref" href="#id5">Events with NodeLists</a><a class="headerlink" href="#events-with-nodelists" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">NodeList.connect()</span></tt> is provided as a way to add event handlers to all DOM Nodes in the list, matching the <a class="reference internal" href="connect.html#dojo-connect"><em>dojo.connect</em></a> API, assuming again the node to connect to is the current item in the list.</p>
+<p>In Dojo 1.7, <tt class="docutils literal"><span class="pre">NodeList.on()</span></tt> is provided as a similar analogue to the <a class="reference internal" href="on.html#dojo-on"><em>dojo/on</em></a> API.  <tt class="docutils literal"><span class="pre">NodeList.connect()</span></tt> is still available via the <tt class="docutils literal"><span class="pre">dojo/_base/NodeList</span></tt> module, which is pulled in automatically in legacy mode for backwards compatibility.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">baseFx</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span>
+      <span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+        <span class="nx">baseFx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/fx&quot;], function(query, baseFx){
+    query(&quot;.readyToFade&quot;).
+      on(&quot;click&quot;, function(evt){
+        baseFx.fadeIn({ node: evt.target }).play();
+    });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span>
+  <span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+  <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;.readyToFade&quot;).
+  connect(&quot;onclick&quot;, function(evt){
+    dojo.fadeIn({ node: evt.target }).play();
+  });</textarea></div><p>You can pass any event you would to <a class="reference internal" href="connect.html#dojo-connect"><em>dojo.connect</em></a>, and expect the same results. As a convenience, many DOM events are exposed on <tt class="docutils literal"><span class="pre">NodeList</span></tt> directly as functions, so the above example could be written out as:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+     <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span>
+       <span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+         <span class="nx">baseFx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+     <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+     query(&quot;.readyToFade&quot;).
+       onclick(function(evt){
+         baseFx.fadeIn({ node: evt.target }).play();
+     });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span>
+  <span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">evt</span><span class="p">){</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">({</span> <span class="nx">node</span><span class="o">:</span> <span class="nx">evt</span><span class="p">.</span><span class="nx">target</span> <span class="p">}).</span><span class="nx">play</span><span class="p">();</span>
+  <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;.readyToFade&quot;).
+  onclick(function(evt){
+    dojo.fadeIn({ node: evt.target }).play();
+  });</textarea></div><p>Supported are <tt class="docutils literal"><span class="pre">onclick</span></tt>, <tt class="docutils literal"><span class="pre">onmouseenter</span></tt>, <tt class="docutils literal"><span class="pre">onmouseleave</span></tt>, <tt class="docutils literal"><span class="pre">onmouseover</span></tt>, <tt class="docutils literal"><span class="pre">omouseout</span></tt>, <tt class="docutils literal"><span class="pre">ondblclick</span></tt>, all the <a class="reference internal" href="../quickstart/events.html#quickstart-events"><em>normal dom events</em></a> you&#8217;d expect, and as of 1.2, <tt class="docutils literal"><span class="pre">onsubmit</span></tt>, <tt class="docutils literal"><span class="pre">onload</span></tt>, and <tt class="docutils literal"><span class="pre">onerror</span></tt>.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">domStyle</span><span class="p">){</span>
+     <span class="c1">// setup some basic hovering behavior:</span>
+     <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.foo.bar&quot;</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">onmouseenter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+           <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+       <span class="p">})</span>
+       <span class="p">.</span><span class="nx">onmouseleave</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+           <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+       <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/dom-style&quot;, &quot;dojo/_base/NodeList&quot;], function(query, domStyle){
+     // setup some basic hovering behavior:
+     query(&quot;.foo.bar&quot;)
+       .onmouseenter(function(e){
+           domStyle.set(e.target, &quot;opacity&quot;, 1);
+       })
+       .onmouseleave(function(e){
+           domStyle.set(e.target, &quot;opacity&quot;, 0.5);
+       });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// setup some basic hovering behavior:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.foo.bar&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">onmouseenter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+    <span class="p">})</span>
+    <span class="p">.</span><span class="nx">onmouseleave</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">,</span> <span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// setup some basic hovering behavior:
+dojo.query(&quot;.foo.bar&quot;)
+    .onmouseenter(function(e){
+        dojo.style(e.target, &quot;opacity&quot;, 1);
+    })
+    .onmouseleave(function(e){
+        dojo.style(e.target, &quot;opacity&quot;, 0.5);
+    });</textarea></div><p>The Event object is the same as Dojo&#8217;s normalized event when using dojo.connect.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">){</span>
+    <span class="c1">// make an existing form use Ajax/xhrPost</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#myForm&quot;</span><span class="p">).</span><span class="nx">onsubmit</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="c1">// note that the event is always passed and has methods not regularly</span>
+      <span class="c1">// supported on IE</span>
+      <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+      <span class="nx">xhr</span><span class="p">.</span><span class="nx">post</span><span class="p">({</span>
+        <span class="nx">form</span><span class="o">:</span><span class="s2">&quot;myForm&quot;</span><span class="p">,</span>
+        <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+          <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;server said: &#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+        <span class="p">}</span>
+      <span class="p">});</span>
+   <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/xhr&quot;, &quot;dojo/_base/NodeList&quot;], function(query, xhr){
+    // make an existing form use Ajax/xhrPost
+    query(&quot;#myForm&quot;).onsubmit(function(e){
+      // note that the event is always passed and has methods not regularly
+      // supported on IE
+      e.preventDefault();
+
+      xhr.post({
+        form:&quot;myForm&quot;,
+        load: function(data){
+          console.log('server said: ', data);
+        }
+      });
+   });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// make an existing form use Ajax/xhrPost</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#myForm&quot;</span><span class="p">).</span><span class="nx">onsubmit</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+  <span class="c1">// note that the event is always passed and has methods not regularly</span>
+  <span class="c1">// supported on IE</span>
+  <span class="nx">e</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">();</span>
+
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrPost</span><span class="p">({</span>
+    <span class="nx">form</span><span class="o">:</span><span class="s2">&quot;myForm&quot;</span><span class="p">,</span>
+    <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;server said: &#39;</span><span class="p">,</span> <span class="nx">data</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// make an existing form use Ajax/xhrPost
+dojo.query(&quot;#myForm&quot;).onsubmit(function(e){
+  // note that the event is always passed and has methods not regularly
+  // supported on IE
+  e.preventDefault();
+
+  dojo.xhrPost({
+    form:&quot;myForm&quot;,
+    load: function(data){
+      console.log('server said: ', data);
+    }
+  });
+
+});</textarea></div><p>This example prevents the form from submitting and instead uses Ajax to send the data to the form&#8217;s <tt class="docutils literal"><span class="pre">action=&quot;&quot;</span></tt> url in an unobtrusive manner.</p>
+<p>An event delegation API is provided in <a class="reference internal" href="../dojox/NodeList/delegate.html#dojox-nodelist-delegate"><em>dojox.NodeList.delegate</em></a></p>
+</div>
+<div class="section" id="extending-nodelist">
+<h2><a class="toc-backref" href="#id6">Extending NodeList</a><a class="headerlink" href="#extending-nodelist" title="Permalink to this headline">¶</a></h2>
+<p>Or, &#8220;Writing Your Own Plugins&#8221;: Adding your own code to the dojo.NodeList class makes them available to dojo.query calls. Simply use <a class="reference internal" href="extend.html#dojo-extend"><em>dojo.extend</em></a> to mix new functionality into the prototype of the <tt class="docutils literal"><span class="pre">NodeList</span></tt> class:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">query</span><span class="p">){</span>
+    <span class="nx">lang</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">query</span><span class="p">.</span><span class="nx">NodeList</span><span class="p">,</span> <span class="p">{</span>
+      <span class="nx">makeRed</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">({</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;red&quot;</span> <span class="p">});</span>
+        <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.greenText&quot;</span><span class="p">).</span><span class="nx">makeRed</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/lang&quot;, &quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(lang, query){
+    lang.extend(query.NodeList, {
+      makeRed: function(){
+        this.style({ color:&quot;red&quot; });
+        return this;
+      }
+    });
+
+    query(&quot;.greenText&quot;).makeRed();
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">NodeList</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">makeRed</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">style</span><span class="p">({</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;red&quot;</span> <span class="p">});</span>
+    <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.greenText&quot;</span><span class="p">).</span><span class="nx">makeRed</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.extend(dojo.NodeList, {
+  makeRed: function(){
+    this.style({ color:&quot;red&quot; });
+    return this;
+  }
+});
+
+dojo.query(&quot;.greenText&quot;).makeRed();</textarea></div><p>The import part being <tt class="docutils literal"><span class="pre">'return</span> <span class="pre">this'</span></tt>, ensuring any following chains will work.</p>
+</div>
+<div class="section" id="nodelist-extensions">
+<h2><a class="toc-backref" href="#id7">NodeList extensions</a><a class="headerlink" href="#nodelist-extensions" title="Permalink to this headline">¶</a></h2>
+<p>To keep the Base size to a minimum, some NodeList functionality is provided by external modules. For instance, dojo.NodeList-fx add all the required FX/Animation code to NodeList, dojox.fx.ext-dojo.NodeList provides the animation functionality from dojox.fx, and dojo.NodeList-html adds advanced HTML manipulation functions. The hyphen in the filename is meant to indicate the module being loaded modifies an existing Class, as you won&#8217;t be able to call hyphenated functions directly. Simply require in the necessary code:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-fx&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/domReady!&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">().</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-fx&quot;, &quot;dojo/domReady!&quot;], function(query){
+  query(&quot;.readyToFade&quot;).fadeIn().play();
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.NodeList-fx&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">addOnLoad</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.readyToFade&quot;</span><span class="p">).</span><span class="nx">fadeIn</span><span class="p">().</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.NodeList-fx&quot;);
+
+dojo.addOnLoad(function(){
+  dojo.query(&quot;.readyToFade&quot;).fadeIn().play();
+});</textarea></div><p>The NodeList animations do <em>not</em> return the NodeList instance. Instead, they return the created <tt class="docutils literal"><span class="pre">Animation</span></tt> object, which you have to explicitly call <tt class="docutils literal"><span class="pre">.play()</span></tt> on.</p>
+<div class="section" id="additional-extensions">
+<h3>Additional Extensions<a class="headerlink" href="#additional-extensions" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div><ul class="simple">
+<li><strong>New in 1.7</strong> <a class="reference internal" href="NodeList-dom.html#dojo-nodelist-dom"><em>dojo.NodeList-dom</em></a> - provides dom manipulation APIs (included in dojo base for back-compat)</li>
+<li><a class="reference internal" href="NodeList-data.html#dojo-nodelist-data"><em>dojo.NodeList-data</em></a> - provides <tt class="docutils literal"><span class="pre">data</span></tt> and <tt class="docutils literal"><span class="pre">removeData</span></tt> APIs</li>
+<li><a class="reference internal" href="NodeList-traverse.html#dojo-nodelist-traverse"><em>dojo.NodeList-traverse</em></a> - provides a variety of DOM Traversal APIs, like <tt class="docutils literal"><span class="pre">parents</span></tt> and <tt class="docutils literal"><span class="pre">closest</span></tt></li>
+<li><a class="reference internal" href="NodeList-manipulate.html#dojo-nodelist-manipulate"><em>dojo.NodeList-manipulate</em></a> - additional DOM Manipulation APIs</li>
+<li><a class="reference internal" href="NodeList-fx.html#dojo-nodelist-fx"><em>dojo.NodeList-fx</em></a> - Provides <a class="reference internal" href="Animation.html#dojo-animation"><em>dojo.Animation</em></a> support to NodeLists</li>
+<li><a class="reference internal" href="NodeList-html.html#dojo-nodelist-html"><em>dojo.NodeList-html</em></a> - Advanced content-setter functionality (with <a class="reference internal" href="parser.html#dojo-parser"><em>dojo.parser</em></a> support.</li>
+<li><a class="reference internal" href="../dojox/NodeList/delegate.html#dojox-nodelist-delegate"><em>dojox.NodeList.delegate</em></a> - Event delegation for dojo.NodeList</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="api-details">
+<h2><a class="toc-backref" href="#id8">API Details</a><a class="headerlink" href="#api-details" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="array-methods">
+<h3>Array Methods<a class="headerlink" href="#array-methods" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">at:</th><td class="field-body">Returns one (or more) elements from the list in a new <tt class="docutils literal"><span class="pre">NodeList</span></tt> based on integer index. This is a fast way to wrap elements in a <tt class="docutils literal"><span class="pre">NodeList</span></tt>, exposing all the manipulation and DOM conveniences easily (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="c1">// we only want to style the first one</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+
+    <span class="c1">// get the 3rd and 5th elements:</span>
+    <span class="kd">var</span> <span class="nx">ofInterest</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.stories&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+    // we only want to style the first one
+    query(&quot;a&quot;).at(0).style(&quot;fontWeight&quot;, &quot;bold&quot;);
+
+    // get the 3rd and 5th elements:
+    var ofInterest = query(&quot;.stories&quot;).at(2, 4);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// we only want to style the first one</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+
+<span class="c1">// get the 3rd and 5th elements:</span>
+<span class="kd">var</span> <span class="nx">ofInterest</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.stories&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// we only want to style the first one
+dojo.query(&quot;a&quot;).at(0).style(&quot;fontWeight&quot;, &quot;bold&quot;);
+
+// get the 3rd and 5th elements:
+var ofInterest = dojo.query(&quot;.stories&quot;).at(2, 4);</textarea></div><p>As of Dojo 1.5, .at() can also accept negative indices.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    query(&quot;a&quot;).at(0, -1).on(&quot;click&quot;, fn);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;a&quot;).at(0, -1).onclick(fn);</textarea></div><p>Incidentally, you can .end() out of a NodeList returned from .at, providing you access to the original NodeList before filtering.</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="p">...</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">end</span><span class="p">()</span> <span class="c1">// back to main &lt;a&gt; list</span>
+    <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+          <span class="nx">makePretty</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+  query(&quot;a&quot;)
+    .at(0)
+       .onclick(function(e){ ... })
+    .end() // back to main &lt;a&gt; list
+    .forEach(function(n){
+          makePretty(n);
+    });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">)</span>
+    <span class="p">.</span><span class="nx">at</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+       <span class="p">.</span><span class="nx">onclick</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="p">...</span> <span class="p">})</span>
+    <span class="p">.</span><span class="nx">end</span><span class="p">()</span> <span class="c1">// back to main &lt;a&gt; list</span>
+    <span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">n</span><span class="p">){</span>
+          <span class="nx">makePretty</span><span class="p">(</span><span class="nx">n</span><span class="p">);</span>
+    <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;a&quot;)
+    .at(0)
+       .onclick(function(e){ ... })
+    .end() // back to main &lt;a&gt; list
+    .forEach(function(n){
+          makePretty(n);
+    });</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">forEach:</th><td class="field-body">like <a class="reference internal" href="forEach.html#dojo-foreach"><em>dojo.forEach</em></a> but with current list as the first parameter. Has the same API as <a class="reference external" href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/forEach">Array.forEach</a> in browsers that support it. Returns the source NodeList (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+      <span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">arr</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+      <span class="p">});</span>
+
+    <span class="c1">// alternately, use second param to provide the scope:</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+      <span class="nx">forEach</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">,</span> <span class="nx">console</span><span class="p">);</span>
+
+    <span class="c1">// or using the special shortened syntax from dojo.forEach:</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="s2">&quot;console.debug(item);&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    query(&quot;a&quot;).
+      forEach(function(node, idx, arr){
+        console.debug(node);
+      });
+
+    // alternately, use second param to provide the scope:
+    query(&quot;a&quot;).
+      forEach(console.debug, console);
+
+    // or using the special shortened syntax from dojo.forEach:
+    query(&quot;a&quot;).forEach(&quot;console.debug(item);&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">idx</span><span class="p">,</span> <span class="nx">arr</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">node</span><span class="p">);</span>
+  <span class="p">});</span>
+
+<span class="c1">// alternately, use second param to provide the scope:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">forEach</span><span class="p">(</span><span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">,</span> <span class="nx">console</span><span class="p">);</span>
+
+<span class="c1">// or using the special shortened syntax from dojo.forEach:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="s2">&quot;console.debug(item);&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;a&quot;).
+  forEach(function(node, idx, arr){
+    console.debug(node);
+  });
+
+// alternately, use second param to provide the scope:
+dojo.query(&quot;a&quot;).
+  forEach(console.debug, console);
+
+// or using the special shortened syntax from dojo.forEach:
+dojo.query(&quot;a&quot;).forEach(&quot;console.debug(item);&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">map:</th><td class="field-body">like <a class="reference internal" href="map.html#dojo-map"><em>dojo.map</em></a> with the current list as the array or <a class="reference external" href="https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Objects/Array/map">Array.map</a> in browsers that support it.  Returns a new <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> with the mapped-in elements (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">parents</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+      <span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+      <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// or using the string version:</span>
+    <span class="kd">var</span> <span class="nx">parents</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="s2">&quot;return item.parentNode;&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    var parents = query(&quot;a&quot;).
+      map(function(node){
+      return node.parentNode;
+    });
+
+    // or using the string version:
+    var parents = query(&quot;a&quot;).map(&quot;return item.parentNode;&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">parents</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">map</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">;</span>
+  <span class="p">});</span>
+
+<span class="c1">// or using the string version:</span>
+<span class="kd">var</span> <span class="nx">parents</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">map</span><span class="p">(</span><span class="s2">&quot;return item.parentNode;&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var parents = dojo.query(&quot;a&quot;).
+  map(function(node){
+    return node.parentNode;
+  });
+
+// or using the string version:
+var parents = dojo.query(&quot;a&quot;).map(&quot;return item.parentNode;&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">slice:</th><td class="field-body">Used for grabbing only some of the elements in the list. Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:slice">Array.slice</a>, returns a new <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> from a subset of the current list (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+   <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;emphasis&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+   query(&quot;a&quot;).slice(1, -1).addClass(&quot;emphasis&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// style all but the first and last:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">).</span><span class="nx">addClass</span><span class="p">(</span><span class="s2">&quot;emphasis&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// style all but the first and last:
+dojo.query(&quot;a&quot;).slice(1, -1).addClass(&quot;emphasis&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">splice:</th><td class="field-body">Useful for changing a list in-place instead of making a new copy. Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:splice">Array.splice</a>, returns a new <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> containing the elements removed from the list (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="c1">// remove 3, starting with the second</span>
+    <span class="kd">var</span> <span class="nx">removed</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+    <span class="c1">// ... and since we return a NodeList, style them:</span>
+    <span class="nx">removed</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+
+    <span class="c1">// bold the remaining anchors</span>
+    <span class="nx">anchors</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+    var anchors = query(&quot;a&quot;);
+    // remove 3, starting with the second
+    var removed = anchors.splice(1, 3);
+
+    // ... and since we return a NodeList, style them:
+    removed.style(&quot;opacity&quot;, 0.5);
+
+    // bold the remaining anchors
+    anchors.style(&quot;fontWeight&quot;, &quot;bold&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="c1">// remove 3, starting with the second</span>
+<span class="kd">var</span> <span class="nx">removed</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">splice</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+
+<span class="c1">// ... and since we return a NodeList, style them:</span>
+<span class="nx">removed</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;opacity&quot;</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">);</span>
+
+<span class="c1">// bold the remaining anchors</span>
+<span class="nx">anchors</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+// remove 3, starting with the second
+var removed = anchors.splice(1, 3);
+
+// ... and since we return a NodeList, style them:
+removed.style(&quot;opacity&quot;, 0.5);
+
+// bold the remaining anchors
+anchors.style(&quot;fontWeight&quot;, &quot;bold&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">concat:</th><td class="field-body">Joins other lists to the current list. Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:concat">Array.concat</a>, returns a new <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> containing both the original elements and the new items (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">bolds</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">boldsAndAnchors</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">bolds</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    var anchors = query(&quot;a&quot;);
+    var bolds = query(&quot;b&quot;);
+    var boldsAndAnchors = anchors.concat(bolds);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">bolds</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;b&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">boldsAndAnchors</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">bolds</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+var bolds = dojo.query(&quot;b&quot;);
+var boldsAndAnchors = anchors.concat(bolds);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">push:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:push">Array.push</a>, <tt class="docutils literal"><span class="pre">push</span></tt> adds items to the <tt class="docutils literal"><span class="pre">NodeList</span></tt>. Can be used to add multiple items at once. Returns the new list length (does not chain).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/window&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">baseWindow</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">baseWindow</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="nx">anchors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">());</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/window&quot;], function(query, baseWindow){
+    var anchors = query(&quot;a&quot;);
+    var a = baseWindow.doc.createElement(&quot;a&quot;);
+    anchors.push(a, a.cloneNode(), a.cloneNode());
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="c1">// add &quot;a&quot; and 2 copies</span>
+<span class="nx">anchors</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">(),</span> <span class="nx">a</span><span class="p">.</span><span class="nx">cloneNode</span><span class="p">());</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+var a = dojo.doc.createElement(&quot;a&quot;);
+// add &quot;a&quot; and 2 copies
+anchors.push(a, a.cloneNode(), a.cloneNode());</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">pop:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:pop">Array.pop</a>, removes the last item from the <tt class="docutils literal"><span class="pre">NodeList</span></tt> (does not chain).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">domStyle</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="c1">// remove the last item from the list</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+    <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/dom-style&quot;], function(query, domStyle){
+    var anchors = query(&quot;a&quot;);
+    // remove the last item from the list
+    var a = anchors.pop();
+    domStyle.set(a, &quot;fontWeight&quot;, &quot;bold&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="c1">// remove the last item from the list</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+// remove the last item from the list
+var a = anchors.pop();
+dojo.style(a, &quot;fontWeight&quot;, &quot;bold&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">shift:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:shift">Array.shift</a>. Works like <tt class="docutils literal"><span class="pre">pop</span></tt>, but instead pulls the <em>first</em> element from the list instead of the last (does not chain):</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">domStyle</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="c1">// remove the first item from the list</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+    <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/dom-style&quot;], function(query, domStyle){
+    var anchors = query(&quot;a&quot;);
+    // remove the first item from the list
+    var a = anchors.shift();
+    domStyle.set(a, &quot;fontWeight&quot;, &quot;bold&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="c1">// remove the first item from the list</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">shift</span><span class="p">();</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="s2">&quot;fontWeight&quot;</span><span class="p">,</span> <span class="s2">&quot;bold&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+// remove the first item from the list
+var a = anchors.shift();
+dojo.style(a, &quot;fontWeight&quot;, &quot;bold&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">unshift:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:shift">Array.unshift</a>. Similar to <tt class="docutils literal"><span class="pre">push</span></tt>, but instead puts elements at the <em>front</em> of the list. Returns the new length of the <tt class="docutils literal"><span class="pre">NodeList</span></tt> (does not chain):</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/window&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">baseWindow</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">baseWindow</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">howMany</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/window&quot;], function(query, baseWindow){
+    var anchors = query(&quot;a&quot;);
+    var a = baseWindow.doc.createElement(&quot;a&quot;);
+    var howMany = anchors.unshift(a);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">doc</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">howMany</span> <span class="o">=</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">unshift</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+var a = dojo.doc.createElement(&quot;a&quot;);
+var howMany = anchors.unshift(a);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">indexOf:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:indexOf">Array.indexOf</a> (where supported) or <a class="reference external" href="dojo/indexOf">dojo.indexOf</a>. Returns integer index if the tested element is found, <tt class="docutils literal"><span class="pre">-1</span></tt> if not found (does not chain).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">,</span> <span class="nx">dom</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+    <span class="kd">var</span> <span class="nx">tested</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;tested&quot;</span><span class="p">);</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;is it in the list?&quot;</span><span class="p">,</span> <span class="p">(</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">tested</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/dom&quot;], function(query, dom){
+    var anchors = query(&quot;a&quot;);
+    var tested = dom.byId(&quot;tested&quot;);
+    console.debug(&quot;is it in the list?&quot;, ( anchors.indexOf(tested) != -1 ) );
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="kd">var</span> <span class="nx">tested</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;tested&quot;</span><span class="p">);</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="s2">&quot;is it in the list?&quot;</span><span class="p">,</span> <span class="p">(</span> <span class="nx">anchors</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">tested</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span> <span class="p">)</span> <span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var anchors = dojo.query(&quot;a&quot;);
+var tested = dojo.byId(&quot;tested&quot;);
+console.debug(&quot;is it in the list?&quot;, ( anchors.indexOf(tested) != -1 ) );</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">lastIndexOf:</th><td class="field-body">Like <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:lastIndexOf">Array.lastIndexOf</a> (where supported) or <a class="reference external" href="dojo/lastIndexOf">dojo.lastIndexOf</a>. Returns integer index of the tested element found closest to the end of the list, <tt class="docutils literal"><span class="pre">-1</span></tt> if not found (does not chain).</td>
+</tr>
+<tr class="field-even field"><th class="field-name">some:</th><td class="field-body">like <a class="reference external" href="dojo/some">dojo.some</a> and <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:some">Array.some</a>. Returns a boolean value indicating whether any of the items in the list match the filter function (does not chain).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">hasFoo</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+       <span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+       <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+    <span class="p">});</span>
+
+    <span class="c1">// or using the string version (item is the node):</span>
+    <span class="kd">var</span> <span class="nx">hasFoo</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">some</span><span class="p">(</span><span class="s2">&quot;return item.innerHTML == &#39;foo&#39;;&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;], function(query){
+    var hasFoo = query(&quot;a&quot;).
+       some(function(node){
+       return node.innerHTML == &quot;foo&quot;;
+    });
+
+    // or using the string version (item is the node):
+    var hasFoo = query(&quot;a&quot;).some(&quot;return item.innerHTML == 'foo';&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">hasFoo</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">some</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">==</span> <span class="s2">&quot;foo&quot;</span><span class="p">;</span>
+  <span class="p">});</span>
+
+<span class="c1">// or using the string version (item is the node):</span>
+<span class="kd">var</span> <span class="nx">hasFoo</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">some</span><span class="p">(</span><span class="s2">&quot;return item.innerHTML == &#39;foo&#39;;&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var hasFoo = dojo.query(&quot;a&quot;).
+  some(function(node){
+    return node.innerHTML == &quot;foo&quot;;
+  });
+
+// or using the string version (item is the node):
+var hasFoo = dojo.query(&quot;a&quot;).some(&quot;return item.innerHTML == 'foo';&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">every:</th><td class="field-body">like <a class="reference external" href="dojo/every">dojo.every</a> and <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:every">Array.every</a>. Returns a boolean value indicating whether every item in the list matches the filter function (does not chain).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-traverse&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">areOnlyChildren</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+      <span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+         <span class="k">return</span> <span class="nx">query</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span>
+      <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-traverse&quot;], function(query){
+  var areOnlyChildren = query(&quot;a&quot;).
+      every(function(node){
+         return query(node.parentNode).children().length == 1
+      });
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// dojo.require(&quot;dojo.NodeList-traverse&quot;); must be added in your code to use dojo.query().children() (new in 1.4)</span>
+<span class="kd">var</span> <span class="nx">areOnlyChildren</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">every</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+     <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span>
+  <span class="p">});</span>
+
+<span class="c1">// or using the string version (item is the node):</span>
+<span class="kd">var</span> <span class="nx">areOnlyChildren</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">every</span><span class="p">(</span><span class="s2">&quot;return dojo.query(item.parentNode).children().length == 1;&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// dojo.require(&quot;dojo.NodeList-traverse&quot;); must be added in your code to use dojo.query().children() (new in 1.4)
+var areOnlyChildren = dojo.query(&quot;a&quot;).
+  every(function(node){
+     return dojo.query(node.parentNode).children().length == 1
+  });
+
+// or using the string version (item is the node):
+var areOnlyChildren = dojo.query(&quot;a&quot;).every(&quot;return dojo.query(item.parentNode).children().length == 1;&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">filter:</th><td class="field-body">Like <a class="reference external" href="dojo/filter">dojo.filter</a> and <a class="reference external" href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Global_Objects:Array:filter">Array.filter</a>. A new form of filter is added to support testing against simple CSS class matches. Returns a subset of the items in the list that pass the test (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-traverse&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+  <span class="c1">// a list of anchors that are only children, same as query(&quot;a:only-child&quot;)</span>
+  <span class="kd">var</span> <span class="nx">onlyChildren</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+      <span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+        <span class="k">return</span> <span class="nx">query</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+      <span class="p">});</span>
+
+   <span class="c1">// anchors that also have the class ``foo`` and an attribute ``bar``:</span>
+   <span class="kd">var</span> <span class="nx">fooBarAnchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="s2">&quot;.foo[bar]&quot;</span><span class="p">);</span>
+
+   <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+       <span class="c1">// highlight every paragraph</span>
+       <span class="k">return</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">);</span>
+     <span class="p">}).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;backgroundColor&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
+
+   <span class="c1">// the same filtering using a CSS selector</span>
+   <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">).</span><span class="nx">styles</span><span class="p">(</span><span class="s2">&quot;backgroundColor&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/NodeList-traverse&quot;], function(query){
+  // a list of anchors that are only children, same as query(&quot;a:only-child&quot;)
+  var onlyChildren = query(&quot;a&quot;).
+      filter(function(node){
+        return query(node.parentNode).children().length == 1;
+      });
+
+   // anchors that also have the class ``foo`` and an attribute ``bar``:
+   var fooBarAnchors = query(&quot;a&quot;).filter(&quot;.foo[bar]&quot;);
+
+   query(&quot;*&quot;).filter(function(item){
+       // highlight every paragraph
+       return (item.nodeName == &quot;p&quot;);
+     }).style(&quot;backgroundColor&quot;, &quot;yellow&quot;);
+
+   // the same filtering using a CSS selector
+   query(&quot;*&quot;).filter(&quot;p&quot;).styles(&quot;backgroundColor&quot;, &quot;yellow&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// a list of anchors that are only children, same as dojo.query(&quot;a:only-child&quot;)</span>
+<span class="c1">// dojo.require(&quot;dojo.NodeList-traverse&quot;); must be added in your code to use dojo.query().children() (new in 1.4)</span>
+<span class="kd">var</span> <span class="nx">onlyChildren</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span>
+  <span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">){</span>
+    <span class="k">return</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">parentNode</span><span class="p">).</span><span class="nx">children</span><span class="p">().</span><span class="nx">length</span> <span class="o">==</span> <span class="mi">1</span><span class="p">;</span>
+  <span class="p">});</span>
+
+<span class="c1">// anchors that also have the class ``foo`` and an attribute ``bar``:</span>
+<span class="kd">var</span> <span class="nx">fooBarAnchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="s2">&quot;.foo[bar]&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">item</span><span class="p">){</span>
+  <span class="c1">// highlight every paragraph</span>
+  <span class="k">return</span> <span class="p">(</span><span class="nx">item</span><span class="p">.</span><span class="nx">nodeName</span> <span class="o">==</span> <span class="s2">&quot;p&quot;</span><span class="p">);</span>
+<span class="p">}).</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;backgroundColor&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
+
+<span class="c1">// the same filtering using a CSS selector</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;*&quot;</span><span class="p">).</span><span class="nx">filter</span><span class="p">(</span><span class="s2">&quot;p&quot;</span><span class="p">).</span><span class="nx">styles</span><span class="p">(</span><span class="s2">&quot;backgroundColor&quot;</span><span class="p">,</span> <span class="s2">&quot;yellow&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// a list of anchors that are only children, same as dojo.query(&quot;a:only-child&quot;)
+// dojo.require(&quot;dojo.NodeList-traverse&quot;); must be added in your code to use dojo.query().children() (new in 1.4)
+var onlyChildren = dojo.query(&quot;a&quot;).
+  filter(function(node){
+    return dojo.query(node.parentNode).children().length == 1;
+  });
+
+// anchors that also have the class ``foo`` and an attribute ``bar``:
+var fooBarAnchors = dojo.query(&quot;a&quot;).filter(&quot;.foo[bar]&quot;);
+
+dojo.query(&quot;*&quot;).filter(function(item){
+  // highlight every paragraph
+  return (item.nodeName == &quot;p&quot;);
+}).style(&quot;backgroundColor&quot;, &quot;yellow&quot;);
+
+// the same filtering using a CSS selector
+dojo.query(&quot;*&quot;).filter(&quot;p&quot;).styles(&quot;backgroundColor&quot;, &quot;yellow&quot;);</textarea></div><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">query:</th><td class="field-body">Searches under all of the nodes in this list for nodes that match the passed query. Returns a flattened <tt class="docutils literal"><span class="pre">NodeList</span></tt> of all matching elements (can be chained).</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="c1">// search for all anchor tags under several nodes:</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/NodeList-dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo, #bar&quot;</span><span class="p">).</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// search for all anchor tags under several nodes:
+require([&quot;dojo/query&quot;, &quot;dojo/NodeList-dom&quot;], function(query){
+    var anchors = query(&quot;#foo, #bar&quot;).query(&quot;a&quot;);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// search for all anchor tags under several nodes:</span>
+<span class="kd">var</span> <span class="nx">anchors</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;#foo, #bar&quot;</span><span class="p">).</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// search for all anchor tags under several nodes:
+var anchors = dojo.query(&quot;#foo, #bar&quot;).query(&quot;a&quot;);</textarea></div></div>
+<div class="section" id="dom-methods">
+<h3>DOM Methods<a class="headerlink" href="#dom-methods" title="Permalink to this headline">¶</a></h3>
+<p><strong>[Note]</strong> Since V1.7, the basic DOM APIs have been moved into <tt class="docutils literal"><span class="pre">dojo/NodeList-dom</span></tt>. Please see <a class="reference internal" href="NodeList-dom.html#dojo-nodelist-dom"><em>dojo/NodeList-dom</em></a> for details.</p>
+<p>When using Dojo in legacy applications (e.g. without <tt class="docutils literal"><span class="pre">async:</span> <span class="pre">true</span></tt> in <tt class="docutils literal"><span class="pre">dojoConfig</span></tt>), <tt class="docutils literal"><span class="pre">dojo/NodeList-dom</span></tt> is automatically loaded for backwards compatibility.</p>
+</div>
+<div class="section" id="event-methods">
+<h3>Event Methods<a class="headerlink" href="#event-methods" title="Permalink to this headline">¶</a></h3>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">connect:</th><td class="field-body">Connect to an event of all the nodes in this list. Follows the pattern of <a class="reference internal" href="connect.html#dojo-connect"><em>dojo.connect</em></a>, though assumes each node in the list to be the target to connect to.</td>
+</tr>
+</tbody>
+</table>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a.external&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="c1">// `this` here refers to the node, as we&#39;ve not explicitly set the context to something</span>
+    <span class="p">});</span>
+
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onsubmit&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+    query(&quot;a.external&quot;).connect(&quot;onclick&quot;, function(e){
+      // `this` here refers to the node, as we've not explicitly set the context to something
+    });
+
+    query(&quot;form&quot;).connect(&quot;onsubmit&quot;, function(){});
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a.external&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+  <span class="c1">// `this` here refers to the node, as we&#39;ve not explicitly set the context to something</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;form&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onsubmit&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;a.external&quot;).connect(&quot;onclick&quot;, function(e){
+  // `this` here refers to the node, as we've not explicitly set the context to something
+});
+
+dojo.query(&quot;form&quot;).connect(&quot;onsubmit&quot;, function(){});</textarea></div><p>As a convenience, several common events are mapped as direct function calls. For example, the two following query() calls have identical results:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span> <span class="p">}</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var fn = function(e){ console.warn(e.target); }
+require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+    query(&quot;a&quot;).onclick(fn);
+    query(&quot;a&quot;).connect(&quot;onclick&quot;, fn);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span> <span class="nx">console</span><span class="p">.</span><span class="nx">warn</span><span class="p">(</span><span class="nx">e</span><span class="p">.</span><span class="nx">target</span><span class="p">);</span> <span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">fn</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;onclick&quot;</span><span class="p">,</span> <span class="nx">fn</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var fn = function(e){ console.warn(e.target); }
+dojo.query(&quot;a&quot;).onclick(fn);
+dojo.query(&quot;a&quot;).connect(&quot;onclick&quot;, fn);</textarea></div><p>The full list of methods that are mapped in this way are: <tt class="docutils literal"><span class="pre">onblur</span></tt>, <tt class="docutils literal"><span class="pre">onfocus</span></tt>, <tt class="docutils literal"><span class="pre">onchange</span></tt>, <tt class="docutils literal"><span class="pre">onclick</span></tt>, <tt class="docutils literal"><span class="pre">onerror</span></tt>, <tt class="docutils literal"><span class="pre">onkeydown</span></tt>, <tt class="docutils literal"><span class="pre">onkeypress</span></tt>, <tt class="docutils literal"><span class="pre">onkeyup</span></tt>, <tt class="docutils literal"><span class="pre">onload</span></tt>, <tt class="docutils literal"><span class="pre">onmousedown</span></tt>, <tt class="docutils literal"><span class="pre">onmouseenter</span></tt>, <tt class="docutils literal"><span class="pre">onmouseleave</span></tt>, <tt class="docutils literal"><span class="pre">onmousemove</span></tt>, <tt class="docutils literal"><span class="pre">onmouseout</span></tt>, <tt class="docutils literal"><span class="pre">onmouseover</span></tt>, <tt class="docutils literal"><span class="pre">onmouseup</span></tt>, and <tt class="docutils literal"><span class="pre">onsubmit</span></tt>.</p>
+<p>It is also possible to manipulate the scope of the callback, just as <a class="reference internal" href="connect.html#dojo-connect"><em>dojo.connect</em></a> would:</p>
+<p>[ V1.7+ AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/query&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/NodeList&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">query</span><span class="p">){</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+    <span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">method</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/query&quot;, &quot;dojo/_base/NodeList&quot;], function(query){
+    query(&quot;a&quot;).onclick(obj, &quot;method&quot;);
+    query(&quot;a&quot;).onclick(obj, obj.method);
+});</textarea></div><p>[ V1.6 and earlier ]</p>
+<div class="highlight"><pre><span class="c1">// both call obj.method(e) in context of obj onclick:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;a&quot;</span><span class="p">).</span><span class="nx">onclick</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">obj</span><span class="p">.</span><span class="nx">method</span><span class="p">)</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// both call obj.method(e) in context of obj onclick:
+dojo.query(&quot;a&quot;).onclick(obj, &quot;method&quot;);
+dojo.query(&quot;a&quot;).onclick(obj, obj.method)</textarea></div></div>
+<div class="section" id="animation">
+<h3>Animation<a class="headerlink" href="#animation" title="Permalink to this headline">¶</a></h3>
+<p>Adding animation to lists of nodes requires including the module <tt class="docutils literal"><span class="pre">dojo.NodeList-fx</span></tt> which adds the required methods to instances of <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt>. Please refer to <a class="reference internal" href="NodeList-fx.html#dojo-nodelist-fx"><em>dojo.NodeList-fx</em></a> for details.</p>
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.NodeList</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#common-nodelist-functions">Common NodeList Functions</a></li>
+<li><a class="reference internal" href="#events-with-nodelists">Events with NodeLists</a></li>
+<li><a class="reference internal" href="#extending-nodelist">Extending NodeList</a></li>
+<li><a class="reference internal" href="#nodelist-extensions">NodeList extensions</a><ul>
+<li><a class="reference internal" href="#additional-extensions">Additional Extensions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-details">API Details</a><ul>
+<li><a class="reference internal" href="#array-methods">Array Methods</a></li>
+<li><a class="reference internal" href="#dom-methods">DOM Methods</a></li>
+<li><a class="reference internal" href="#event-methods">Event Methods</a></li>
+<li><a class="reference internal" href="#animation">Animation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Evented.html"
+                        title="previous chapter">dojo/on</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="NodeList-data.html"
+                        title="next chapter">dojo.NodeList-data</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

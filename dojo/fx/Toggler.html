@@ -1,0 +1,343 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.fx.Toggler &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dojo" href="../contents.html" />
+    <link rel="next" title="dojo.fx.chain" href="chain.html" />
+    <link rel="prev" title="dojo.fx" href="../fx.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-fx-toggler">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.fx.Toggler</a><a class="headerlink" href="#dojo-fx-toggler" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Peter Higgins, Nikolai Onken, Marcus Reimann, Jared Jurkiewicz</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">Bryan Forbes, Peter Higgins, Eugene Lazutkin, Bill Keese, Adam Peller, Alex Russell, Dylan Schiemann, sjmiles</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-fx-toggler" id="id2">dojo.fx.Toggler</a><ul>
+<li><a class="reference internal" href="#constructor-parameters" id="id3">Constructor Parameters</a></li>
+<li><a class="reference internal" href="#show-and-hide-return-values" id="id4">show() and hide() return values</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The dojo.fx.Toggler is a helper class for wrapping a DOM node with &#8216;FX&#8217; to use when showing and hiding that node.  By default it uses the <a class="reference internal" href="../fadeIn.html#dojo-fadein"><em>dojo.fadeIn</em></a> for showing and <a class="reference internal" href="../fadeOut.html#dojo-fadeout"><em>dojo.fadeOut</em></a> for hiding of a node.  The Togger is set up by passing in an JavaScript object of parameters that define the node, the animation functions to use, and the duration for the show and hide operations.</p>
+<div class="section" id="constructor-parameters">
+<h2><a class="toc-backref" href="#id3">Constructor Parameters</a><a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2"><strong>Parameter</strong></td>
+<td rowspan="2"><strong>Description</strong></td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"><td>node</td>
+<td><p class="first">The domNode or node id create the toggler for.</p>
+<p class="last"><strong>required</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td>showDuration</td>
+<td><p class="first">How long, in milliseconds, the show animation should take.  The default is 200 milliseconds
+(.2 seconds).</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td>showFunc</td>
+<td><p class="first">The animation function to use when showing the node.  The default is <em>dojo.fadeIn</em>.</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+<tr class="row-even"><td>hideDuration</td>
+<td><p class="first">How long, in milliseconds, the hide animation should take.  The default is 200 milliseconds
+(.2 seconds).</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+<tr class="row-odd"><td>hideFunc</td>
+<td><p class="first">The animation function to use when hiding the node.  The default is <em>dojo.fadeOut</em>.</p>
+<p class="last"><strong>optional</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="show-and-hide-return-values">
+<h2><a class="toc-backref" href="#id4">show() and hide() return values</a><a class="headerlink" href="#show-and-hide-return-values" title="Permalink to this headline">¶</a></h2>
+<p>The functions <em>Toggler.show()</em> and <em>Toggler.hide()</em> both return the animation object for the animation in play.  This object can be used to stop, pause, set the current animation location &#8216;percentage&#8217;, and get the status of the animation.  For more information on animation objects, refer to the excellent <a class="reference internal" href="../../quickstart/Animation.html#quickstart-animation"><em>Animation Quickstart</em></a></p>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="example-1-toggle-a-dom-node-with-defaults">
+<h3>Example 1:  Toggle a DOM node (with defaults)<a class="headerlink" href="#example-1-toggle-a-dom-node-with-defaults" title="Permalink to this headline">¶</a></h3>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">basicToggle</span><span class="p">(){</span>
+   <span class="kd">var</span> <span class="nx">toggler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">Toggler</span><span class="p">({</span>
+     <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;basicNode&quot;</span>
+   <span class="p">});</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;showButton&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;hideButton&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;hide&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">basicToggle</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dojo.fx&quot;);
+function basicToggle(){
+   var toggler = new dojo.fx.Toggler({
+     node: &quot;basicNode&quot;
+   });
+   dojo.connect(dijit.byId(&quot;showButton&quot;), &quot;onClick&quot;, toggler, &quot;show&quot;);
+   dojo.connect(dijit.byId(&quot;hideButton&quot;), &quot;onClick&quot;, toggler, &quot;hide&quot;);
+}
+dojo.ready(basicToggle);</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;hideButton&quot;</span><span class="nt">&gt;</span>Hide the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;showButton&quot;</span><span class="nt">&gt;</span>Show the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;basicNode&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 200px; background-color: red;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;b&gt;</span>This is a container of random content to toggle!<span class="nt">&lt;/b&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;hideButton&quot;&gt;Hide the node!&lt;/button&gt;
+&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;showButton&quot;&gt;Show the node!&lt;/button&gt;
+&lt;div id=&quot;basicNode&quot; style=&quot;width: 200px; background-color: red;&quot;&gt;
+  &lt;b&gt;This is a container of random content to toggle!&lt;/b&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="example-2-toggle-a-dom-node-with-custom-durations">
+<h3>Example 2:  Toggle a DOM node with custom durations<a class="headerlink" href="#example-2-toggle-a-dom-node-with-custom-durations" title="Permalink to this headline">¶</a></h3>
+<p><em>This example has a slow fade out and a slowish fade in.</em></p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">basicToggle1</span><span class="p">(){</span>
+   <span class="kd">var</span> <span class="nx">toggler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">Toggler</span><span class="p">({</span>
+     <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;basicNode1&quot;</span><span class="p">,</span>
+     <span class="nx">showDuration</span><span class="o">:</span> <span class="mi">3000</span><span class="p">,</span>
+     <span class="nx">hideDuration</span><span class="o">:</span> <span class="mi">5000</span>
+   <span class="p">});</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;showButton1&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;hideButton1&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;hide&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">basicToggle1</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dojo.fx&quot;);
+function basicToggle1(){
+   var toggler = new dojo.fx.Toggler({
+     node: &quot;basicNode1&quot;,
+     showDuration: 3000,
+     hideDuration: 5000
+   });
+   dojo.connect(dijit.byId(&quot;showButton1&quot;), &quot;onClick&quot;, toggler, &quot;show&quot;);
+   dojo.connect(dijit.byId(&quot;hideButton1&quot;), &quot;onClick&quot;, toggler, &quot;hide&quot;);
+}
+dojo.ready(basicToggle1);</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;hideButton1&quot;</span><span class="nt">&gt;</span>Hide the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;showButton1&quot;</span><span class="nt">&gt;</span>Show the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;basicNode1&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 200px; background-color: red;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;b&gt;</span>This is a container of random content to toggle!<span class="nt">&lt;/b&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;hideButton1&quot;&gt;Hide the node!&lt;/button&gt;
+&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;showButton1&quot;&gt;Show the node!&lt;/button&gt;
+&lt;div id=&quot;basicNode1&quot; style=&quot;width: 200px; background-color: red;&quot;&gt;
+  &lt;b&gt;This is a container of random content to toggle!&lt;/b&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="example-2-toggle-a-dom-node-with-custom-animation-functions">
+<h3>Example 2:  Toggle a DOM node with custom animation functions<a class="headerlink" href="#example-2-toggle-a-dom-node-with-custom-animation-functions" title="Permalink to this headline">¶</a></h3>
+<p><em>This example uses the wipeOut and wipeIn functions.</em></p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span>
+<span class="kd">function</span> <span class="nx">basicToggle2</span><span class="p">(){</span>
+   <span class="kd">var</span> <span class="nx">toggler</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">Toggler</span><span class="p">({</span>
+     <span class="nx">node</span><span class="o">:</span> <span class="s2">&quot;basicNode2&quot;</span><span class="p">,</span>
+     <span class="nx">showFunc</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">wipeIn</span><span class="p">,</span>
+     <span class="nx">hideFunc</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">wipeOut</span>
+   <span class="p">});</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;showButton2&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;show&quot;</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;hideButton2&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">toggler</span><span class="p">,</span> <span class="s2">&quot;hide&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">basicToggle2</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dojo.fx&quot;);
+function basicToggle2(){
+   var toggler = new dojo.fx.Toggler({
+     node: &quot;basicNode2&quot;,
+     showFunc: dojo.fx.wipeIn,
+     hideFunc: dojo.fx.wipeOut
+   });
+   dojo.connect(dijit.byId(&quot;showButton2&quot;), &quot;onClick&quot;, toggler, &quot;show&quot;);
+   dojo.connect(dijit.byId(&quot;hideButton2&quot;), &quot;onClick&quot;, toggler, &quot;hide&quot;);
+}
+dojo.ready(basicToggle2);</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;hideButton2&quot;</span><span class="nt">&gt;</span>Hide the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;showButton2&quot;</span><span class="nt">&gt;</span>Show the node!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;basicNode2&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 200px; background-color: red;&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;b&gt;</span>This is a container of random content to toggle!<span class="nt">&lt;/b&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;hideButton2&quot;&gt;Hide the node!&lt;/button&gt;
+&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;showButton2&quot;&gt;Show the node!&lt;/button&gt;
+&lt;div id=&quot;basicNode2&quot; style=&quot;width: 200px; background-color: red;&quot;&gt;
+  &lt;b&gt;This is a container of random content to toggle!&lt;/b&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.fx.Toggler</a><ul>
+<li><a class="reference internal" href="#constructor-parameters">Constructor Parameters</a></li>
+<li><a class="reference internal" href="#show-and-hide-return-values">show() and hide() return values</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#example-1-toggle-a-dom-node-with-defaults">Example 1:  Toggle a DOM node (with defaults)</a></li>
+<li><a class="reference internal" href="#example-2-toggle-a-dom-node-with-custom-durations">Example 2:  Toggle a DOM node with custom durations</a></li>
+<li><a class="reference internal" href="#example-2-toggle-a-dom-node-with-custom-animation-functions">Example 2:  Toggle a DOM node with custom animation functions</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../fx.html"
+                        title="previous chapter">dojo.fx</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="chain.html"
+                        title="next chapter">dojo.fx.chain</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

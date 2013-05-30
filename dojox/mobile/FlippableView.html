@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.mobile.FlippableView &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="DojoX" href="../contents.html" />
+    <link rel="next" title="dojox.mobile.Heading" href="Heading.html" />
+    <link rel="prev" title="dojox.mobile.FixedSplitterPane" href="FixedSplitterPane.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-mobile-flippableview">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojox.mobile.FlippableView</a><a class="headerlink" href="#dojox-mobile-flippableview" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Yoshiroh Kamiyama</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">Yoshiroh Kamiyama</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.6</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojox-mobile-flippableview" id="id2">dojox.mobile.FlippableView</a><ul>
+<li><a class="reference internal" href="#constructor-parameters" id="id3">Constructor Parameters</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>FlippableView is a container widget that represents entire mobile device screen, and can be flipped horizontally. FlippableView is a subclass of View (=:ref:<cite>dojox.mobile.View &lt;dojox/mobile/View&gt;</cite>). FlippableView allows the user to swipe the screen left or right to flip between the views. When FlippableView is flipped, it finds an adjacent FlippableView, and opens it.</p>
+<div class="section" id="constructor-parameters">
+<h2><a class="toc-backref" href="#id3">Constructor Parameters</a><a class="headerlink" href="#constructor-parameters" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="inherited-from-dojox-mobile-view">
+<h3>Inherited from dojox.mobile.View<a class="headerlink" href="#inherited-from-dojox-mobile-view" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="7%" />
+<col width="6%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Parameter</td>
+<td>Type</td>
+<td>Required</td>
+<td>Description</td>
+</tr>
+<tr class="row-even"><td>selected</td>
+<td>Boolean</td>
+<td>No</td>
+<td>If true, the view is displayed at startup time. The default value is false.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>Basic usage is the same as for <a class="reference internal" href="View.html#dojox-mobile-view"><em>dojox.mobile.View</em></a>. Flipping will be performed in the order you place FlippableViews in a page.</p>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="declarative-example">
+<h3>Declarative example<a class="headerlink" href="#declarative-example" title="Permalink to this headline">¶</a></h3>
+<p>In this example, there are two FlippableViews, and the user can swipe the screen to flip the views back and forth.</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.FlippableView&quot;</span> <span class="na">selected=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h2</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectCategory&quot;</span><span class="nt">&gt;</span>Page flipping demo<span class="nt">&lt;/h2&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRect&quot;</span><span class="nt">&gt;</span>
+    Swipe the screen left or right to flip between the views.
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bar&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.FlippableView&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span><span class="nt">&gt;</span>View 2<span class="nt">&lt;/h1&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRect&quot;</span><span class="nt">&gt;</span>
+    View 2
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;foo&quot; data-dojo-type=&quot;dojox.mobile.FlippableView&quot; selected=&quot;true&quot;&gt;
+  &lt;h2 data-dojo-type=&quot;dojox.mobile.RoundRectCategory&quot;&gt;Page flipping demo&lt;/h2&gt;
+  &lt;div data-dojo-type=&quot;dojox.mobile.RoundRect&quot;&gt;
+    Swipe the screen left or right to flip between the views.
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div id=&quot;bar&quot; data-dojo-type=&quot;dojox.mobile.FlippableView&quot;&gt;
+  &lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot;&gt;View 2&lt;/h1&gt;
+  &lt;div data-dojo-type=&quot;dojox.mobile.RoundRect&quot;&gt;
+    View 2
+  &lt;/div&gt;
+&lt;/div&gt;</textarea></div><img alt="../../_images/FlippableView-anim.gif" src="../../_images/FlippableView-anim.gif" />
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.mobile.FlippableView</a><ul>
+<li><a class="reference internal" href="#constructor-parameters">Constructor Parameters</a><ul>
+<li><a class="reference internal" href="#inherited-from-dojox-mobile-view">Inherited from dojox.mobile.View</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#declarative-example">Declarative example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="FixedSplitterPane.html"
+                        title="previous chapter">dojox.mobile.FixedSplitterPane</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Heading.html"
+                        title="next chapter">dojox.mobile.Heading</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

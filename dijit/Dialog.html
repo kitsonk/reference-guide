@@ -1,0 +1,941 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dijit.Dialog &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dijit" href="contents.html" />
+    <link rel="next" title="dijit.DialogUnderlay" href="DialogUnderlay.html" />
+    <link rel="prev" title="dijit.Declaration" href="Declaration.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-dialog">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dijit.Dialog</a><a class="headerlink" href="#dijit-dialog" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V0.1.0</td>
+</tr>
+<tr class="field-even field"><th class="field-name">jsDoc:</th><td class="field-body"><a class="reference external" href="http://dojotoolkit.org/api/dijit.Dialog">http://dojotoolkit.org/api/dijit.Dialog</a></td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dijit-dialog" id="id2">dijit.Dialog</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#accessibility" id="id6">Accessibility</a></li>
+<li><a class="reference internal" href="#see-also" id="id7">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Dijit&#8217;s modal Dialog Box simulates a regular GUI dialog box.
+The contents can be arbitrary HTML, but are most often a form or a short paragraph.
+The user can close the dialog box without acting by clicking on the X button in the top-right corner.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="c1">// create the dialog:</span>
+<span class="nx">myDialog</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">({</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;My Dialog&quot;</span><span class="p">,</span>
+    <span class="nx">content</span><span class="o">:</span> <span class="s2">&quot;test content&quot;</span><span class="p">,</span>
+    <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;width: 300px&quot;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.Dialog&quot;);
+// create the dialog:
+myDialog = new dijit.Dialog({
+    title: &quot;My Dialog&quot;,
+    content: &quot;test content&quot;,
+    style: &quot;width: 300px&quot;
+});</textarea></div><p>After creating a Dialog, the Dialog (and the underlay) moves itself right behind the &lt;body&gt; element within the
+DOM, so it can overlay the entire webpage.
+With this move no other elements parent the Dialog.domNode.
+Therefore you have to add a <tt class="docutils literal"><span class="pre">class=&quot;claro&quot;</span></tt> attribute (or some other applicable <a class="reference internal" href="themes.html#dijit-themes"><em>theme name</em></a>)
+to your &lt;body&gt; tag, in order to show the Dialog with the right styles:</p>
+<div class="highlight"><pre><span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+...
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body</span> <span class="na">class=</span><span class="s">&quot;claro&quot;</span><span class="nt">&gt;</span>
+...
+<span class="nt">&lt;/body&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;html&gt;
+&lt;head&gt;
+...
+&lt;/head&gt;
+&lt;body class=&quot;claro&quot;&gt;
+...
+&lt;/body&gt;</textarea></div></div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dialog-via-markup">
+<h3>Dialog via markup<a class="headerlink" href="#dialog-via-markup" title="Permalink to this headline">¶</a></h3>
+<p>The first example creates a Dialog via markup from an existing DOM node:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><p>First let&#8217;s write up some simple HTML code because you need to define the
+place where your Dialog should be created.</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;dialogOne&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">title=</span><span class="s">&quot;My Dialog Title&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.TabContainer&quot;</span> <span class="na">style=</span><span class="s">&quot;width: 200px; height: 300px;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">title=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>Content of Tab &quot;foo&quot;<span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">title=</span><span class="s">&quot;boo&quot;</span><span class="nt">&gt;</span>Hi, I&#39;m Tab &quot;boo&quot;<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup:<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;buttonOne&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="c1">// Show the Dialog:</span>
+        <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;dialogOne&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;dialogOne&quot; data-dojo-type=&quot;dijit.Dialog&quot; title=&quot;My Dialog Title&quot;&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.TabContainer&quot; style=&quot;width: 200px; height: 300px;&quot;&gt;
+        &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; title=&quot;foo&quot;&gt;Content of Tab &quot;foo&quot;&lt;/div&gt;
+        &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; title=&quot;boo&quot;&gt;Hi, I'm Tab &quot;boo&quot;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup:&lt;/p&gt;
+&lt;button id=&quot;buttonOne&quot; data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;&gt;Show me!
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        // Show the Dialog:
+        dijit.byId(&quot;dialogOne&quot;).show();
+    &lt;/script&gt;
+&lt;/button&gt;</textarea></div><p>The javascript, put this wherever you want the dialog creation to happen</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.layout.TabContainer&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.layout.ContentPane&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dijit.Dialog&quot;);
+dojo.require(&quot;dijit.layout.TabContainer&quot;);
+dojo.require(&quot;dijit.layout.ContentPane&quot;);</textarea></div></div></div><p>Note that dialog&#8217;s source markup can be hidden via specifying style=&#8221;display: none&#8221;, to prevent it from flashing on
+the screen during page load.
+However, hiding the dialog indirectly via a class won&#8217;t work (in that the dialog will
+remain invisible even when it&#8217;s supposed to be displayed).</p>
+</div>
+<div class="section" id="dialog-programmatically">
+<h3>Dialog programmatically<a class="headerlink" href="#dialog-programmatically" title="Permalink to this headline">¶</a></h3>
+<p>Now let&#8217;s create a dialog programmatically, and change the dialog&#8217;s content dynamically</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><p>A programmatically created dialog with no content. First let&#8217;s write up some simple HTML code because you need to
+define the place where your Dialog should be created.</p>
+<div class="highlight"><pre><span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup. Notice this time there is no DOM node with content for the dialog:<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;buttonTwo&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:showDialogTwo&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;p&gt;When pressing this button the dialog will popup. Notice this time there is no DOM node with content for the dialog:&lt;/p&gt;
+&lt;button id=&quot;buttonTwo&quot; data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:showDialogTwo&quot; type=&quot;button&quot;&gt;Show me!&lt;/button&gt;</textarea></div><p>The javascript, put this wherever you want the dialog creation to happen</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">secondDlg</span><span class="p">;</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// create the dialog:</span>
+    <span class="nx">secondDlg</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span> <span class="s2">&quot;Programmatic Dialog Creation&quot;</span><span class="p">,</span>
+        <span class="nx">style</span><span class="o">:</span> <span class="s2">&quot;width: 300px&quot;</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+<span class="nx">showDialogTwo</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// set the content of the dialog:</span>
+    <span class="nx">secondDlg</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;content&quot;</span><span class="p">,</span> <span class="s2">&quot;Hey, I wasn&#39;t there before, I was added at &quot;</span> <span class="o">+</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="o">+</span> <span class="s2">&quot;!&quot;</span><span class="p">);</span>
+    <span class="nx">secondDlg</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dijit.Dialog&quot;);
+
+var secondDlg;
+dojo.ready(function(){
+    // create the dialog:
+    secondDlg = new dijit.Dialog({
+        title: &quot;Programmatic Dialog Creation&quot;,
+        style: &quot;width: 300px&quot;
+    });
+});
+showDialogTwo = function(){
+    // set the content of the dialog:
+    secondDlg.set(&quot;content&quot;, &quot;Hey, I wasn't there before, I was added at &quot; + new Date() + &quot;!&quot;);
+    secondDlg.show();
+}</textarea></div></div></div></div>
+<div class="section" id="coloring-the-underlay">
+<h3>Coloring the Underlay<a class="headerlink" href="#coloring-the-underlay" title="Permalink to this headline">¶</a></h3>
+<p>If you wish to alter the default color for the underlay, you do so in CSS.
+The underlay receives an ID to match the Dialog, suffixed with :ref:<tt class="docutils literal"><span class="pre">underlay</span></tt>, which you can define a CSS class for:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nt">&lt;style </span><span class="na">type=</span><span class="s">&quot;text/css&quot;</span><span class="nt">&gt;</span>
+    <span class="nf">#dialogColor_underlay</span> <span class="p">{</span>
+        <span class="k">background-color</span><span class="o">:</span><span class="nb">green</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="nt">&lt;/style&gt;</span>
+
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;dialogColor&quot;</span> <span class="na">title=</span><span class="s">&quot;Colorful&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span><span class="nt">&gt;</span>
+     My background color is Green
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup:<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;button4&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;dialogColor&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;style type=&quot;text/css&quot;&gt;
+    #dialogColor_underlay {
+        background-color:green;
+    }
+&lt;/style&gt;
+
+&lt;div id=&quot;dialogColor&quot; title=&quot;Colorful&quot; data-dojo-type=&quot;dijit.Dialog&quot;&gt;
+     My background color is Green
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup:&lt;/p&gt;
+&lt;button id=&quot;button4&quot; data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;&gt;Show me!
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        dijit.byId(&quot;dialogColor&quot;).show();
+    &lt;/script&gt;
+&lt;/button&gt;</textarea></div><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dijit.form.Button&quot;);
+    dojo.require(&quot;dijit.Dialog&quot;);
+&lt;/script&gt;</textarea></div></div></div></div>
+<div class="section" id="forms-and-functionality-in-dialogs">
+<h3>Forms and Functionality in Dialogs<a class="headerlink" href="#forms-and-functionality-in-dialogs" title="Permalink to this headline">¶</a></h3>
+<p>This example shows a Dialog containing form data.
+You can get the form data as a javascript object by calling get(&#8216;value&#8217;) on the dialog.</p>
+<p>To prevent the user from dismissing the dialog if there are errors in the form, add an onClick handler to your submit
+button.
+In order to run Dialog&#8217;s execute-method the submit button has to be a dijit.form.Button, normal submit button
+doesn&#8217;t trigger this function.
+In addition, the form has to be local, the dialog doesn&#8217;t find the form values if it&#8217;s
+included via href attribute.</p>
+<p>To simply close the dialog, click the Cancel button, which calls the hide() function on the Dialog.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">id=</span><span class="s">&quot;formDialog&quot;</span> <span class="na">title=</span><span class="s">&quot;Form Dialog&quot;</span>
+    <span class="na">execute=</span><span class="s">&quot;alert(&#39;submitted w/args:\n&#39; + dojo.toJson(arguments[0], true));&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;</span>Name: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;name&quot;</span> <span class="na">id=</span><span class="s">&quot;name&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;loc&quot;</span><span class="nt">&gt;</span>Location: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;loc&quot;</span> <span class="na">id=</span><span class="s">&quot;loc&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;date&quot;</span><span class="nt">&gt;</span>Start date: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.DateTextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;sdate&quot;</span> <span class="na">id=</span><span class="s">&quot;sdate&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;date&quot;</span><span class="nt">&gt;</span>End date: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.DateTextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;edate&quot;</span> <span class="na">id=</span><span class="s">&quot;edate&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;date&quot;</span><span class="nt">&gt;</span>Time: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TimeTextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;time&quot;</span> <span class="na">id=</span><span class="s">&quot;time&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;label</span> <span class="na">for=</span><span class="s">&quot;desc&quot;</span><span class="nt">&gt;</span>Description: <span class="nt">&lt;/label&gt;&lt;/td&gt;</span>
+            <span class="nt">&lt;td&gt;&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TextBox&quot;</span> <span class="na">type=</span><span class="s">&quot;text&quot;</span> <span class="na">name=</span><span class="s">&quot;desc&quot;</span> <span class="na">id=</span><span class="s">&quot;desc&quot;</span><span class="nt">&gt;&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td</span> <span class="na">align=</span><span class="s">&quot;center&quot;</span> <span class="na">colspan=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span>
+                    <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){return dijit.byId(&#39;formDialog&#39;).isValid();}&quot;</span><span class="nt">&gt;</span>OK<span class="nt">&lt;/button&gt;</span>
+                <span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span>
+                    <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){dijit.byId(&#39;formDialog&#39;).hide();}&quot;</span><span class="nt">&gt;</span>Cancel<span class="nt">&lt;/button&gt;</span>
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup:<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;buttonThree&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;formDialog&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot; id=&quot;formDialog&quot; title=&quot;Form Dialog&quot;
+    execute=&quot;alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));&quot;&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;name&quot;&gt;Name: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.TextBox&quot; type=&quot;text&quot; name=&quot;name&quot; id=&quot;name&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;loc&quot;&gt;Location: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.TextBox&quot; type=&quot;text&quot; name=&quot;loc&quot; id=&quot;loc&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;date&quot;&gt;Start date: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.DateTextBox&quot; type=&quot;text&quot; name=&quot;sdate&quot; id=&quot;sdate&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;date&quot;&gt;End date: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.DateTextBox&quot; type=&quot;text&quot; name=&quot;edate&quot; id=&quot;edate&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;date&quot;&gt;Time: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.TimeTextBox&quot; type=&quot;text&quot; name=&quot;time&quot; id=&quot;time&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;&lt;label for=&quot;desc&quot;&gt;Description: &lt;/label&gt;&lt;/td&gt;
+            &lt;td&gt;&lt;input data-dojo-type=&quot;dijit.form.TextBox&quot; type=&quot;text&quot; name=&quot;desc&quot; id=&quot;desc&quot;&gt;&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td align=&quot;center&quot; colspan=&quot;2&quot;&gt;
+                &lt;button data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;submit&quot;
+                    data-dojo-props=&quot;onClick:function(){return dijit.byId('formDialog').isValid();}&quot;&gt;OK&lt;/button&gt;
+                &lt;button data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;
+                    data-dojo-props=&quot;onClick:function(){dijit.byId('formDialog').hide();}&quot;&gt;Cancel&lt;/button&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup:&lt;/p&gt;
+&lt;button id=&quot;buttonThree&quot; data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;&gt;Show me!
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        dijit.byId(&quot;formDialog&quot;).show();
+    &lt;/script&gt;
+&lt;/button&gt;</textarea></div><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.TextBox&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.DateTextBox&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.TimeTextBox&quot;</span><span class="p">);</span>
+
+    <span class="kd">function</span> <span class="nx">checkData</span><span class="p">(){</span>
+        <span class="kd">var</span> <span class="nx">data</span> <span class="o">=</span> <span class="nx">formDlg</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s1">&#39;value&#39;</span><span class="p">);</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">data</span><span class="p">);</span>
+        <span class="k">if</span><span class="p">(</span><span class="nx">data</span><span class="p">.</span><span class="nx">sdate</span> <span class="o">&gt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">edate</span><span class="p">){</span>
+            <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Start date must be before end date&quot;</span><span class="p">);</span>
+            <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+        <span class="p">}</span><span class="k">else</span><span class="p">{</span>
+            <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dijit.form.Button&quot;);
+    dojo.require(&quot;dijit.Dialog&quot;);
+    dojo.require(&quot;dijit.form.TextBox&quot;);
+    dojo.require(&quot;dijit.form.DateTextBox&quot;);
+    dojo.require(&quot;dijit.form.TimeTextBox&quot;);
+
+    function checkData(){
+        var data = formDlg.get('value');
+        console.log(data);
+        if(data.sdate &gt; data.edate){
+            alert(&quot;Start date must be before end date&quot;);
+            return false;
+        }else{
+            return true;
+        }
+    }
+&lt;/script&gt;</textarea></div></div></div><p>If you want to handle the onSubmit event like a traditional &lt;form&gt; element, you will need to employ a &lt;form&gt; either as
+a traditional HTML element or as a &#8216;&#8217;dijit.form.Form&#8217;&#8216;.
+This example shows a Dialog with an embedded Form which
+handles the onSubmit event, validation, and an xhrPost to the server.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">id=</span><span class="s">&quot;formDialog2&quot;</span> <span class="na">title=</span><span class="s">&quot;Form Dialog&quot;</span> <span class="na">style=</span><span class="s">&quot;display: none&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;form</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Form&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/event&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onSubmit&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;e&quot;</span><span class="nt">&gt;</span>
+            <span class="nx">dojo</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span> <span class="c1">// prevent the default submit</span>
+            <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="k">this</span><span class="p">.</span><span class="nx">isValid</span><span class="p">()){</span> <span class="nb">window</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;Please fix fields&#39;</span><span class="p">);</span> <span class="k">return</span><span class="p">;</span> <span class="p">}</span>
+
+            <span class="nb">window</span><span class="p">.</span><span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;Would submit here via xhr&quot;</span><span class="p">);</span>
+            <span class="c1">// dojo.xhrPost( {</span>
+            <span class="c1">//      url: &#39;foo.com/handler&#39;,</span>
+            <span class="c1">//      content: { field: &#39;go here&#39; },</span>
+            <span class="c1">//      handleAs: &#39;json&#39;</span>
+            <span class="c1">//      load: function(data){ .. },</span>
+            <span class="c1">//      error: function(data){ .. }</span>
+            <span class="c1">//  });</span>
+        <span class="nt">&lt;/script&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;dijitDialogPaneContentArea&quot;</span><span class="nt">&gt;</span>
+
+            <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&#39;foo&#39;</span><span class="nt">&gt;</span>Foo:<span class="nt">&lt;/label&gt;&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.ValidationTextBox&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;required:true&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+        <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;dijitDialogPaneActionBar&quot;</span><span class="nt">&gt;</span>
+                <span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;submit&quot;</span><span class="nt">&gt;</span>OK<span class="nt">&lt;/button&gt;</span>
+                <span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span>
+                    <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){dijit.byId(&#39;formDialog2&#39;).hide();}&quot;</span><span class="nt">&gt;</span>Cancel<span class="nt">&lt;/button&gt;</span>
+        <span class="nt">&lt;/div&gt;</span>
+     <span class="nt">&lt;/form&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup:<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;buttonThree&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;formDialog2&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot; id=&quot;formDialog2&quot; title=&quot;Form Dialog&quot; style=&quot;display: none&quot;&gt;
+    &lt;form data-dojo-type=&quot;dijit.form.Form&quot;&gt;
+        &lt;script type=&quot;dojo/event&quot; data-dojo-event=&quot;onSubmit&quot; data-dojo-args=&quot;e&quot;&gt;
+            dojo.stopEvent(e); // prevent the default submit
+            if(!this.isValid()){ window.alert('Please fix fields'); return; }
+
+            window.alert(&quot;Would submit here via xhr&quot;);
+            // dojo.xhrPost( {
+            //      url: 'foo.com/handler',
+            //      content: { field: 'go here' },
+            //      handleAs: 'json'
+            //      load: function(data){ .. },
+            //      error: function(data){ .. }
+            //  });
+        &lt;/script&gt;
+        &lt;div class=&quot;dijitDialogPaneContentArea&quot;&gt;
+
+            &lt;label for='foo'&gt;Foo:&lt;/label&gt;&lt;div data-dojo-type=&quot;dijit.form.ValidationTextBox&quot; data-dojo-props=&quot;required:true&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;dijitDialogPaneActionBar&quot;&gt;
+                &lt;button data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;submit&quot;&gt;OK&lt;/button&gt;
+                &lt;button data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;
+                    data-dojo-props=&quot;onClick:function(){dijit.byId('formDialog2').hide();}&quot;&gt;Cancel&lt;/button&gt;
+        &lt;/div&gt;
+     &lt;/form&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup:&lt;/p&gt;
+&lt;button id=&quot;buttonThree&quot; data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;&gt;Show me!
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        dijit.byId(&quot;formDialog2&quot;).show();
+    &lt;/script&gt;
+&lt;/button&gt;</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Form&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.ValidationTextBox&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.Dialog&quot;);
+dojo.require(&quot;dijit.form.Form&quot;);
+dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dijit.form.ValidationTextBox&quot;);</textarea></div></div></div></div>
+<div class="section" id="terms-and-conditions-dialog">
+<h3>Terms and Conditions Dialog<a class="headerlink" href="#terms-and-conditions-dialog" title="Permalink to this headline">¶</a></h3>
+<p>This example shows a Dialog that will ask the user to accept or decline the terms and conditions.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">id=</span><span class="s">&quot;formDialog&quot;</span> <span class="na">title=</span><span class="s">&quot;Accept or decline agreement terms&quot;</span> <span class="na">execute=</span><span class="s">&quot;alert(&#39;submitted w/args:\n&#39; + dojo.toJson(arguments[0], true));&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h1&gt;</span>Agreement Terms<span class="nt">&lt;/h1&gt;</span>
+
+     <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">style=</span><span class="s">&quot;width:400px; border:1px solid #b7b7b7; background:#fff; padding:8px; margin:0 auto; height:150px; overflow:auto; &quot;</span><span class="nt">&gt;</span>
+            Dojo is available under *either* the terms of the modified BSD license *or* the Academic Free License version 2.1. As a recipient of Dojo, you may choose which license to receive this code under (except as noted in per-module LICENSE files). Some modules may not be the copyright of the Dojo Foundation. These modules contain explicit declarations of copyright in both the LICENSE files in the directories in which they reside and in the code itself. No external contributions are allowed under licenses which are fundamentally incompatible with the AFL or BSD licenses that Dojo is distributed under. The text of the AFL and BSD licenses is reproduced below. ------------------------------------------------------------------------------- The &quot;New&quot; BSD License: ********************** Copyright (c) 2005-2010, The Dojo Foundation All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+     <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;br&gt;</span>
+    <span class="nt">&lt;table&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.RadioButton&quot;</span> <span class="na">name=</span><span class="s">&quot;agreement&quot;</span> <span class="na">id=</span><span class="s">&quot;radioOne&quot;</span> <span class="na">value=</span><span class="s">&quot;accept&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:accept&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;radioOne&quot;</span><span class="nt">&gt;</span>
+                    I accept the terms of this agreement
+                <span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+        <span class="nt">&lt;tr&gt;</span>
+            <span class="nt">&lt;td&gt;</span>
+                <span class="nt">&lt;input</span> <span class="na">type=</span><span class="s">&quot;radio&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.RadioButton&quot;</span> <span class="na">name=</span><span class="s">&quot;agreement&quot;</span> <span class="na">id=</span><span class="s">&quot;radioTwo&quot;</span> <span class="na">value=</span><span class="s">&quot;decline&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:decline&quot;</span><span class="nt">/&gt;</span>
+                <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">&quot;radioTwo&quot;</span><span class="nt">&gt;</span>
+                    I decline
+                <span class="nt">&lt;/label&gt;</span>
+            <span class="nt">&lt;/td&gt;</span>
+        <span class="nt">&lt;/tr&gt;</span>
+    <span class="nt">&lt;/table&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;p&gt;</span>
+    When pressing this button the dialog will popup:
+<span class="nt">&lt;/p&gt;</span>
+
+<span class="nt">&lt;label</span> <span class="na">id=</span><span class="s">&quot;decision&quot;</span> <span class="na">style=</span><span class="s">&quot;color:#FF0000;&quot;</span><span class="nt">&gt;</span>
+    Terms and conditions have not been accepted.
+<span class="nt">&lt;/label&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;termsButton&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>
+    View terms and conditions to accept
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onClick&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;evt&quot;</span><span class="nt">&gt;</span>
+        <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;formDialog&quot;</span><span class="p">).</span><span class="nx">show</span><span class="p">();</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot; id=&quot;formDialog&quot; title=&quot;Accept or decline agreement terms&quot; execute=&quot;alert('submitted w/args:\n' + dojo.toJson(arguments[0], true));&quot;&gt;
+    &lt;h1&gt;Agreement Terms&lt;/h1&gt;
+
+     &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; style=&quot;width:400px; border:1px solid #b7b7b7; background:#fff; padding:8px; margin:0 auto; height:150px; overflow:auto; &quot;&gt;
+            Dojo is available under *either* the terms of the modified BSD license *or* the Academic Free License version 2.1. As a recipient of Dojo, you may choose which license to receive this code under (except as noted in per-module LICENSE files). Some modules may not be the copyright of the Dojo Foundation. These modules contain explicit declarations of copyright in both the LICENSE files in the directories in which they reside and in the code itself. No external contributions are allowed under licenses which are fundamentally incompatible with the AFL or BSD licenses that Dojo is distributed under. The text of the AFL and BSD licenses is reproduced below. ------------------------------------------------------------------------------- The &quot;New&quot; BSD License: ********************** Copyright (c) 2005-2010, The Dojo Foundation All rights reserved. Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met: * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer. * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the following disclaimer in the documentation and/or other materials provided with the distribution.
+     &lt;/div&gt;
+
+    &lt;br&gt;
+    &lt;table&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;radio&quot; data-dojo-type=&quot;dijit.form.RadioButton&quot; name=&quot;agreement&quot; id=&quot;radioOne&quot; value=&quot;accept&quot; data-dojo-props=&quot;onClick:accept&quot;/&gt;
+                &lt;label for=&quot;radioOne&quot;&gt;
+                    I accept the terms of this agreement
+                &lt;/label&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr&gt;
+            &lt;td&gt;
+                &lt;input type=&quot;radio&quot; data-dojo-type=&quot;dijit.form.RadioButton&quot; name=&quot;agreement&quot; id=&quot;radioTwo&quot; value=&quot;decline&quot; data-dojo-props=&quot;onClick:decline&quot;/&gt;
+                &lt;label for=&quot;radioTwo&quot;&gt;
+                    I decline
+                &lt;/label&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+&lt;p&gt;
+    When pressing this button the dialog will popup:
+&lt;/p&gt;
+
+&lt;label id=&quot;decision&quot; style=&quot;color:#FF0000;&quot;&gt;
+    Terms and conditions have not been accepted.
+&lt;/label&gt;
+&lt;button id=&quot;termsButton&quot; data-dojo-type=&quot;dijit.form.Button&quot; type=&quot;button&quot;&gt;
+    View terms and conditions to accept
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;onClick&quot; data-dojo-args=&quot;evt&quot;&gt;
+        dijit.byId(&quot;formDialog&quot;).show();
+    &lt;/script&gt;
+&lt;/button&gt;</textarea></div><div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.RadioButton&quot;</span><span class="p">);</span>
+
+<span class="kd">var</span> <span class="nx">accept</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;decision&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Terms and conditions have been accepted.&quot;</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;decision&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;#00CC00&quot;</span><span class="p">);</span>
+    <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;formDialog&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">decline</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;decision&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;Terms and conditions have not been accepted.&quot;</span><span class="p">;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;decision&quot;</span><span class="p">,</span> <span class="s2">&quot;color&quot;</span><span class="p">,</span> <span class="s2">&quot;#FF0000&quot;</span><span class="p">);</span>
+    <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;formDialog&quot;</span><span class="p">).</span><span class="nx">hide</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+dojo.require(&quot;dijit.Dialog&quot;);
+dojo.require(&quot;dijit.form.RadioButton&quot;);
+
+var accept = function(){
+    dojo.byId(&quot;decision&quot;).innerHTML = &quot;Terms and conditions have been accepted.&quot;;
+    dojo.style(&quot;decision&quot;, &quot;color&quot;, &quot;#00CC00&quot;);
+    dijit.byId(&quot;formDialog&quot;).hide();
+}
+
+var decline = function(){
+    dojo.byId(&quot;decision&quot;).innerHTML = &quot;Terms and conditions have not been accepted.&quot;;
+    dojo.style(&quot;decision&quot;, &quot;color&quot;, &quot;#FF0000&quot;);
+    dijit.byId(&quot;formDialog&quot;).hide();
+}</textarea></div></div></div></div>
+<div class="section" id="external-dialog-content-using-href-attribute">
+<h3>External Dialog content using HREF attribute<a class="headerlink" href="#external-dialog-content-using-href-attribute" title="Permalink to this headline">¶</a></h3>
+<p>You can also load dialog content from another page by setting HREF attribute for the widget.
+Note that the dijit.Dialog doesn&#8217;t execute script tags inline external content.
+However, it parses the page for widgets,
+so you can add functionality to widgets by connecting into widget extension points using declarative markup
+(DojoML; e.g. <tt class="docutils literal"><span class="pre">&lt;script</span> <span class="pre">type=&quot;dojo/method&quot;</span> <span class="pre">data-dojo-event=&quot;onClick&quot;&gt;</span></tt>).</p>
+<p>The <a class="reference internal" href="../dojox/widget/DialogSimple.html#dojox-widget-dialogsimple"><em>dojox.widget.DialogSimple</em></a> provides the <tt class="docutils literal"><span class="pre">executeScripts</span></tt> functionality
+of <a class="reference internal" href="../dojox/layout/ContentPane.html#dojox-layout-contentpane"><em>dojox.layout.ContentPane</em></a> into <tt class="docutils literal"><span class="pre">dijit.Dialog</span></tt>.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="500" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dijit.form.Button&quot;);
+    dojo.require(&quot;dijit.Dialog&quot;);
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;external&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">title=</span><span class="s">&quot;My external dialog&quot;</span> <span class="na">href=</span><span class="s">&quot;{{dataUrl}}dojo/resources/LICENSE&quot;</span> <span class="na">style=</span><span class="s">&quot;overflow:auto; width: 400px; height: 200px;&quot;</span><span class="nt">&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup loading the dialog content using an XHR call.<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){dijit.byId(&#39;external&#39;).show();}&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;external&quot; data-dojo-type=&quot;dijit.Dialog&quot; title=&quot;My external dialog&quot; href=&quot;{{dataUrl}}dojo/resources/LICENSE&quot; style=&quot;overflow:auto; width: 400px; height: 200px;&quot;&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup loading the dialog content using an XHR call.&lt;/p&gt;
+&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:function(){dijit.byId('external').show();}&quot; type=&quot;button&quot;&gt;Show me!&lt;/button&gt;</textarea></div></div></div></div>
+<div class="section" id="sizing-the-dialog">
+<h3>Sizing the Dialog<a class="headerlink" href="#sizing-the-dialog" title="Permalink to this headline">¶</a></h3>
+<p>A dialog by default sizes itself according to its content, just like a plain &lt;div&gt;.
+If you want a scrollbar on a dialog, then you need to add width/height to a div <em>inside</em> the dialog, like this:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">&quot;text/javascript&quot;</span><span class="o">&gt;</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.Dialog&quot;</span><span class="p">);</span>
+<span class="o">&lt;</span><span class="err">/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot;&gt;
+    dojo.require(&quot;dijit.form.Button&quot;);
+    dojo.require(&quot;dijit.Dialog&quot;);
+&lt;/script&gt;</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;sized&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.Dialog&quot;</span> <span class="na">title=</span><span class="s">&quot;My scrolling dialog&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 200px; height: 100px; overflow: auto;&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;p&gt;</span>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            semper sagittis velit. Cras in mi. Duis porta mauris ut ligula. Proin
+            porta rutrum lacus. Etiam consequat scelerisque quam. Nulla facilisi.
+            Maecenas luctus venenatis nulla. In sit amet dui non mi semper iaculis.
+            Sed molestie tortor at ipsum. Morbi dictum rutrum magna. Sed vitae
+            risus.<span class="nt">&lt;/p&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+<span class="nt">&lt;p&gt;</span>When pressing this button the dialog will popup (with a scrollbar):<span class="nt">&lt;/p&gt;</span>
+<span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;onClick:function(){dijit.byId(&#39;sized&#39;).show();}&quot;</span> <span class="na">type=</span><span class="s">&quot;button&quot;</span><span class="nt">&gt;</span>Show me!<span class="nt">&lt;/button&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;sized&quot; data-dojo-type=&quot;dijit.Dialog&quot; title=&quot;My scrolling dialog&quot;&gt;
+    &lt;div style=&quot;width: 200px; height: 100px; overflow: auto;&quot;&gt;
+        &lt;p&gt;Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
+            semper sagittis velit. Cras in mi. Duis porta mauris ut ligula. Proin
+            porta rutrum lacus. Etiam consequat scelerisque quam. Nulla facilisi.
+            Maecenas luctus venenatis nulla. In sit amet dui non mi semper iaculis.
+            Sed molestie tortor at ipsum. Morbi dictum rutrum magna. Sed vitae
+            risus.&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;p&gt;When pressing this button the dialog will popup (with a scrollbar):&lt;/p&gt;
+&lt;button data-dojo-type=&quot;dijit.form.Button&quot; data-dojo-props=&quot;onClick:function(){dijit.byId('sized').show();}&quot; type=&quot;button&quot;&gt;Show me!&lt;/button&gt;</textarea></div></div></div></div>
+</div>
+<div class="section" id="accessibility">
+<h2><a class="toc-backref" href="#id6">Accessibility</a><a class="headerlink" href="#accessibility" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="keyboard">
+<h3>Keyboard<a class="headerlink" href="#keyboard" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Action</th>
+<th class="head">Key</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Navigate to next focusable element in the dialog</td>
+<td>tab</td>
+</tr>
+<tr class="row-odd"><td>Navigate to previous focusable element in the dialog</td>
+<td>shift-tab</td>
+</tr>
+<tr class="row-even"><td>Close the dialog</td>
+<td>escape</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="keyboard-navigation-in-release-1-1-and-later">
+<h4>Keyboard Navigation in Release 1.1 and later<a class="headerlink" href="#keyboard-navigation-in-release-1-1-and-later" title="Permalink to this headline">¶</a></h4>
+<p>When a dialog is opened focus goes to the first focusable element within the dialog.
+The first focusable element may
+be an element which appears in the tab order by default such as a form field or link, an element with a tabindex
+attribute value of 0 or an element with a tabindex value greater than 0.
+Elements with a tabindex value greater than 0
+will appear in the tab order before elements with a tabindex of 0 or those in the tab order by default.
+If the dialog does not contain a focusable item,
+focus will be set to the dialog container element when the dialog is opened.
+The same focus behavior has been implemented for tooltip dialog</p>
+<p>When focus is in a dialog, pressing the tab key will move focus forward to each focusable element within the dialog.
+When focus reaches the last focusable element in the dialog,
+pressing tab will cycle focus back to the first focusable item.
+Pressing shift-tab will move focus backwards through focusable elements within the dialog.
+When the first focusable item is reached,
+pressing shift-tab will move focus to the last focusable item in the dialog.</p>
+</div>
+<div class="section" id="keyboard-navigation-previous-to-release-1-1">
+<h4>Keyboard Navigation Previous to Release 1.1<a class="headerlink" href="#keyboard-navigation-previous-to-release-1-1" title="Permalink to this headline">¶</a></h4>
+<p>When a dialog is opened focus goes to the title section of the dialog.
+This was implemented to provide screen reader
+support to speak the title of the dialog when it is opened.
+Likewise, when a tooltip dialog is opened, focus is placed
+on the container of the tooltip dialog.
+In future versions of the dialog and tooltip dialog widgets, focus will go to
+the first item in the dialog or tooltip dialog.</p>
+<p>When focus is in a dialog, pressing the tab key will move focus forward to each focusable element within the dialog.
+When focus reaches the last focusable element in the dialog, pressing tab will cycle focus back to the dialog title.
+Pressing shift-tab will move focus backwards through focusable elements within the dialog until the dialog title is
+reached.
+If focus has previous cycled forward through all of the elements, pressing shift-tab with focus on the dialog
+title will move focus to the last element in the dialog.
+If focus has not previously been cycled through all of the
+focusable elements in the dialog using the tab key, pressing shift-tab with focus on the dialog title will leave focus
+in the title.
+The same focus cycling applies to the tooltip dialog as well with focus being set to the tooltip dialog
+container since there is no dialog title.</p>
+</div>
+</div>
+<div class="section" id="improved-screen-reader-support-in-1-4">
+<h3>Improved Screen Reader Support in 1.4<a class="headerlink" href="#improved-screen-reader-support-in-1-4" title="Permalink to this headline">¶</a></h3>
+<p>The dialog now supports the aria-describedby property.
+If you have a description of the dialog that you would like
+spoken by the screen reader when the dialog opens, add the aria-describedby property to the dialog.
+Include an element containing the text you want spoken in the dialog.
+The value of the aria-describedby property is the id of the element containing the text.</p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">data</span><span class="o">-</span><span class="nx">dojo</span><span class="o">-</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;dijit.Dialog&quot;</span> <span class="nx">title</span><span class="o">=</span><span class="s2">&quot;Example Dialog&quot;</span> <span class="nx">aria</span><span class="o">-</span><span class="nx">describedby</span><span class="o">=</span><span class="s2">&quot;intro&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;intro&quot;</span><span class="o">&gt;</span><span class="nx">Text</span> <span class="nx">to</span> <span class="nx">describe</span> <span class="nx">dialog</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Additional</span> <span class="nx">dialog</span> <span class="nx">contents</span><span class="p">....</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot; title=&quot;Example Dialog&quot; aria-describedby=&quot;intro&quot;&gt;
+  &lt;div id=&quot;intro&quot;&gt;Text to describe dialog&lt;/div&gt;
+  &lt;div&gt;Additional dialog contents....&lt;/div&gt;
+&lt;/div&gt;</textarea></div><p>For earlier Dojo versions, you can add an onshow event handler that adds the aria-describedby property:</p>
+<div class="highlight"><pre><span class="o">&lt;</span><span class="nx">div</span> <span class="nx">data</span><span class="o">-</span><span class="nx">dojo</span><span class="o">-</span><span class="nx">type</span><span class="o">=</span><span class="s2">&quot;dijit.Dialog&quot;</span> <span class="nx">title</span><span class="o">=</span><span class="s2">&quot;Example Dialog&quot;</span> <span class="nx">onShow</span><span class="o">=</span><span class="s2">&quot;dojo.attr(this.domNode, &#39;aria-describedby&#39;, &#39;info&#39;);&quot;</span><span class="o">&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">&quot;intro&quot;</span><span class="o">&gt;</span><span class="nx">Text</span> <span class="nx">to</span> <span class="nx">describe</span> <span class="nx">dialog</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+  <span class="o">&lt;</span><span class="nx">div</span><span class="o">&gt;</span><span class="nx">Additional</span> <span class="nx">dialog</span> <span class="nx">contents</span><span class="p">....</span><span class="o">&lt;</span><span class="err">/div&gt;</span>
+<span class="o">&lt;</span><span class="err">/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.Dialog&quot; title=&quot;Example Dialog&quot; onShow=&quot;dojo.attr(this.domNode, 'aria-describedby', 'info');&quot;&gt;
+  &lt;div id=&quot;intro&quot;&gt;Text to describe dialog&lt;/div&gt;
+  &lt;div&gt;Additional dialog contents....&lt;/div&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="known-issues">
+<h3>Known Issues<a class="headerlink" href="#known-issues" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>On Windows, In Firefox 2, when in High Contrast mode, the dialog with display correctly, but the underlying page
+will not be seen.</li>
+<li>Dialogs with an input type=file as the only focusable element will not work with the keyboard. This is because input
+type=file elements require two tab stops - one in the textbox and the other on the &#8220;Browse&#8221; button. Rather
+than clutter the dialog box widget with code to special case for this one condition, dialog boxes with an input
+type=file as the only focusable element are not supported.</li>
+<li>Dialogs with an input type=file element as the first focusable element in Firefox (and there are additional
+focusable elements).
+Programmatically setting focus to an input type=file element behaves oddly in Firefox. In this case the focus is set
+onto the textbox field and then immediately moved onto the browse button of the input type=file field. This causes
+problems in Firefox when setting focus to an input type=file element as the first element as a dialog. For this
+reason, in Firefox if the first
+focusable item in a dialog is an input type=file, focus will be set onto the dialog container rather than the input
+element.
+For these reasons it is recommended that input type=file elements not be added as the only or first focusable item
+within a dialog in Firefox.</li>
+<li>Even though the dialog is marked with the proper ARIA role of dialog, there are issues with screen readers. Due to
+these issues , it is important that the instructions or label for a trigger element that opens a dialog to indicate
+via text that a dialog will be opened.<ul>
+<li>JAWS 9 does not speak &#8220;dialog&#8221; when the dialog is opened in Firefox or IE 8.</li>
+<li>In Firefox 2 even though the focus is on the first focusable item in the dialog, the information about that item
+is also not spoken.</li>
+<li>In Firefox 3 with JAWS 9 the dialog is also not announced but the information about the item in the dialog which
+gets focus is spoken. The issue has been fixed in JAWS 10 with Firefox 3.</li>
+<li>In IE 8 with JAWS 10 and JAWS 11 the dialog information and title is not spoken. This is due to the fact that IE 8
+does not support the ARIA labelledby property that is used to assign the title to the dialog.</li>
+</ul>
+</li>
+<li>There are focus issues when the dialog is created via an href. Due to timing issues focus may not be properly set
+nor properly trapped
+in the dialog. For accessibility reasons, dialogs created via href are not recommended. This issue has been
+addressed in the 1.5 release.</li>
+<li>When loading Dialog content with the href property, there can be issues with scrolling in IE7: If the loaded content
+contains dijit.layout elements and the Dialog content is larger than the size of the dialog, the layout dijits do
+not scroll properly in IE7. The workaround for this issue is to set the &#8216;position:relative&#8217; style to the
+dialog.containerNode:</li>
+<li>Dialogs with an iframe as the contents will cause a focus trap and are not supported. This because the dialog code
+can not traverse within the iframe contents to find all of the focusable elements to know the first and last
+focusable element within the contents.</li>
+<li>Dialogs with no focusable items cause problems for screen readers.  If the dialog has no focusable items, set the
+tabindex=&#8221;0&#8221; on the container element of the text.  This will set focus to that container when the dialog is opened
+and will cause JAWS to speak the title of the dialog and the user will know that a dialog has been opened.</li>
+</ul>
+<div class="highlight"><pre><span class="nx">dialogObj</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">Dialog</span><span class="p">({</span>
+    <span class="nx">id</span><span class="o">:</span> <span class="s1">&#39;dialogWithHref&#39;</span><span class="p">,</span>
+    <span class="nx">title</span><span class="o">:</span> <span class="s1">&#39;The title&#39;</span>
+    <span class="nx">href</span><span class="o">:</span> <span class="s2">&quot;/url/to/dialog/content/including/layout/dijit/&quot;</span><span class="p">,</span>
+<span class="p">});</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="nx">dialogObj</span><span class="p">.</span><span class="nx">containerNode</span><span class="p">,</span> <span class="p">{</span>
+        <span class="nx">position</span><span class="o">:</span><span class="s1">&#39;relative&#39;</span><span class="p">,</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dialogObj = new dijit.Dialog({
+    id: 'dialogWithHref',
+    title: 'The title'
+    href: &quot;/url/to/dialog/content/including/layout/dijit/&quot;,
+});
+
+dojo.style(dialogObj.containerNode, {
+        position:'relative',
+});</textarea></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id7">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../dojox/widget/DialogSimple.html#dojox-widget-dialogsimple"><em>dojox.widget.DialogSimple</em></a> - mixin of dijit.Dialog and dojox.layout.ContentPane</li>
+<li><a class="reference internal" href="../dojox/widget/Dialog.html#dojox-widget-dialog"><em>dojox.widget.Dialog</em></a> - more flexible dialog allowing animations and different styles/theme support</li>
+<li><a class="reference internal" href="../dojox/image/Lightbox.html#dojox-image-lightbox"><em>dojox.image.Lightbox</em></a> - a dojo-based Lightbox implementation</li>
+<li><a class="reference internal" href="../dojox/image/LightboxNano.html#dojox-image-lightboxnano"><em>dojox.image.LightboxNano</em></a> - a simple &#8220;nano&#8221; version of the dojox.image.Lightbox (without captions, descriptions...)</li>
+<li><a class="reference internal" href="TooltipDialog.html#dijit-tooltipdialog"><em>dijit/TooltipDialog</em></a> - modal tooltip with rich content for user interactions (forms ...)</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dijit.Dialog</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#dialog-via-markup">Dialog via markup</a></li>
+<li><a class="reference internal" href="#dialog-programmatically">Dialog programmatically</a></li>
+<li><a class="reference internal" href="#coloring-the-underlay">Coloring the Underlay</a></li>
+<li><a class="reference internal" href="#forms-and-functionality-in-dialogs">Forms and Functionality in Dialogs</a></li>
+<li><a class="reference internal" href="#terms-and-conditions-dialog">Terms and Conditions Dialog</a></li>
+<li><a class="reference internal" href="#external-dialog-content-using-href-attribute">External Dialog content using HREF attribute</a></li>
+<li><a class="reference internal" href="#sizing-the-dialog">Sizing the Dialog</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accessibility">Accessibility</a><ul>
+<li><a class="reference internal" href="#keyboard">Keyboard</a><ul>
+<li><a class="reference internal" href="#keyboard-navigation-in-release-1-1-and-later">Keyboard Navigation in Release 1.1 and later</a></li>
+<li><a class="reference internal" href="#keyboard-navigation-previous-to-release-1-1">Keyboard Navigation Previous to Release 1.1</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#improved-screen-reader-support-in-1-4">Improved Screen Reader Support in 1.4</a></li>
+<li><a class="reference internal" href="#known-issues">Known Issues</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Declaration.html"
+                        title="previous chapter">dijit.Declaration</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DialogUnderlay.html"
+                        title="next chapter">dijit.DialogUnderlay</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

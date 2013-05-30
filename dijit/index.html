@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dijit Overview &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dijit" href="contents.html" />
+    <link rel="next" title="Dijit Introduction" href="info.html" />
+    <link rel="prev" title="dijit.hccss" href="hccss.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-overview">
+<span id="dijit-index"></span><h1><a class="toc-backref" href="#id1">Dijit Overview</a><a class="headerlink" href="#dijit-overview" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dijit-overview" id="id1">Dijit Overview</a><ul>
+<li><a class="reference internal" href="#general-information" id="id2">General Information</a></li>
+<li><a class="reference internal" href="#base-utilities" id="id3">Base Utilities</a></li>
+<li><a class="reference internal" href="#utility-classes" id="id4">Utility Classes</a></li>
+<li><a class="reference internal" href="#infrastructure-widgets" id="id5">Infrastructure Widgets</a></li>
+<li><a class="reference internal" href="#menu-widgets" id="id6">Menu Widgets</a></li>
+<li><a class="reference internal" href="#tree-widgets" id="id7">Tree Widgets</a></li>
+<li><a class="reference internal" href="#miscellaneous-widgets" id="id8">Miscellaneous Widgets</a></li>
+<li><a class="reference internal" href="#form-widgets-and-handling" id="id9">Form Widgets and Handling</a></li>
+<li><a class="reference internal" href="#layout" id="id10">Layout</a></li>
+<li><a class="reference internal" href="#note-about-programmatic-instantiation" id="id11">Note about programmatic instantiation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>Dijit</strong> is Dojo&#8217;s UI Library, and lives as a separate namespace <tt class="docutils literal"><span class="pre">dijit</span></tt>. Dijit requires <em class="xref std std-ref">Dojo Core</em> and <a class="reference internal" href="../dojo/_base.html#dojo-base"><em>Dojo Base</em></a>.</p>
+<p>Each of the widgets and functionality provided by Dijit are described in the following sections, though the the
+<em class="xref std std-ref">quickstart</em> guides and the <a class="reference external" href="http://dojotoolkit.org/documentation/">Tutorials</a> cover some basics.</p>
+<div class="section" id="general-information">
+<h2><a class="toc-backref" href="#id2">General Information</a><a class="headerlink" href="#general-information" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="info.html#dijit-info"><em>About Dijit</em></a></li>
+<li><a class="reference internal" href="themes.html#dijit-themes"><em>Themes and Theming</em></a></li>
+<li><em class="xref std std-ref">Accessibility (a11y)</em><ul>
+<li><a class="reference internal" href="a11y/strategy.html#dijit-a11y-strategy"><em>a11y Strategy</em></a></li>
+<li><a class="reference internal" href="a11y/resources.html#dijit-a11y-resources"><em>a11y Resources</em></a></li>
+<li><a class="reference internal" href="../quickstart/writingWidgets/a11y.html#quickstart-writingwidgets-a11y"><em>Creating Accessible Widgets</em></a></li>
+<li><a class="reference internal" href="../quickstart/writingWidgets/a11yTesting.html#quickstart-writingwidgets-a11ytesting"><em>Testing for Accessibility</em></a></li>
+<li><a class="reference internal" href="../developer/a11y-requirements.html#developer-a11y-requirements"><em>a11y Requirements</em></a></li>
+<li><a class="reference internal" href="a11y/statement.html#dijit-a11y-statement"><em>a11y Statement</em></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="base-utilities">
+<h2><a class="toc-backref" href="#id3">Base Utilities</a><a class="headerlink" href="#base-utilities" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><em class="xref std std-ref">dijit/_base</em> <strong>STUB</strong><ul>
+<li><a class="reference internal" href="_base/focus.html#dijit-base-focus"><em>dijit/_base/focus</em></a> <strong>COPIED</strong></li>
+<li><a class="reference internal" href="_base/place.html#dijit-base-place"><em>dijit/_base/place</em></a> <strong>COPIED</strong></li>
+<li><a class="reference internal" href="_base/popup.html#dijit-base-popup"><em>dijit/_base/popup</em></a> <strong>COPIED</strong></li>
+<li><a class="reference internal" href="_base/typematic.html#dijit-base-typematic"><em>dijit/_base/typematic</em></a> <strong>COPIED</strong></li>
+<li><a class="reference internal" href="_base/manager.html#dijit-base-manager"><em>dijit/_base/manager</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_base/scroll.html#dijit-base-scroll"><em>dijit/_base/scroll</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_base/sniff.html#dijit-base-sniff"><em>dijit/_base/sniff</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_base/wai.html#dijit-base-wai"><em>dijit/_base/wai</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_base/window.html#dijit-base-window"><em>dijit/_base/window</em></a> <strong>STUB</strong></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="utility-classes">
+<h2><a class="toc-backref" href="#id4">Utility Classes</a><a class="headerlink" href="#utility-classes" title="Permalink to this headline">¶</a></h2>
+<p>Utility methods and classes used by widgets or by applications with widgets.</p>
+<ul class="simple">
+<li><a class="reference internal" href="focus.html#dijit-focus"><em>dijit.focus</em></a> - keeps track of focused node and active widgets</li>
+<li><a class="reference internal" href="hccss.html#dijit-hccss"><em>dijit.hccss</em></a> - for detecting when IE or FF is in high contrast (aka no background images) mode</li>
+<li><a class="reference internal" href="place.html#dijit-place"><em>dijit.place</em></a> - low level code for positioning popups / drop downs</li>
+<li><a class="reference internal" href="popup.html#dijit-popup"><em>dijit.popup</em></a> - high level library routines for positioning popups / drop downs</li>
+<li><a class="reference internal" href="registry.html#dijit-registry"><em>dijit.registry</em></a> - registry of all widgets on the page</li>
+<li><a class="reference internal" href="typematic.html#dijit-typematic"><em>dijit.typematic</em></a> - for normalizing key-repeat across browsers, plus simulation &#8220;mouse-repeat&#8221;</li>
+</ul>
+</div>
+<div class="section" id="infrastructure-widgets">
+<h2><a class="toc-backref" href="#id5">Infrastructure Widgets</a><a class="headerlink" href="#infrastructure-widgets" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="_WidgetBase.html#dijit-widgetbase"><em>dijit._WidgetBase</em></a> (and also deprecated <a class="reference internal" href="_Widget.html#dijit-widget"><em>dijit._Widget</em></a>)</li>
+<li><a class="reference internal" href="_TemplatedMixin.html#dijit-templatedmixin"><em>dijit._TemplatedMixin</em></a> (and also deprecated <a class="reference internal" href="_Templated.html#dijit-templated"><em>dijit._Templated</em></a>)</li>
+<li><a class="reference internal" href="_WidgetsInTemplateMixin.html#dijit-widgetsintemplatemixin"><em>dijit._WidgetsInTemplateMixin</em></a></li>
+<li><a class="reference internal" href="_CssStateMixin.html#dijit-cssstatemixin"><em>dijit._CssStateMixin</em></a></li>
+<li><a class="reference internal" href="_FocusMixin.html#dijit-focusmixin"><em>dijit._FocusMixin</em></a></li>
+<li><a class="reference internal" href="_HasDropDown.html#dijit-hasdropdown"><em>dijit._HasDropDown</em></a></li>
+<li><a class="reference internal" href="_OnDijitClickMixin.html#dijit-ondijitclickmixin"><em>dijit._OnDijitClickMixin</em></a></li>
+<li><a class="reference internal" href="_BidiSupport.html#dijit-bidisupport"><em>dijit._BidiSupport</em></a> <strong>STUB</strong></li>
+<li><em class="xref std std-ref">dijit._Calendar</em> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_Contained.html#dijit-contained"><em>dijit._Contained</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_Container.html#dijit-container"><em>dijit._Container</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_DialogMixin.html#dijit-dialogmixin"><em>dijit._DialogMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_KeyNavContainer.html#dijit-keynavcontainer"><em>dijit._KeyNavContainer</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_MenuBase.html#dijit-menubase"><em>dijit._MenuBase</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_PaletteMixin.html#dijit-palettemixin"><em>dijit._PaletteMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="_TimePicker.html#dijit-timepicker"><em>dijit._TimePicker</em></a> <strong>STUB</strong></li>
+</ul>
+</div>
+<div class="section" id="menu-widgets">
+<h2><a class="toc-backref" href="#id6">Menu Widgets</a><a class="headerlink" href="#menu-widgets" title="Permalink to this headline">¶</a></h2>
+<p>These are the main Menu widgets:</p>
+<ul class="simple">
+<li><a class="reference internal" href="DropDownMenu.html#dijit-dropdownmenu"><em>dijit.DropDownMenu</em></a></li>
+<li><a class="reference internal" href="Menu.html#dijit-menu"><em>dijit.Menu</em></a></li>
+<li><a class="reference internal" href="MenuBar.html#dijit-menubar"><em>dijit.MenuBar</em></a></li>
+</ul>
+<p>There are also supporting widgets such as <a class="reference internal" href="MenuItem.html#dijit-menuitem"><em>dijit.MenuItem</em></a> which are discussed on the pages above.</p>
+</div>
+<div class="section" id="tree-widgets">
+<h2><a class="toc-backref" href="#id7">Tree Widgets</a><a class="headerlink" href="#tree-widgets" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="Tree.html#dijit-tree"><em>dijit.Tree</em></a><ul>
+<li><a class="reference internal" href="tree/Model.html#dijit-tree-model"><em>Model</em></a></li>
+<li><a class="reference internal" href="tree/TreeStoreModel.html#dijit-tree-treestoremodel"><em>TreeStoreModel</em></a></li>
+<li><a class="reference internal" href="tree/ForestStoreModel.html#dijit-tree-foreststoremodel"><em>ForestStoreModel</em></a></li>
+</ul>
+</li>
+<li><em class="xref std std-ref">dijit/_tree</em> <strong>STUB</strong><ul>
+<li><a class="reference internal" href="_tree/dndSource.html#dijit-tree-dndsource"><em>dijit._tree.dndSource</em></a> <strong>STUB</strong></li>
+<li><em class="xref std std-ref">dijit.tree._dndContainer</em> <strong>STUB</strong></li>
+<li><em class="xref std std-ref">dijit.tree._dndSelector</em> <strong>STUB</strong></li>
+<li><a class="reference internal" href="tree/dndSource.html#dijit-tree-dndsource"><em>dijit.tree.dndSource</em></a> <strong>STUB</strong></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="miscellaneous-widgets">
+<h2><a class="toc-backref" href="#id8">Miscellaneous Widgets</a><a class="headerlink" href="#miscellaneous-widgets" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="BackgroundIframe.html#dijit-backgroundiframe"><em>dijit.BackgroundIframe</em></a> <strong>STUB</strong></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Calendar.html#dijit-calendar"><em>dijit.Calendar</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="CalendarLite.html#dijit-calendarlite"><em>dijit.CalendarLite</em></a></p>
+<p><strong>1.7+</strong> A lighter version of <a class="reference internal" href="Calendar.html#dijit-calendar"><em>dijit.Calendar</em></a>, more geared for mobile devices (e.g. does not
+have keyboard navigation)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="ColorPalette.html#dijit-colorpalette"><em>dijit.ColorPalette</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Declaration.html#dijit-declaration"><em>dijit.Declaration</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Dialog.html#dijit-dialog"><em>dijit.Dialog</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="DialogUnderlay.html#dijit-dialogunderlay"><em>dijit.DialogUnderlay</em></a> <strong>STUB</strong></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Editor.html#dijit-editor"><em>dijit.Editor</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="InlineEditBox.html#dijit-inlineeditbox"><em>dijit.InlineEditBox</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="ProgressBar.html#dijit-progressbar"><em>dijit.ProgressBar</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="TitlePane.html#dijit-titlepane"><em>dijit.TitlePane</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Toolbar.html#dijit-toolbar"><em>dijit.Toolbar</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="ToolbarSeperator.html#dijit-toolbarseperator"><em>dijit.ToolbarSeperator</em></a> <strong>STUB</strong></p>
+</li>
+<li><p class="first"><a class="reference internal" href="Tooltip.html#dijit-tooltip"><em>dijit.Tooltip</em></a></p>
+</li>
+<li><p class="first"><a class="reference internal" href="TooltipDialog.html#dijit-tooltipdialog"><em>dijit.TooltipDialog</em></a></p>
+</li>
+</ul>
+</div>
+<div class="section" id="form-widgets-and-handling">
+<h2><a class="toc-backref" href="#id9">Form Widgets and Handling</a><a class="headerlink" href="#form-widgets-and-handling" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference internal" href="form.html#dijit-form"><em>dijit.form</em></a></p>
+<ul>
+<li><p class="first">Text Boxes</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/CurrencyTextBox.html#dijit-form-currencytextbox"><em>dijit.form.CurrencyTextBox</em></a></p>
+<p>A specialized input widget for monetary values, much like the currency type in spreadsheet programs</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/DateTextBox.html#dijit-form-datetextbox"><em>dijit.form.DateTextBox</em></a></p>
+<p>An easy-to-use date entry control which allows either typing or choosing a date from any calendar widget</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/MappedTextBox.html#dijit-form-mappedtextbox"><em>dijit.form.MappedTextBox</em></a></p>
+<p>A subclass of <a class="reference internal" href="form/ValidationTextBox.html#dijit-form-validationtextbox"><em>dijit.form.ValidationTextBox</em></a> that is designed to be a base
+class for widgets that have a visible formatted display value, and a serializable value in a hidden input field
+which is actually sent to the server.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/NumberSpinner.html#dijit-form-numberspinner"><em>dijit.form.NumberSpinner</em></a></p>
+<p>An input widget which restricts input to numeric input and offers down and up arrow buttons to &#8220;spin&#8221; the number
+up and down</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/NumberTextBox.html#dijit-form-numbertextbox"><em>dijit.form.NumberTextBox</em></a></p>
+<p>A input widget which restricts input to numeric input</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/RangeBoundTextBox.html#dijit-form-rangeboundtextbox"><em>dijit.form.RangeBoundTextBox</em></a></p>
+<p>A base class for textbox form widgets which define a range of valid values.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/SimpleTextarea.html#dijit-form-simpletextarea"><em>dijit.form.SimpleTextarea</em></a></p>
+<p>A simple wrapper of &lt;textarea&gt;; equivalent functionality</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/Textarea.html#dijit-form-textarea"><em>dijit.form.Textarea</em></a></p>
+<p>An auto expanding/contracting &lt;textarea&gt;</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/TextBox.html#dijit-form-textbox"><em>dijit.form.TextBox</em></a></p>
+<p>A basic &lt;input type=&#8221;text&#8221;&gt;-style form control</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/TimeTextBox.html#dijit-form-timetextbox"><em>dijit.form.TimeTextBox</em></a></p>
+<p>A time input control which allows either typing or choosing a time from any time-picker widget</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/ValidationTextBox.html#dijit-form-validationtextbox"><em>dijit.form.ValidationTextBox</em></a></p>
+<p>A class for textbox widgets with the ability to validate various types of content and to provide user feedback.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Select Type Widgets</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/Select.html#dijit-form-select"><em>dijit.form.Select</em></a></p>
+<p>A styleable drop-down select box (similar to <tt class="docutils literal"><span class="pre">&lt;select&gt;</span></tt>)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/ComboBox.html#dijit-form-combobox"><em>dijit.form.ComboBox</em></a></p>
+<p>An &#8220;auto complete&#8221;, which allows the user to type any value and just gives suggested completions</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/FilteringSelect.html#dijit-form-filteringselect"><em>dijit.form.FilteringSelect</em></a></p>
+<p>Similar to a <tt class="docutils literal"><span class="pre">&lt;select&gt;</span></tt> but with type-ahead filtering of the drop down list</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/MultiSelect.html#dijit-form-multiselect"><em>dijit.form.MultiSelect</em></a></p>
+<p>Allows the selection of multiple items (similar to <tt class="docutils literal"><span class="pre">&lt;select</span> <span class="pre">multiple&gt;</span></tt>)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/_FormSelectWidget.html#dijit-form-formselectwidget"><em>dijit.form._FormSelectWidget</em></a></p>
+<p>Base class for widgets like <a class="reference internal" href="form/Select.html#dijit-form-select"><em>dijit.form.Select</em></a></p>
+</li>
+</ul>
+</li>
+<li><p class="first">Buttons</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/Button.html#dijit-form-button"><em>dijit.form.Button</em></a></p>
+<p>A representation of a normal &lt;button&gt; or &lt;input type=&#8221;submit/reset/button&#8221; /&gt;</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/ComboButton.html#dijit-form-combobutton"><em>dijit.form.ComboButton</em></a></p>
+<p>A button with an arrow to show a drop down (often a menu)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/DropDownButton.html#dijit-form-dropdownbutton"><em>dijit.form.DropDownButton</em></a></p>
+<p>A button which displays a menu or some other popup when you press it</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/ToggleButton.html#dijit-form-togglebutton"><em>dijit.form.ToggleButton</em></a></p>
+<p>A cross between a Button and a Checkbox widget</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Slider</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/HorizontalRule.html#dijit-form-horizontalrule"><em>dijit.form.HorizontalRule</em></a></p>
+<p>Horizontal ruler to use with a <a class="reference internal" href="form/HorizontalSlider.html#dijit-form-horizontalslider"><em>dijit.form.HorizontalSlider</em></a>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/HorizontalRuleLabels.html#dijit-form-horizontalrulelabels"><em>dijit.form.HorizontalRuleLabels</em></a></p>
+<p>Horizontal ruler labels to use with a <a class="reference internal" href="form/HorizontalSlider.html#dijit-form-horizontalslider"><em>dijit.form.HorizontalSlider</em></a>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/HorizontalSlider.html#dijit-form-horizontalslider"><em>dijit.form.HorizontalSlider</em></a></p>
+<p>A scale with a handle you can drag left or right to select a value.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/VerticalRule.html#dijit-form-verticalrule"><em>dijit.form.VerticalRule</em></a></p>
+<p>Vertical ruler to use with a <a class="reference internal" href="form/VerticalSlider.html#dijit-form-verticalslider"><em>dijit.form.VerticalSlider</em></a>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/VerticalRuleLabels.html#dijit-form-verticalrulelabels"><em>dijit.form.VerticalRuleLabels</em></a></p>
+<p>Vertical ruler labels to use with a <a class="reference internal" href="form/VerticalSlider.html#dijit-form-verticalslider"><em>dijit.form.VerticalSlider</em></a>.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/VerticalSlider.html#dijit-form-verticalslider"><em>dijit.form.VerticalSlider</em></a></p>
+<p>A vertical scale with a handle you can drag up or down to select a value.</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Other form widgets</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/CheckBox.html#dijit-form-checkbox"><em>dijit.form.CheckBox</em></a></p>
+<p>Nearly the same as an HTML checkbox, but with fancy styling</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/Form.html#dijit-form-form"><em>dijit.form.Form</em></a></p>
+<p>Corresponds to a &lt;form&gt; itself; wraps other widgets</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/RadioButton.html#dijit-form-radiobutton"><em>dijit.form.RadioButton</em></a></p>
+<p>To select one choice from a list</p>
+</li>
+</ul>
+</li>
+<li><p class="first">Base classes and mixins</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="form/_FormWidget.html#dijit-form-formwidget"><em>dijit.form._FormWidget</em></a></p>
+<p>Base class for all form widgets</p>
+</li>
+<li><p class="first"><a class="reference internal" href="form/_FormValueWidget.html#dijit-form-formvaluewidget"><em>dijit.form._FormValueWidget</em></a></p>
+<p>Base class for form widgets with a value</p>
+</li>
+</ul>
+</li>
+<li><p class="first"><em class="xref std std-ref">dijit/form</em> <strong>STUB</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="form/_AutoCompleterMixin.html#dijit-form-autocompletermixin"><em>dijit.form._AutoCompleterMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_ButtonMixin.html#dijit-form-buttonmixin"><em>dijit.form._ButtonMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_CheckBoxMixin.html#dijit-form-checkboxmixin"><em>dijit.form._CheckBoxMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_ComboBoxMenu.html#dijit-form-comboboxmenu"><em>dijit.form._ComboBoxMenu</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_DateTimeTextBox.html#dijit-form-datetimetextbox"><em>dijit.form._DateTimeTextBox</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_ExpandingTextAreaMixin.html#dijit-form-expandingtextareamixin"><em>dijit.form._ExpandingTextAreaMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_FormMixin.html#dijit-form-formmixin"><em>dijit.form._FormMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_FormValueMixin.html#dijit-form-formvaluemixin"><em>dijit.form._FormValueMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_FormWidgetMixin.html#dijit-form-formwidgetmixin"><em>dijit.form._FormWidgetMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_ListBase.html#dijit-form-listbase"><em>dijit.form._ListBase</em></a> <strong>STUB</strong></li>
+<li><em class="xref std std-ref">dijit.form._ListMouseMixin &lt;dijit/form/_ListMouseMixin</em> <strong>STUB</strong></li>
+<li><em class="xref std std-ref">dijit.form._RadioButtonMixin &lt;dijit/form/_RadioButtonMixin</em> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_Spinner.html#dijit-form-spinner"><em>dijit.form._Spinner</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_TextBoxMixin.html#dijit-form-textboxmixin"><em>dijit.form._TextBoxMixin</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="form/_ToggleButtonMixin.html#dijit-form-togglebuttonmixin"><em>dijit.form._ToggleButtonMixin</em></a> <strong>STUB</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="layout">
+<h2><a class="toc-backref" href="#id10">Layout</a><a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><em class="xref std std-ref">dijit.layout</em><ul>
+<li><a class="reference internal" href="layout/_LayoutWidget.html#dijit-layout-layoutwidget"><em>dijit.layout._LayoutWidget</em></a></li>
+<li><a class="reference internal" href="layout/AccordionContainer.html#dijit-layout-accordioncontainer"><em>dijit.layout.AccordionContainer</em></a></li>
+<li><a class="reference internal" href="layout/BorderContainer.html#dijit-layout-bordercontainer"><em>dijit.layout.BorderContainer</em></a></li>
+<li><a class="reference internal" href="layout/ContentPane.html#dijit-layout-contentpane"><em>dijit.layout.ContentPane</em></a></li>
+<li><a class="reference internal" href="layout/LinkPane.html#dijit-layout-linkpane"><em>dijit.layout.LinkPane</em></a></li>
+<li><a class="reference internal" href="layout/StackContainer.html#dijit-layout-stackcontainer"><em>dijit.layout.StackContainer</em></a></li>
+<li><a class="reference internal" href="layout/TabContainer.html#dijit-layout-tabcontainer"><em>dijit.layout.TabContainer</em></a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="layout/utils.html#dijit-layout-utils"><em>dijit/layout/utils</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="layout/ScrollingTabController.html#dijit-layout-scrollingtabcontroller"><em>dijit.layout.ScrollingTabController</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="layout/StackController.html#dijit-layout-stackcontroller"><em>dijit.layout.StackController</em></a> <strong>STUB</strong></li>
+<li><a class="reference internal" href="layout/TabController.html#dijit-layout-tabcontroller"><em>dijit.layout.TabController</em></a> <strong>STUB</strong></li>
+</ul>
+</div>
+<div class="section" id="note-about-programmatic-instantiation">
+<h2><a class="toc-backref" href="#id11">Note about programmatic instantiation</a><a class="headerlink" href="#note-about-programmatic-instantiation" title="Permalink to this headline">¶</a></h2>
+<p>For most of the Dijit widgets, you can provide a <tt class="docutils literal"><span class="pre">refNode</span></tt> which is a placeholder to position your node. Beware that
+any attribute set on it (form action, input value, etc.) won&#8217;t be taken into account.  If you want to degrade nicely and
+have a non-JS compatible version of your site and avoid duplicating attributes on controls and on instantiation, you
+should use <a class="reference internal" href="../dojo/parser.html#dojo-parser"><em>parser.instantiate()</em></a>:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/parser&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">,</span> <span class="s2">&quot;dijit/form/ValidationTextBox&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parser</span><span class="p">,</span> <span class="nx">dom</span><span class="p">,</span> <span class="nx">ValidationTextBox</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">myNode</span> <span class="o">=</span> <span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;myNode&quot;</span><span class="p">);</span>
+  <span class="c1">// All attributes of myNode will be preserved in the widget</span>
+  <span class="nx">parser</span><span class="p">.</span><span class="nx">instantiate</span><span class="p">([</span> <span class="nx">myNode</span> <span class="p">],</span> <span class="p">{</span>
+    <span class="nx">data</span><span class="o">-</span><span class="nx">dojo</span><span class="o">-</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;dijit.form.ValidationTextBox&quot;</span><span class="p">,</span>
+    <span class="nx">dojoSpecificAttr1</span><span class="o">:</span> <span class="nx">value</span><span class="p">,</span>
+    <span class="nx">dojoSpecificAttr2</span><span class="o">:</span> <span class="nx">value</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/parser&quot;, &quot;dojo/dom&quot;, &quot;dijit/form/ValidationTextBox&quot;], function(parser, dom, ValidationTextBox){
+  var myNode = dom.byId(&quot;myNode&quot;);
+  // All attributes of myNode will be preserved in the widget
+  parser.instantiate([ myNode ], {
+    data-dojo-type: &quot;dijit.form.ValidationTextBox&quot;,
+    dojoSpecificAttr1: value,
+    dojoSpecificAttr2: value
+  });
+});</textarea></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="#">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dijit Overview</a><ul>
+<li><a class="reference internal" href="#general-information">General Information</a></li>
+<li><a class="reference internal" href="#base-utilities">Base Utilities</a></li>
+<li><a class="reference internal" href="#utility-classes">Utility Classes</a></li>
+<li><a class="reference internal" href="#infrastructure-widgets">Infrastructure Widgets</a></li>
+<li><a class="reference internal" href="#menu-widgets">Menu Widgets</a></li>
+<li><a class="reference internal" href="#tree-widgets">Tree Widgets</a></li>
+<li><a class="reference internal" href="#miscellaneous-widgets">Miscellaneous Widgets</a></li>
+<li><a class="reference internal" href="#form-widgets-and-handling">Form Widgets and Handling</a></li>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+<li><a class="reference internal" href="#note-about-programmatic-instantiation">Note about programmatic instantiation</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hccss.html"
+                        title="previous chapter">dijit.hccss</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="info.html"
+                        title="next chapter">Dijit Introduction</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

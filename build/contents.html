@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dojo Build &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="next" title="build system build script (build.sh or build.bat)" href="buildScript.html" />
+    <link rel="prev" title="Dojo Documentation Tools" href="../util/doctools.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-build">
+<h1>Dojo Build<a class="headerlink" href="#dojo-build" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="buildScript.html">build system build script (build.sh or build.bat)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="buildSystem.html">The Dojo Build System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="customBase.html">build customBase</a></li>
+<li class="toctree-l1"><a class="reference internal" href="directoryLayout.html">Sample Directory Layout for Builds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exclude.html">Dojo build system:  conditional exclusions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="expand-provide.html">Expanding dojo.provide calls</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">The Dojo Build System</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keepRequires.html">Dojo build system:  keepRequires</a></li>
+<li class="toctree-l1"><a class="reference internal" href="localizationExample.html">Localized Build Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pre17/build.html">Dojo Build System (Pre 1.7)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profileQRef.html">Quick Reference of all Profile Properties for Optimization Build Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="profiles.html">Build profiles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html">Quick Reference for Optimization Build Program</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#reference-documentation">Reference Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#command-line-switch-reference">Command Line Switch Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#discovery-profile-properties">Discovery Profile Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-copy">Transform: copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-depsdump">Transform: depsDump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-depsscan">Transform: depsScan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-dojopragmas">Transform: dojoPragmas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-dojoreport">Transform: dojoReport</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-hasfindall">Transform: hasFindAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-hasfixup">Transform: hasFixup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-insertsymbols">Transform: insertSymbols</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-optimizecss">Transform: optimizeCss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-read">Transform: read</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-write">Transform: write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-writeamd">Transform: writeAmd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-writedojo">Transform: writeDojo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#transform-writeoptimized">Transform: writeOptimized</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#deprecated-profile-properties">Deprecated Profile Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="qref.html#removed-profile-properties">Removed Profile Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenario-base.html">Building a Base-only dojo.js</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenario-micro.html">A CustomBase Dojo Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenario-release.html">Building a standard release</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scenario-xDomain.html">Building an x-domain Dojo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="simpleExample.html">Simple Buildsystem Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/copy.html">Build Transform copy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/depsDump.html">Build Transform depsDump</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/depsScan.html">Build Transform depsScan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/dojoPragmas.html">Build Transform dojoPragmas</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/hasFindAll.html">Build Transform hasFindAll</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/hasFixup.html">Build Transform hasFixup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/write.html">Build Transform write</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/writeAmd.html">Build Transform writeAmd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/writeDojo.html">Build Transform writeDojo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="transforms/writeOptimized.html">Build Transform writeOptimized</a></li>
+<li class="toctree-l1"><a class="reference internal" href="webkit-mobile.html">Special Dojo Build: WebKit Mobile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xDomain.html">Build System:  Cross-Domain (xDomain) Builds</a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../util/doctools.html"
+                        title="previous chapter">Dojo Documentation Tools</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="buildScript.html"
+                        title="next chapter">build system build script (build.sh or build.bat)</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

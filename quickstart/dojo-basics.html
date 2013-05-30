@@ -1,0 +1,397 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Functions used Everywhere &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Quickstart" href="contents.html" />
+    <link rel="next" title="DOM Utilities" href="dom.html" />
+    <link rel="prev" title="D.O.H" href="doh.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="functions-used-everywhere">
+<span id="quickstart-dojo-basics"></span><h1><a class="toc-backref" href="#id1">Functions used Everywhere</a><a class="headerlink" href="#functions-used-everywhere" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Carla, Peter Higgins, Shane O&#8217;Sullivan, Marcus Reimann, Craig Riecke, Alex Russell</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">?-</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V?</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#functions-used-everywhere" id="id1">Functions used Everywhere</a><ul>
+<li><a class="reference internal" href="#dojo-require" id="id2">dojo.require</a></li>
+<li><a class="reference internal" href="#dojo-ready" id="id3">dojo.ready</a></li>
+<li><a class="reference internal" href="#dojo-byid" id="id4">dojo.byId</a></li>
+<li><a class="reference internal" href="#dijit-byid" id="id5">dijit.byId</a></li>
+<li><a class="reference internal" href="#dojo-query" id="id6">dojo.query</a></li>
+<li><a class="reference internal" href="#dojo-foreach" id="id7">dojo.forEach</a></li>
+<li><a class="reference internal" href="#dojo-connect" id="id8">dojo.connect</a></li>
+<li><a class="reference internal" href="#see-also" id="id9">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>It would be near impossible to explain any one aspect of the Dojo Toolkit without first explaining a few simple functions that appear literally <em>everywhere</em> within the codebase. These are dojo-fundamentals, and should be memorized if possible.</p>
+<div class="section" id="dojo-require">
+<h2><a class="toc-backref" href="#id2">dojo.require</a><a class="headerlink" href="#dojo-require" title="Permalink to this headline">¶</a></h2>
+<p>This is the core of the Dojo package system, and loads functionality not provided for in the Base dojo.js. Simply pass it a string:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.fx&quot;</span><span class="p">);</span> <span class="c1">// load dojo/fx.js</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.widget.Toaster&quot;</span><span class="p">);</span> <span class="c1">// load dojox/widget/Toaster.js</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojo.fx&quot;); // load dojo/fx.js
+dojo.require(&quot;dojox.widget.Toaster&quot;); // load dojox/widget/Toaster.js</textarea></div><p>The general rule-of-thumb is: if you are calling a function or class like: dojo.some.randomFunction(), you will need to load the <tt class="docutils literal"><span class="pre">dojo.some</span></tt> module. If you don&#8217;t, your scripts will throw a &#8220;dojo.some not defined&#8221; or &#8220;dojo.some.randomFunction not defined. There are a few exceptions to this rule, all of which are covered later in this guide.</p>
+<p>It may seem painful to require all modules, but Dojo rewards by:</p>
+<ul class="simple">
+<li>Loading any dependent scripts for you. If dijit.Dialog requires dojo.math, you still need only require dijit.Dialog.</li>
+<li>Preventing loading dojo packages twice. dojo.require will simply return if the package is already loaded.</li>
+<li>Allowing you to build streamlined versions of Dojo. If you use dijit.Dialog a lot, you can build a custom version of dojo that loads dijit.Dialog quickly. <tt class="docutils literal"><span class="pre">dojo.require</span></tt> knows whether the function is already loaded, and so you don&#8217;t have to change any of your code.</li>
+</ul>
+</div>
+<div class="section" id="dojo-ready">
+<h2><a class="toc-backref" href="#id3">dojo.ready</a><a class="headerlink" href="#dojo-ready" title="Permalink to this headline">¶</a></h2>
+<p>This registers a function to be run when the document (and all <a class="reference internal" href="../dojo/require.html#dojo-require"><em>required</em></a> dependencies) are ready. Simply pass it a function:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;document ready!&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.ready(function(){
+   console.log(&quot;document ready!&quot;);
+});</textarea></div><p>That example passes an anonymous function. You can pass named functions as well:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">init</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;document ready!&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="nx">init</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var init = function(){
+   console.log(&quot;document ready!&quot;);
+}
+dojo.ready(init);</textarea></div><p>Notice we didn&#8217;t call <tt class="docutils literal"><span class="pre">dojo.ready(init());</span></tt> ... The additional () causes the named-function to execute immediately, and <tt class="docutils literal"><span class="pre">dojo.ready</span></tt> expects a function.</p>
+</div>
+<div class="section" id="dojo-byid">
+<h2><a class="toc-backref" href="#id4">dojo.byId</a><a class="headerlink" href="#dojo-byid" title="Permalink to this headline">¶</a></h2>
+<p>This is more or less an alias to <tt class="docutils literal"><span class="pre">document.getElementById</span></tt>. Simply pass <tt class="docutils literal"><span class="pre">dojo.byId</span></tt> a string, and the domNode with that id is returned. Notice how we wrap the byId call in an <tt class="docutils literal"><span class="pre">ready</span></tt> function &#8211; You should not use or manipulate the DOM before onLoad has fired, as a general rule.</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">);</span>
+    <span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="s2">&quot;found me!&quot;</span><span class="p">;</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.ready(function(){
+    var node = dojo.byId(&quot;someNode&quot;);
+    node.innerHTML = &quot;found me!&quot;;
+});</textarea></div><p><tt class="docutils literal"><span class="pre">.innerHTML</span></tt> is a basic property of DOM Elements. Here, we&#8217;re setting the content of the node with <tt class="docutils literal"><span class="pre">id=&quot;someNode&quot;</span></tt> to say &#8220;found me!&#8221;</p>
+<p>Note: in some cases (in <em>lesser</em> browsers), <tt class="docutils literal"><span class="pre">document.getElementById</span></tt> doesn&#8217;t actually return the Node you desire. <tt class="docutils literal"><span class="pre">dojo.byId</span></tt> normalizes this, and is the recommended way of accessing nodes byId. <tt class="docutils literal"><span class="pre">dojo.byId</span></tt> is similar to Prototype&#8217;s <tt class="docutils literal"><span class="pre">$(&quot;someId&quot;)</span></tt>, and jQuery&#8217;s <tt class="docutils literal"><span class="pre">$(&quot;#someId&quot;)</span></tt> syntax, though Dojo uses a safely-namespaced function for it&#8217;s query engine: <tt class="docutils literal"><span class="pre">dojo.query(&quot;#someId&quot;)</span></tt> (see: <a class="reference internal" href="../dojo/query.html#dojo-query"><em>dojo.query</em></a>) to avoid conflicts.</p>
+</div>
+<div class="section" id="dijit-byid">
+<h2><a class="toc-backref" href="#id5">dijit.byId</a><a class="headerlink" href="#dijit-byid" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">dojo.byId</span></tt> works exclusively on Dom Elements. Dijit is Dojo&#8217;s widgeting system, and builds on Core Dojo functionality. Every widget generated in a page has a unique ID, just as native Dom Elements should, though with one <em>huge</em> difference: Dijit&#8217;s are objects. Difference can be found at <a class="reference internal" href="../dijit/byId.html#dijit-byid"><em>data-dojo-id, dijit.byId() and dojo.byId()</em></a>, but the basics are:</p>
+<ul class="simple">
+<li>If you are using just a normal domNode, use dojo.byId</li>
+<li>If you are working with a Dijit, use dijit.byId</li>
+<li>If you need access to the Dijit&#8217;s domNode, it is stored in the <tt class="docutils literal"><span class="pre">.domNode</span></tt> property of the Dijit reference:</li>
+</ul>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">dialog</span> <span class="o">=</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;myDialog&quot;</span><span class="p">);</span>
+<span class="c1">// the top-level node containing the dialog is:</span>
+<span class="c1">// dialog.domNode</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">dialog</span><span class="p">){</span>
+   <span class="nx">dialog</span><span class="p">.</span><span class="nx">show</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var dialog = dijit.byId(&quot;myDialog&quot;);
+// the top-level node containing the dialog is:
+// dialog.domNode
+if(dialog){
+   dialog.show();
+}</textarea></div><p><tt class="docutils literal"><span class="pre">dijit.byId</span></tt> returns an reference to that particular Dijit instance, and allows you to call methods and set properties. Each Dijit has several fundamental methods and properties defined by <a class="reference internal" href="../dijit/_Widget.html#dijit-widget"><em>dijit._Widget</em></a>, and adds in additional specific methods depending on the type of Dijit.</p>
+</div>
+<div class="section" id="dojo-query">
+<h2><a class="toc-backref" href="#id6">dojo.query</a><a class="headerlink" href="#dojo-query" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">dojo.query()</span></tt> returns a list of DOM nodes based on a CSS selector. Users of other libraries will find the syntax very familiar:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="c1">// every element in the page with the class &quot;blueButton&quot; assigned</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;.blueButton&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">arr</span><span class="p">){</span>
+      <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">node</span><span class="p">.</span><span class="nx">innerHTML</span><span class="p">);</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.ready(function(){
+  // every element in the page with the class &quot;blueButton&quot; assigned
+  dojo.query(&quot;.blueButton&quot;).forEach(function(node, index, arr){
+      console.debug(node.innerHTML);
+  });
+});</textarea></div><p>The returned object of a <tt class="docutils literal"><span class="pre">dojo.query()</span></tt> call is an instance of <a class="reference internal" href="../dojo/NodeList.html#dojo-nodelist"><em>dojo.NodeList</em></a>, a subclass of Array with many convenience methods added for making DOM manipulation and event handling easier. Custom extensions of the <tt class="docutils literal"><span class="pre">dojo.NodeList</span></tt> class are supported and encouraged.</p>
+<p>Read more about <a class="reference internal" href="../dojo/query.html#dojo-query"><em>dojo.query</em></a>...</p>
+</div>
+<div class="section" id="dojo-foreach">
+<h2><a class="toc-backref" href="#id7">dojo.forEach</a><a class="headerlink" href="#dojo-foreach" title="Permalink to this headline">¶</a></h2>
+<p>JavaScript 1.6 has a forEach loop, where you can apply a certain function to each element of an array. Unfortunately at the time of this writing, only Firefox 2 has support for JS 1.6. But never fear! Dojo has defined one you can use in any Dojo-supported browser.</p>
+<p>Foreach is syntactic sugar for a regular ol&#8217; for loop. So for example:</p>
+<div class="highlight"><pre><span class="k">for</span><span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="k">in</span> <span class="nx">queueEntries</span><span class="p">){</span>
+   <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">queueEntries</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">for(var i in queueEntries){
+   console.debug(queueEntries[i]);
+}</textarea></div><p>Can be written as:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="nx">queueEntries</span><span class="p">,</span>
+    <span class="kd">function</span><span class="p">(</span><span class="nx">oneEntry</span><span class="p">,</span> <span class="nx">index</span><span class="p">,</span> <span class="nx">array</span><span class="p">){</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">debug</span><span class="p">(</span><span class="nx">oneEntry</span> <span class="o">+</span> <span class="s2">&quot; at index &quot;</span> <span class="o">+</span> <span class="nx">index</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.forEach(queueEntries,
+    function(oneEntry, index, array){
+        console.debug(oneEntry + &quot; at index &quot; + index);
+    }
+);</textarea></div><p>We used an anonymous function here to define the operation. This function must accept between one and three arguments. The first argument is the value of each value in the array in turn, the second is the current index or position in the array, and the third argument is the array itself.</p>
+<p>For this simple loop, forEach isn&#8217;t anything exciting. But combined with other Dojo functions, especially <a class="reference internal" href="../dojo/query.html#dojo-query"><em>dojo.query</em></a>, it becomes remarkably useful. Consider this snippet, which disables all SELECT tags on the page:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="nb">document</span><span class="p">),</span>
+  <span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+      <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.forEach(
+  dojo.query(&quot;select&quot;, document),
+  function(selectTag){
+      selectTag.disabled = true;
+  }
+);</textarea></div><p>There&#8217;s no monkeying around with DOM functions, no using tedious names or id&#8217;s, and it continues to work even when you add new SELECT tags.</p>
+<p>Running dojo.forEach on a dojo.query result is so common, that Dojo defines a shortcut. This snippet:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span>
+  <span class="kd">function</span><span class="p">(</span><span class="nx">selectTag</span><span class="p">){</span>
+      <span class="nx">selectTag</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+  <span class="p">}</span>
+<span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.query(&quot;select&quot;).forEach(
+  function(selectTag){
+      selectTag.disabled = true;
+  }
+);</textarea></div><p>does the same thing. But that&#8217;s not all!  <em>New in 1.0</em>, you can collapse the function down to its body, passed in as a string like so:</p>
+<div class="highlight"><pre><span class="c1">// &gt;= 1.0 only.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;select&quot;</span><span class="p">,</span> <span class="nb">document</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="s2">&quot;item.disabled = true;&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// &gt;= 1.0 only.
+dojo.query(&quot;select&quot;, document).forEach(&quot;item.disabled = true;&quot;);</textarea></div><p>Ay carumba!  That&#8217;s a lot of functionality in a tiny 1-line package. Once you get used to the syntax, you&#8217;ll never want to go back. This only scratches the surface of how useful <tt class="docutils literal"><span class="pre">dojo.forEach</span></tt> can be.</p>
+</div>
+<div class="section" id="dojo-connect">
+<h2><a class="toc-backref" href="#id8">dojo.connect</a><a class="headerlink" href="#dojo-connect" title="Permalink to this headline">¶</a></h2>
+<p>Events in JavaScript or Dojo based applications are essential to making applications work. Connecting an event handler (function) to an element or an object is one of the most common things you will do when developing applications using Dojo. Dojo provides a simple API for connecting events via the <tt class="docutils literal"><span class="pre">dojo.connect</span></tt> function. One important thing to note here is that events can be mapped to any property or object or element. Using this API you can wire your user interfaces together or allow for your objects to communicate. The <tt class="docutils literal"><span class="pre">dojo.connect</span></tt> API does not require that the objects be Dojo based. In other words, you can use this API with your existing code and interfaces.</p>
+<p>Below is the code in the tutorial handling events. Here we connected the event handler, <tt class="docutils literal"><span class="pre">helloPressed</span></tt>, to the <tt class="docutils literal"><span class="pre">onclick</span></tt> property of the hello button element. When the button is clicked the function helloPressed will be called.</p>
+<div class="highlight"><pre><span class="kd">function</span> <span class="nx">helloPressed</span><span class="p">(){</span>
+ <span class="nx">alert</span><span class="p">(</span><span class="s1">&#39;You pressed the button&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nx">init</span><span class="p">(){</span>
+   <span class="nx">button</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s1">&#39;helloButton&#39;</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">button</span><span class="p">,</span> <span class="s1">&#39;onclick&#39;</span><span class="p">,</span> <span class="s1">&#39;helloPressed&#39;</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">function helloPressed(){
+ alert('You pressed the button');
+}
+
+function init(){
+   button = dojo.byId('helloButton');
+   dojo.connect(button, 'onclick', 'helloPressed');
+}</textarea></div><p>It is also possible to use the Dojo event model to connect simple objects.
+To demonstrate, let&#8217;s define a simple object with a couple of methods:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">exampleObj</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">counter</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">},</span>
+    <span class="nx">bar</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">alert</span><span class="p">(</span><span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">counter</span><span class="o">++</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var exampleObj = {
+    counter: 0,
+    foo: function(){
+        alert(&quot;foo&quot;);
+        this.counter++;
+    },
+    bar: function(){
+        alert(&quot;bar&quot;);
+        this.counter++;
+    }
+};</textarea></div><p>So let&#8217;s say that I want <tt class="docutils literal"><span class="pre">exampleObj.bar()</span></tt> to get called whenever <tt class="docutils literal"><span class="pre">exampleObj.foo()</span></tt> is called.
+We can set this up the same way that we do with DOM events:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">exampleObj</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="nx">exampleObj</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.connect(exampleObj, &quot;foo&quot;, exampleObj, &quot;bar&quot;);</textarea></div><p>Now calling <tt class="docutils literal"><span class="pre">foo()</span></tt> will also call <tt class="docutils literal"><span class="pre">bar()</span></tt>, thereby incrementing the counter twice and alerting &#8220;foo&#8221; and then &#8220;bar&#8221;. Any caller that was counting on getting the return value from <tt class="docutils literal"><span class="pre">foo()</span></tt> won&#8217;t be disappointed. The source method should behave just as it always has. On the other hand, since there&#8217;s no explicit caller for <tt class="docutils literal"><span class="pre">bar()</span></tt>, it&#8217;s return value will be lost since there&#8217;s no
+obvious place to put it.</p>
+<p>In either case, each time <tt class="docutils literal"><span class="pre">dojo.connect</span></tt> is called with the same arguments it will result in multiple connections. Later we will discuss strategies on how to guard against this.</p>
+<p>Notice that <tt class="docutils literal"><span class="pre">dojo.connect</span></tt> takes a different number of arguments in the examples above. dojo.connect determines the types of positional arguments based on usage.</p>
+<p>The Dojo event system allows you to connect to DOM elements or nodes or plain JavaScript objects. The API is sophisticated enough that it allows you to connect multiple listeners to a single object so you can have multiple actions as a result of a single event such as a mouse click. Of course there is an API to disconnect the listeners too. The &lt;A href=&#8217;../event-system&#8217;&gt;Events&lt;/A&gt; section describes the Dojo Event system in more detail.</p>
+<p><em>note</em>: in the above examples, we&#8217;re connecting to (the lowercase) <tt class="docutils literal"><span class="pre">onclick</span></tt>, which differs from <tt class="docutils literal"><span class="pre">onClick</span></tt>. If you are using <tt class="docutils literal"><span class="pre">dojo.connect</span></tt> to listen to a Dijit widget function, Dijit uses mixedCases for it&#8217;s naming convention. The lowercase version is used for DOM events, and the mixedCase version is for Dijit events.</p>
+<p><tt class="docutils literal"><span class="pre">dojo.connect</span></tt> is a <em>lot</em> more powerful than can be described on the surface. See the <a class="reference internal" href="../dojo/connect.html#dojo-connect"><em>full rundown</em></a> for more examples and use-cases.</p>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id9">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><a class="reference external" href="http://sitepen.com/labs/guides/?guide=DojoQuickStart">Dojo QuickStart Guide</a></p>
+<p>A good tutorial for starting with Dojo Toolkit</p>
+</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Functions used Everywhere</a><ul>
+<li><a class="reference internal" href="#dojo-require">dojo.require</a></li>
+<li><a class="reference internal" href="#dojo-ready">dojo.ready</a></li>
+<li><a class="reference internal" href="#dojo-byid">dojo.byId</a></li>
+<li><a class="reference internal" href="#dijit-byid">dijit.byId</a></li>
+<li><a class="reference internal" href="#dojo-query">dojo.query</a></li>
+<li><a class="reference internal" href="#dojo-foreach">dojo.forEach</a></li>
+<li><a class="reference internal" href="#dojo-connect">dojo.connect</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="doh.html"
+                        title="previous chapter">D.O.H</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="dom.html"
+                        title="next chapter">DOM Utilities</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

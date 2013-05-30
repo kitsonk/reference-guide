@@ -1,0 +1,398 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dijit.layout.AccordionContainer &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dijit" href="../contents.html" />
+    <link rel="next" title="dijit.layout.BorderContainer" href="BorderContainer.html" />
+    <link rel="prev" title="Dijit Introduction" href="../info.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-layout-accordioncontainer">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dijit.layout.AccordionContainer</a><a class="headerlink" href="#dijit-layout-accordioncontainer" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Becky Gibson, Nikolai Onken</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">?-</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V?</td>
+</tr>
+<tr class="field-even field"><th class="field-name">jsDoc:</th><td class="field-body"><a class="reference external" href="http://dojotoolkit.org/api/dijit.layout.AccordionContainer">http://dojotoolkit.org/api/dijit.layout.AccordionContainer</a></td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dijit-layout-accordioncontainer" id="id2">dijit.layout.AccordionContainer</a><ul>
+<li><a class="reference internal" href="#examples" id="id3">Examples</a></li>
+<li><a class="reference internal" href="#accessibility" id="id4">Accessibility</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Like <a class="reference internal" href="StackContainer.html#dijit-layout-stackcontainer"><em>StackContainer</em></a> and <a class="reference internal" href="TabContainer.html#dijit-layout-tabcontainer"><em>TabContainer</em></a>, an <strong>AccordionContainer</strong> holds a set of panes whose titles are all visible, but only one pane&#8217;s content is visible at a time.
+Clicking on a pane title slides the currently-displayed one away, similar to a garage door.
+Users can explicitly select the pane that is to be made visible when the widget is loaded.
+If it is not specified, then the first pane is taken by default.</p>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id3">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>In the example below, the second pane is selected when the widget is loaded.</p>
+<div class="section" id="programmatic-example">
+<h3>Programmatic example<a class="headerlink" href="#programmatic-example" title="Permalink to this headline">¶</a></h3>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dijit/layout/AccordionContainer&quot;</span><span class="p">,</span> <span class="s2">&quot;dijit/layout/ContentPane&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/domReady!&quot;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">AccordionContainer</span><span class="p">,</span> <span class="nx">ContentPane</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">aContainer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">AccordionContainer</span><span class="p">({</span><span class="nx">style</span><span class="o">:</span><span class="s2">&quot;height: 300px&quot;</span><span class="p">},</span> <span class="s2">&quot;markup&quot;</span><span class="p">);</span>
+
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This is a content pane&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hi!&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This is as well&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hi how are you?&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This too&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hello im fine.. thnx&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">startup</span><span class="p">();</span>
+<span class="p">});</span>
+
+
+<span class="c1">// Dojo &lt;1.7 (pre-AMD)</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.layout.AccordionContainer&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.layout.ContentPane&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+    <span class="kd">var</span> <span class="nx">aContainer</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">AccordionContainer</span><span class="p">({</span><span class="nx">style</span><span class="o">:</span><span class="s2">&quot;height: 300px&quot;</span><span class="p">},</span> <span class="s2">&quot;markup&quot;</span><span class="p">);</span>
+
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This is a content pane&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hi!&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This is as well&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hi how are you?&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">addChild</span><span class="p">(</span><span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ContentPane</span><span class="p">({</span>
+        <span class="nx">title</span><span class="o">:</span><span class="s2">&quot;This too&quot;</span><span class="p">,</span>
+        <span class="nx">content</span><span class="o">:</span><span class="s2">&quot;Hello im fine.. thnx&quot;</span>
+    <span class="p">}));</span>
+    <span class="nx">aContainer</span><span class="p">.</span><span class="nx">startup</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dijit/layout/AccordionContainer&quot;, &quot;dijit/layout/ContentPane&quot;, &quot;dojo/domReady!&quot;
+], function(AccordionContainer, ContentPane) {
+    var aContainer = new AccordionContainer({style:&quot;height: 300px&quot;}, &quot;markup&quot;);
+
+    aContainer.addChild(new ContentPane({
+        title:&quot;This is a content pane&quot;,
+        content:&quot;Hi!&quot;
+    }));
+    aContainer.addChild(new ContentPane({
+        title:&quot;This is as well&quot;,
+        content:&quot;Hi how are you?&quot;
+    }));
+    aContainer.addChild(new ContentPane({
+        title:&quot;This too&quot;,
+        content:&quot;Hello im fine.. thnx&quot;
+    }));
+    aContainer.startup();
+});
+
+
+// Dojo &lt;1.7 (pre-AMD)
+dojo.require(&quot;dijit.layout.AccordionContainer&quot;);
+dojo.require(&quot;dijit.layout.ContentPane&quot;);
+
+dojo.ready(function(){
+    var aContainer = new dijit.layout.AccordionContainer({style:&quot;height: 300px&quot;}, &quot;markup&quot;);
+
+    aContainer.addChild(new dijit.layout.ContentPane({
+        title:&quot;This is a content pane&quot;,
+        content:&quot;Hi!&quot;
+    }));
+    aContainer.addChild(new dijit.layout.ContentPane({
+        title:&quot;This is as well&quot;,
+        content:&quot;Hi how are you?&quot;
+    }));
+    aContainer.addChild(new dijit.layout.ContentPane({
+        title:&quot;This too&quot;,
+        content:&quot;Hello im fine.. thnx&quot;
+    }));
+    aContainer.startup();
+});</textarea></div><div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;markup&quot;</span> <span class="na">style=</span><span class="s">&quot;width:300px; height: 300px&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;markup&quot; style=&quot;width:300px; height: 300px&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+<div class="section" id="declarative-example">
+<h3>Declarative example<a class="headerlink" href="#declarative-example" title="Permalink to this headline">¶</a></h3>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dijit/layout/AccordionContainer&quot;</span><span class="p">,</span> <span class="s2">&quot;dijit/layout/ContentPane&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/domReady!&quot;</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">AccordionContainer</span><span class="p">,</span> <span class="nx">ContentPane</span><span class="p">)</span> <span class="p">{</span>
+
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt;1.7</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.layout.AccordionContainer&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dijit/layout/AccordionContainer&quot;, &quot;dijit/layout/ContentPane&quot;, &quot;dojo/domReady!&quot;
+], function(AccordionContainer, ContentPane) {
+
+});
+
+// Dojo &lt;1.7
+
+dojo.require(&quot;dijit.layout.AccordionContainer&quot;);</textarea></div><div class="highlight"><pre><span class="c">&lt;!-- Dojo 1.7+ (AMD) --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; height: 300px&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.AccordionContainer&quot;</span> <span class="na">style=</span><span class="s">&quot;height: 300px;&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;title:&#39;Heeh, this is a content pane&#39;&quot;</span><span class="nt">&gt;</span>
+    Hi!
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;title:&#39;This is as well&#39;, selected: true&quot;</span><span class="nt">&gt;</span>
+    Hi how are you?
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">data-dojo-props=</span><span class="s">&quot;title:&#39;This too&#39;&quot;</span><span class="nt">&gt;</span>
+    Hi how are you? .....Great, thx
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+
+
+<span class="c">&lt;!-- Dojo &lt;1.7 --&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">style=</span><span class="s">&quot;width: 300px; height: 300px&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.AccordionContainer&quot;</span> <span class="na">style=</span><span class="s">&quot;height: 300px;&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">title=</span><span class="s">&quot;Heeh, this is a content pane&quot;</span><span class="nt">&gt;</span>
+    Hi!
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">title=</span><span class="s">&quot;This is as well&quot;</span> <span class="na">selected=</span><span class="s">&quot;true&quot;</span><span class="nt">&gt;</span>
+    Hi how are you?
+    <span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.layout.ContentPane&quot;</span> <span class="na">title=</span><span class="s">&quot;This too&quot;</span><span class="nt">&gt;</span>
+    Hi how are you? .....Great, thx
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!-- Dojo 1.7+ (AMD) --&gt;
+&lt;div style=&quot;width: 300px; height: 300px&quot;&gt;
+  &lt;div data-dojo-type=&quot;dijit.layout.AccordionContainer&quot; style=&quot;height: 300px;&quot;&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; data-dojo-props=&quot;title:'Heeh, this is a content pane'&quot;&gt;
+    Hi!
+    &lt;/div&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; data-dojo-props=&quot;title:'This is as well', selected: true&quot;&gt;
+    Hi how are you?
+    &lt;/div&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; data-dojo-props=&quot;title:'This too'&quot;&gt;
+    Hi how are you? .....Great, thx
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+
+&lt;!-- Dojo &lt;1.7 --&gt;
+&lt;div style=&quot;width: 300px; height: 300px&quot;&gt;
+  &lt;div data-dojo-type=&quot;dijit.layout.AccordionContainer&quot; style=&quot;height: 300px;&quot;&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; title=&quot;Heeh, this is a content pane&quot;&gt;
+    Hi!
+    &lt;/div&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; title=&quot;This is as well&quot; selected=&quot;true&quot;&gt;
+    Hi how are you?
+    &lt;/div&gt;
+    &lt;div data-dojo-type=&quot;dijit.layout.ContentPane&quot; title=&quot;This too&quot;&gt;
+    Hi how are you? .....Great, thx
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+<div class="section" id="accessibility">
+<h2><a class="toc-backref" href="#id4">Accessibility</a><a class="headerlink" href="#accessibility" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="keyboard">
+<h3>Keyboard<a class="headerlink" href="#keyboard" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Action</th>
+<th class="head">Key</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Navigate to next title</td>
+<td>Right or down arrow</td>
+</tr>
+<tr class="row-odd"><td>Navigate to previous title</td>
+<td>Left or up arrow</td>
+</tr>
+<tr class="row-even"><td>Navigate into page</td>
+<td>Tab</td>
+</tr>
+<tr class="row-odd"><td>Navigate to next page</td>
+<td>Ctrl + page down, ctrl + tab (except IE7)</td>
+</tr>
+<tr class="row-even"><td>Navigate to previous page</td>
+<td>Ctrl + page up</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dijit.layout.AccordionContainer</a><ul>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#programmatic-example">Programmatic example</a></li>
+<li><a class="reference internal" href="#declarative-example">Declarative example</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#accessibility">Accessibility</a><ul>
+<li><a class="reference internal" href="#keyboard">Keyboard</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../info.html"
+                        title="previous chapter">Dijit Introduction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="BorderContainer.html"
+                        title="next chapter">dijit.layout.BorderContainer</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

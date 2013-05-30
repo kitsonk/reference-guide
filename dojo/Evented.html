@@ -1,0 +1,228 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo/on &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.NodeList" href="NodeList.html" />
+    <link rel="prev" title="dojo.DeferredList" href="DeferredList.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-on">
+<span id="dojo-evented"></span><h1><a class="toc-backref" href="#id1">dojo/on</a><a class="headerlink" href="#dojo-on" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Project owner:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">1.7.0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-on" id="id1">dojo/on</a><ul>
+<li><a class="reference internal" href="#dojo-evented-api" id="id2">dojo/Evented API</a></li>
+<li><a class="reference internal" href="#event-handler-properties" id="id3">Event Handler Properties</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The dojo/Evented module is a class that can be used as a base class or mixin for JavaScript classes that have their own events.</p>
+<div class="section" id="dojo-evented-api">
+<h2><a class="toc-backref" href="#id2">dojo/Evented API</a><a class="headerlink" href="#dojo-evented-api" title="Permalink to this headline">¶</a></h2>
+<p>The Evented class provides two methods, on(eventType, listener) and emit(eventType, eventObject) which correspond to on() and on.emit() with the target being the instance object. For example, we could create a class:</p>
+<div class="highlight"><pre><span class="nx">define</span><span class="p">([</span><span class="s2">&quot;dojo/Evented&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">Evented</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">MyComponent</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">declare</span><span class="p">([</span><span class="nx">Evented</span><span class="p">],</span> <span class="p">{</span>
+    <span class="nx">startup</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="c1">// once we are done with startup, fire the &quot;ready&quot; event</span>
+      <span class="k">this</span><span class="p">.</span><span class="nx">emit</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="p">{});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+
+  <span class="nx">component</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">MyComponent</span><span class="p">();</span>
+  <span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;ready&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// this will be called when the &quot;ready&quot; event is emitted</span>
+    <span class="c1">// ...</span>
+  <span class="p">});</span>
+  <span class="nx">component</span><span class="p">.</span><span class="nx">startup</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">define([&quot;dojo/Evented&quot;], function(Evented){
+  var MyComponent = dojo.declare([Evented], {
+    startup: function(){
+      // once we are done with startup, fire the &quot;ready&quot; event
+      this.emit(&quot;ready&quot;, {});
+    }
+  });
+
+  component = new MyComponent();
+  component.on(&quot;ready&quot;, function(){
+    // this will be called when the &quot;ready&quot; event is emitted
+    // ...
+  });
+  component.startup();
+});</textarea></div></div>
+<div class="section" id="event-handler-properties">
+<h2><a class="toc-backref" href="#id3">Event Handler Properties</a><a class="headerlink" href="#event-handler-properties" title="Permalink to this headline">¶</a></h2>
+<p>The Evented class stores events in a property/method slot named after the event with an &#8220;on&#8221; prefix, following the DOM0 convention. For example, listening to the &#8220;foo&#8221; event will put the listeners in the &#8220;onfoo&#8221; method. If a class has an &#8220;onMouseDown&#8221; method, this corresponds to a &#8220;MouseDown&#8221; event that you can listen to with:</p>
+<div class="highlight"><pre><span class="nx">component</span><span class="p">.</span><span class="nx">on</span><span class="p">(</span><span class="s2">&quot;MouseDown&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">component.on(&quot;MouseDown&quot;);</textarea></div><p>While it is possible to trigger the event by directly calling the onfoo() or onMouseDown() method, it is recommend that you use emit(&#8220;foo&#8221;) or emit(&#8220;MouseDown&#8221;) for consistency.</p>
+<p>One can upgrade most classes with onEvent methods to be usable with dojo/on by simply adding the Evented class as a base class.</p>
+<p>Note that some event emitting objects, like Dijit widgets, have their own event emitting implementation, and define their own event names.</p>
+<div class="section" id="transitioning-to-dojo-2-0">
+<h3>Transitioning to Dojo 2.0<a class="headerlink" href="#transitioning-to-dojo-2-0" title="Permalink to this headline">¶</a></h3>
+<p>There are a number of objects in Dojo (like Dnd and Animation) that are derived from Evented. However, these event emitting objects are likely to change their events (both names and emitted event objects) in 2.0, so one should not assume that code using dojo/Evented to listen to Dojo objects will work unchanged in 2.0.</p>
+</div>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo/on</a><ul>
+<li><a class="reference internal" href="#dojo-evented-api">dojo/Evented API</a></li>
+<li><a class="reference internal" href="#event-handler-properties">Event Handler Properties</a><ul>
+<li><a class="reference internal" href="#transitioning-to-dojo-2-0">Transitioning to Dojo 2.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DeferredList.html"
+                        title="previous chapter">dojo.DeferredList</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="NodeList.html"
+                        title="next chapter">dojo.NodeList</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

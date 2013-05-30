@@ -1,0 +1,255 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.partial &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.place" href="place.html" />
+    <link rel="prev" title="The Dojo Parser" href="parser.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-partial">
+<span id="id1"></span><h1>dojo.partial<a class="headerlink" href="#dojo-partial" title="Permalink to this headline">¶</a></h1>
+<p>Have you ever wanted to control arguments being passed into a function?  For example, have you ever had the need to set the first parameter of a function to a defined value and allow the others to still vary?  Well, dojo provides a way to do that!  Partial is a cousin to &#8216;hitch&#8217; in that it&#8217;s a function that returns a function.  What it does is allow you to fix the first N parameters of a function call to some specific value.  This can be very powerful, especially when you want to pass in object references or the like into notification functions of DataStores.</p>
+<p>Let&#8217;s take a quick look at a pseudo-code example of using partial:</p>
+<p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">dataLoaded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someFirstParam</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">ioargs</span><span class="p">){};</span>
+
+  <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">load</span><span class="o">:</span> <span class="nx">dataLoaded</span>
+  <span class="p">};</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/lang&quot;, &quot;dojo/_base/xhr&quot;], function(lang, xhr){
+  var dataLoaded = function(someFirstParam, data, ioargs){};
+
+  var args = {
+    url: &quot;foo&quot;,
+    load: dataLoaded
+  };
+  xhr.get(args);
+});</textarea></div><p>[ Dojo &lt; 1.7 ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">dataLoaded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someFirstParam</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">ioargs</span><span class="p">){};</span>
+
+<span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="nx">dataLoaded</span>
+<span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var dataLoaded = function(someFirstParam, data, ioargs){};
+
+var args = {
+  url: &quot;foo&quot;,
+  load: dataLoaded
+};
+dojo.xhrGet(args);</textarea></div><p>Okay, so that will invoke the dataLoaded function when the xhrGet function returns ... but load of xhrGet expects param structure of:
+load(data, ioargs).  So how the heck do we make sure that xhrGet&#8217;s expectations are honored even with that new first param called &#8216;someFirstParam&#8217;?  Enter dojo.partial!  Here&#8217;s how you would do it:</p>
+<p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">xhr</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">dataLoaded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someFirstParam</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">ioargs</span><span class="p">){};</span>
+
+  <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">load</span><span class="o">:</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="nx">dataLoaded</span><span class="p">,</span> <span class="s2">&quot;firstValue&quot;</span><span class="p">);</span>
+  <span class="p">};</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/lang&quot;, &quot;dojo/_base/xhr&quot;], function(lang, xhr){
+  var dataLoaded = function(someFirstParam, data, ioargs){};
+
+  var args = {
+    url: &quot;foo&quot;,
+    load: lang.partial(dataLoaded, &quot;firstValue&quot;);
+  };
+  xhr.get(args);
+});</textarea></div><p>[ Dojo &lt; 1.7 ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">dataLoaded</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someFirstParam</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="nx">ioargs</span><span class="p">){};</span>
+
+<span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="nx">dataLoaded</span><span class="p">,</span> <span class="s2">&quot;firstValue&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var dataLoaded = function(someFirstParam, data, ioargs){};
+
+var args = {
+  url: &quot;foo&quot;,
+  load: dojo.partial(dataLoaded, &quot;firstValue&quot;);
+}
+dojo.xhrGet(args);</textarea></div><p>What that does is create a new function that wraps dataLoaded and affixes the first parameter with the value &#8220;firstValue&#8221;.  Note that dojo.partial allows you to do N parameters, so you can keep defining as many values as you want for fixed-value parameters of a function.</p>
+<div class="section" id="basic-example">
+<h2>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="dialog" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><p>Let&#8217;s look at a quick running example:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dijit.form.Button&quot;</span><span class="p">);</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+  <span class="kd">var</span> <span class="nx">myClick</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">presetValue</span><span class="p">,</span> <span class="nx">event</span><span class="p">){</span>
+     <span class="kd">var</span> <span class="nx">node</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;appendLocation&quot;</span><span class="p">);</span>
+     <span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createTextNode</span><span class="p">(</span><span class="nx">presetValue</span><span class="p">));</span>
+     <span class="nx">node</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s2">&quot;br&quot;</span><span class="p">));</span>
+  <span class="p">}</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dijit</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;myButton&quot;</span><span class="p">),</span> <span class="s2">&quot;onClick&quot;</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">partial</span><span class="p">(</span><span class="nx">myClick</span> <span class="p">,</span> <span class="s2">&quot;This is preset text!&quot;</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dijit.form.Button&quot;);
+
+dojo.ready(function(){
+  var myClick = function(presetValue, event){
+     var node = dojo.byId(&quot;appendLocation&quot;);
+     node.appendChild(document.createTextNode(presetValue));
+     node.appendChild(document.createElement(&quot;br&quot;));
+  }
+  dojo.connect(dijit.byId(&quot;myButton&quot;), &quot;onClick&quot;, dojo.partial(myClick , &quot;This is preset text!&quot;));
+});</textarea></div><div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">id=</span><span class="s">&quot;myButton&quot;</span><span class="nt">&gt;</span>Click me to append in a preset value!<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;appendLocation&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button data-dojo-type=&quot;dijit.form.Button&quot; id=&quot;myButton&quot;&gt;Click me to append in a preset value!&lt;/button&gt;
+&lt;div id=&quot;appendLocation&quot;&gt;&lt;/div&gt;</textarea></div></div></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.partial</a><ul>
+<li><a class="reference internal" href="#basic-example">Basic Example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parser.html"
+                        title="previous chapter">The Dojo Parser</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="place.html"
+                        title="next chapter">dojo.place</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

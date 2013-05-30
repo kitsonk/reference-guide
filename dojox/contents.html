@@ -1,0 +1,539 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>DojoX &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="next" title="dojox.NodeList" href="NodeList.html" />
+    <link rel="prev" title="dijit.typematic" href="../dijit/typematic.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox">
+<h1>DojoX<a class="headerlink" href="#dojox" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="NodeList.html">dojox.NodeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList/delegate.html">dojox.NodeList.delegate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analytics.html">dojox.analytics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="analytics/Urchin.html">dojox.analytics.Urchin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app.html">dojox.app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/bind.html">dojox.app.bind</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/main.html">dojox.app.main</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/model.html">dojox.app.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/module/history.html">dojox.app.module.history</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/scene.html">dojox.app.scene</a></li>
+<li class="toctree-l1"><a class="reference internal" href="app/view.html">dojox.app.view</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom.html">dojox.atom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/Connection.html">dojox.atom.io.Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model.html">dojox.atom.io.model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/AtomItem.html">dojox.atom.io.model.AtomItem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Category.html">dojox.atom.io.model.Category</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Collection.html">dojox.atom.io.model.Collection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Content.html">dojox.atom.io.model.Content</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Entry.html">dojox.atom.io.model.Entry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Feed.html">dojox.atom.io.model.Feed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Generator.html">dojox.atom.io.model.Generator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Link.html">dojox.atom.io.model.Link</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Person.html">dojox.atom.io.model.Person</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Service.html">dojox.atom.io.model.Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/io/model/Workspace.html">dojox.atom.io.model.Workspace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="atom/widget.html">dojox.atom.widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="av.html">dojox.av</a></li>
+<li class="toctree-l1"><a class="reference internal" href="av/FLAudio.html">dojox.av.FLAudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="av/FLVideo.html">dojox.av.FLVideo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="av/widget.html">dojox.av.widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charting.html">dojox.charting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="charting/DataChart.html">dojox.charting.DataChart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="collections.html">dojox.collections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color.html">dojox.color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="color/Palette.html">dojox.color.Palette</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cometd.html">dojox.cometd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">dojox.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/AndOrReadStore.html">dojox.data.AndOrReadStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/AndOrWriteStore.html">dojox.data.AndOrWriteStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/AppStore.html">dojox.data.AppStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/AtomReadStore.html">dojox.data.AtomReadStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/ClientFilter.html">dojox.data.ClientFilter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/CouchDBRestStore.html">dojox.data.CouchDBRestStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/CssClassStore.html">dojox.data.CssClassStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/CssRuleStore.html">dojox.data.CssRuleStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/CsvStore.html">dojox.data.CsvStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/FileStore.html">dojox.data.FileStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/FileStore/protocol.html">dojox.data.FileStore: Technical/Protocol Details</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/FlickrRestStore.html">dojox.data.FlickrRestStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/FlickrStore.html">dojox.data.FlickrStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleBlogSearchStore.html">dojox.data.GoogleBlogSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleBookSearchStore.html">dojox.data.GoogleBookSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleFeedStore.html">dojox.data.GoogleFeedStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleImageSearchStore.html">dojox.data.GoogleImageSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleLocalSearchStore.html">dojox.data.GoogleLocalSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleNewsSearchStore.html">dojox.data.GoogleNewsSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleSearchStore.html">dojox.data.GoogleSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleVideoSearchStore.html">dojox.data.GoogleVideoSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/GoogleWebSearchStore.html">dojox.data.GoogleWebSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/HtmlStore.html">dojox.data.HtmlStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/HtmlTableStore.html">dojox.data.HtmlTableStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/JsonRestStore.html">dojox.data.JsonRestStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/KeyValueStore.html">dojox.data.KeyValueStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/OpenSearchStore.html">dojox.data.OpenSearchStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/OpmlStore.html">dojox.data.OpmlStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/PersevereStore.html">dojox.data.PersevereStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/PicasaStore.html">dojox.data.PicasaStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/QueryReadStore.html">dojox.data.QueryReadStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/QueryReadStore/example.html">dojox.data.QueryReadStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/RailsStore.html">dojox.data.RailsStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/S3Store.html">dojox.data.S3Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/ServiceStore.html">dojox.data.ServiceStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/WikipediaStore.html">dojox.data.WikipediaStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/XmlStore.html">dojox.data.XmlStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/XmlStore-examples.html">dojox.data.XmlStore examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/dom.html">dojox.data.dom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/google-stores.html">dojox.data Google-based Service Stores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/jsonPathStore.html">dojox.data.jsonPathStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date.html">dojox.date</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/buddhist.html">dojox.date.buddhist</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/buddhist.html#usage">Usage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/hebrew.html">dojox.date.hebrew</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/islamic.html">dojox.date.islamic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/relative.html">dojox.date.relative</a></li>
+<li class="toctree-l1"><a class="reference internal" href="drawing.html">dojox.Drawing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dtl.html">dojox.dtl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor.html">dojox.editor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins.html">dojox.editor.plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/AutoSave.html">dojox.editor.plugins.AutoSave (Under Construction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/AutoUrlLink.html">dojox.editor.plugins.AutoUrlLink (Under Construction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/Blockquote.html">dojox.editor.plugins.Blockquote</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/Breadcrumb.html">dojox.editor.plugins.Breadcrumb</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/CollapsibleToolbar.html">dojox.editor.plugins.CollapsibleToolbar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/FindReplace.html">dojox.editor.plugins.FindReplace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/InsertAnchor.html">dojox.editor.plugins.InsertAnchor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/InsertEntity.html">dojox.editor.plugins.InsertEntity</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/LocalImage.html">dojox.editor.plugins.LocalImage (Under Construction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/NormalizeIndentOutdent.html">dojox.editor.plugins.NormalizeIndentOutdent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/NormalizeStyle.html">dojox.editor.plugins.NormalizeStyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/PageBreak.html">dojox.editor.plugins.PageBreak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/PasteFromWord.html">dojox.editor.plugins.PasteFromWord</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/PrettyPrint.html">dojox.editor.plugins.PrettyPrint</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/Preview.html">dojox.editor.plugins.Preview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/SafePaste.html">dojox.editor.plugins.SafePaste</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/Save.html">dojox.editor.plugins.Save</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/ShowBlockNodes.html">dojox.editor.plugins.ShowBlockNodes</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/SpellCheck.html">dojox.editor.plugins.SpellCheck (Under Construction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/StatusBar.html">dojox.editor.plugins.StatusBar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/TablePlugins.html">dojox.editor.plugins.TablePlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/TextColor.html">dojox.editor.plugins.TextColor</a></li>
+<li class="toctree-l1"><a class="reference internal" href="editor/plugins/ToolbarLineBreak.html">dojox.editor.plugins.ToolbarLineBreak</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embed.html">dojox.embed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embed/Flash.html">dojox.embed.Flash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embed/Object.html">dojox.embed.Object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="embed/Quicktime.html">dojox.embed.Quicktime</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding.html">dojox.encoding</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/ascii85.html">dojox.encoding.ascii85</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/base64.html">dojox.encoding.base64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/bits.html">dojox.encoding.bits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/compression.html">dojox.encoding.compression</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/crypto.html">dojox.encoding.crypto</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/crypto/SimpleAES.html">dojox.encoding.crypto.SimpleAES</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/digests.html">dojox.encoding.digests</a></li>
+<li class="toctree-l1"><a class="reference internal" href="encoding/easy64.html">dojox.encoding.easy64</a></li>
+<li class="toctree-l1"><a class="reference internal" href="flash.html">dojox.flash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form.html">dojox.form project</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/BusyButton.html">dojox.form.BusyButton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/CheckedMultiSelect.html">dojox.form.CheckedMultiSelect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/DateTextBox.html">dojox.form.DateTextBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/DropDownSelect.html">dojox.form.DropDownSelect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/DropDownStack.html">dojox.form.DropDownStack</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/FileInput.html">dojox.form.FileInput</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/FilePickerTextBox.html">dojox.form.FilePickerTextBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/FileUploader.html">dojox.form.FileUploader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/ListInput.html">dojox.form.ListInput</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/Manager.html">dojox.form.Manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/MultiComboBox.html">dojox.form.MultiComboBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/PasswordValidator.html">dojox.form.PasswordValidator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/RangeSlider.html">dojox.form.RangeSlider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/Rating.html">dojox.widget.Rating</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/TimeSpinner.html">dojox.form.TimeSpinner</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/Uploader.html">dojox.form.Uploader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/ValidationTextarea.html">dojox.form.ValidationTextarea</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_ClassMixin.html">dojox.form.manager._ClassMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_DisplayMixin.html">dojox.form.manager._DisplayMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_EnableMixin.html">dojox.form.manager._EnableMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_FormMixin.html">dojox.form.manager._FormMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_Mixin.html">dojox.form.manager._Mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_NodeMixin.html">dojox.form.manager._NodeMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/_ValueMixin.html">dojox.form.manager._ValueMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/manager/index.html">dojox.form.manager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="form/uploader/FileList.html">dojox.form.uploader.FileList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.html">dojox.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/Timeline.html">dojox.fx.Timeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/ext-dojo/NodeList.html">dojox.fx.ext-dojo.NodeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/ext-dojo/complex.html">dojox.fx.ext-dojo.complex</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/ext-dojo/reverse.html">dojox.fx.ext-dojo.reverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/style.html">dojox.fx.style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/wipeTo.html">dojo.fx.wipeIn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gantt.html">dojox.gantt</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges.html">dojox.gauges</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges/AnalogGauge.html">dojox.gauges.AnalogGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges/BarGauge.html">dojox.gauges.BarGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges/GlossyCircularGauge.html">dojox.gauges.GlossyCircularGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges/GlossyHorizontalGauge.html">dojox.gauges.GlossyHorizontalGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gauges/GlossySemiCircularGauge.html">dojox.gauges.GlossySemiCircularGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo.html">dojox.geo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo/charting.html">dojox.geo.charting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo/charting/Map.html">dojox.geo.charting.Map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="geo/openlayers.html">dojox.geo.openlayers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gesture.html">dojox.gesture</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx.html">dojox.gfx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx-geometric-properties.html">dojox.gfx.matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx-visual-properties.html">Shape properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/index.html">dojox.gfx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/matrix-tutorial.html">Matrix tutorial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/utils.html">dojox.gfx.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/utils/fromJson.html">dojox.gfx.utils.fromJson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/utils/serialize.html">dojox.gfx.utils.serialize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/utils/toJson.html">dojox.gfx.utils.toJson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx/utils/toSvg.html">dojox.gfx.utils.toSvg</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gfx3d.html">dojox.gfx3d</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/DataGrid.html">dojox.grid.DataGrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid.html">dojox.grid.EnhancedGrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins.html">dojox.grid.EnhancedGrid.plugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/CellMerge.html">dojox.grid.EnhancedGrid.plugins.CellMerge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Cookie.html">dojox.grid.EnhancedGrid.plugins.Cookie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/DnD.html">dojox.grid.EnhancedGrid.plugins.DnD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Exporter.html">dojox.grid.EnhancedGrid.plugins.Exporter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Filter.html">dojox.grid.EnhancedGrid.plugins.Filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/IndirectSelection.html">dojox.grid.EnhancedGrid.plugins.IndirectSelection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Menus.html">dojox.grid.EnhancedGrid.plugins.Menu</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/NestedSorting.html">dojox.grid.EnhancedGrid.plugins.NestedSorting</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Pagination.html">dojox.grid.EnhancedGrid.plugins.Pagination</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Printer.html">dojox.grid.EnhancedGrid.plugins.Printer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Search.html">dojox.grid.EnhancedGrid.plugins.Search</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/EnhancedGrid/plugins/Selector.html">dojox.grid.EnhancedGrid.plugins.Selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/LazyTreeGrid.html">dojox.grid.LazyTreeGrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/TreeGrid.html">dojox.grid.TreeGrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_Adding_and_deleting_data.html">Adding and Deleting data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_Editing_data.html">Editing data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_Filtering_data.html">Filtering data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_Programmatically_creating_a_DataGrid.html">Programmatically creating a DataGrid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_Working_with_selections.html">Working with selections</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_grid_styling_rows.html">Grid styling : Rows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/example_simple_grid.html">A simple Grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/griddate.html">Grid Demos - Cells with DateTextBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/index.html">dojox.grid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="grid/pluginAPI.html">dojox Grid Plugin API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="help.html">dojox.help</a></li>
+<li class="toctree-l1"><a class="reference internal" href="highlight.html">dojox.highlight</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">dojox.html</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/ellipsis.html">dojox.html.ellipsis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/entities.html">dojox.html.entities</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/entities/decode.html">dojox.html.entities.decode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/entities/encode.html">dojox.html.entities.encode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/format.html">dojox.html.format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/metrics.html">dojox.html.metrics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/set.html">dojox.html.set</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html/styles.html">dojox/html/styles</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image.html">dojox.image</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/Badge.html">dojox.image.Badge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/FlickrBadge.html">dojox.image.FlickrBadge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/Gallery.html">dojox.image.Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/Lightbox.html">dojox.image.Lightbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/LightboxNano.html">dojox.image.LightboxNano</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/Magnifier.html">dojox.image.Magnifier</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/MagnifierLite.html">dojox.image.MagnifierLite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/SlideShow.html">dojox.image.SlideShow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="image/ThumbnailPicker.html">dojox.image.ThumbnailPicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">DojoX</a></li>
+<li class="toctree-l1"><a class="reference internal" href="info.html">DojoX - Dojo Extensions and Experiments</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">dojox.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/OAuth.html">dojox.io.OAuth</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/httpParse.html">dojox.io.httpParse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/scriptFrame.html">dojox.io.scriptFrame</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/windowName.html">dojox.io.windowName</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/xhrMultiPart.html">dojox.io.xhrMultiPart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/xhrPlugins.html">dojox.io.xhrPlugins</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/xhrWindowNamePlugin.html">dojox.io.xhrWindowNamePlugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json.html">dojox.json</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json/query.html">dojox.json.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json/ref.html">dojox.json.ref</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json/schema.html">dojox.json.schema</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/aspect.html">dojox.lang.aspect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/async.html">dojox.lang.async</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/docs.html">dojox.lang.docs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/functional.html">dojox.lang.functional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/functional/object.html">dojox.lang.functional.object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/index.html">dojox.lang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/observable.html">dojox.lang.observable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/oo.html">dojox.lang.oo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/typed.html">dojox.lang.typed</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lang/utils.html">dojox.lang.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout.html">dojox.layout</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/ContentPane.html">dojox.layout.ContentPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/DragPane.html">dojox.layout.DragPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/ExpandoPane.html">dojox.layout.ExpandoPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/FloatingPane.html">dojox.layout.FloatingPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/GridContainer.html">dojox.layout.GridContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/RadioGroup.html">dojox.layout.RadioGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/ResizeHandle.html">dojox.layout.ResizeHandle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/RotatorContainer.html">dojox.layout.RotatorContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/ScrollPane.html">dojox.layout.ScrollPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/TableContainer.html">dojox.layout.TableContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="layout/ToggleSplitter.html">dojox.layout.ToggleSplitter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="math.html">dojox.math</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mdnd.html">dojox.mdnd</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile.html">Dojo Mobile</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Button.html">dojox.mobile.Button</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Carousel.html">dojox.mobile.Carousel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/CheckBox.html">dojox.mobile.CheckBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ComboBox.html">dojox.mobile.ComboBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ContentPane.html">dojox.mobile.ContentPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/EdgeToEdgeCategory.html">dojox.mobile.EdgeToEdgeCategory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/EdgeToEdgeDataList.html">dojox.mobile.EdgeToEdgeDataList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/EdgeToEdgeList.html">dojox.mobile.EdgeToEdgeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ExpandingTextArea.html">dojox.mobile.ExpandingTextArea</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/FixedSplitter.html">dojox.mobile.FixedSplitter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/FixedSplitterPane.html">dojox.mobile.FixedSplitterPane</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/FlippableView.html">dojox.mobile.FlippableView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Heading.html">dojox.mobile.Heading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/IconContainer.html">dojox.mobile.IconContainer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/IconItem.html">dojox.mobile.IconItem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ListItem.html">dojox.mobile.ListItem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Opener.html">dojox.mobile.Opener</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Overlay.html">dojox.mobile.Overlay</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/PageIndicator.html">dojox.mobile.PageIndicator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ProgressIndicator.html">dojox.mobile.ProgressIndicator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/RadioButton.html">dojox.mobile.RadioButton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/RoundRect.html">dojox.mobile.RoundRect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/RoundRectCategory.html">dojox.mobile.RoundRectCategory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/RoundRectDataList.html">dojox.mobile.RoundRectDataList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/RoundRectList.html">dojox.mobile.RoundRectList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ScrollableView.html">dojox.mobile.ScrollableView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Slider.html">dojox.mobile.Slider</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/SpinWheel.html">dojox.mobile.SpinWheel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/SpinWheelDatePicker.html">dojox.mobile.SpinWheelDatePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/SpinWheelSlot.html">dojox.mobile.SpinWheelSlot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/SpinWheelTimePicker.html">dojox.mobile.SpinWheelTimePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/SwapView.html">dojox.mobile.SwapView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Switch.html">dojox.mobile.Switch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/TabBar.html">dojox.mobile.TabBar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/TabBarButton.html">dojox.mobile.TabBarButton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/TextArea.html">dojox.mobile.TextArea</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/TextBox.html">dojox.mobile.TextBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ToggleButton.html">dojox.mobile.ToggleButton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/ToolBarButton.html">dojox.mobile.ToolBarButton</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/Tooltip.html">dojox.mobile.Tooltip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/View.html">dojox.mobile.View</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/app.html">dojox.mobile.app</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/build.html">Build</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/cross-browser-support.html">Cross-browser Support</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/differences-16-17.html">Differences between 1.6 and 1.7</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/dynamic-content-loading.html">Dynamic Content Loading</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/internationalization.html">Internationalization (i18n)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mobile/transition-events.html">Listening to Transition Events</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc.html">dojox.mvc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/Bind.html">dojox.mvc.Bind</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/Generate.html">dojox.mvc.Generate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/Group.html">dojox.mvc.Group</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/Output.html">dojox.mvc.Output</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/Repeat.html">dojox.mvc.Repeat</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/StatefulModel.html">dojox.mvc.StatefulModel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mvc/_DataBindingMixin.html">dojox.mvc._DataBindingMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="off.html">dojox.off</a></li>
+<li class="toctree-l1"><a class="reference internal" href="presentation.html">dojox.presentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="resources.html">dojox.resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot.html">dojox.robot.recorder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">dojox.rpc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/JsonRPC.html">dojox.rpc.JsonRPC</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/OfflineRest.html">dojox.rpc.OfflineRest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/Rest.html">dojox.rpc.Rest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/SMDLibrary.html">SMDLibrary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/Service.html">dojox.rpc.Service</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure.html">dojox.secure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure/DOM.html">dojox.secure.DOM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure/capability.html">dojox.secure.capability</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure/index.html">dojox.secure</a></li>
+<li class="toctree-l1"><a class="reference internal" href="secure/sandbox.html">dojox.secure.sandbox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sql.html">dojox.sql</a></li>
+<li class="toctree-l1"><a class="reference internal" href="storage.html">dojox.storage</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string.html">dojox.string</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string/Builder.html">dojox.string.Builder</a></li>
+<li class="toctree-l1"><a class="reference internal" href="testing.html">dojox.testing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing.html">dojox.timing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timing/doLater.html">dojox.timing.doLater</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uuid.html">dojox.uuid</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate.html">dojox.validate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="validate/br.html">dojox.validate.br</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget.html">dojox.widget</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/AnalogGauge.html">dojox.widget.AnalogGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/AutoRotator.html">dojox.widget.AutoRotator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/BarGauge.html">dojox.widget.BarGauge</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Calendar.html">dojox.widget.Calendar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/CalendarFx.html">dojox.widget.CalendarFx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/ColorPicker.html">dojox.widget.ColorPicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/DataPresentation.html">dojox.widget.DataPresentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Dialog.html">dojox.widget.Dialog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/DialogSimple.html">dojox.widget.DialogSimple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/DocTester.html">dojox.widget.DocTester</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/DynamicTooltip.html">dojox.widget.DynamicTooltip</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/FilePicker.html">dojox.widget.FilePicker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/FisheyeList.html">dojox.widget.FisheyeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/FisheyeLite.html">dojox.widget.FisheyeLite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Iterator.html">dojox.widget.Iterator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Loader.html">dojox.widget.Loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Pager.html">dojox.widget.Pager</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/PlaceholderMenuItem.html">dojox.widget.PlaceholderMenuItem</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Portlet.html">dojox.widget.Portlet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Roller.html">dojox.widget.Roller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/RollingList.html">dojox.widget.RollingList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Rotator.html">dojox.widget.Rotator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/SortList.html">dojox.widget.SortList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Standby.html">dojox.widget.Standby</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/TitleGroup.html">dojox.widget.TitleGroup</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Toaster.html">dojox.widget.Toaster</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/UpgradeBar.html">dojox.widget.UpgradeBar</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/Wizard.html">dojox.widget.Wizard</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/Controller.html">dojox.widget.rotator.Controller</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/Fade.html">dojox.widget.rotator.Fade</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/Pan.html">dojox.widget.rotator.Pan</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/Slide.html">dojox.widget.rotator.Slide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/ThumbnailController.html">dojox.widget.rotator.ThumbnailController</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/Wipe.html">dojox.widget.rotator.Wipe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="widget/rotator/index.html">dojox.widget.rotator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wire.html">dojox.wire</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xml.html">dojox.xml</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xmpp.html">dojox.xmpp</a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../dijit/typematic.html"
+                        title="previous chapter">dijit.typematic</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="NodeList.html"
+                        title="next chapter">dojox.NodeList</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

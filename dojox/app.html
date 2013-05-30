@@ -1,0 +1,615 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.app &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="DojoX" href="contents.html" />
+    <link rel="next" title="dojox.app.bind" href="app/bind.html" />
+    <link rel="prev" title="dojox.analytics.Urchin" href="analytics/Urchin.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-app">
+<span id="id1"></span><h1>dojox.app<a class="headerlink" href="#dojox-app" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.7</td>
+</tr>
+</tbody>
+</table>
+<p>Implements application framework using dojox.mvc for web application on desktop/mobile platforms.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>dojox.app is an application frame work designed to allow simple configuration
+of nested scenes and views and to facilitate the transitioning between these
+views.  It is similar in function to the dojox.mobile.app framework, but will
+not be limited to use on mobile devices.  Applications for desktops, mobiles,
+and tablets will be configurable and buildable for easy and fast deployment.
+There are two core libraries that will need to work together to accomplish these goals</p>
+<p>dojox.app - A library that provides high-level application controllers, defined by metadata which describes the overall structure and navigation of the application and it’s views.</p>
+<p>dojox.mvc - A library that provides the ability to have view concerns separated from model or data concerns but have simple bindings or connections between them that can keep either side in sync, as well as respond to events or actions.  The library also provides the ability to generate data-bound forms and views dynamically, built on key elements of mvc and app.</p>
+</div>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<p>Application structure overview.</p>
+<img alt="../_images/Diagram1.png" src="../_images/Diagram1.png" />
+<p>Components in dojox.app</p>
+<p><a class="reference internal" href="app/view.html#dojox-app-view"><em>dojox.app.view</em></a>
+- dojox.app.view provides a view like dojox.mobile.View. It contains a template string which will be rendered with user defined template segments. A view should have no child view.</p>
+<p><a class="reference internal" href="app/bind.html#dojox-app-bind"><em>dojox.app.bind</em></a>
+- dojox.app.bind is used to query dojox.mvc widgets, get and set binding data for each widgets with  &#8220;ref&#8221; or data-dojo-props=&#8221;ref: xxx&#8221; tag. data-dojo-type, data-dojo-type, ref and data-dojo-props are compatible in a view.</p>
+<p><a class="reference internal" href="app/model.html#dojox-app-model"><em>dojox.app.model</em></a>
+- dojox.app.model creates statefulModel data source with JSON data or dojo data store. The data model can be binded to a dojox.mvc widget by dojox.app.bind.</p>
+<p><a class="reference internal" href="app/scene.html#dojox-app-scene"><em>dojox.app.scene</em></a>
+- dojox.app.scene is used to create the layout for each child view, manage the transition between views, resize layout to fit the display area. A scene can contains one or more children views or scenes. The difference between scene and view is that scene can have multiple children scenes views but view does not have child.</p>
+<p><em class="xref std std-ref">dojox.app.module.env</em>
+- dojox.app.module.env provides dojo, dijit, dojox environment.</p>
+<p><a class="reference internal" href="app/module/history.html#dojox-app-module-history"><em>dojox.app.module.histroy</em></a>
+- dojox.app.module.history manages transition forward and backward between views/scenes. A view can use &#8216;transitionOptions&#8217; or &#8216;href&#8217; to navigate forward or backward by utilizing HTML5 history API.</p>
+<p><a class="reference internal" href="app/main.html#dojox-app-main"><em>dojox.app.main</em></a>
+- dojox.app.main(Application) is used to create a dojox.app application by the configuration in config.json. The main function includes: load configuration, load data from data source, create views, create data models, bind data models to views by dojox.app.bind, create scenes between views, parse application by dojo.parser.parse.</p>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<p>To create and startup a dojox.app application, a dojox.app configuration JSON is needed to initialize the application. Here are the necessary files to start an application.
+An html (index.html) is needed to load dojo.js and a javascript file included in index.html is used to create the application.</p>
+<p>Index.html</p>
+<div class="highlight"><pre><span class="c">&lt;!-- load dojo.js --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../../../dojo/dojo.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="c">&lt;!-- load dojox.app startup file, the actual  launcher --&gt;</span>
+<span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;multiSceneApp.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!-- load dojo.js --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;../../../../dojo/dojo.js&quot;&gt;&lt;/script&gt;
+&lt;!-- load dojox.app startup file, the actual  launcher --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;multiSceneApp.js&quot;&gt;&lt;/script&gt;</textarea></div><p>multiSceneApp.js</p>
+<div class="highlight"><pre><span class="c1">//Get current path</span>
+<span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;/&quot;</span><span class="p">){</span>
+  <span class="nx">path</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+  <span class="nx">path</span><span class="o">=</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="c1">//register current application module path</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
+<span class="c1">//load configuration json file</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/html&quot;</span><span class="p">,</span> <span class="s2">&quot;dojox/app/main&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/text!app/config.json&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">,</span> <span class="nx">Application</span><span class="p">,</span> <span class="nx">config</span><span class="p">){</span>
+  <span class="c1">//startup the application</span>
+  <span class="nx">app</span> <span class="o">=</span> <span class="nx">Application</span><span class="p">(</span><span class="nb">eval</span><span class="p">(</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="nx">config</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">//Get current path
+var path = window.location.pathname;
+if(path.charAt(path.length)!=&quot;/&quot;){
+  path = path.split(&quot;/&quot;);
+  path.pop();
+  path=path.join(&quot;/&quot;);
+}
+//register current application module path
+dojo.registerModulePath(&quot;app&quot;, path);
+//load configuration json file
+require([&quot;dojo/_base/html&quot;, &quot;dojox/app/main&quot;, &quot;dojo/text!app/config.json&quot;], function(dojo, Application, config){
+  //startup the application
+  app = Application(eval(&quot;(&quot; + config + &quot;)&quot;));
+});</textarea></div><p>Application loads dojox.app configuration file and create view, scene, model with templateHTML. env provides dojo runtime environment for dojox.app and history cache users operation.</p>
+<p>Here is the configuration instruction table.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="76%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><strong>Configuration</strong></td>
+<td><strong>Description</strong></td>
+</tr>
+<tr class="row-even"><td>id</td>
+<td>Id of dojox.app application</td>
+</tr>
+<tr class="row-odd"><td>name</td>
+<td>Name of dojox.app application</td>
+</tr>
+<tr class="row-even"><td>description</td>
+<td>Description of dojox.app application</td>
+</tr>
+<tr class="row-odd"><td>splash</td>
+<td>Splash screen of dojox.app application (reserved but not implemented)</td>
+</tr>
+<tr class="row-even"><td>dependencies</td>
+<td>Dependencies of dojox.app application. It can be defined as global
+dependencies for application or as view dependencies in a view.</td>
+</tr>
+<tr class="row-odd"><td>modules</td>
+<td>Modules for the application. These are basically used as the mixins in
+dojo.declare() for the application. They modify the top level behavior
+of the application, how it processes the config or any other life cycle</td>
+</tr>
+<tr class="row-even"><td>stores</td>
+<td>Define dojo data stores which are used by dojox.app data model. A data
+store is composed by store name, store type and store parameters.</td>
+</tr>
+<tr class="row-odd"><td>models</td>
+<td>Models and instantiation parameters for the models including &#8216;type&#8217; as
+a property allows one to override the class that will be used for the
+model. By default it is dojox.mvc.model.</td>
+</tr>
+<tr class="row-even"><td>defaultView</td>
+<td>The name of the scene/view to load when the application is initialized.</td>
+</tr>
+<tr class="row-odd"><td>defaultTransition</td>
+<td>The default type of animation for the view transition.</td>
+</tr>
+<tr class="row-even"><td>views</td>
+<td>The children views/scenes of the application or current scene.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="sample">
+<h2>Sample<a class="headerlink" href="#sample" title="Permalink to this headline">¶</a></h2>
+<p>Sample application html page:
+index.html</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Sample App<span class="nt">&lt;/title&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;../../../mobile/themes/iphone/base.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;&lt;/link&gt;</span>
+
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;../../../../dojo/dojo.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="c">&lt;!-- the actual application launcher --&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;sampleApp.js&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no&quot;/&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot; /&gt;
+    &lt;title&gt;Sample App&lt;/title&gt;
+    &lt;link href=&quot;../../../mobile/themes/iphone/base.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/link&gt;
+
+    &lt;script type=&quot;text/javascript&quot; src=&quot;../../../../dojo/dojo.js&quot;&gt;&lt;/script&gt;
+    &lt;!-- the actual application launcher --&gt;
+    &lt;script type=&quot;text/javascript&quot; src=&quot;sampleApp.js&quot;&gt;&lt;/script&gt;
+
+  &lt;/head&gt;
+  &lt;body&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</textarea></div><p>Sample application creation script:
+sampleApp.js</p>
+<p>The actual configuration for the application is loaded by dojo/text module and is passed into call back as the “config” variable. Then the JSON string is resolved to JSON object and is used to create the application.</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">path</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">location</span><span class="p">.</span><span class="nx">pathname</span><span class="p">;</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="nx">path</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span><span class="o">!=</span><span class="s2">&quot;/&quot;</span><span class="p">){</span>
+  <span class="nx">path</span> <span class="o">=</span> <span class="nx">path</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+  <span class="nx">path</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+  <span class="nx">path</span><span class="o">=</span><span class="nx">path</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">registerModulePath</span><span class="p">(</span><span class="s2">&quot;app&quot;</span><span class="p">,</span> <span class="nx">path</span><span class="p">);</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">,</span> <span class="s2">&quot;dojox/app/main&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/text!app/config.json&quot;</span><span class="p">,</span> <span class="s2">&quot;dojox/json/ref&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">,</span> <span class="nx">Application</span><span class="p">,</span> <span class="nx">config</span><span class="p">,</span> <span class="nx">ref</span><span class="p">){</span>
+  <span class="nx">app</span> <span class="o">=</span> <span class="nx">Application</span><span class="p">(</span><span class="nx">dojox</span><span class="p">.</span><span class="nx">json</span><span class="p">.</span><span class="nx">ref</span><span class="p">.</span><span class="nx">fromJson</span><span class="p">(</span><span class="nx">config</span><span class="p">));</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var path = window.location.pathname;
+if(path.charAt(path.length)!=&quot;/&quot;){
+  path = path.split(&quot;/&quot;);
+  path.pop();
+  path=path.join(&quot;/&quot;);
+}
+dojo.registerModulePath(&quot;app&quot;, path);
+require([&quot;dojo&quot;, &quot;dojox/app/main&quot;, &quot;dojo/text!app/config.json&quot;, &quot;dojox/json/ref&quot;], function(dojo, Application, config, ref){
+  app = Application(dojox.json.ref.fromJson(config));
+});</textarea></div><p>Sample application configuration:</p>
+<p>The application configuration json data is used to declare views, models and their relationship in the application. The application will control the views loading and views/models binding.</p>
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="s2">&quot;id&quot;</span><span class="o">:</span> <span class="s2">&quot;sampleApp&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;name&quot;</span><span class="o">:</span> <span class="s2">&quot;Sample App&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;description&quot;</span><span class="o">:</span> <span class="s2">&quot;A Sample App&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;splash&quot;</span><span class="o">:</span> <span class="s2">&quot;splash&quot;</span><span class="p">,</span>
+
+  <span class="c1">//Dependencies for the application. The modules in the dependencies array object will be</span>
+  <span class="c1">//loaded before application is started.</span>
+  <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;dojox/mobile/TabBar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/mobile/RoundRect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/mobile/TabBarButton&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/mobile/Button&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/mobile/RoundRect&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/mobile/Heading&quot;</span>
+  <span class="p">],</span>
+
+  <span class="c1">//stores we are using</span>
+  <span class="s2">&quot;stores&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;namesStore&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;dojo.store.Memory&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">{</span> <span class="c1">//parameters used to initialize the data store</span>
+        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="s2">&quot;modelApp.names&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;repeatStore&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;dojo.store.Memory&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;params&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;data&quot;</span><span class="o">:</span> <span class="s2">&quot;modelApp.repeatData&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+
+  <span class="c1">//models and instantiation parameters for the models. Including &#39;type&#39; as a property</span>
+  <span class="c1">// allows one to override the class that will be used for the model.  By default it is</span>
+  <span class="c1">// dojox/mvc/model</span>
+  <span class="c1">// The model declared at application level will be initialized before application startup</span>
+  <span class="c1">// The model declared at scene/view level will be initialized before scene/view loaded</span>
+  <span class="s2">&quot;models&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="s2">&quot;names&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;params&quot;</span><span class="o">:</span><span class="p">{</span>
+        <span class="s2">&quot;store&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;$ref&quot;</span><span class="o">:</span><span class="s2">&quot;#stores.namesStore&quot;</span><span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">},</span>
+
+  <span class="c1">// Modules for the app.  The are basically used as the second</span>
+  <span class="c1">// array of mixins in a dojo.declare().  Modify the top level behavior</span>
+  <span class="c1">// of the app, how it processes the config or any other life cycle</span>
+  <span class="c1">// by creating and including one or more of these</span>
+  <span class="s2">&quot;modules&quot;</span><span class="o">:</span> <span class="p">[</span>
+    <span class="s2">&quot;dojox/app/module/env&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;dojox/app/module/history&quot;</span>
+  <span class="p">],</span>
+
+  <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;application.html&quot;</span><span class="p">,</span>
+
+  <span class="c1">//the name of the scene to load when the app is initialized.</span>
+  <span class="s2">&quot;defaultView&quot;</span><span class="o">:</span> <span class="s2">&quot;home&quot;</span><span class="p">,</span>
+
+  <span class="c1">//The default animation effect of transition between sub scenes and views of</span>
+  <span class="c1">// this application.</span>
+  <span class="s2">&quot;defaultTransition&quot;</span><span class="o">:</span> <span class="s2">&quot;slide&quot;</span><span class="p">,</span>
+
+  <span class="c1">//scenes are groups of views and models loaded at once</span>
+  <span class="c1">//scenes and view in the application all have access to application level models</span>
+  <span class="s2">&quot;views&quot;</span><span class="o">:</span> <span class="p">{</span>
+    <span class="c1">//simple view without any children views or scenes</span>
+    <span class="c1">//views can has its own dependencies which will be loaded</span>
+    <span class="c1">//before the view is first initialized.</span>
+    <span class="s2">&quot;home&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;dojox.app.view&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span><span class="p">[</span>
+        <span class="s2">&quot;dojox/mobile/RoundRectList&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dojox/mobile/ListItem&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dojox/mobile/EdgeToEdgeCategory&quot;</span>
+      <span class="p">],</span>
+      <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;views/simple/home.html&quot;</span>
+    <span class="p">},</span>
+
+    <span class="c1">//simple scene which loads all views and shows the default first</span>
+    <span class="s2">&quot;main&quot;</span><span class="o">:</span><span class="p">{</span>
+      <span class="c1">//all views in the main scene will be bound to the user model</span>
+      <span class="s2">&quot;models&quot;</span><span class="o">:</span> <span class="p">[],</span>
+      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;dojox.app.scene&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;simple.html&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;defaultView&quot;</span><span class="o">:</span> <span class="s2">&quot;main&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;defaultTransition&quot;</span><span class="o">:</span> <span class="s2">&quot;slide&quot;</span><span class="p">,</span>
+      <span class="c1">//the views available to this scene</span>
+      <span class="s2">&quot;views&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;main&quot;</span><span class="o">:</span><span class="p">{</span>
+          <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;views/simple/main.html&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;second&quot;</span><span class="o">:</span><span class="p">{</span>
+          <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;views/simple/second.html&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;third&quot;</span><span class="o">:</span><span class="p">{</span>
+          <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;views/simple/third.html&quot;</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span><span class="p">[</span>
+        <span class="s2">&quot;dojox/mobile/RoundRectList&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dojox/mobile/ListItem&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dojox/mobile/EdgeToEdgeCategory&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;dojox/mobile/EdgeToEdgeList&quot;</span>
+      <span class="p">]</span>
+    <span class="p">},</span>
+    <span class="s2">&quot;repeat&quot;</span><span class="o">:</span> <span class="p">{</span>
+      <span class="s2">&quot;type&quot;</span><span class="o">:</span> <span class="s2">&quot;dojox.app.view&quot;</span><span class="p">,</span>
+      <span class="c1">//model declared at scene/view level will be accessible to this scene/view</span>
+      <span class="c1">// or its children.</span>
+      <span class="s2">&quot;models&quot;</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">&quot;repeatmodels&quot;</span><span class="o">:</span> <span class="p">{</span>
+          <span class="s2">&quot;params&quot;</span><span class="o">:</span><span class="p">{</span>
+            <span class="s2">&quot;store&quot;</span><span class="o">:</span> <span class="p">{</span><span class="s2">&quot;$ref&quot;</span><span class="o">:</span><span class="s2">&quot;#stores.repeatStore&quot;</span><span class="p">}</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="s2">&quot;template&quot;</span><span class="o">:</span> <span class="s2">&quot;views/repeat.html&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;dependencies&quot;</span><span class="o">:</span><span class="p">[</span><span class="s2">&quot;dojox/mobile/TextBox&quot;</span><span class="p">]</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">{
+  &quot;id&quot;: &quot;sampleApp&quot;,
+  &quot;name&quot;: &quot;Sample App&quot;,
+  &quot;description&quot;: &quot;A Sample App&quot;,
+  &quot;splash&quot;: &quot;splash&quot;,
+
+  //Dependencies for the application. The modules in the dependencies array object will be
+  //loaded before application is started.
+  &quot;dependencies&quot;: [
+    &quot;dojox/mobile/TabBar&quot;,
+    &quot;dojox/mobile/RoundRect&quot;,
+    &quot;dojox/mobile/TabBarButton&quot;,
+    &quot;dojox/mobile/Button&quot;,
+    &quot;dojox/mobile/RoundRect&quot;,
+    &quot;dojox/mobile/Heading&quot;
+  ],
+
+  //stores we are using
+  &quot;stores&quot;: {
+    &quot;namesStore&quot;:{
+      &quot;type&quot;: &quot;dojo.store.Memory&quot;,
+      &quot;params&quot;: { //parameters used to initialize the data store
+        &quot;data&quot;: &quot;modelApp.names&quot;
+      }
+    },
+    &quot;repeatStore&quot;:{
+      &quot;type&quot;: &quot;dojo.store.Memory&quot;,
+      &quot;params&quot;: {
+        &quot;data&quot;: &quot;modelApp.repeatData&quot;
+      }
+    }
+  },
+
+  //models and instantiation parameters for the models. Including 'type' as a property
+  // allows one to override the class that will be used for the model.  By default it is
+  // dojox/mvc/model
+  // The model declared at application level will be initialized before application startup
+  // The model declared at scene/view level will be initialized before scene/view loaded
+  &quot;models&quot;: {
+    &quot;names&quot;: {
+      &quot;params&quot;:{
+        &quot;store&quot;: {&quot;$ref&quot;:&quot;#stores.namesStore&quot;}
+      }
+    }
+  },
+
+  // Modules for the app.  The are basically used as the second
+  // array of mixins in a dojo.declare().  Modify the top level behavior
+  // of the app, how it processes the config or any other life cycle
+  // by creating and including one or more of these
+  &quot;modules&quot;: [
+    &quot;dojox/app/module/env&quot;,
+    &quot;dojox/app/module/history&quot;
+  ],
+
+  &quot;template&quot;: &quot;application.html&quot;,
+
+  //the name of the scene to load when the app is initialized.
+  &quot;defaultView&quot;: &quot;home&quot;,
+
+  //The default animation effect of transition between sub scenes and views of
+  // this application.
+  &quot;defaultTransition&quot;: &quot;slide&quot;,
+
+  //scenes are groups of views and models loaded at once
+  //scenes and view in the application all have access to application level models
+  &quot;views&quot;: {
+    //simple view without any children views or scenes
+    //views can has its own dependencies which will be loaded
+    //before the view is first initialized.
+    &quot;home&quot;: {
+      &quot;type&quot;: &quot;dojox.app.view&quot;,
+      &quot;dependencies&quot;:[
+        &quot;dojox/mobile/RoundRectList&quot;,
+        &quot;dojox/mobile/ListItem&quot;,
+        &quot;dojox/mobile/EdgeToEdgeCategory&quot;
+      ],
+      &quot;template&quot;: &quot;views/simple/home.html&quot;
+    },
+
+    //simple scene which loads all views and shows the default first
+    &quot;main&quot;:{
+      //all views in the main scene will be bound to the user model
+      &quot;models&quot;: [],
+      &quot;type&quot;: &quot;dojox.app.scene&quot;,
+      &quot;template&quot;: &quot;simple.html&quot;,
+      &quot;defaultView&quot;: &quot;main&quot;,
+      &quot;defaultTransition&quot;: &quot;slide&quot;,
+      //the views available to this scene
+      &quot;views&quot;: {
+        &quot;main&quot;:{
+          &quot;template&quot;: &quot;views/simple/main.html&quot;
+        },
+        &quot;second&quot;:{
+          &quot;template&quot;: &quot;views/simple/second.html&quot;
+        },
+        &quot;third&quot;:{
+          &quot;template&quot;: &quot;views/simple/third.html&quot;
+        }
+      },
+      &quot;dependencies&quot;:[
+        &quot;dojox/mobile/RoundRectList&quot;,
+        &quot;dojox/mobile/ListItem&quot;,
+        &quot;dojox/mobile/EdgeToEdgeCategory&quot;,
+        &quot;dojox/mobile/EdgeToEdgeList&quot;
+      ]
+    },
+    &quot;repeat&quot;: {
+      &quot;type&quot;: &quot;dojox.app.view&quot;,
+      //model declared at scene/view level will be accessible to this scene/view
+      // or its children.
+      &quot;models&quot;: {
+        &quot;repeatmodels&quot;: {
+          &quot;params&quot;:{
+            &quot;store&quot;: {&quot;$ref&quot;:&quot;#stores.repeatStore&quot;}
+          }
+        }
+      },
+      &quot;template&quot;: &quot;views/repeat.html&quot;,
+      &quot;dependencies&quot;:[&quot;dojox/mobile/TextBox&quot;]
+    }
+  }
+}</textarea></div><p>Sample render result</p>
+<img alt="../_images/pic3.png" src="../_images/pic3.png" />
+</div>
+<div class="section" id="comparison-with-dojox-mobile-app">
+<h2>Comparison with dojox.mobile.app<a class="headerlink" href="#comparison-with-dojox-mobile-app" title="Permalink to this headline">¶</a></h2>
+<p>The main difference between dojox.app and dojox.mobile.app is listed as following.
+dojox.app enables the model binding
+dojox.app uses scene/view structure to enable the nested scene or view which resembles the composite design pattern. It does not mean dojox.mobile.app cannot do that but it needs coding to implement that.
+dojox.app contains the layout mechanism to ensure the content at different application/scene/view level work well together
+dojox.mobile.app manage the navigation history in StageController by using a history stack. dojox.app manage the navigation history through HTML5 pushState standard and delegate it to browser enabled history management.</p>
+<img alt="../_images/Diagram3.png" src="../_images/Diagram3.png" />
+<img alt="../_images/Diagram1.png" src="../_images/Diagram1.png" />
+<p>Here is the sequence diagram to reflect the difference in the navigation management.</p>
+<img alt="../_images/Diagram5.png" src="../_images/Diagram5.png" />
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.app</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#sample">Sample</a></li>
+<li><a class="reference internal" href="#comparison-with-dojox-mobile-app">Comparison with dojox.mobile.app</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="analytics/Urchin.html"
+                        title="previous chapter">dojox.analytics.Urchin</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="app/bind.html"
+                        title="next chapter">dojox.app.bind</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

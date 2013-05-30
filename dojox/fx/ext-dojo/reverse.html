@@ -1,0 +1,309 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.fx.ext-dojo.reverse &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../../index.html" />
+    <link rel="up" title="DojoX" href="../../contents.html" />
+    <link rel="next" title="dojox.fx.style" href="../style.html" />
+    <link rel="prev" title="dojox.fx.ext-dojo.complex" href="complex.html" />
+
+    <link rel="stylesheet" href="../../../_static/css/site.css">
+    <link rel="stylesheet" href="../../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-fx-ext-dojo-reverse">
+<span id="id1"></span><h1>dojox.fx.ext-dojo.reverse<a class="headerlink" href="#dojox-fx-ext-dojo-reverse" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Project owner:</th><td class="field-body">Mike Wilcox</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Author:</th><td class="field-body">Mike Wilcox</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">1.5</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="basic-description">
+<h2>Basic Description<a class="headerlink" href="#basic-description" title="Permalink to this headline">¶</a></h2>
+<p>A dojo.Animation extension that enables an easy reversal.</p>
+<p>To use, simply require dojox.fx.ext-dojo.reverse and a reverse() method will be added to all dojo.Animations. It can be used at any time during the animation. It does not need to be called when it ends. It also reverses the easing - if dojo.fx.easing.quadIn is used, dojo.fx.easing.quadOut will be used when animating backwards.</p>
+<p>The reverse method has two optional arguments:</p>
+<ul>
+<li><dl class="first docutils">
+<dt>keepPaused</dt>
+<dd><p class="first last">By default, calling reverse() will play the animation if it was paused. Pass in true to keep it paused (will have no effect if reverse is called while animation is playing).</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>reverseEase</dt>
+<dd><p class="first last">A function to use for the reverse easing. This allows for the possibility of custom eases that are not in the dojo.fx library.</p>
+</dd>
+</dl>
+</li>
+</ul>
+</div>
+<div class="section" id="example">
+<h2>Example<a class="headerlink" href="#example" title="Permalink to this headline">¶</a></h2>
+<p>CSS:</p>
+<div class="highlight"><pre><span class="nc">.lft</span><span class="p">{</span>
+   <span class="k">width</span><span class="o">:</span><span class="m">300px</span><span class="p">;</span>
+   <span class="k">height</span><span class="o">:</span><span class="m">300px</span><span class="p">;</span>
+   <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#666</span><span class="p">;</span>
+   <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+   <span class="k">float</span><span class="o">:</span><span class="k">left</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nf">#ball</span><span class="p">{</span>
+   <span class="k">width</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+   <span class="k">height</span><span class="o">:</span><span class="m">50px</span><span class="p">;</span>
+   <span class="k">margin</span><span class="o">:</span><span class="m">0px</span> <span class="k">auto</span><span class="p">;</span>
+   <span class="k">top</span><span class="o">:</span><span class="m">125px</span><span class="p">;</span>
+   <span class="k">position</span><span class="o">:</span><span class="k">relative</span><span class="p">;</span>
+   <span class="k">border</span><span class="o">:</span><span class="m">1px</span> <span class="k">solid</span> <span class="m">#000</span><span class="p">;</span>
+   <span class="k">background</span><span class="o">:</span><span class="m">#0000ff</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="css"><textarea style="display:none">.lft{
+   width:300px;
+   height:300px;
+   border:1px solid #666;
+   position:relative;
+   float:left;
+}
+#ball{
+   width:50px;
+   height:50px;
+   margin:0px auto;
+   top:125px;
+   position:relative;
+   border:1px solid #000;
+   background:#0000ff;
+}</textarea></div><p>HTML:</p>
+<div class="highlight"><pre><span class="nt">&lt;button</span> <span class="na">id=</span><span class="s">&quot;btn&quot;</span><span class="nt">&gt;</span>Reverse<span class="nt">&lt;/button&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">&quot;lft&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;ball&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;button id=&quot;btn&quot;&gt;Reverse&lt;/button&gt;
+&lt;div class=&quot;lft&quot;&gt;
+    &lt;div id=&quot;ball&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</textarea></div><p>JavaScript:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.fx.ext-dojo.reverse&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+   <span class="kd">var</span> <span class="nx">ani</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">animateProperty</span><span class="p">({</span>
+       <span class="nx">node</span><span class="o">:</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;ball&quot;</span><span class="p">),</span>
+       <span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span><span class="p">,</span>
+       <span class="nx">easing</span><span class="o">:</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">fx</span><span class="p">.</span><span class="nx">easing</span><span class="p">.</span><span class="nx">bounceOut</span><span class="p">,</span>
+       <span class="nx">properties</span><span class="o">:</span><span class="p">{</span>
+           <span class="nx">width</span><span class="o">:</span><span class="p">{</span>
+               <span class="nx">start</span><span class="o">:</span><span class="mi">50</span><span class="p">,</span>
+               <span class="nx">end</span><span class="o">:</span><span class="mi">150</span><span class="p">,</span>
+               <span class="nx">units</span><span class="o">:</span><span class="s2">&quot;px&quot;</span>
+           <span class="p">},</span>
+           <span class="nx">height</span><span class="o">:</span><span class="p">{</span>
+               <span class="nx">start</span><span class="o">:</span><span class="mi">50</span><span class="p">,</span>
+               <span class="nx">end</span><span class="o">:</span><span class="mi">150</span><span class="p">,</span>
+               <span class="nx">units</span><span class="o">:</span><span class="s2">&quot;px&quot;</span>
+           <span class="p">},</span>
+           <span class="nx">top</span><span class="o">:</span><span class="p">{</span>
+               <span class="nx">start</span><span class="o">:</span><span class="mi">125</span><span class="p">,</span>
+               <span class="nx">end</span><span class="o">:</span><span class="mi">75</span><span class="p">,</span>
+               <span class="nx">units</span><span class="o">:</span><span class="s2">&quot;px&quot;</span>
+           <span class="p">},</span>
+           <span class="nx">opacity</span><span class="o">:</span><span class="p">{</span>
+               <span class="nx">start</span><span class="o">:</span><span class="mi">1</span><span class="p">,</span>
+               <span class="nx">end</span><span class="o">:</span><span class="p">.</span><span class="mi">2</span>
+           <span class="p">},</span>
+           <span class="nx">backgroundColor</span><span class="o">:</span><span class="p">{</span>
+               <span class="nx">start</span><span class="o">:</span><span class="s2">&quot;#0000ff&quot;</span><span class="p">,</span>
+               <span class="nx">end</span><span class="o">:</span><span class="s2">&quot;#ff0000&quot;</span>
+           <span class="p">}</span>
+       <span class="p">}</span>
+   <span class="p">});</span>
+   <span class="nx">ani</span><span class="p">.</span><span class="nx">play</span><span class="p">();</span>
+
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;btn&quot;</span><span class="p">),</span> <span class="s2">&quot;click&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+       <span class="nx">ani</span><span class="p">.</span><span class="nx">reverse</span><span class="p">();</span>
+   <span class="p">})</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojox.fx.ext-dojo.reverse&quot;);
+dojo.ready(function(){
+   var ani = dojo.animateProperty({
+       node:dojo.byId(&quot;ball&quot;),
+       duration:1000,
+       easing:dojo.fx.easing.bounceOut,
+       properties:{
+           width:{
+               start:50,
+               end:150,
+               units:&quot;px&quot;
+           },
+           height:{
+               start:50,
+               end:150,
+               units:&quot;px&quot;
+           },
+           top:{
+               start:125,
+               end:75,
+               units:&quot;px&quot;
+           },
+           opacity:{
+               start:1,
+               end:.2
+           },
+           backgroundColor:{
+               start:&quot;#0000ff&quot;,
+               end:&quot;#ff0000&quot;
+           }
+       }
+   });
+   ani.play();
+
+   dojo.connect(dojo.byId(&quot;btn&quot;), &quot;click&quot;, function(){
+       ani.reverse();
+   })
+});</textarea></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../../index.html">Startpage</a></li>
+                            <li><a href="../../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.fx.ext-dojo.reverse</a><ul>
+<li><a class="reference internal" href="#basic-description">Basic Description</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="complex.html"
+                        title="previous chapter">dojox.fx.ext-dojo.complex</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="../style.html"
+                        title="next chapter">dojox.fx.style</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,618 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dojo Mobile &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="DojoX" href="contents.html" />
+    <link rel="next" title="dojox.mobile.Button" href="mobile/Button.html" />
+    <link rel="prev" title="dojox.mdnd" href="mdnd.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-mobile">
+<span id="dojox-mobile"></span><h1><a class="toc-backref" href="#id1">Dojo Mobile</a><a class="headerlink" href="#dojo-mobile" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Yoshiroh Kamiyama, Doug Hays, Chris Mitchell</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">Yoshiroh Kamiyama, Doug Hays</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.5</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-mobile" id="id1">Dojo Mobile</a><ul>
+<li><a class="reference internal" href="#introduction" id="id2">Introduction</a></li>
+<li><a class="reference internal" href="#available-widgets" id="id3">Available Widgets</a></li>
+<li><a class="reference internal" href="#getting-started" id="id4">Getting Started</a></li>
+<li><a class="reference internal" href="#programmer-s-guide" id="id5">Programmer&#8217;s Guide</a></li>
+<li><a class="reference internal" href="#appendix" id="id6">Appendix</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id2">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The Dojo Mobile package provides a number of widgets that can be used to build web-based applications for mobile devices such as iPhone, Android, or BlackBerry. These widgets work best with webkit-based browsers, such as Safari or Chrome, since webkit-specific CSS3 features are extensively used. However, the widgets should work in a &#8220;graceful degradation&#8221; manner even on non-CSS3 browsers, such as IE or (older) Firefox. In that case, fancy effects, such as animation, gradient color, or round corner rectangle, may not work, but you can still operate your application.
+Furthermore, as a separate file, a compatibility module, dojox/mobile/compat, is available, which simulates some of CSS3 features used in this module. If you use the compatibility module, fancy visual effects work better even on non-CSS3 browsers.</p>
+<p>Dojo Mobile is designed to be as lightweight as possible to achieve a better user experience on mobile. It has only a few dependencies on other dojo/dijit modules. It has less dependency even on the dojo and dijit base modules, so many of the base modules can be eliminated at build time. Also, it has its own very small parser that is a subset of the core dojo.parser, but has enough capability to bootstrap your application.</p>
+<img alt="../_images/settings-i-a.png" src="../_images/settings-i-a.png" />
+</div>
+<div class="section" id="available-widgets">
+<h2><a class="toc-backref" href="#id3">Available Widgets</a><a class="headerlink" href="#available-widgets" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="views">
+<h3>Views<a class="headerlink" href="#views" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/View.html#dojox-mobile-view"><em>View</em></a></p>
+<p>A container that represents a mobile device screen</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ScrollableView.html#dojox-mobile-scrollableview"><em>ScrollableView</em></a></p>
+<p>A view with touch scroll capability</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/SwapView.html#dojox-mobile-swapview"><em>SwapView</em></a></p>
+<p>A view that can be swiped horizontally (formerly known as FlippableView)</p>
+</li>
+</ul>
+</div>
+<div class="section" id="heading">
+<h3>Heading<a class="headerlink" href="#heading" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/Heading.html#dojox-mobile-heading"><em>Heading</em></a></p>
+<p>A navigation bar that appears at the top</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ToolBarButton.html#dojox-mobile-toolbarbutton"><em>ToolBarButton</em></a></p>
+<p>A button that is placed in the Heading widget</p>
+</li>
+</ul>
+</div>
+<div class="section" id="lists">
+<h3>Lists<a class="headerlink" href="#lists" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/RoundRectCategory.html#dojox-mobile-roundrectcategory"><em>RoundRectCategory</em></a></p>
+<p>Rounded-corner list category</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/EdgeToEdgeCategory.html#dojox-mobile-edgetoedgecategory"><em>EdgeToEdgeCategory</em></a></p>
+<p>Edge-To-Edge list category</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/RoundRectList.html#dojox-mobile-roundrectlist"><em>RoundRectList</em></a></p>
+<p>A list of items in a rounded-corner rectangle</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/EdgeToEdgeList.html#dojox-mobile-edgetoedgelist"><em>EdgeToEdgeList</em></a></p>
+<p>A list of items with equal width</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/RoundRectDataList.html#dojox-mobile-roundrectdatalist"><em>RoundRectDataList</em></a></p>
+<p>RoundRectList with dojo.data support</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/EdgeToEdgeDataList.html#dojox-mobile-edgetoedgedatalist"><em>EdgeToEdgeDataList</em></a></p>
+<p>EdgeToEdgeList with dojo.data support</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ListItem.html#dojox-mobile-listitem"><em>ListItem</em></a></p>
+<p>A list item to use in a list widget</p>
+</li>
+</ul>
+</div>
+<div class="section" id="iconcontainer">
+<h3>IconContainer<a class="headerlink" href="#iconcontainer" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/IconContainer.html#dojox-mobile-iconcontainer"><em>IconContainer</em></a></p>
+<p>A container to house icons for actions/events</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/IconItem.html#dojox-mobile-iconitem"><em>IconItem</em></a></p>
+<p>A widget for representing an icon and associated actions</p>
+</li>
+</ul>
+</div>
+<div class="section" id="tabbar">
+<h3>TabBar<a class="headerlink" href="#tabbar" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/TabBar.html#dojox-mobile-tabbar"><em>TabBar</em></a></p>
+<p>A bar that can have TabBarButtons to control visibility of views</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/TabBarButton.html#dojox-mobile-tabbarbutton"><em>TabBarButton</em></a></p>
+<p>A button that is placed in the TabBar widget</p>
+</li>
+</ul>
+</div>
+<div class="section" id="panes">
+<h3>Panes<a class="headerlink" href="#panes" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/RoundRect.html#dojox-mobile-roundrect"><em>RoundRect</em></a></p>
+<p>A rounded-corner rectangle boxes</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ContentPane.html#dojox-mobile-contentpane"><em>ContentPane</em></a></p>
+<p>A pane that can load and display HTML content/fragments. Similar to dijit/layout/ContentPane.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="openers">
+<h3>Openers<a class="headerlink" href="#openers" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/Opener.html#dojox-mobile-opener"><em>Opener</em></a></p>
+<p>A component that encapsulates the mechanism for displaying secondary views such as dialogs.  Openers take screen sizes into account and can display the next view as a slide-in dialog (phone) or inside a tooltip dialog (tablet)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/Overlay.html#dojox-mobile-overlay"><em>Overlay</em></a></p>
+<p>A component that displays a secondary view which partially occludes the original using a slide in transition effect. Useful for displaying dialogs.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/Tooltip.html#dojox-mobile-tooltip"><em>Tooltip</em></a></p>
+<p>A</p>
+</li>
+</ul>
+</div>
+<div class="section" id="form-controls">
+<h3>Form Controls<a class="headerlink" href="#form-controls" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/Button.html#dojox-mobile-button"><em>Button</em></a></p>
+<p>A button that changes the color when pressed</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/CheckBox.html#dojox-mobile-checkbox"><em>CheckBox</em></a></p>
+<p>A checkbox component displaying a boolean value.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ComboBox.html#dojox-mobile-combobox"><em>ComboBox</em></a></p>
+<p>A combo box allowing user to edit input values with the built-in keyboard.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ExpandingTextArea.html#dojox-mobile-expandingtextarea"><em>ExpandingTextArea</em></a></p>
+<p>A text area that can automatically adjust its dimensions based on how much content it holds.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/RadioButton.html#dojox-mobile-radiobutton"><em>RadioButton</em></a></p>
+<p>A component for displaying a discrete set of selectable items.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/Slider.html#dojox-mobile-slider"><em>Slider</em></a></p>
+<p>A control that allows changing a numeric value by touching and dragging a slide handle.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/Switch.html#dojox-mobile-switch"><em>Switch</em></a></p>
+<p>A toggle switch with a sliding knob.  Useful for displaying boolean settings.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/TextArea.html#dojox-mobile-textarea"><em>TextArea</em></a></p>
+<p>A multi-line text input control.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/TextBox.html#dojox-mobile-textbox"><em>TextBox</em></a></p>
+<p>A text input control.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ToggleButton.html#dojox-mobile-togglebutton"><em>ToggleButton</em></a></p>
+<p>A button that can toggle between two states.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="layout">
+<h3>Layout<a class="headerlink" href="#layout" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/FixedSplitter.html#dojox-mobile-fixedsplitter"><em>FixedSplitter</em></a></p>
+<p>A layout component that displays two content areas, with the position between the areas fixed at a given position.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/FixedSplitterPane.html#dojox-mobile-fixedsplitterpane"><em>FixedSplitterPane</em></a></p>
+<p>Used for the two content areas in a fixed splitter control.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="indicators">
+<h3>Indicators<a class="headerlink" href="#indicators" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/PageIndicator.html#dojox-mobile-pageindicator"><em>PageIndicator</em></a></p>
+<p>A</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/ProgressIndicator.html#dojox-mobile-progressindicator"><em>ProgressIndicator</em></a></p>
+<p>A round spinning graphical indicator</p>
+</li>
+</ul>
+</div>
+<div class="section" id="carousel">
+<h3>Carousel<a class="headerlink" href="#carousel" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/Carousel.html#dojox-mobile-carousel"><em>Carousel</em></a></p>
+<p>A widget that manages a list of images or content, and displays a paging indicator.  Allows a user to flick left/right to move between content items.</p>
+</li>
+</ul>
+</div>
+<div class="section" id="spin-wheel">
+<h3>Spin Wheel<a class="headerlink" href="#spin-wheel" title="Permalink to this headline">¶</a></h3>
+<ul>
+<li><p class="first"><a class="reference internal" href="mobile/SpinWheel.html#dojox-mobile-spinwheel"><em>SpinWheel</em></a></p>
+<p>A value picker component that has one or more slots.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/SpinWheelSlot.html#dojox-mobile-spinwheelslot"><em>SpinWheelSlot</em></a></p>
+<p>A slot that is placed in a SpinWheel.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/SpinWheelDatePicker.html#dojox-mobile-spinwheeldatepicker"><em>SpinWheelDatePicker</em></a></p>
+<p>A date picker component that is derived from SpinWheel.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="mobile/SpinWheelTimePicker.html#dojox-mobile-spinwheeltimepicker"><em>SpinWheelTimePicker</em></a></p>
+<p>A time picker component that is derived from SpinWheel.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#id4">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<p>Loading the basic Dojo Mobile codebase is extremely simple.  It&#8217;s a couple requires and then selecting the CSS.  That&#8217;s it.</p>
+<div class="section" id="loading-dojo-mobile-using-dojo-1-7-preferred-api-s">
+<h3>Loading Dojo Mobile (using Dojo 1.7+ preferred api&#8217;s)<a class="headerlink" href="#loading-dojo-mobile-using-dojo-1-7-preferred-api-s" title="Permalink to this headline">¶</a></h3>
+<p>This example assumes Dojo script is being loaded asynchronously with &#8220;async:1&#8221; config property.  Using this approach
+helps ensure the bare minimum code is used, and loaded as fast as possible.</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span>
+  <span class="s2">&quot;dojox/mobile/parser&quot;</span><span class="p">,</span> <span class="c1">// (Optional) This mobile app uses declarative programming with fast mobile parser</span>
+  <span class="s2">&quot;dojox/mobile&quot;</span><span class="p">,</span>        <span class="c1">// (Required) This is a mobile app.</span>
+  <span class="s2">&quot;dojox/mobile/compat&quot;</span>  <span class="c1">// (Optional) This mobile app supports running on desktop browsers</span>
+<span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parser</span><span class="p">,</span> <span class="nx">mobile</span><span class="p">,</span> <span class="nx">compat</span><span class="p">){</span> <span class="nx">Optional</span> <span class="nx">module</span> <span class="nx">aliases</span> <span class="nx">that</span> <span class="nx">can</span> <span class="nx">then</span> <span class="nx">be</span> <span class="nx">referenced</span> <span class="nx">inside</span> <span class="nx">callback</span> <span class="nx">block</span>
+  <span class="c1">// Do something with mobile api&#39;s.  At this point Dojo Mobile api&#39;s are ready for use.</span>
+<span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([
+  &quot;dojox/mobile/parser&quot;, // (Optional) This mobile app uses declarative programming with fast mobile parser
+  &quot;dojox/mobile&quot;,        // (Required) This is a mobile app.
+  &quot;dojox/mobile/compat&quot;  // (Optional) This mobile app supports running on desktop browsers
+], function(parser, mobile, compat){ Optional module aliases that can then be referenced inside callback block
+  // Do something with mobile api's.  At this point Dojo Mobile api's are ready for use.
+);</textarea></div><p>If you prefer to use &#8220;progressive enhancement&#8221; design techniques and not use Dojo&#8217;s simple declarative programming model, you can choose not to specify the dojox/mobile/parser module and in script construct widgets programmatically.</p>
+<p>If you don&#8217;t need compatibility support for modern desktop browsers (FF, IE8+), you can choose note to specify the dojox/mobile/compat module.  In this case, mobile support will only work properly on Webkit-based mobile browsers (Dojo Mobile&#8217;s default environment support).</p>
+</div>
+<div class="section" id="loading-dojo-mobile-using-dojo-pre-1-7-style-api-s">
+<h3>Loading Dojo Mobile (using Dojo pre-1.7 style api&#8217;s)<a class="headerlink" href="#loading-dojo-mobile-using-dojo-pre-1-7-style-api-s" title="Permalink to this headline">¶</a></h3>
+<p>This example uses synchronous loading, and loads all of Dojo core.  This results in more code being loaded than the bare minimum, and uses a synchronous loader which will be slower to load modules than the above async example (preferred).</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.mobile&quot;</span><span class="p">);</span> <span class="c1">// Load the basic mobile widget kernel and support code.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojox.mobile.parser&quot;</span><span class="p">);</span> <span class="c1">// (Optional) Load the lightweight parser.  dojo.parser can also be used, but it requires much more code to be loaded.</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">requireIf</span><span class="p">(</span><span class="o">!</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">isWebKit</span><span class="p">,</span> <span class="s2">&quot;dojox.mobile.compat&quot;</span><span class="p">);</span> <span class="c1">// (Optional) Load the compat layer if the incoming browser isn&#39;t webkit based</span>
+<span class="c1">// Do something with Dojo Mobile...</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.require(&quot;dojox.mobile&quot;); // Load the basic mobile widget kernel and support code.
+dojo.require(&quot;dojox.mobile.parser&quot;); // (Optional) Load the lightweight parser.  dojo.parser can also be used, but it requires much more code to be loaded.
+dojo.requireIf(!dojo.isWebKit, &quot;dojox.mobile.compat&quot;); // (Optional) Load the compat layer if the incoming browser isn't webkit based
+// Do something with Dojo Mobile...</textarea></div></div>
+<div class="section" id="applying-a-mobile-device-theme-using-css">
+<h3>Applying a Mobile Device Theme Using CSS<a class="headerlink" href="#applying-a-mobile-device-theme-using-css" title="Permalink to this headline">¶</a></h3>
+<p>Selecting the CSS to apply (iphone, android, blackberry or custom) is equally simple:</p>
+<div class="highlight"><pre><span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">type=</span><span class="s">&quot;text/css&quot;</span> <span class="na">href=</span><span class="s">&quot;dojox/mobile/themes/iphone/iphone.css&quot;</span><span class="nt">&gt;&lt;/link&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;dojox/mobile/themes/iphone/iphone.css&quot;&gt;&lt;/link&gt;</textarea></div></div>
+<div class="section" id="automatically-applying-mobile-device-themes-using-css">
+<h3>Automatically Applying Mobile Device Themes Using CSS<a class="headerlink" href="#automatically-applying-mobile-device-themes-using-css" title="Permalink to this headline">¶</a></h3>
+<p>You can also use Dojo Mobile&#8217;s automatic device detection and theme loading by adding the &#8220;dojox/mobile/deviceTheme&#8221; to your requires list.  When automatic device detection and theme loading is enabled, Dojo Mobile will insert appropriate stylesheet links dynamically into the header, based on user agent sniffing.</p>
+<p>When this approach is taken, you can also pass an additional query parameter string, device={theme id} to force a specific theme from a browser url input (this feature is useful for creating samples and demos as well as testing what a page looks like on various devices).</p>
+</div>
+<div class="section" id="typical-use">
+<h3>Typical Use<a class="headerlink" href="#typical-use" title="Permalink to this headline">¶</a></h3>
+<p>Typical usage is to create one or more views in a page, and create a round rectangle list, an edge-to-edge list, an icon container, etc. in the views. You can specify an animated transition between the views.
+The following example shows how to create views and make a transition between them.</p>
+<img alt="../_images/hello-example.png" src="../_images/hello-example.png" />
+<p>Example (using HTML5 validating declarative markup and mobile parser)</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML&gt;</span>
+ <span class="nt">&lt;html&gt;</span>
+   <span class="nt">&lt;head&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1,</span>
+<span class="s">    maximum-scale=1,minimum-scale=1,user-scalable=no&quot;</span><span class="nt">/&gt;</span>
+     <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+     <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;dojox/mobile/themes/iphone/iphone.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;&lt;/link&gt;</span>
+     <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dojo/dojo.js&quot;</span> <span class="na">djConfig=</span><span class="s">&quot;async:1,parseOnLoad: true&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+     <span class="nt">&lt;script&gt;</span>
+       <span class="nx">require</span><span class="p">([</span>
+         <span class="s2">&quot;dojox/mobile/parser&quot;</span><span class="p">,</span> <span class="c1">// This mobile app uses declarative programming with fast mobile parser</span>
+         <span class="s2">&quot;dojox/mobile&quot;</span><span class="p">,</span>        <span class="c1">// This is a mobile app.</span>
+       <span class="p">]);</span> <span class="c1">// Skip module alias and function block because we&#39;re not doing anything special...</span>
+     <span class="nt">&lt;/script&gt;</span>
+   <span class="nt">&lt;/head&gt;</span>
+   <span class="nt">&lt;body&gt;</span>
+     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.View&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span><span class="nt">&gt;</span>View 1<span class="nt">&lt;/h1&gt;</span>
+       <span class="nt">&lt;ul</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectList&quot;</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">moveTo=</span><span class="s">&quot;bar&quot;</span> <span class="na">label=</span><span class="s">&quot;Hello&quot;</span>
+              <span class="na">icon=</span><span class="s">&quot;dojox/mobile/tests/images/i-icon-1.png&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+       <span class="nt">&lt;/ul&gt;</span>
+     <span class="nt">&lt;/div&gt;</span>
+
+     <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bar&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.View&quot;</span><span class="nt">&gt;</span>
+       <span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span> <span class="na">back=</span><span class="s">&quot;Home&quot;</span> <span class="na">moveTo=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>View 2<span class="nt">&lt;/h1&gt;</span>
+       <span class="nt">&lt;ul</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectList&quot;</span><span class="nt">&gt;</span>
+         <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">label=</span><span class="s">&quot;World&quot;</span>
+              <span class="na">icon=</span><span class="s">&quot;dojox/mobile/tests/images/i-icon-2.png&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+       <span class="nt">&lt;/ul&gt;</span>
+     <span class="nt">&lt;/div&gt;</span>
+   <span class="nt">&lt;/body&gt;</span>
+ <span class="nt">&lt;/html&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!DOCTYPE HTML&gt;
+ &lt;html&gt;
+   &lt;head&gt;
+     &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,
+    maximum-scale=1,minimum-scale=1,user-scalable=no&quot;/&gt;
+     &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot; /&gt;
+     &lt;link href=&quot;dojox/mobile/themes/iphone/iphone.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/link&gt;
+     &lt;script src=&quot;dojo/dojo.js&quot; djConfig=&quot;async:1,parseOnLoad: true&quot;&gt;&lt;/script&gt;
+     &lt;script&gt;
+       require([
+         &quot;dojox/mobile/parser&quot;, // This mobile app uses declarative programming with fast mobile parser
+         &quot;dojox/mobile&quot;,        // This is a mobile app.
+       ]); // Skip module alias and function block because we're not doing anything special...
+     &lt;/script&gt;
+   &lt;/head&gt;
+   &lt;body&gt;
+     &lt;div id=&quot;foo&quot; data-dojo-type=&quot;dojox.mobile.View&quot;&gt;
+       &lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot;&gt;View 1&lt;/h1&gt;
+       &lt;ul data-dojo-type=&quot;dojox.mobile.RoundRectList&quot;&gt;
+         &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; moveTo=&quot;bar&quot; label=&quot;Hello&quot;
+              icon=&quot;dojox/mobile/tests/images/i-icon-1.png&quot;&gt;&lt;/li&gt;
+       &lt;/ul&gt;
+     &lt;/div&gt;
+
+     &lt;div id=&quot;bar&quot; data-dojo-type=&quot;dojox.mobile.View&quot;&gt;
+       &lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot; back=&quot;Home&quot; moveTo=&quot;foo&quot;&gt;View 2&lt;/h1&gt;
+       &lt;ul data-dojo-type=&quot;dojox.mobile.RoundRectList&quot;&gt;
+         &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; label=&quot;World&quot;
+              icon=&quot;dojox/mobile/tests/images/i-icon-2.png&quot;&gt;&lt;/li&gt;
+       &lt;/ul&gt;
+     &lt;/div&gt;
+   &lt;/body&gt;
+ &lt;/html&gt;</textarea></div><p>Example using older (non-validating) HTML and mobile parser:</p>
+<div class="highlight"><pre><span class="cp">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+  <span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;viewport&quot;</span> <span class="na">content=</span><span class="s">&quot;width=device-width,initial-scale=1,</span>
+<span class="s">   maximum-scale=1,minimum-scale=1,user-scalable=no&quot;</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;meta</span> <span class="na">name=</span><span class="s">&quot;apple-mobile-web-app-capable&quot;</span> <span class="na">content=</span><span class="s">&quot;yes&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;link</span> <span class="na">href=</span><span class="s">&quot;dojox/mobile/themes/iphone/iphone.css&quot;</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span><span class="nt">&gt;&lt;/link&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">src=</span><span class="s">&quot;dojo/dojo.js&quot;</span> <span class="na">djConfig=</span><span class="s">&quot;parseOnLoad: true&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+    <span class="nt">&lt;script&gt;</span>
+      <span class="nx">require</span><span class="p">([</span>
+        <span class="s2">&quot;dojox/mobile/parser&quot;</span><span class="p">,</span> <span class="c1">// This mobile app uses declarative programming with fast mobile parser</span>
+        <span class="s2">&quot;dojox/mobile&quot;</span><span class="p">,</span>        <span class="c1">// This is a mobile app.</span>
+      <span class="p">]);</span> <span class="c1">// Skip module alias and function block because we&#39;re not doing anything special...</span>
+    <span class="nt">&lt;/script&gt;</span>
+  <span class="nt">&lt;/head&gt;</span>
+  <span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;foo&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.View&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span><span class="nt">&gt;</span>View 1<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectList&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">moveTo=</span><span class="s">&quot;bar&quot;</span> <span class="na">label=</span><span class="s">&quot;Hello&quot;</span>
+            <span class="na">icon=</span><span class="s">&quot;dojox/mobile/tests/images/i-icon-1.png&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+
+    <span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;bar&quot;</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.View&quot;</span><span class="nt">&gt;</span>
+      <span class="nt">&lt;h1</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.Heading&quot;</span> <span class="na">back=</span><span class="s">&quot;Home&quot;</span> <span class="na">moveTo=</span><span class="s">&quot;foo&quot;</span><span class="nt">&gt;</span>View 2<span class="nt">&lt;/h1&gt;</span>
+      <span class="nt">&lt;ul</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.RoundRectList&quot;</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;li</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dojox.mobile.ListItem&quot;</span> <span class="na">label=</span><span class="s">&quot;World&quot;</span>
+            <span class="na">icon=</span><span class="s">&quot;dojox/mobile/tests/images/i-icon-2.png&quot;</span><span class="nt">&gt;&lt;/li&gt;</span>
+      <span class="nt">&lt;/ul&gt;</span>
+    <span class="nt">&lt;/div&gt;</span>
+  <span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1,
+   maximum-scale=1,minimum-scale=1,user-scalable=no&quot;/&gt;
+    &lt;meta name=&quot;apple-mobile-web-app-capable&quot; content=&quot;yes&quot; /&gt;
+    &lt;link href=&quot;dojox/mobile/themes/iphone/iphone.css&quot; rel=&quot;stylesheet&quot;&gt;&lt;/link&gt;
+    &lt;script src=&quot;dojo/dojo.js&quot; djConfig=&quot;parseOnLoad: true&quot;&gt;&lt;/script&gt;
+    &lt;script&gt;
+      require([
+        &quot;dojox/mobile/parser&quot;, // This mobile app uses declarative programming with fast mobile parser
+        &quot;dojox/mobile&quot;,        // This is a mobile app.
+      ]); // Skip module alias and function block because we're not doing anything special...
+    &lt;/script&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;foo&quot; data-dojo-type=&quot;dojox.mobile.View&quot;&gt;
+      &lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot;&gt;View 1&lt;/h1&gt;
+      &lt;ul data-dojo-type=&quot;dojox.mobile.RoundRectList&quot;&gt;
+        &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; moveTo=&quot;bar&quot; label=&quot;Hello&quot;
+            icon=&quot;dojox/mobile/tests/images/i-icon-1.png&quot;&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+
+    &lt;div id=&quot;bar&quot; data-dojo-type=&quot;dojox.mobile.View&quot;&gt;
+      &lt;h1 data-dojo-type=&quot;dojox.mobile.Heading&quot; back=&quot;Home&quot; moveTo=&quot;foo&quot;&gt;View 2&lt;/h1&gt;
+      &lt;ul data-dojo-type=&quot;dojox.mobile.RoundRectList&quot;&gt;
+        &lt;li data-dojo-type=&quot;dojox.mobile.ListItem&quot; label=&quot;World&quot;
+            icon=&quot;dojox/mobile/tests/images/i-icon-2.png&quot;&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</textarea></div><ul>
+<li><p class="first">Line 1 is the standard HTML DOCTYPE.  Example 1 is using HTML5, Example 2 uses HTML4.  HTML5 introduces data-* attribute support, so the first example uses data-dojo-type attribute names (which will validate properly) versus example 2 which uses Dojo extended attributes (non-validating).  The HTML5 style markup is preferred going forward to Dojo 2.0 (but Ex 2 will continue to be supported through 1.x releases).</p>
+</li>
+<li><p class="first">Line 4 is a viewport setting, which sets the width, height and scale of the browser area used to display the content. Mobile Safari recognizes this meta tag.</p>
+</li>
+<li><p class="first">Line 5 tells iPhone/iPad that the web application should run in full-screen mode.</p>
+</li>
+<li><p class="first">Line 6 loads a style sheet for iPhone theme. You may want to load a different theme instead.</p>
+</li>
+<li><p class="first">Line 7 loads Dojo kernel API&#8217;s.  The first example is using asynchronous AMD loader, the second example uses synchronous pre-Dojo1.7 style loader.  If you debug this example with browser debug tools, you&#8217;ll see that example1 loads and enters document ready state much faster than example 2.  The async loader (ex1) style is the preferred notation going forward to Dojo 2.0 (but Ex 2 will continue to be supported through 1.x releases).</p>
+</li>
+<li><p class="first">Line 10 loads lightweight mobile parser, since this example uses declarative markup.  The parser will automatically instantiates the mobile widgets associated with dom elements. You can of course use the default parser (dojo/parser) instead if you&#8217;re using dijit widgets on views, but the mobile parser is much smaller and has enough capability to bootstrap simple dojo application pages like this example.</p>
+<p>The desktop browser compatibility module for non-CSS3 browsers is not used in this example, so it will likely only render properly on webkit-based browsers.</p>
+</li>
+<li><p class="first">Line 16 through Line 22 is the first view. It contains a heading and a round rectangle list. This view will be shown at start up, since it is the first view and the selected=&#8221;true&#8221; attribute is not specified for the second view.</p>
+</li>
+<li><p class="first">Line 24 through Line 30 is the second view, which will be shown when you tap on a list item in the first view.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="programmer-s-guide">
+<h2><a class="toc-backref" href="#id5">Programmer&#8217;s Guide</a><a class="headerlink" href="#programmer-s-guide" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="mobile/dynamic-content-loading.html#dojox-mobile-dynamic-content-loading"><em>Dynamic Content Loading</em></a></li>
+<li><a class="reference internal" href="mobile/transition-events.html#dojox-mobile-transition-events"><em>Listening to Transition Events</em></a></li>
+<li><a class="reference internal" href="mobile/cross-browser-support.html#dojox-mobile-cross-browser-support"><em>Cross-browser Support</em></a></li>
+<li><a class="reference internal" href="mobile/internationalization.html#dojox-mobile-internationalization"><em>Internationalization (i18n)</em></a></li>
+<li><a class="reference internal" href="mobile/build.html#dojox-mobile-build"><em>Build</em></a></li>
+</ul>
+</div>
+<div class="section" id="appendix">
+<h2><a class="toc-backref" href="#id6">Appendix</a><a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="mobile/faq.html#dojox-mobile-faq"><em>Frequently Asked Questions</em></a></li>
+<li><a class="reference internal" href="mobile/differences-16-17.html#dojox-mobile-differences-16-17"><em>Differences between 1.6 and 1.7</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Dojo Mobile</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#available-widgets">Available Widgets</a><ul>
+<li><a class="reference internal" href="#views">Views</a></li>
+<li><a class="reference internal" href="#heading">Heading</a></li>
+<li><a class="reference internal" href="#lists">Lists</a></li>
+<li><a class="reference internal" href="#iconcontainer">IconContainer</a></li>
+<li><a class="reference internal" href="#tabbar">TabBar</a></li>
+<li><a class="reference internal" href="#panes">Panes</a></li>
+<li><a class="reference internal" href="#openers">Openers</a></li>
+<li><a class="reference internal" href="#form-controls">Form Controls</a></li>
+<li><a class="reference internal" href="#layout">Layout</a></li>
+<li><a class="reference internal" href="#indicators">Indicators</a></li>
+<li><a class="reference internal" href="#carousel">Carousel</a></li>
+<li><a class="reference internal" href="#spin-wheel">Spin Wheel</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#loading-dojo-mobile-using-dojo-1-7-preferred-api-s">Loading Dojo Mobile (using Dojo 1.7+ preferred api&#8217;s)</a></li>
+<li><a class="reference internal" href="#loading-dojo-mobile-using-dojo-pre-1-7-style-api-s">Loading Dojo Mobile (using Dojo pre-1.7 style api&#8217;s)</a></li>
+<li><a class="reference internal" href="#applying-a-mobile-device-theme-using-css">Applying a Mobile Device Theme Using CSS</a></li>
+<li><a class="reference internal" href="#automatically-applying-mobile-device-themes-using-css">Automatically Applying Mobile Device Themes Using CSS</a></li>
+<li><a class="reference internal" href="#typical-use">Typical Use</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#programmer-s-guide">Programmer&#8217;s Guide</a></li>
+<li><a class="reference internal" href="#appendix">Appendix</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="mdnd.html"
+                        title="previous chapter">dojox.mdnd</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="mobile/Button.html"
+                        title="next chapter">dojox.mobile.Button</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

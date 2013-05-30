@@ -1,0 +1,237 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.html &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="DojoX" href="contents.html" />
+    <link rel="next" title="dojox.html.ellipsis" href="html/ellipsis.html" />
+    <link rel="prev" title="dojox.highlight" href="highlight.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-html">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojox.html</a><a class="headerlink" href="#dojox-html" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Marcus Reimann</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Developers:</th><td class="field-body">Bryan Forbes, Sam Foster, Mike Wilcox, Nathan Toone, Jared Jurkiewicz</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.2</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojox-html" id="id2">dojox.html</a><ul>
+<li><a class="reference internal" href="#features" id="id3">Features</a></li>
+<li><a class="reference internal" href="#see-also" id="id4">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>dojox.html</strong> offers additional HTML helper functions.</p>
+<div class="section" id="features">
+<h2><a class="toc-backref" href="#id3">Features</a><a class="headerlink" href="#features" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first"><tt class="docutils literal"><span class="pre">New</span> <span class="pre">in</span> <span class="pre">1.4</span></tt> <a class="reference internal" href="html/ellipsis.html#dojox-html-ellipsis"><em>dojox.html.ellipsis</em></a></p>
+<p>Adds cross-browser support for a &#8220;dojoxEllipsis&#8221; class.</p>
+<ul class="simple">
+<li>To use, include the ellipsis.css file and dojo.require(&#8220;dojox.html.ellipsis&#8221;);</li>
+<li>To function properly - the <em>parent</em> node of the desired ellipsis-ized node should have a defined width</li>
+<li><tt class="docutils literal"><span class="pre">NOTE:</span></tt> When using the dojoxEllipsis class within tables, the table needs to have the <cite>table-layout: fixed</cite> style</li>
+<li><tt class="docutils literal"><span class="pre">NOTE:</span></tt> The dojoxEllipsis class should be placed on a block element (such as a div) and will not work on td elements</li>
+</ul>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">New</span> <span class="pre">in</span> <span class="pre">1.4</span></tt> <a class="reference internal" href="html/entities.html#dojox-html-entities"><em>dojox.html.entities</em></a></p>
+<p>Adds support for encoding and decoding HTML/XML entity characters in text. Also provides basic mappings of character to entity encoding for HTML and LATIN (8859-1), special characters.  For information on entities see:  <a class="reference external" href="http://www.w3schools.com/HTML/html_entities.asp">Entity Reference</a> and <a class="reference external" href="http://www.w3schools.com/tags/ref_entities.asp">Latin (8859-1) Entities</a></p>
+<ul class="simple">
+<li>To use dojo.require(&#8220;dojox.html.entities&#8221;);</li>
+<li>you now have access to entity array mappings for HTML (dojox.html.entities.html) and LATIN-1 (dojox.html.entities.latin)</li>
+<li>To encode a string with default encodings (HTML and LATIN-1) you do:  str = dojox.html.entities.encode(str);</li>
+<li>To decode a string with default encodings (HTML and LATIN-1) you do:  str = dojox.html.entities.decode(str);</li>
+<li>For more information, please see the entities documentation.</li>
+</ul>
+</li>
+<li><p class="first"><tt class="docutils literal"><span class="pre">New</span> <span class="pre">in</span> <span class="pre">1.4</span></tt> <a class="reference internal" href="html/format.html#dojox-html-format"><em>dojox.html.format</em></a></p>
+<p>Adds utility functions in for formatting HTML.</p>
+<ul class="simple">
+<li>To use dojo.require(&#8220;dojox.html.format&#8221;);</li>
+<li>you now have access to a prettyPrint function, one that takes a string of HTML text and tries to format it so that it is easily human readable.</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="html/metrics.html#dojox-html-metrics"><em>dojox.html.metrics</em></a></p>
+<p>Translate CSS values to pixel values, calculate scrollbar sizes and font resizes</p>
+<ul class="simple">
+<li>Formerly private to dojox.gfx, now available in dojox.html</li>
+<li>Includes translation of relative CSS values (such as medium, small, x-small, etc.) to actual pixel values</li>
+<li>Translate other CSS units (such as em, pt) to pixel values</li>
+<li>Scrollbar sizes (width and height)</li>
+<li>Ability to detect font resizing</li>
+</ul>
+</li>
+<li><p class="first"><a class="reference internal" href="html/set.html#dojox-html-set"><em>dojox.html.set</em></a></p>
+<p>A generic content setter, including adding new stylesheets and evaluating scripts (was part of ContentPane loaders, now separated for generic usage)</p>
+</li>
+<li><p class="first"><a class="reference internal" href="html/styles.html#dojox-html-styles"><em>dojox.html.styles</em></a></p>
+<p>Insert, remove and toggle CSS rules as well as search document for style sheets</p>
+<ul class="simple">
+<li>Insert and remove CSS rules.</li>
+<li>Search document for style sheets.</li>
+<li>Toggle sheets on and off (based on the W3C spec).</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id4">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../dojo/html.html#dojo-html"><em>dojo.html</em></a> - Inserting contents in HTML nodes</li>
+<li><a class="reference internal" href="../dojo/_base/html.html#dojo-base-html"><em>dojo._base.html</em></a> - Basic DOM handling functions, included in Dojo Base</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="../dojo/index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.html</a><ul>
+<li><a class="reference internal" href="#features">Features</a></li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="highlight.html"
+                        title="previous chapter">dojox.highlight</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="html/ellipsis.html"
+                        title="next chapter">dojox.html.ellipsis</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

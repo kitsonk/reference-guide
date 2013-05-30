@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.prop &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.provide" href="provide.html" />
+    <link rel="prev" title="dojo.position" href="position.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-prop">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.prop</a><a class="headerlink" href="#dojo-prop" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-prop" id="id2">dojo.prop</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#see-also" id="id6">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Gets or sets a property on an HTML element.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Handles normalized getting and setting of properties on DOM Nodes. If 2 arguments are passed, and the second argument is a string, acts as a getter. If a third argument is passed, or if the second argument is a map of attributes, acts as a setter.
+When passing functions as values, note that they will not be directly assigned to slots on the node, but rather the default behavior will be removed and the new behavior will be added using <cite>dojo.connect()</cite>, meaning that event handler properties will be normalized and that some caveats with regards to non-standard behaviors for onsubmit apply. Namely that you should cancel form submission using <cite>dojo.stopEvent()</cite> on the passed event object instead of returning a boolean value from the handler itself.</p>
+<p>Since Dojo 1.7, <tt class="docutils literal"><span class="pre">dojo.prop</span></tt> is exposed via the <tt class="docutils literal"><span class="pre">get</span></tt> and <tt class="docutils literal"><span class="pre">set</span></tt> methods of the <tt class="docutils literal"><span class="pre">dojo/dom-prop</span></tt> module.  An alias is kept in <tt class="docutils literal"><span class="pre">dojo/_base/html</span></tt> for backward-compatibility.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dom-prop&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">){</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">name</span><span class="p">);</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="nx">node</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">value</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dom-prop&quot;], function(domProp){
+  domProp.get(node, name);
+  domProp.set(node, name, value);
+});
+
+// Dojo &lt; 1.7
+dojo.prop(node, name, value);</textarea></div><dl class="docutils">
+<dt>node</dt>
+<dd>id or reference to the element to get or set the property on</dd>
+<dt>name</dt>
+<dd>the name of the property to get or set.</dd>
+<dt>value</dt>
+<dd>The value to set for the property</dd>
+</dl>
+<p>When used as a getter, returns the value of the requested property or null if that attribute does not have a specified or default value; when used as a setter, returns the DOM node.</p>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7+ (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<p>When using AMD format in a fully baseless application, <tt class="docutils literal"><span class="pre">get</span></tt> and <tt class="docutils literal"><span class="pre">set</span></tt> are accessed from the <tt class="docutils literal"><span class="pre">dojo/dom-prop</span></tt> module.</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">){</span>
+  <span class="c1">// Get the property of a node</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+
+  <span class="c1">// Set node property</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/dom-prop&quot;], function(domProp){
+  // Get the property of a node
+  domProp.get(&quot;nodeId&quot;, &quot;foo&quot;);
+
+  // Set node property
+  domProp.set(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);
+});</textarea></div><p>Alternatively, you can load dojo base in AMD style and continue using <tt class="docutils literal"><span class="pre">dojo.prop</span></tt> in the <tt class="docutils literal"><span class="pre">define</span></tt> or <tt class="docutils literal"><span class="pre">require</span></tt> callback:</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="c1">// Get the property of a node</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+
+  <span class="c1">// Set node property</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo&quot;], function(dojo){
+  // Get the property of a node
+  dojo.prop(&quot;nodeId&quot;, &quot;foo&quot;);
+
+  // Set node property
+  dojo.prop(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);
+});</textarea></div></div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Get the property of a node</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+
+<span class="c1">// Set node property</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Get the property of a node
+dojo.prop(&quot;nodeId&quot;, &quot;foo&quot;);
+
+// Set node property
+dojo.prop(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);</textarea></div></div>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="get-property-on-a-node">
+<h3>Get property on a node<a class="headerlink" href="#get-property-on-a-node" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD), granular dependencies (recommended)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">,</span> <span class="nx">dom</span><span class="p">){</span>
+  <span class="c1">// get the current value of the &quot;foo&quot; property on a node</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">),</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+  <span class="c1">// or we can just pass the id:</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo 1.7+ (AMD), loading Dojo base</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="c1">// get the current value of the &quot;foo&quot; property on a node</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">),</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+  <span class="c1">// or we can just pass the id:</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+
+<span class="c1">// get the current value of the &quot;foo&quot; property on a node</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">),</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+<span class="c1">// or we can just pass the id:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;foo&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD), granular dependencies (recommended)
+require([&quot;dojo/dom-prop&quot;, &quot;dojo/dom&quot;], function(domProp, dom){
+  // get the current value of the &quot;foo&quot; property on a node
+  domProp.get(dom.byId(&quot;nodeId&quot;), &quot;foo&quot;);
+  // or we can just pass the id:
+  domProp.get(&quot;nodeId&quot;, &quot;foo&quot;);
+});
+
+// Dojo 1.7+ (AMD), loading Dojo base
+require([&quot;dojo&quot;], function(dojo){
+  // get the current value of the &quot;foo&quot; property on a node
+  dojo.prop(dojo.byId(&quot;nodeId&quot;), &quot;foo&quot;);
+  // or we can just pass the id:
+  dojo.prop(&quot;nodeId&quot;, &quot;foo&quot;);
+});
+
+// Dojo &lt; 1.7
+
+// get the current value of the &quot;foo&quot; property on a node
+dojo.prop(dojo.byId(&quot;nodeId&quot;), &quot;foo&quot;);
+// or we can just pass the id:
+dojo.prop(&quot;nodeId&quot;, &quot;foo&quot;);</textarea></div></div>
+<div class="section" id="set-the-tab-index">
+<h3>Set the tab index<a class="headerlink" href="#set-the-tab-index" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD), granular dependencies (recommended)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">){</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo 1.7+ (AMD), loading Dojo base</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;nodeId&quot;</span><span class="p">,</span> <span class="s2">&quot;tabIndex&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD), granular dependencies (recommended)
+require([&quot;dojo/dom-prop&quot;], function(domProp){
+  domProp.set(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);
+});
+
+// Dojo 1.7+ (AMD), loading Dojo base
+require([&quot;dojo&quot;], function(dojo){
+  dojo.prop(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);
+});
+
+// Dojo &lt; 1.7
+
+dojo.prop(&quot;nodeId&quot;, &quot;tabIndex&quot;, 3);</textarea></div></div>
+<div class="section" id="set-multiple-values-at-once">
+<h3>Set multiple values at once<a class="headerlink" href="#set-multiple-values-at-once" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD), granular dependencies (recommended)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">){</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;formId&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tabIndex&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;onsubmit&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrPost</span><span class="p">({</span> <span class="nx">form</span><span class="o">:</span> <span class="s2">&quot;formId&quot;</span> <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo 1.7+ (AMD), loading Dojo base</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;formId&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tabIndex&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;onsubmit&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrPost</span><span class="p">({</span> <span class="nx">form</span><span class="o">:</span> <span class="s2">&quot;formId&quot;</span> <span class="p">});</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;formId&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="s2">&quot;foo&quot;</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;tabIndex&quot;</span><span class="o">:</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+  <span class="s2">&quot;method&quot;</span><span class="o">:</span> <span class="s2">&quot;POST&quot;</span><span class="p">,</span>
+  <span class="s2">&quot;onsubmit&quot;</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">){</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">stopEvent</span><span class="p">(</span><span class="nx">e</span><span class="p">);</span>
+    <span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrPost</span><span class="p">({</span> <span class="nx">form</span><span class="o">:</span> <span class="s2">&quot;formId&quot;</span> <span class="p">});</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD), granular dependencies (recommended)
+require([&quot;dojo/dom-prop&quot;], function(domProp){
+  domProp.set(&quot;formId&quot;, {
+    &quot;foo&quot;: &quot;bar&quot;,
+    &quot;tabIndex&quot;: -1,
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;onsubmit&quot;: function(e){
+      dojo.stopEvent(e);
+      dojo.xhrPost({ form: &quot;formId&quot; });
+    }
+  });
+});
+
+// Dojo 1.7+ (AMD), loading Dojo base
+require([&quot;dojo&quot;], function(dojo){
+  dojo.prop(&quot;formId&quot;, {
+    &quot;foo&quot;: &quot;bar&quot;,
+    &quot;tabIndex&quot;: -1,
+    &quot;method&quot;: &quot;POST&quot;,
+    &quot;onsubmit&quot;: function(e){
+      dojo.stopEvent(e);
+      dojo.xhrPost({ form: &quot;formId&quot; });
+    }
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.prop(&quot;formId&quot;, {
+  &quot;foo&quot;: &quot;bar&quot;,
+  &quot;tabIndex&quot;: -1,
+  &quot;method&quot;: &quot;POST&quot;,
+  &quot;onsubmit&quot;: function(e){
+    dojo.stopEvent(e);
+    dojo.xhrPost({ form: &quot;formId&quot; });
+  }
+});</textarea></div></div>
+<div class="section" id="style-special-case">
+<h3>Style special case<a class="headerlink" href="#style-special-case" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD), granular dependencies (recommended)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">){</span>
+  <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="nx">style</span><span class="o">:</span><span class="p">{</span>
+      <span class="nx">width</span><span class="o">:</span><span class="s2">&quot;200px&quot;</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="s2">&quot;100px&quot;</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo 1.7+ (AMD), loading Dojo base</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+  <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+    <span class="nx">style</span><span class="o">:</span><span class="p">{</span>
+      <span class="nx">width</span><span class="o">:</span><span class="s2">&quot;200px&quot;</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="s2">&quot;100px&quot;</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">id</span><span class="o">:</span><span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">style</span><span class="o">:</span><span class="p">{</span>
+    <span class="nx">width</span><span class="o">:</span><span class="s2">&quot;200px&quot;</span><span class="p">,</span> <span class="nx">height</span><span class="o">:</span><span class="s2">&quot;100px&quot;</span><span class="p">,</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD), granular dependencies (recommended)
+require([&quot;dojo/dom-prop&quot;], function(domProp){
+  domProp.set(&quot;someNode&quot;, {
+    id:&quot;bar&quot;,
+    style:{
+      width:&quot;200px&quot;, height:&quot;100px&quot;, color:&quot;#000&quot;
+    }
+  });
+});
+
+// Dojo 1.7+ (AMD), loading Dojo base
+require([&quot;dojo&quot;], function(dojo){
+  dojo.prop(&quot;someNode&quot;, {
+    id:&quot;bar&quot;,
+    style:{
+      width:&quot;200px&quot;, height:&quot;100px&quot;, color:&quot;#000&quot;
+    }
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.prop(&quot;someNode&quot;, {
+  id:&quot;bar&quot;,
+  style:{
+    width:&quot;200px&quot;, height:&quot;100px&quot;, color:&quot;#000&quot;
+  }
+});</textarea></div></div>
+<div class="section" id="set-style-as-an-object-hash-of-styles">
+<h3>Set style as an object hash of styles<a class="headerlink" href="#set-style-as-an-object-hash-of-styles" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD), granular dependencies (recommended)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/dom-prop&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom-style&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">domProp</span><span class="p">,</span> <span class="nx">domStyle</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#fff&quot;</span><span class="p">,</span> <span class="nx">backgroundColor</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span> <span class="p">};</span>
+   <span class="nx">domProp</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+   <span class="nx">domStyle</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo 1.7+ (AMD), loading Dojo base</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">dojo</span><span class="p">){</span>
+   <span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#fff&quot;</span><span class="p">,</span> <span class="nx">backgroundColor</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span> <span class="p">};</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+   <span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">obj</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">color</span><span class="o">:</span><span class="s2">&quot;#fff&quot;</span><span class="p">,</span> <span class="nx">backgroundColor</span><span class="o">:</span><span class="s2">&quot;#000&quot;</span> <span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">prop</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="s2">&quot;style&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">style</span><span class="p">(</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="nx">obj</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD), granular dependencies (recommended)
+require([&quot;dojo/dom-prop&quot;, &quot;dojo/dom-style&quot;], function(domProp, domStyle){
+   var obj = { color:&quot;#fff&quot;, backgroundColor:&quot;#000&quot; };
+   domProp.set(&quot;someNode&quot;, &quot;style&quot;, obj);
+   domStyle.set(&quot;someNode&quot;, obj);
+});
+
+// Dojo 1.7+ (AMD), loading Dojo base
+require([&quot;dojo&quot;], function(dojo){
+   var obj = { color:&quot;#fff&quot;, backgroundColor:&quot;#000&quot; };
+   dojo.prop(&quot;someNode&quot;, &quot;style&quot;, obj);
+   dojo.style(&quot;someNode&quot;, obj);
+});
+
+// Dojo &lt; 1.7
+var obj = { color:&quot;#fff&quot;, backgroundColor:&quot;#000&quot; };
+dojo.prop(&quot;someNode&quot;, &quot;style&quot;, obj);
+dojo.style(&quot;someNode&quot;, obj);</textarea></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id6">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="getProp.html#dojo-getprop"><em>dojo.getProp</em></a></li>
+<li><a class="reference internal" href="setProp.html#dojo-setprop"><em>dojo.setProp</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.prop</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7+ (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#get-property-on-a-node">Get property on a node</a></li>
+<li><a class="reference internal" href="#set-the-tab-index">Set the tab index</a></li>
+<li><a class="reference internal" href="#set-multiple-values-at-once">Set multiple values at once</a></li>
+<li><a class="reference internal" href="#style-special-case">Style special case</a></li>
+<li><a class="reference internal" href="#set-style-as-an-object-hash-of-styles">Set style as an object hash of styles</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="position.html"
+                        title="previous chapter">dojo.position</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="provide.html"
+                        title="next chapter">dojo.provide</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

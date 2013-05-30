@@ -1,0 +1,392 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dijit/_base/popup &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dijit" href="../contents.html" />
+    <link rel="next" title="dijit/_base/scroll" href="scroll.html" />
+    <link rel="prev" title="dijit/_base/place" href="place.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dijit-base-popup">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dijit/_base/popup</a><a class="headerlink" href="#dijit-base-popup" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Project owner:</th><td class="field-body">Bill Keese</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">V?</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dijit-base-popup" id="id2">dijit/_base/popup</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#parent-widgets" id="id4">Parent widgets</a></li>
+<li><a class="reference internal" href="#pop-up-widgets" id="id5">Pop-up widgets</a></li>
+<li><a class="reference internal" href="#lifecycle" id="id6">Lifecycle</a></li>
+<li><a class="reference internal" href="#stacks" id="id7">Stacks</a></li>
+<li><a class="reference internal" href="#keyboard-handling" id="id8">Keyboard handling</a></li>
+<li><a class="reference internal" href="#popup-dom-node-positioning" id="id9">Popup DOM node positioning</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>dijit/popup is the main mechanism within dijit that enables the creation of pop-ups like dropdowns and tooltips.
+It is used by every widget that creates a pop-up around another element.</p>
+</div>
+<div class="section" id="parent-widgets">
+<h2><a class="toc-backref" href="#id4">Parent widgets</a><a class="headerlink" href="#parent-widgets" title="Permalink to this headline">¶</a></h2>
+<p>When creating a pop-up, there are usually two widgets involved:</p>
+<ul class="simple">
+<li>The parent widget, which controls opening and closing of the pop-up</li>
+<li>The pop-up widget itself</li>
+</ul>
+<p>Opening a pop-up from a parent widget involves calling <tt class="docutils literal"><span class="pre">popup.open</span></tt> with a kwArgs object
+that provides information about the pop-up and its related parent widget.
+The available properties for this object are:</p>
+<dl class="docutils">
+<dt>parent (Widget)</dt>
+<dd>The widget that is displaying the pop-up.</dd>
+<dt>popup (Widget, required)</dt>
+<dd>The widget to display as a pop-up. This can be any dijit widget; some widgets that are commonly used as popups include <a class="reference internal" href="../ColorPalette.html#dijit-colorpalette"><em>dijit.ColorPalette</em></a>, <a class="reference internal" href="../Menu.html#dijit-menu"><em>dijit.Menu</em></a>, and <a class="reference internal" href="../Calendar.html#dijit-calendar"><em>dijit.Calendar</em></a>.</dd>
+<dt>around (DomNode)</dt>
+<dd>A DOM node that should be used as a reference point for placing the pop-up. For pop-ups that are not meant to be placed around an element, use <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> instead</dd>
+<dt>x (number)</dt>
+<dd>The absolute horizontal position in pixels at which to place the pop-up.</dd>
+<dt>y (number)</dt>
+<dd>The absolute vertical position in pixels at which to place the pop-up.</dd>
+<dt>orient (string[])</dt>
+<dd><p class="first">When placing a pop-up around a DOM node, it is possible to specify where the pop-up should appear around it by providing an array of position strings. Dijit will try each position in order until the pop-up appears fully within the viewport. Possible values are:</p>
+<ul class="simple">
+<li>before: places drop down to the left of the anchor node/widget, or to the right in the case of RTL scripts like Hebrew and Arabic</li>
+<li>after: places drop down to the right of the anchor node/widget, or to the left in the case of RTL scripts like Hebrew and Arabic</li>
+<li>above: drop down goes above anchor node</li>
+<li>above-alt: same as above except right sides aligned instead of left</li>
+<li>below: drop down goes below anchor node</li>
+<li>below-alt: same as below except right sides aligned instead of left</li>
+</ul>
+<p class="last">If left undefined, the default value is <tt class="docutils literal"><span class="pre">[</span> <span class="pre">&quot;below&quot;,</span> <span class="pre">&quot;below-alt&quot;,</span> <span class="pre">&quot;above&quot;,</span> <span class="pre">&quot;above-alt&quot;</span> <span class="pre">]</span></tt>.</p>
+</dd>
+<dt>onCancel (function())</dt>
+<dd>A callback that is executed when the user has tried to cancel the pop-up by either hitting ESC or by using the pop-up’s cancel mechanism.</dd>
+<dt>onClose (function())</dt>
+<dd>A callback that is executed when the pop-up is actually closed by <tt class="docutils literal"><span class="pre">popup.close</span></tt>.</dd>
+<dt>onExecute (function())</dt>
+<dd>A callback that is executed when a user has “executed” a function in the pop-up, like selecting a menu option.</dd>
+<dt>padding (<tt class="docutils literal"><span class="pre">{x:</span> <span class="pre">Number,</span> <span class="pre">y:</span> <span class="pre">Number}</span></tt>)</dt>
+<dd>An object that specifies extra padding that should be given to the area around the pop-up when determining its placement.</dd>
+</dl>
+<p>While only the <tt class="docutils literal"><span class="pre">popup</span></tt> property is required, most pop-ups will normally need to also provide <tt class="docutils literal"><span class="pre">onCancel</span></tt> and <tt class="docutils literal"><span class="pre">onExecute</span></tt> callbacks (as explained below) as well as either an <tt class="docutils literal"><span class="pre">around</span></tt> or <tt class="docutils literal"><span class="pre">x</span></tt> and <tt class="docutils literal"><span class="pre">y</span></tt> properties.</p>
+<p>Here’s an example that roughly illustrates how <a class="reference internal" href="../_HasDropDown.html#dijit-hasdropdown"><em>dijit/_HasDropDown</em></a> opens and closes pop-ups:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+
+<span class="c1">// wrap the pop-up widget and position it offscreen so</span>
+<span class="c1">// that it can be measured by the widget’s startup method</span>
+<span class="nx">popup</span><span class="p">.</span><span class="nx">moveOffScreen</span><span class="p">(</span><span class="nx">dropDown</span><span class="p">);</span>
+
+<span class="c1">// if the pop-up has not been started yet, start it now</span>
+<span class="k">if</span><span class="p">(</span><span class="nx">dropDown</span><span class="p">.</span><span class="nx">startup</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="nx">dropDown</span><span class="p">.</span><span class="nx">_started</span><span class="p">){</span>
+    <span class="nx">dropDown</span><span class="p">.</span><span class="nx">startup</span><span class="p">();</span>
+<span class="p">}</span>
+
+<span class="c1">// make the pop-up appear around aroundNode</span>
+<span class="nx">popup</span><span class="p">.</span><span class="nx">open</span><span class="p">({</span>
+    <span class="nx">parent</span><span class="o">:</span> <span class="k">this</span><span class="p">,</span>
+    <span class="nx">popup</span><span class="o">:</span> <span class="nx">dropDown</span><span class="p">,</span>
+    <span class="nx">around</span><span class="o">:</span> <span class="nx">aroundNode</span><span class="p">,</span>
+    <span class="nx">orient</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">dropDownPosition</span><span class="p">,</span>
+    <span class="nx">onExecute</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">popup</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">dropDown</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">onCancel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">popup</span><span class="p">.</span><span class="nx">close</span><span class="p">(</span><span class="nx">dropDown</span><span class="p">);</span>
+    <span class="p">},</span>
+    <span class="nx">onClose</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+        <span class="nx">domAttr</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">_popupStateNode</span><span class="p">,</span> <span class="s2">&quot;popupActive&quot;</span><span class="p">,</span> <span class="kc">false</span><span class="p">);</span>
+        <span class="nx">domClass</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="nx">self</span><span class="p">.</span><span class="nx">_popupStateNode</span><span class="p">,</span> <span class="s2">&quot;dijitHasDropDownOpen&quot;</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+
+<span class="nx">domAttr</span><span class="p">.</span><span class="nx">set</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_popupStateNode</span><span class="p">,</span> <span class="s2">&quot;popupActive&quot;</span><span class="p">,</span> <span class="s2">&quot;true&quot;</span><span class="p">);</span>
+<span class="nx">domClass</span><span class="p">.</span><span class="nx">add</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_popupStateNode</span><span class="p">,</span> <span class="s2">&quot;dijitHasDropDownOpen&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var self = this;
+
+// wrap the pop-up widget and position it offscreen so
+// that it can be measured by the widget’s startup method
+popup.moveOffScreen(dropDown);
+
+// if the pop-up has not been started yet, start it now
+if(dropDown.startup &amp;&amp; !dropDown._started){
+    dropDown.startup();
+}
+
+// make the pop-up appear around aroundNode
+popup.open({
+    parent: this,
+    popup: dropDown,
+    around: aroundNode,
+    orient: this.dropDownPosition,
+    onExecute: function(){
+        popup.close(dropDown);
+    },
+    onCancel: function(){
+        popup.close(dropDown);
+    },
+    onClose: function(){
+        domAttr.set(self._popupStateNode, &quot;popupActive&quot;, false);
+        domClass.remove(self._popupStateNode, &quot;dijitHasDropDownOpen&quot;);
+    }
+});
+
+domAttr.set(this._popupStateNode, &quot;popupActive&quot;, &quot;true&quot;);
+domClass.add(this._popupStateNode, &quot;dijitHasDropDownOpen&quot;);</textarea></div><p>As you can see, there are three essential calls here, <tt class="docutils literal"><span class="pre">popup.moveOffScreen</span></tt>, <tt class="docutils literal"><span class="pre">popup.open</span></tt>, and <tt class="docutils literal"><span class="pre">popup.close</span></tt>.
+<tt class="docutils literal"><span class="pre">popup.moveOffScreen</span></tt> wraps the widget in a container, appends it to the <tt class="docutils literal"><span class="pre">&lt;body&gt;</span></tt>,
+then moves it off-screen so that any measurement <tt class="docutils literal"><span class="pre">dropDown.startup</span></tt> needs to do is possible.
+Once that’s done, it opens the pop-up by calling <tt class="docutils literal"><span class="pre">popup.open</span></tt>.
+Finally, the <tt class="docutils literal"><span class="pre">onExecute</span></tt> and <tt class="docutils literal"><span class="pre">onCancel</span></tt> callbacks both call <tt class="docutils literal"><span class="pre">popup.close</span></tt>, passing in the correct pop-up widget to close.</p>
+<p>It’s important to note here that the parent widget is responsible for both opening <em>and closing</em> the pop-up.
+This architecture was used so that the parent widget is always aware of whether or not its child pop-up is open, and so that it can easily perform any necessary clean-up or other relevant activity once its pop-up has closed.</p>
+</div>
+<div class="section" id="pop-up-widgets">
+<h2><a class="toc-backref" href="#id5">Pop-up widgets</a><a class="headerlink" href="#pop-up-widgets" title="Permalink to this headline">¶</a></h2>
+<p>Any normal widget can be used as a pop-up.
+For example, <a class="reference internal" href="../Calendar.html#dijit-calendar"><em>dijit.Calendar</em></a> is a normal widget that can be displayed inline in the page, but is used as a pop-up by the <a class="reference internal" href="../form/DateTextBox.html#dijit-form-datetextbox"><em>DateTextBox</em></a> widget.
+In other words, there’s no need for a :ref:<tt class="docutils literal"><span class="pre">PopupWidget</span></tt> base class for pop-up widgets.
+However, there are two important methods that the pop-up widget can use to hint to the parent widget that it&#8217;s ready to be closed:</p>
+<div class="highlight"><pre><span class="nx">onExecute</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+    <span class="c1">// summary: attach point for notification about when a menu item has been executed</span>
+<span class="p">},</span>
+
+<span class="nx">onCancel</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*Boolean*/</span> <span class="nx">closeAll</span><span class="p">){</span>
+    <span class="c1">// summary: attach point for notification about when the user cancels the current menu</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">onExecute: function(){
+    // summary: attach point for notification about when a menu item has been executed
+},
+
+onCancel: function(/*Boolean*/ closeAll){
+    // summary: attach point for notification about when the user cancels the current menu
+}</textarea></div><p>dijit/popup will monitor calls to these two methods and inform the parent widget when either of them is executed.</p>
+<p>Here’s an example from a pop-up widget that triggers onExecute when it’s been clicked:</p>
+<div class="highlight"><pre><span class="nx">onItemClick</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="cm">/*Widget*/</span> <span class="nx">item</span><span class="p">,</span> <span class="cm">/*Event*/</span> <span class="nx">evt</span><span class="p">){</span>
+    <span class="p">...</span>
+    <span class="c1">// before calling user defined handler, close hierarchy of menus</span>
+    <span class="c1">// and restore focus to place it was when menu was opened</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">onExecute</span><span class="p">();</span>
+
+    <span class="c1">// user defined handler for click</span>
+    <span class="nx">item</span><span class="p">.</span><span class="nx">onClick</span><span class="p">(</span><span class="nx">evt</span><span class="p">);</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">onItemClick: function(/*Widget*/ item, /*Event*/ evt){
+    ...
+    // before calling user defined handler, close hierarchy of menus
+    // and restore focus to place it was when menu was opened
+    this.onExecute();
+
+    // user defined handler for click
+    item.onClick(evt);
+    ...
+}</textarea></div></div>
+<div class="section" id="lifecycle">
+<h2><a class="toc-backref" href="#id6">Lifecycle</a><a class="headerlink" href="#lifecycle" title="Permalink to this headline">¶</a></h2>
+<p>The lifecycle of a pop-up widget looks like this:</p>
+<ol class="arabic simple">
+<li>Parent widget calls <tt class="docutils literal"><span class="pre">popup.open</span></tt> to display the pop-up, passing <tt class="docutils literal"><span class="pre">onExecute</span></tt> and <tt class="docutils literal"><span class="pre">onCancel</span></tt> callbacks for when it needs to close</li>
+<li>User interacts with the pop-up, causing <tt class="docutils literal"><span class="pre">this.onExecute()</span></tt> or <tt class="docutils literal"><span class="pre">this.onCancel()</span></tt> to be called on the pop-up widget</li>
+<li>dijit/popup code notices the <tt class="docutils literal"><span class="pre">onExecute</span></tt>/<tt class="docutils literal"><span class="pre">onCancel</span></tt> method has been called and informs the parent widget by calling the <tt class="docutils literal"><span class="pre">onExecute</span></tt> function defined in the <tt class="docutils literal"><span class="pre">popup.open</span></tt> call</li>
+<li>Parent widget calls <tt class="docutils literal"><span class="pre">popup.close</span></tt>, which closes the pop-up</li>
+<li><tt class="docutils literal"><span class="pre">popup.close</span></tt> calls the <tt class="docutils literal"><span class="pre">onClose</span></tt> callback defined in the original <tt class="docutils literal"><span class="pre">popup.open</span></tt> call</li>
+</ol>
+<p>If the user clicks a blank section of the screen in order to close the pop-up instead of interacting with the widget, then the ending steps of the lifecycle are slightly different:</p>
+<ol class="arabic simple">
+<li>dijit/popup code notices the click on the blank area of the screen</li>
+<li>dijit/popup code doesn’t close the pop-up widget directly, but rather calls the <tt class="docutils literal"><span class="pre">onCancel</span></tt> callback from the original <tt class="docutils literal"><span class="pre">popup.open</span></tt> call</li>
+<li>Parent widget calls <tt class="docutils literal"><span class="pre">popup.close</span></tt>, which closes the pop-up</li>
+</ol>
+</div>
+<div class="section" id="stacks">
+<h2><a class="toc-backref" href="#id7">Stacks</a><a class="headerlink" href="#stacks" title="Permalink to this headline">¶</a></h2>
+<p>Pop-ups can open other pop-ups.
+This ability is leveraged heavily by <a class="reference internal" href="../Menu.html#dijit-menu"><em>dijit.Menu</em></a>.
+To facilitate this, dijit/popup keeps track of the entire stack of open pop-ups.
+In the case when a hierarchy of pop-ups all need to be closed at once, calling <tt class="docutils literal"><span class="pre">popup.close</span></tt> on the top-most pop-up will close all child pop-ups.
+This means that parent widgets do not need to maintain their own stack of pop-ups in order to ensure that they can clean up properly after themselves.</p>
+</div>
+<div class="section" id="keyboard-handling">
+<h2><a class="toc-backref" href="#id8">Keyboard handling</a><a class="headerlink" href="#keyboard-handling" title="Permalink to this headline">¶</a></h2>
+<p>dijit/popup automatically listens for key presses on the ESC key as a way to cancel the highest pop-up
+and return to the parent node (which may itself be a pop-up).
+When the ESC key is pressed, the <tt class="docutils literal"><span class="pre">onCancel</span></tt> callback passed in the call to <tt class="docutils literal"><span class="pre">popup.open</span></tt> is called.
+dijit/popup also listens for the TAB key, and if it sees it, the entire stack of pop-ups is cancelled
+(in the case of menus, where one pop-up has opened another and so forth).</p>
+<p>Note that in neither of these cases does the dijit/popup code directly close any pop-ups.
+It just calls the <tt class="docutils literal"><span class="pre">onCancel</span></tt> callback defined in the call to <tt class="docutils literal"><span class="pre">popup.open</span></tt>.
+That callback then is responsible for calling <tt class="docutils literal"><span class="pre">popup.close(popupWidget)</span></tt>.</p>
+</div>
+<div class="section" id="popup-dom-node-positioning">
+<h2><a class="toc-backref" href="#id9">Popup DOM node positioning</a><a class="headerlink" href="#popup-dom-node-positioning" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">popup.moveOffScreen</span></tt> should be called on any nodes that will be used as pop-ups. Its main function, besides hiding the node, is to attach it as a direct child of <tt class="docutils literal"><span class="pre">&lt;body&gt;</span></tt>. The reason this is done is to ensure the node doesn’t get cut off if it is inside a <tt class="docutils literal"><span class="pre">&lt;div&gt;</span></tt> with a short height. (For example, given a button inside a <a class="reference internal" href="../layout/TabContainer.html#dijit-layout-tabcontainer"><em>dijit.layout.TabContainer</em></a>, the pop-up might want to overflow past the bottom of the TabContainer.)</p>
+<p>Note that this design decision makes TAB key handling particularly difficult, and it’s not handled perfectly: if a user hits the TAB key while on a sub-menu of a <a class="reference internal" href="../MenuBar.html#dijit-menubar"><em>dijit.MenuBar</em></a>, or any drop down from a <a class="reference internal" href="../form/DropDownButton.html#dijit-form-dropdownbutton"><em>dijit.form.DropDownButton</em></a>, they probably expect the focus to go to the next element after the MenuBar/DropDownButton.
+However, since the drop-down has actually been repositioned as the last element in <tt class="docutils literal"><span class="pre">&lt;body&gt;</span></tt>, just letting the browser handle the TAB key won&#8217;t do what the user expects.</p>
+<p>As a compromise, the TAB key (while focus is on a pop-up) will re-focus on the DropDownButton/MenuBarItem that spawned the top pop-up.
+This is handled by the code that calls <tt class="docutils literal"><span class="pre">popup.open</span></tt>, in the return handler for <tt class="docutils literal"><span class="pre">onCancel</span></tt>.
+See <a class="reference internal" href="../form/DropDownButton.html#dijit-form-dropdownbutton"><em>dijit.form.DropDownButton</em></a> for an example.</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dijit/_base/popup</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#parent-widgets">Parent widgets</a></li>
+<li><a class="reference internal" href="#pop-up-widgets">Pop-up widgets</a></li>
+<li><a class="reference internal" href="#lifecycle">Lifecycle</a></li>
+<li><a class="reference internal" href="#stacks">Stacks</a></li>
+<li><a class="reference internal" href="#keyboard-handling">Keyboard handling</a></li>
+<li><a class="reference internal" href="#popup-dom-node-positioning">Popup DOM node positioning</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="place.html"
+                        title="previous chapter">dijit/_base/place</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="scroll.html"
+                        title="next chapter">dijit/_base/scroll</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

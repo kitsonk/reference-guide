@@ -1,0 +1,291 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo/store/JsonRest &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../index.html" />
+    <link rel="up" title="Dojo" href="../contents.html" />
+    <link rel="next" title="dojo.store.Memory" href="Memory.html" />
+    <link rel="prev" title="dojo.store.DataStore" href="DataStore.html" />
+
+    <link rel="stylesheet" href="../../_static/css/site.css">
+    <link rel="stylesheet" href="../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-store-jsonrest">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo/store/JsonRest</a><a class="headerlink" href="#dojo-store-jsonrest" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Kris Zyp, Colin Snover</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Project owner:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V1.6</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-store-jsonrest" id="id2">dojo/store/JsonRest</a><ul>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#examples" id="id4">Examples</a></li>
+<li><a class="reference internal" href="#implementing-a-rest-server" id="id5">Implementing a REST Server</a></li>
+<li><a class="reference internal" href="#method-mapping" id="id6">Method Mapping</a></li>
+<li><a class="reference internal" href="#paging" id="id7">Paging</a></li>
+<li><a class="reference internal" href="#sorting" id="id8">Sorting</a></li>
+<li><a class="reference internal" href="#misc" id="id9">Misc</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>dojo/store/JsonRest</strong> is a lightweight object store implementation of an HTTP-based (RFC 2616) client with RESTful data interaction capabilities. This store implements the new <a class="reference internal" href="../store.html#dojo-store"><em>Dojo Object Store API</em></a>.</p>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>JsonRest provides full read, write, and notification capabilities through standards based HTTP/REST interaction with the server using GET, PUT, POST, and DELETE commands. This data store allows you to communicate with server side database/persistent data storage using the Dojo Data API with JavaScript and efficiently handles create, read, update, and delete (CRUD) operations. This can greatly simplify client server communication, interacting can be done simply using straightforward JavaScript instead of having to build your communication for CRUD actions.</p>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id4">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/store/JsonRest&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">JsonRestStore</span><span class="p">){</span>
+
+  <span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JsonRestStore</span><span class="p">({</span><span class="nx">target</span><span class="o">:</span> <span class="s2">&quot;/Table/&quot;</span> <span class="p">});</span>
+
+  <span class="nx">store</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="mi">3</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">object</span><span class="p">){</span>
+    <span class="c1">// use the object with the identity of 3</span>
+  <span class="p">});</span>
+
+  <span class="nx">store</span><span class="p">.</span><span class="nx">query</span><span class="p">(</span><span class="s2">&quot;foo=bar&quot;</span><span class="p">).</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">results</span><span class="p">){</span>
+    <span class="c1">// use the query results returned from the server</span>
+  <span class="p">});</span>
+
+  <span class="nx">store</span><span class="p">.</span><span class="nx">put</span><span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span> <span class="p">},</span> <span class="p">{</span> <span class="nx">id</span><span class="o">:</span> <span class="mi">3</span> <span class="p">});</span> <span class="c1">// store the object with the given identity</span>
+
+  <span class="nx">store</span><span class="p">.</span><span class="nx">remove</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span> <span class="c1">// delete the object</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/store/JsonRest&quot;], function(JsonRestStore){
+
+  var store = new JsonRestStore({target: &quot;/Table/&quot; });
+
+  store.get(3).then(function(object){
+    // use the object with the identity of 3
+  });
+
+  store.query(&quot;foo=bar&quot;).then(function(results){
+    // use the query results returned from the server
+  });
+
+  store.put({ foo: &quot;bar&quot; }, { id: 3 }); // store the object with the given identity
+
+  store.remove(3); // delete the object
+});</textarea></div></div>
+<div class="section" id="implementing-a-rest-server">
+<h2><a class="toc-backref" href="#id5">Implementing a REST Server</a><a class="headerlink" href="#implementing-a-rest-server" title="Permalink to this headline">¶</a></h2>
+<p>The JsonRest store follows <a class="reference external" href="http://www.ietf.org/rfc/rfc2616.txt">RFC 2616</a> whenever possible to define the interaction with the server. JsonRest uses an HTTP GET request to retrieve data, a PUT or POST request to change items, a DELETE request to delete items, and a POST or PUT request to create new items. It is recommended that the server follow a URL structure for resources as follows:</p>
+<blockquote>
+<div>/{Table}/{id}</div></blockquote>
+<p>This URL will be used to retrieve items by identity and make modifications (PUT and DELETE). It is also recommended that a /{Table}/ URL is used to represent the entire collection of items for the store. When a query is performed, any query string is appended to the target URL to retrieve the results of the query. The JsonRest expects the results to be returned in an array (not in an object with an items property like some stores). The store will also POST to that URL to create new items.</p>
+</div>
+<div class="section" id="method-mapping">
+<h2><a class="toc-backref" href="#id6">Method Mapping</a><a class="headerlink" href="#method-mapping" title="Permalink to this headline">¶</a></h2>
+<p>With the JsonRest store, store methods should intuitively map to HTTP methods:</p>
+<ul class="simple">
+<li>get(id) - This will trigger a GET request to {target}{id}.</li>
+<li>query(query, options) - This will trigger a GET request to {target}{query}. If <tt class="docutils literal"><span class="pre">query</span></tt> is an object, it will be serialized using <a class="reference internal" href="../objectToQuery.html#dojo-objecttoquery"><em>dojo.objectToQuery</em></a>. If <tt class="docutils literal"><span class="pre">query</span></tt> is a string, it is appended to the URL as-is. If <tt class="docutils literal"><span class="pre">options</span></tt> includes a <tt class="docutils literal"><span class="pre">sort</span></tt> property, it will be serialized as a query parameter as well; see <a class="reference internal" href="#sorting">Sorting</a> for more information.</li>
+<li>remove(id) - This will trigger a DELETE request to {target}{id}.</li>
+<li>put(object, options) - If object includes an identity property, or options includes an id, this will trigger a PUT request to {target}{id} with the request body being the provided object serialized as JSON. If no identity is provided, then a POST request is made to the store&#8217;s target URL (no id appended) with the object as the body. If the options.incremental property is true, then a POST request is made to {target}{id} with the object as the body. You may also include an options.overwrite property. If overwrite is set to true, then an If-Match: * header is included. If overwrite is set to false, then an If-None-Match: * header is included.</li>
+<li>add(object, options) - This behaves exactly like put(object, options), except that options.overwrite is set to false, indicating that a new object must be created.</li>
+</ul>
+</div>
+<div class="section" id="paging">
+<h2><a class="toc-backref" href="#id7">Paging</a><a class="headerlink" href="#paging" title="Permalink to this headline">¶</a></h2>
+<p>JsonRest store uses HTTP&#8217;s Range header to perform paging. When a request is made for a range of items, JsonRest will include a Range header with an items range unit specifying the range:</p>
+<blockquote>
+<div>Range: items=0-24</div></blockquote>
+<p>On your server, you should look at the Range header in the request to know which items to return. The server should respond with a Content-Range header to indicate how many items are being returned and how many total items exist:</p>
+<blockquote>
+<div>Content-Range: items 0-24/66</div></blockquote>
+</div>
+<div class="section" id="sorting">
+<h2><a class="toc-backref" href="#id8">Sorting</a><a class="headerlink" href="#sorting" title="Permalink to this headline">¶</a></h2>
+<p>When a query request is made that includes a <tt class="docutils literal"><span class="pre">sort</span></tt> option in the <tt class="docutils literal"><span class="pre">options</span></tt> object, an additional sort field is added to the query string. If the store’s <tt class="docutils literal"><span class="pre">sortParam</span></tt> property is set, it will use that value as the key for the field in the query string.</p>
+<p>For example, given the following store and request:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">store</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JsonRestStore</span><span class="p">({</span>
+  <span class="nx">target</span><span class="o">:</span> <span class="s2">&quot;/FooObject/&quot;</span><span class="p">,</span>
+  <span class="nx">sortParam</span><span class="o">:</span> <span class="s2">&quot;sortBy&quot;</span>
+<span class="p">});</span>
+
+<span class="nx">store</span><span class="p">.</span><span class="nx">query</span><span class="p">({</span> <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;value1&quot;</span> <span class="p">},</span> <span class="p">{</span>
+  <span class="nx">sort</span><span class="o">:</span> <span class="p">[</span>
+    <span class="p">{</span> <span class="nx">attribute</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span> <span class="p">},</span>
+    <span class="p">{</span> <span class="nx">attribute</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span> <span class="nx">descending</span><span class="o">:</span> <span class="kc">true</span> <span class="p">}</span>
+  <span class="p">]</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var store = new JsonRestStore({
+  target: &quot;/FooObject/&quot;,
+  sortParam: &quot;sortBy&quot;
+});
+
+store.query({ foo: &quot;value1&quot; }, {
+  sort: [
+    { attribute: &quot;foo&quot; },
+    { attribute: &quot;bar&quot;, descending: true }
+  ]
+});</textarea></div><p>The resulting request to the server would be:</p>
+<blockquote>
+<div>/FooObject/?foo=value1&amp;sortBy=+foo,-bar</div></blockquote>
+<p>If <tt class="docutils literal"><span class="pre">sortParam</span></tt> is not set, the sort value is appended without a key-value pair, surrounded by &#8220;sort()&#8221;:</p>
+<blockquote>
+<div>/FooObject/?foo=value1&amp;sort(+foo,-bar)</div></blockquote>
+</div>
+<div class="section" id="misc">
+<h2><a class="toc-backref" href="#id9">Misc</a><a class="headerlink" href="#misc" title="Permalink to this headline">¶</a></h2>
+<p>dojo/store/JsonRest does not provide all the functionality of dojox/data/JsonRestStore itself. Additional modules and layers are used to provide schema validation, referencing, caching, and other functionality.</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../index.html">Startpage</a></li>
+                            <li><a href="../index.html">Dojo</a></li>
+                            <li><a href="../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo/store/JsonRest</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+<li><a class="reference internal" href="#implementing-a-rest-server">Implementing a REST Server</a></li>
+<li><a class="reference internal" href="#method-mapping">Method Mapping</a></li>
+<li><a class="reference internal" href="#paging">Paging</a></li>
+<li><a class="reference internal" href="#sorting">Sorting</a></li>
+<li><a class="reference internal" href="#misc">Misc</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="DataStore.html"
+                        title="previous chapter">dojo.store.DataStore</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Memory.html"
+                        title="next chapter">dojo.store.Memory</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

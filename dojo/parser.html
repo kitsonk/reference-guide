@@ -1,0 +1,632 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Dojo Parser &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.partial" href="partial.html" />
+    <link rel="prev" title="dojo/on" href="on.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="the-dojo-parser">
+<span id="dojo-parser"></span><h1><a class="toc-backref" href="#id1">The Dojo Parser</a><a class="headerlink" href="#the-dojo-parser" title="Permalink to this headline">¶</a></h1>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#the-dojo-parser" id="id1">The Dojo Parser</a><ul>
+<li><a class="reference internal" href="#getting-started" id="id2">Getting Started</a><ul>
+<li><a class="reference internal" href="#loading-the-parser" id="id3">Loading the Parser</a></li>
+<li><a class="reference internal" href="#running-the-parser" id="id4">Running the Parser</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#markup" id="id5">Markup</a><ul>
+<li><a class="reference internal" href="#parser-parameters" id="id6">Parser parameters</a></li>
+<li><a class="reference internal" href="#script-tags" id="id7">Script Tags</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-widgets" id="id8">Writing widgets</a><ul>
+<li><a class="reference internal" href="#specifying-attributes-and-types" id="id9">Specifying attributes and types</a></li>
+<li><a class="reference internal" href="#markupfactory" id="id10">markupFactory</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#parser-api-notes" id="id11">Parser API notes</a></li>
+<li><a class="reference internal" href="#caveats" id="id12">Caveats</a></li>
+<li><a class="reference internal" href="#examples" id="id13">Examples</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>The Dojo Parser is an optional module which is used to convert specially decorated nodes in the DOM and convert them into <a class="reference internal" href="../dijit/index.html#dijit-index"><em>Dijits</em></a>. By <cite>decorated</cite> we mean use of a <cite>data-dojo-type</cite> attribute. Any &#8220;Class&#8221; (or object, such as the ones created by <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>) can be instantiated by using a <cite>data-dojo-type</cite> attribute on some node in the DOM, and create a widget out of it.</p>
+<p>This is not limited to Dijit, or <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a>.</p>
+<p>Inside your HTML you mark nodes for the parser by setting the data-dojo-type attribute, to specify the class of the widget, and other attributes, to specify parameters to the widget.   For example:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TextBox&quot;</span> <span class="na">name=</span><span class="s">&quot;nm&quot;</span> <span class="na">value=</span><span class="s">&quot;hello world&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.TextBox&quot; name=&quot;nm&quot; value=&quot;hello world&quot;&gt;</textarea></div><p>The parser can scan the entire DOM for <tt class="docutils literal"><span class="pre">data-dojo-type</span></tt> attributes, and create new instances from nodes like this.</p>
+<p>The parser also allows function parameters and connections to be done via &lt;script&gt; tags, for example:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/connect&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;functionToConnectTo&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I will execute in addition to functionToConnectTo().&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/connect&quot; data-dojo-event=&quot;functionToConnectTo&quot;&gt;
+       console.log(&quot;I will execute in addition to functionToConnectTo().&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div><div class="section" id="getting-started">
+<h2><a class="toc-backref" href="#id2">Getting Started</a><a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="loading-the-parser">
+<h3><a class="toc-backref" href="#id3">Loading the Parser</a><a class="headerlink" href="#loading-the-parser" title="Permalink to this headline">¶</a></h3>
+<p>To include the Dojo parser on your page, require the module <cite>dojo.parser</cite>:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo/parser&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parser</span><span class="p">){</span>
+     <span class="c1">// write your code here</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require(&quot;dojo/parser&quot;, function(parser){
+     // write your code here
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.parser&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.require(&quot;dojo.parser&quot;);</textarea></div><p><tt class="docutils literal"><span class="pre">note:</span></tt> dijit._Templated require()&#8217;s dojo.parser, so a lot of examples don&#8217;t include this step (dijit._Templated is loaded by most every Dijit).
+It is always safer to explicitly <a class="reference internal" href="require.html#dojo-require"><em>require</em></a> the module than to assume it has been loaded.</p>
+<p>Also, starting in 1.7, many widgets extend <a class="reference internal" href="../dijit/_TemplatedMixin.html#dijit-templatedmixin"><em>dijit._TemplatedMixin</em></a>
+rather than <a class="reference internal" href="../dijit/_Templated.html#dijit-templated"><em>dijit._Templated</em></a>, so the parser isn&#8217;t included in that case.</p>
+</div>
+<div class="section" id="running-the-parser">
+<h3><a class="toc-backref" href="#id4">Running the Parser</a><a class="headerlink" href="#running-the-parser" title="Permalink to this headline">¶</a></h3>
+<p>There are two ways to run the dojo.parser: manually, or before onLoad.</p>
+<p>To execute the parser manually, simply call the function <tt class="docutils literal"><span class="pre">parse</span></tt>:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo/parser&quot;</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parser</span><span class="p">){</span>
+     <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require(&quot;dojo/parser&quot;, function(parser){
+     parser.parse();
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.parser.parse();</textarea></div><p>To run the parser when your page loads, add a data-dojo-config=&#8221;parseOnLoad: true&#8221; to your dojo script tag:</p>
+<div class="highlight"><pre><span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;text/javascript&quot;</span> <span class="na">src=</span><span class="s">&quot;dojo/dojo.js&quot;</span>
+    <span class="na">data-dojo-config=</span><span class="s">&quot;parseOnLoad: true&quot;</span><span class="nt">&gt;&lt;/script&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;script type=&quot;text/javascript&quot; src=&quot;dojo/dojo.js&quot;
+    data-dojo-config=&quot;parseOnLoad: true&quot;&gt;&lt;/script&gt;</textarea></div></div>
+</div>
+<div class="section" id="markup">
+<h2><a class="toc-backref" href="#id5">Markup</a><a class="headerlink" href="#markup" title="Permalink to this headline">¶</a></h2>
+<p>This section discusses how to write markup (HTML) on your page to be interpreted by the parser.</p>
+<div class="section" id="parser-parameters">
+<h3><a class="toc-backref" href="#id6">Parser parameters</a><a class="headerlink" href="#parser-parameters" title="Permalink to this headline">¶</a></h3>
+<p>Attributes which correspond to native HTML attributes appear directly in the markup.    Custom widget parameters are put into the data-dojo-props field.   For example:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.TextBox&quot;</span> <span class="na">name=</span><span class="s">&quot;dept&quot;</span>
+     <span class="na">data-dojo-props=</span><span class="s">&quot;scrollOnFocus: true&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.TextBox&quot; name=&quot;dept&quot;
+     data-dojo-props=&quot;scrollOnFocus: true&quot;/&gt;</textarea></div><div class="section" id="boolean-parameters">
+<h4>Boolean parameters<a class="headerlink" href="#boolean-parameters" title="Permalink to this headline">¶</a></h4>
+<p>Due to HTML subtleties, for boolean parameters that are false, it&#8217;s best not to specify the attribute at all.   For example, to specify an enabled button (where the <cite>disabled</cite> property is false), simply don&#8217;t specify anything for disabled:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span><span class="nt">&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.Button&quot;&gt;</textarea></div><p>Further, in standard HTML (as opposed to XHTML), the special parameters <cite>checked</cite> and <cite>disabled</cite> and <cite>selected</cite> should be specified as single keywords without a value:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">disabled</span><span class="nt">&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.CheckBox&quot;</span> <span class="na">checked</span><span class="nt">&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.Button&quot; disabled&gt;
+&lt;input data-dojo-type=&quot;dijit.form.CheckBox&quot; checked&gt;</textarea></div><p>In XHTML they should be specified in the official format of repeating the attribute name as the value:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">disabled=</span><span class="s">&quot;disabled&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.CheckBox&quot;</span> <span class="na">checked=</span><span class="s">&quot;checked&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.Button&quot; disabled=&quot;disabled&quot;/&gt;
+&lt;input data-dojo-type=&quot;dijit.form.CheckBox&quot; checked=&quot;checked&quot;/&gt;</textarea></div><p>Although specifying disabled=&#8221;true&#8221; will disable a widget, note that the following syntax should not be used as it&#8217;s unreliable whether it evaluates to true or false:</p>
+<div class="highlight"><pre><span class="nt">&lt;input</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.form.Button&quot;</span> <span class="na">disabled=</span><span class="s">&quot;&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;input data-dojo-type=&quot;dijit.form.Button&quot; disabled=&quot;&quot;/&gt;</textarea></div></div>
+<div class="section" id="date-parameters">
+<h4>Date parameters<a class="headerlink" href="#date-parameters" title="Permalink to this headline">¶</a></h4>
+<ul class="simple">
+<li>Regardless of the locale of the client or server, dates are specified to the parser in ISO format:</li>
+</ul>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span> <span class="na">when=</span><span class="s">&quot;2009-1-31&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=... when=&quot;2009-1-31&quot;&gt;&lt;/div&gt;</textarea></div><p>Incidentally, this is also how dates are returned to the server when a form is submitted.</p>
+<ul class="simple">
+<li>To specify a value as today&#8217;s date (or the current time, when specifying a time), use the keyword &#8220;now&#8221;:</li>
+</ul>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span> <span class="na">when=</span><span class="s">&quot;now&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=... when=&quot;now&quot;&gt;&lt;/div&gt;</textarea></div></div>
+<div class="section" id="function-parameters">
+<h4>Function parameters<a class="headerlink" href="#function-parameters" title="Permalink to this headline">¶</a></h4>
+<p>There are two ways to specify a function parameter to a widget, either via an attribute or a script tag (see below).   To specify a function as an attribute you can either specify the name of a function:</p>
+<div class="highlight"><pre><span class="nt">&lt;script&gt;</span>
+   <span class="kd">function</span> <span class="nx">myOnClick</span><span class="p">(){</span> <span class="p">...</span> <span class="p">}</span>
+<span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span> <span class="na">onClick=</span><span class="s">&quot;myOnClick&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;script&gt;
+   function myOnClick(){ ... }
+&lt;/script&gt;
+&lt;div data-dojo-type=... onClick=&quot;myOnClick&quot;&gt;&lt;/div&gt;</textarea></div><p>Alternately, you can inline the text of a function:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span> <span class="na">onClick=</span><span class="s">&quot;alert(&#39;I was clicked&#39;);&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=... onClick=&quot;alert('I was clicked');&quot;&gt;&lt;/div&gt;</textarea></div></div>
+</div>
+<div class="section" id="script-tags">
+<h3><a class="toc-backref" href="#id7">Script Tags</a><a class="headerlink" href="#script-tags" title="Permalink to this headline">¶</a></h3>
+<p>The parser allows the specification of behaviours through custom types in script blocks to extend and enhance the functionality of declarative widgets. This is done by specifying a script block that is a direct child of a node with decorate with <cite>data-dojo-type</cite>. There are different types of script tags supported:</p>
+<div class="section" id="connecting-to-a-function">
+<h4>Connecting to a Function<a class="headerlink" href="#connecting-to-a-function" title="Permalink to this headline">¶</a></h4>
+<p>To perform a <tt class="docutils literal"><span class="pre">dojo.connect()</span></tt> on a method in a widget, use <tt class="docutils literal"><span class="pre">type=&quot;dojo/connect&quot;</span></tt> inside a script node:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;someType&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/connect&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;methodOfSomeType&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I will execute in addition to methodOfSomeType().&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;someType&quot;&gt;
+    &lt;script type=&quot;dojo/connect&quot; data-dojo-event=&quot;methodOfSomeType&quot;&gt;
+       console.log(&quot;I will execute in addition to methodOfSomeType().&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="override-a-function">
+<h4>Override a Function<a class="headerlink" href="#override-a-function" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes you need to override a function in a widget.   Most commonly that happens when you need to specify a function that returns a value. (The value returned from <tt class="docutils literal"><span class="pre">dojo.connect()</span></tt>&#8216;d functions is ignored.)</p>
+<p>In that case use the <tt class="docutils literal"><span class="pre">type=&quot;dojo/method&quot;</span></tt> syntax:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;someType&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;methodOfSomeType&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I will execute instead of methodOfSomeType().&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;someType&quot;&gt;
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;methodOfSomeType&quot;&gt;
+       console.log(&quot;I will execute instead of methodOfSomeType().&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="execute-code-on-instantiation">
+<h4>Execute Code on Instantiation<a class="headerlink" href="#execute-code-on-instantiation" title="Permalink to this headline">¶</a></h4>
+<p>To execute code on instantiation, use the same format but don&#8217;t specify an event flag:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I will execute on instantiation&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/method&quot;&gt;
+       console.log(&quot;I will execute on instantiation&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="execute-code-on-change-of-property">
+<h4>Execute Code on Change of Property<a class="headerlink" href="#execute-code-on-change-of-property" title="Permalink to this headline">¶</a></h4>
+<p><strong>New in 1.7</strong> To execute code when a value changes for a property for objects that support <tt class="docutils literal"><span class="pre">object.watch()</span></tt> the <tt class="docutils literal"><span class="pre">type=&quot;dojo/watch&quot;</span></tt> can be used:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/watch&quot;</span> <span class="na">data-dojo-prop=</span><span class="s">&quot;value&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;prop,oldValue,newValue&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Property &#39;&quot;</span><span class="o">+</span><span class="nx">prop</span><span class="o">+</span><span class="s2">&quot;&#39; changed from &#39;&quot;</span><span class="o">+</span><span class="nx">oldValue</span><span class="o">+</span><span class="s2">&quot;&#39; to &#39;&quot;</span><span class="o">+</span><span class="nx">newValue</span><span class="o">+</span><span class="s2">&quot;&#39;&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/watch&quot; data-dojo-prop=&quot;value&quot; data-dojo-args=&quot;prop,oldValue,newValue&quot;&gt;
+       console.log(&quot;Property '&quot;+prop+&quot;' changed from '&quot;+oldValue+&quot;' to '&quot;+newValue+&quot;'&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div><p>The <tt class="docutils literal"><span class="pre">.watch()</span></tt> function always passes three arguments when it is called, representing the property that change, the old value and then the new value.</p>
+<p><strong>Note</strong> because <tt class="docutils literal"><span class="pre">data-dojo-prop</span></tt> attribute was introduced after the attribute changes of 1.6, there is no backwards support for just <tt class="docutils literal"><span class="pre">prop</span></tt> as an attribute.</p>
+</div>
+<div class="section" id="execute-code-when-an-event-occurs">
+<h4>Execute Code when an Event Occurs<a class="headerlink" href="#execute-code-when-an-event-occurs" title="Permalink to this headline">¶</a></h4>
+<p><strong>New in 1.7</strong> While similar to <tt class="docutils literal"><span class="pre">dojo.connect()</span></tt>, the <tt class="docutils literal"><span class="pre">type=&quot;dojo/on&quot;</span></tt> can be used to specify <tt class="docutils literal"><span class="pre">on</span></tt> behaviour:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/on&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;click&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;e&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;I was clicked!&quot;</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/on&quot; data-dojo-event=&quot;click&quot; data-dojo-args=&quot;e&quot;&gt;
+       console.log(&quot;I was clicked!&quot;);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="arguments">
+<h4>Arguments<a class="headerlink" href="#arguments" title="Permalink to this headline">¶</a></h4>
+<p>For functions that take (named) parameters, specify them in an <cite>data-dojo-args</cite> attribute.  For example, onChange() gets a value parameter, so to reference it do:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/connect&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onChange&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;value&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;new value is &quot;</span> <span class="o">+</span> <span class="nx">value</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/connect&quot; data-dojo-event=&quot;onChange&quot; data-dojo-args=&quot;value&quot;&gt;
+       console.log(&quot;new value is &quot; + value);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div><p><cite>data-dojo-args</cite> is a comma separated list of parameter names. This example overrides TreeStoreModel&#8217;s method getChildren:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;dijit.tree.TreeStoreModel&quot;</span> <span class="na">store=</span><span class="s">&quot;store&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/method&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;getChildren&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;item, onComplete&quot;</span><span class="nt">&gt;</span>
+        <span class="k">return</span> <span class="nx">store</span><span class="p">.</span><span class="nx">fetch</span><span class="p">({</span><span class="nx">query</span><span class="o">:</span> <span class="p">{</span><span class="nx">parent</span><span class="o">:</span> <span class="nx">store</span><span class="p">.</span><span class="nx">getIdentity</span><span class="p">(</span><span class="nx">item</span><span class="p">)},</span> <span class="nx">onComplete</span><span class="o">:</span> <span class="nx">onComplete</span><span class="p">});</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;dijit.tree.TreeStoreModel&quot; store=&quot;store&quot;&gt;
+    &lt;script type=&quot;dojo/method&quot; data-dojo-event=&quot;getChildren&quot; data-dojo-args=&quot;item, onComplete&quot;&gt;
+        return store.fetch({query: {parent: store.getIdentity(item)}, onComplete: onComplete});
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+<div class="section" id="script-scope">
+<h4>Script Scope<a class="headerlink" href="#script-scope" title="Permalink to this headline">¶</a></h4>
+<p>Note that <cite>this</cite> points to the widget object.</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">...</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;script </span><span class="na">type=</span><span class="s">&quot;dojo/connect&quot;</span> <span class="na">data-dojo-event=</span><span class="s">&quot;onChange&quot;</span> <span class="na">data-dojo-args=</span><span class="s">&quot;value&quot;</span><span class="nt">&gt;</span>
+       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;onChange for &quot;</span> <span class="o">+</span> <span class="k">this</span><span class="p">.</span><span class="nx">id</span><span class="p">);</span>
+    <span class="nt">&lt;/script&gt;</span>
+<span class="nt">&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=...&gt;
+    &lt;script type=&quot;dojo/connect&quot; data-dojo-event=&quot;onChange&quot; data-dojo-args=&quot;value&quot;&gt;
+       console.log(&quot;onChange for &quot; + this.id);
+    &lt;/script&gt;
+&lt;/div&gt;</textarea></div></div>
+</div>
+</div>
+<div class="section" id="writing-widgets">
+<h2><a class="toc-backref" href="#id8">Writing widgets</a><a class="headerlink" href="#writing-widgets" title="Permalink to this headline">¶</a></h2>
+<p>This section discusses how to write widgets that the parser can understand.</p>
+<div class="section" id="specifying-attributes-and-types">
+<h3><a class="toc-backref" href="#id9">Specifying attributes and types</a><a class="headerlink" href="#specifying-attributes-and-types" title="Permalink to this headline">¶</a></h3>
+<p>HTML treats all attributes on nodes as strings.
+However, when the parser instantiates your nodes, it looks at the prototype of the class you are trying to instantiate
+(via data-dojo-type attribute) and tries to make a &#8220;best guess&#8221; at the type of each widget attribute.
+This requires that all attributes you want to be passed in via the parser
+have a corresponding attribute in the class you are trying to instantiate.</p>
+<p>Private members (those that begin with an underscore (_) ) are not mapped in from the source node.</p>
+<p>For example, given the class:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">declare</span><span class="p">(</span><span class="s2">&quot;my.custom.type&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;default value&quot;</span><span class="p">,</span>
+  <span class="nx">value</span><span class="o">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="nx">when</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">(),</span>
+  <span class="nx">objectVal</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">anotherObject</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">arrayVal</span><span class="o">:</span> <span class="p">[],</span>
+  <span class="nx">typedArray</span><span class="o">:</span> <span class="kc">null</span><span class="p">,</span>
+  <span class="nx">_privateVal</span><span class="o">:</span> <span class="mi">0</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.declare(&quot;my.custom.type&quot;, null, {
+  name: &quot;default value&quot;,
+  value: 0,
+  when: new Date(),
+  objectVal: null,
+  anotherObject: null,
+  arrayVal: [],
+  typedArray: null,
+  _privateVal: 0
+});</textarea></div><p>And HTML node:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">data-dojo-type=</span><span class="s">&quot;my.custom.type&quot;</span> <span class="na">name=</span><span class="s">&quot;nm&quot;</span> <span class="na">value=</span><span class="s">&quot;5&quot;</span> <span class="na">when=</span><span class="s">&quot;2008-1-1&quot;</span> <span class="na">objectVal=</span><span class="s">&quot;{a: 1, b:&#39;c&#39;}&quot;</span>
+       <span class="na">anotherObject=</span><span class="s">&quot;namedObj&quot;</span> <span class="na">arrayVal=</span><span class="s">&quot;a, b, c, 1, 2&quot;</span> <span class="na">typedArray=</span><span class="s">&quot;[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;, 1, 2]&quot;</span>
+       <span class="na">_privateVal=</span><span class="s">&quot;5&quot;</span> <span class="na">anotherValue=</span><span class="s">&quot;more&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div data-dojo-type=&quot;my.custom.type&quot; name=&quot;nm&quot; value=&quot;5&quot; when=&quot;2008-1-1&quot; objectVal=&quot;{a: 1, b:'c'}&quot;
+       anotherObject=&quot;namedObj&quot; arrayVal=&quot;a, b, c, 1, 2&quot; typedArray=&quot;['a', 'b', 'c', 1, 2]&quot;
+       _privateVal=&quot;5&quot; anotherValue=&quot;more&quot;&gt;&lt;/div&gt;</textarea></div><p>The parser would create an object and pass it parameters of:</p>
+<div class="highlight"><pre><span class="p">{</span>
+  <span class="nx">name</span><span class="o">:</span> <span class="s2">&quot;nm&quot;</span><span class="p">,</span>                                 <span class="c1">// Just a simple string</span>
+  <span class="nx">value</span><span class="o">:</span> <span class="mi">5</span><span class="p">,</span>                                   <span class="c1">// Typed to an integer</span>
+  <span class="nx">when</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">date</span><span class="p">.</span><span class="nx">stamp</span><span class="p">.</span><span class="nx">fromISOString</span><span class="p">(</span><span class="s2">&quot;2008-1-1&quot;</span><span class="p">);</span> <span class="c1">// Typed to a date</span>
+  <span class="nx">objectVal</span><span class="o">:</span> <span class="p">{</span><span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span> <span class="nx">b</span><span class="o">:</span><span class="s1">&#39;c&#39;</span><span class="p">},</span>                   <span class="c1">// Typed to an object</span>
+  <span class="nx">anotherObject</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">getObject</span><span class="p">(</span><span class="s2">&quot;namedObj&quot;</span><span class="p">),</span>  <span class="c1">// For strings, try getting the object via dojo.getObject</span>
+  <span class="nx">arrayVal</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">],</span>            <span class="c1">// When typing to an array, all entries are strings</span>
+  <span class="nx">typedArray</span><span class="o">:</span> <span class="p">[</span><span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span><span class="p">,</span> <span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span>           <span class="c1">// To get a &quot;typed&quot; array, treat it like an object instead</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">{
+  name: &quot;nm&quot;,                                 // Just a simple string
+  value: 5,                                   // Typed to an integer
+  when: dojo.date.stamp.fromISOString(&quot;2008-1-1&quot;); // Typed to a date
+  objectVal: {a: 1, b:'c'},                   // Typed to an object
+  anotherObject: dojo.getObject(&quot;namedObj&quot;),  // For strings, try getting the object via dojo.getObject
+  arrayVal: [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, &quot;1&quot;, &quot;2&quot;],            // When typing to an array, all entries are strings
+  typedArray: [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;, 1, 2]           // To get a &quot;typed&quot; array, treat it like an object instead
+}</textarea></div><p>Note that _privateVal is not passed in (since it is private), and anotherValue is not passed in either (since it does not exist in the prototype of the class).</p>
+<p>The parser automatically will call the startup() function of all nodes when it is finished parsing (if the function exists, ie for dijit widgets)</p>
+<p>If you don&#8217;t want to set a default value for an attribute, you can give it an empty value in your prototype.  Empty values of types are as follows:</p>
+<blockquote>
+<div><ul class="simple">
+<li>NaN = an integer</li>
+<li>&#8220;&#8221; = a string</li>
+<li>null = an object</li>
+<li>[] = an array</li>
+<li>function(){} = a function</li>
+<li>new Date(&#8220;&#8221;) = a date/time</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="markupfactory">
+<h3><a class="toc-backref" href="#id10">markupFactory</a><a class="headerlink" href="#markupfactory" title="Permalink to this headline">¶</a></h3>
+<p>As listed above, the parser expects widget constructors to follow a certain format (where the first argument is a hash of attribute names/values, and the second is the srcNodeRef.</p>
+<p>If you are retrofitting an existing class to work with the parser, and the constructor does not follow this format, simply create a markupFactory method (a static method) which takes those two parameters and creates a new instance of the widget:</p>
+<div class="highlight"><pre><span class="nx">markupFactory</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">srcNodeRef</span><span class="p">){</span>
+     <span class="p">...</span>
+     <span class="k">return</span> <span class="nx">newWidget</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">markupFactory: function(params, srcNodeRef){
+     ...
+     return newWidget;
+}</textarea></div><p>In addition the markupFactory can be used to allow the widget to do something that the parser doesn&#8217;t automatically support, like the parsing of child nodes of the main node.  The developer can then adjust the initialisation parameters of the widget and pass those to the constructor.  The parser passes the class constructor as the third argument when it invokes the markupFactory.  For example:</p>
+<div class="highlight"><pre><span class="nx">markupFactory</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">srcNodeRef</span><span class="p">,</span> <span class="nx">ctor</span><span class="p">){</span>
+  <span class="p">...</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nx">ctor</span><span class="p">(</span><span class="nx">params</span><span class="p">,</span> <span class="nx">srcNodeRef</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">markupFactory: function(params, srcNodeRef, ctor){
+  ...
+  return new ctor(params, srcNodeRef);
+}</textarea></div><p>This also ensures that subsequent descendant classes that do not override the markupFactory are created properly.</p>
+</div>
+</div>
+<div class="section" id="parser-api-notes">
+<h2><a class="toc-backref" href="#id11">Parser API notes</a><a class="headerlink" href="#parser-api-notes" title="Permalink to this headline">¶</a></h2>
+<p>The main API to the parser, parse(), was discussed above.</p>
+<p><tt class="docutils literal"><span class="pre">NEW</span> <span class="pre">in</span> <span class="pre">1.3:</span></tt>  Beginning in release 1.3 of dojo, you can manually call dojo.parser.instantiate on any node - and pass in an additional mixin to specify options, such as data-dojo-type, etc.  The values in the mixin would override any values in your node. For example:</p>
+<div class="highlight"><pre><span class="nt">&lt;div</span> <span class="na">id=</span><span class="s">&quot;myDiv&quot;</span> <span class="na">name=</span><span class="s">&quot;ABC&quot;</span> <span class="na">value=</span><span class="s">&quot;1&quot;</span><span class="nt">&gt;&lt;/div&gt;</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="html"><textarea style="display:none">&lt;div id=&quot;myDiv&quot; name=&quot;ABC&quot; value=&quot;1&quot;&gt;&lt;/div&gt;</textarea></div><p>You can manually call the parser&#8217;s instantiate function (which does the &#8220;Magical Typing&#8221;) by doing:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">instantiate</span><span class="p">([</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;myDiv&quot;</span><span class="p">)],</span> <span class="p">{</span><span class="nx">data</span><span class="o">-</span><span class="nx">dojo</span><span class="o">-</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;my.custom.type&quot;</span><span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.parser.instantiate([dojo.byId(&quot;myDiv&quot;)], {data-dojo-type: &quot;my.custom.type&quot;});</textarea></div><p>Calling instantiate in this way will return to you a list of instances that were created.  Note that the first parameter to instantiate is an array of nodes...even if it&#8217;s one-element you need to wrap it in an array</p>
+<p><tt class="docutils literal"><span class="pre">NEW</span> <span class="pre">in</span> <span class="pre">1.4:</span></tt>  You specify that you do not want subwidgets to be started if you pass _started: false in your mixin.  For example:</p>
+<div class="highlight"><pre><span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">instantiate</span><span class="p">([</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;myDiv&quot;</span><span class="p">)],</span> <span class="p">{</span><span class="nx">data</span><span class="o">-</span><span class="nx">dojo</span><span class="o">-</span><span class="nx">type</span><span class="o">:</span> <span class="s2">&quot;my.custom.type&quot;</span><span class="p">,</span> <span class="nx">_started</span><span class="o">:</span> <span class="kc">false</span><span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">dojo.parser.instantiate([dojo.byId(&quot;myDiv&quot;)], {data-dojo-type: &quot;my.custom.type&quot;, _started: false});</textarea></div><p><tt class="docutils literal"><span class="pre">todoc:</span> <span class="pre">scoping</span> <span class="pre">a</span> <span class="pre">parser</span> <span class="pre">call</span> <span class="pre">to</span> <span class="pre">node</span> <span class="pre">by</span> <span class="pre">stringId|domNode</span></tt></p>
+</div>
+<div class="section" id="caveats">
+<h2><a class="toc-backref" href="#id12">Caveats</a><a class="headerlink" href="#caveats" title="Permalink to this headline">¶</a></h2>
+<p>If you try to parse the same content twice, or parse content mentioning id&#8217;s of existing widgets,
+it will cause an exception about duplicate id&#8217;s.</p>
+</div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id13">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>Load some HTML content from a <a class="reference internal" href="../quickstart/ajax.html#quickstart-ajax"><em>remote URL</em></a>, and convert the nodes decorated with <tt class="docutils literal"><span class="pre">data-dojo-type</span></tt>&#8216;s into widgets:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/parser&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/dom&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">parser</span><span class="p">,</span> <span class="nx">dom</span><span class="p">){</span>
+    <span class="nx">xhr</span><span class="p">.</span><span class="nx">get</span><span class="p">({</span>
+      <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;widgets.html&quot;</span><span class="p">,</span>
+      <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+          <span class="nx">dom</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+          <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">);</span>
+      <span class="p">}</span>
+    <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/xhr&quot;, &quot;dojo/parser&quot;, &quot;dojo/dom&quot;], function(xhr, parser, dom){
+    xhr.get({
+      url: &quot;widgets.html&quot;,
+      load: function(data){
+          dom.byId(&quot;container&quot;).innerHTML = data;
+          parser.parse(&quot;container&quot;);
+      }
+    });
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">({</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;widgets.html&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">byId</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">).</span><span class="nx">innerHTML</span> <span class="o">=</span> <span class="nx">data</span><span class="p">;</span>
+      <span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">(</span><span class="s2">&quot;container&quot;</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.xhrGet({
+  url: &quot;widgets.html&quot;,
+  load: function(data){
+      dojo.byId(&quot;container&quot;).innerHTML = data;
+      dojo.parser.parse(&quot;container&quot;);
+  }
+});</textarea></div><p>Delay page-level parsing until after some custom code (having set parseOnLoad:false):</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/parser&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/ready&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">parser</span><span class="p">,</span> <span class="nx">ready</span><span class="p">){</span>
+     <span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+        <span class="c1">// do something();</span>
+        <span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+     <span class="p">});</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/parser&quot;, &quot;dojo/ready&quot;], function(parser, ready){
+     ready(function(){
+        // do something();
+        parser.parse();
+     });
+});</textarea></div><div class="highlight"><pre><span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">require</span><span class="p">(</span><span class="s2">&quot;dojo.parser&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">ready</span><span class="p">(</span><span class="kd">function</span><span class="p">(){</span>
+     <span class="c1">// do something();</span>
+     <span class="nx">dojo</span><span class="p">.</span><span class="nx">parser</span><span class="p">.</span><span class="nx">parse</span><span class="p">();</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo &lt; 1.7
+dojo.require(&quot;dojo.parser&quot;);
+dojo.ready(function(){
+     // do something();
+     dojo.parser.parse();
+});</textarea></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Dojo Parser</a><ul>
+<li><a class="reference internal" href="#getting-started">Getting Started</a><ul>
+<li><a class="reference internal" href="#loading-the-parser">Loading the Parser</a></li>
+<li><a class="reference internal" href="#running-the-parser">Running the Parser</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#markup">Markup</a><ul>
+<li><a class="reference internal" href="#parser-parameters">Parser parameters</a><ul>
+<li><a class="reference internal" href="#boolean-parameters">Boolean parameters</a></li>
+<li><a class="reference internal" href="#date-parameters">Date parameters</a></li>
+<li><a class="reference internal" href="#function-parameters">Function parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#script-tags">Script Tags</a><ul>
+<li><a class="reference internal" href="#connecting-to-a-function">Connecting to a Function</a></li>
+<li><a class="reference internal" href="#override-a-function">Override a Function</a></li>
+<li><a class="reference internal" href="#execute-code-on-instantiation">Execute Code on Instantiation</a></li>
+<li><a class="reference internal" href="#execute-code-on-change-of-property">Execute Code on Change of Property</a></li>
+<li><a class="reference internal" href="#execute-code-when-an-event-occurs">Execute Code when an Event Occurs</a></li>
+<li><a class="reference internal" href="#arguments">Arguments</a></li>
+<li><a class="reference internal" href="#script-scope">Script Scope</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#writing-widgets">Writing widgets</a><ul>
+<li><a class="reference internal" href="#specifying-attributes-and-types">Specifying attributes and types</a></li>
+<li><a class="reference internal" href="#markupfactory">markupFactory</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#parser-api-notes">Parser API notes</a></li>
+<li><a class="reference internal" href="#caveats">Caveats</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="on.html"
+                        title="previous chapter">dojo/on</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="partial.html"
+                        title="next chapter">dojo.partial</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

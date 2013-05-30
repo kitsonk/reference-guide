@@ -1,0 +1,345 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.mixin &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.moduleUrl" href="moduleUrl.html" />
+    <link rel="prev" title="dojo.marginBox" href="marginBox.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-mixin">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.mixin</a><a class="headerlink" href="#dojo-mixin" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">0.9</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-mixin" id="id2">dojo.mixin</a><ul>
+<li><a class="reference internal" href="#simple-mixes" id="id3">Simple Mixes</a></li>
+<li><a class="reference internal" href="#creating-new-objects" id="id4">Creating new Objects</a></li>
+<li><a class="reference internal" href="#mixins-with-classes" id="id5">Mixins with Classes</a></li>
+<li><a class="reference internal" href="#mixing-into-instances" id="id6">Mixing into instances</a></li>
+<li><a class="reference internal" href="#mixing-methods" id="id7">Mixing methods</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>dojo.mixin is a simple utility function for mixing objects together. Mixin combines two objects from right to left, overwriting the left-most object, and returning the newly mixed object for use. Dojo mixin is very similar to <a class="reference internal" href="extend.html#dojo-extend"><em>dojo.extend</em></a> but only works on objects, whereas extend explicitly extends an object.prototype. Merging two objects</p>
+<div class="section" id="simple-mixes">
+<h2><a class="toc-backref" href="#id3">Simple Mixes</a><a class="headerlink" href="#simple-mixes" title="Permalink to this headline">¶</a></h2>
+<p>Merge two objects (join two objects) together with dojo.mixin:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="o">:</span><span class="s2">&quot;e&quot;</span> <span class="p">};</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="p">{</span> <span class="nx">d</span><span class="o">:</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="nx">g</span><span class="o">:</span><span class="s2">&quot;h&quot;</span> <span class="p">});</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// b:c, d:f, g:h</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">b</span><span class="o">:</span><span class="s2">&quot;c&quot;</span><span class="p">,</span> <span class="nx">d</span><span class="o">:</span><span class="s2">&quot;e&quot;</span> <span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="p">{</span> <span class="nx">d</span><span class="o">:</span><span class="s2">&quot;f&quot;</span><span class="p">,</span> <span class="nx">g</span><span class="o">:</span><span class="s2">&quot;h&quot;</span> <span class="p">});</span>
+<span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// b:c, d:f, g:h</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;], function(lang){
+  var a = { b:&quot;c&quot;, d:&quot;e&quot; };
+  lang.mixin(a, { d:&quot;f&quot;, g:&quot;h&quot; });
+  console.log(a); // b:c, d:f, g:h
+});
+
+// Dojo &lt; 1.7
+var a = { b:&quot;c&quot;, d:&quot;e&quot; };
+dojo.mixin(a, { d:&quot;f&quot;, g:&quot;h&quot; });
+console.log(a); // b:c, d:f, g:h</textarea></div><p>This example overwrites the &#8220;d&#8221; member from the second object, leaving the variable &#8220;a&#8221; with three members: b, d, and g. To expand on this, we can illustrate how to use mixin to overwrite defaults for some function:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/fx&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">fx</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">generatedProps</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="nx">onEnd</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span> <span class="cm">/*code*/</span> <span class="p">}</span> <span class="p">};</span>
+  <span class="kd">var</span> <span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span> <span class="p">};</span>
+  <span class="nx">fx</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">generatedProps</span><span class="p">,</span> <span class="nx">defaultProps</span><span class="p">)).</span><span class="nx">play</span><span class="p">();</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">generatedProps</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">node</span><span class="o">:</span><span class="s2">&quot;someNode&quot;</span><span class="p">,</span> <span class="nx">onEnd</span><span class="o">:</span><span class="kd">function</span><span class="p">(){</span> <span class="cm">/*code*/</span> <span class="p">}</span> <span class="p">};</span>
+<span class="kd">var</span> <span class="nx">defaultProps</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">duration</span><span class="o">:</span><span class="mi">1000</span> <span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">fadeIn</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">generatedProps</span><span class="p">,</span> <span class="nx">defaultProps</span><span class="p">)).</span><span class="nx">play</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;, &quot;dojo/_base/fx&quot;], function(lang, fx){
+  var generatedProps = { node:&quot;someNode&quot;, onEnd:function(){ /*code*/ } };
+  var defaultProps = { duration:1000 };
+  fx.fadeIn(lang.mixin(generatedProps, defaultProps)).play();
+});
+
+// Dojo &lt; 1.7
+var generatedProps = { node:&quot;someNode&quot;, onEnd:function(){ /*code*/ } };
+var defaultProps = { duration:1000 };
+dojo.fadeIn(dojo.mixin(generatedProps, defaultProps)).play();</textarea></div><p>This will create and play a fadeIn animation passing and onEnd function and node, using a default duration.</p>
+</div>
+<div class="section" id="creating-new-objects">
+<h2><a class="toc-backref" href="#id4">Creating new Objects</a><a class="headerlink" href="#creating-new-objects" title="Permalink to this headline">¶</a></h2>
+<p>Mixin modifies the first object in the list, mixing in second object. If you wish to make an entirely new object from the mixed results, you have a couple options. First, clone the existing object with dojo.clone, then mix:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">lang</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">b</span><span class="p">);</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">dojo</span><span class="p">.</span><span class="nx">clone</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nx">b</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;], function(lang){
+  var newObject = lang.mixin(lang.clone(a), b);
+});
+
+// Dojo &lt; 1.7
+var newObject = dojo.mixin(dojo.clone(a), b);</textarea></div><p>Here, the return from <a class="reference internal" href="clone.html#dojo-clone"><em>dojo.clone</em></a> is a new object, then b is mixed in.</p>
+<p>Alternately, you can pass an empty object as the first mix, and mix another object into it. You can then repeat this pattern as often as you&#8217;d like:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({},</span> <span class="nx">b</span><span class="p">);</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">newObject</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">newObject</span><span class="p">,</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">f</span><span class="p">));</span>
+  <span class="c1">// and so on</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">newObject</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">({},</span> <span class="nx">b</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">newObject</span><span class="p">,</span> <span class="nx">c</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">newObject</span><span class="p">,</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">f</span><span class="p">));</span>
+<span class="c1">// and so on</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;], function(lang){
+  var newObject = lang.mixin({}, b);
+  lang.mixin(newObject, c);
+  lang.mixin(newObject, lang.mixin(e, f));
+  // and so on
+});
+
+// Dojo &lt; 1.7
+var newObject = dojo.mixin({}, b);
+dojo.mixin(newObject, c);
+dojo.mixin(newObject, dojo.mixin(e, f));
+// and so on</textarea></div><p>Just remember the object instance in the first position will always be overwritten, and the right-most object will take precedence in the mix.</p>
+</div>
+<div class="section" id="mixins-with-classes">
+<h2><a class="toc-backref" href="#id5">Mixins with Classes</a><a class="headerlink" href="#mixins-with-classes" title="Permalink to this headline">¶</a></h2>
+<p>A common pattern when creating class objects is to pass an object-hash of properties to the constructor. dojo.mixin provides a technique for easy over-ride of default in you own classes. Consider the follow class declaration:</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/declare&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">,</span> <span class="nx">declare</span><span class="p">){</span>
+  <span class="nx">declare</span><span class="p">(</span><span class="s2">&quot;my.Thinger&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">defaultValue</span><span class="o">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+        <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">declare</span><span class="p">(</span><span class="s2">&quot;my.Thinger&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">defaultValue</span><span class="o">:</span> <span class="s2">&quot;red&quot;</span><span class="p">,</span>
+    <span class="nx">constructor</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">args</span><span class="p">){</span>
+        <span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;, &quot;dojo/_base/declare&quot;], function(lang, declare){
+  declare(&quot;my.Thinger&quot;, null, {
+    defaultValue: &quot;red&quot;,
+    constructor: function(args){
+        lang.mixin(this, args);
+    }
+  });
+});
+
+// Dojo &lt; 1.7
+dojo.declare(&quot;my.Thinger&quot;, null, {
+    defaultValue: &quot;red&quot;,
+    constructor: function(args){
+        dojo.mixin(this, args);
+    }
+});</textarea></div><p>Now, any time we create a new instance of a my.Thinger, it will have a member variable &#8220;defaultValue&#8221; set to red. If we provide a new defaultValue, the constructor will immediately overwrite the existing one:</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">thing</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">my</span><span class="p">.</span><span class="nx">Thinger</span><span class="p">({</span> <span class="nx">defaultValue</span><span class="o">:</span><span class="s2">&quot;blue&quot;</span> <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var thing = new my.Thinger({ defaultValue:&quot;blue&quot; });</textarea></div></div>
+<div class="section" id="mixing-into-instances">
+<h2><a class="toc-backref" href="#id6">Mixing into instances</a><a class="headerlink" href="#mixing-into-instances" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes is it useful to mix custom variables and members into instances of widgets and other objects. Mixing into an instance allows you to easily add arbitrary references or overwrite functionality after instantiation.</p>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7+ (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">lang</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">cp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ContentPane</span><span class="p">();</span>
+  <span class="nx">lang</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">cp</span><span class="p">,</span> <span class="p">{</span> <span class="nx">_timeCreated</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span>
+<span class="p">});</span>
+
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="kd">var</span> <span class="nx">cp</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">dijit</span><span class="p">.</span><span class="nx">layout</span><span class="p">.</span><span class="nx">ContentPane</span><span class="p">();</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">mixin</span><span class="p">(</span><span class="nx">cp</span><span class="p">,</span> <span class="p">{</span> <span class="nx">_timeCreated</span><span class="o">:</span> <span class="k">new</span> <span class="nb">Date</span><span class="p">()</span> <span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7+ (AMD)
+require([&quot;dojo/_base/lang&quot;], function(lang){
+  var cp = new dijit.layout.ContentPane();
+  lang.mixin(cp, { _timeCreated: new Date() });
+});
+
+// Dojo &lt; 1.7
+var cp = new dijit.layout.ContentPane();
+dojo.mixin(cp, { _timeCreated: new Date() });</textarea></div><p>Now, that instance of the ContentPane as a Date object attached in the _timeCreated member, which is accessible to the widget as &#8216;this._timeCreated&#8217;.</p>
+</div>
+<div class="section" id="mixing-methods">
+<h2><a class="toc-backref" href="#id7">Mixing methods</a><a class="headerlink" href="#mixing-methods" title="Permalink to this headline">¶</a></h2>
+<p>If you want to mix in some methods into an instance using two previous techniques, be aware that <a class="reference internal" href="declare.html#dojo-declare"><em>dojo.declare</em></a> decorates them, while <tt class="docutils literal"><span class="pre">dojo.mixin</span></tt> does not, which may affect how <tt class="docutils literal"><span class="pre">this.inherited()</span></tt> works, if used in mixed-in methods. Use <a class="reference internal" href="safeMixin.html#dojo-safemixin"><em>dojo.safeMixin</em></a>, which correctly handles all properties in <tt class="docutils literal"><span class="pre">dojo.declare</span></tt>-compatible way.</p>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.mixin</a><ul>
+<li><a class="reference internal" href="#simple-mixes">Simple Mixes</a></li>
+<li><a class="reference internal" href="#creating-new-objects">Creating new Objects</a></li>
+<li><a class="reference internal" href="#mixins-with-classes">Mixins with Classes</a></li>
+<li><a class="reference internal" href="#mixing-into-instances">Mixing into instances</a></li>
+<li><a class="reference internal" href="#mixing-methods">Mixing methods</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="marginBox.html"
+                        title="previous chapter">dojo.marginBox</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="moduleUrl.html"
+                        title="next chapter">dojo.moduleUrl</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

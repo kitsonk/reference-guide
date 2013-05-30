@@ -1,0 +1,403 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Dojo &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="next" title="dojo.AdapterRegistry" href="AdapterRegistry.html" />
+    <link rel="prev" title="Building a widget from scratch" href="../quickstart/writingWidgets/example.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo">
+<h1>Dojo<a class="headerlink" href="#dojo" title="Permalink to this headline">¶</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="AdapterRegistry.html">dojo.AdapterRegistry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Animation.html">dojo.Animation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Color.html">dojo.Color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Deferred.html">dojo/Deferred</a></li>
+<li class="toctree-l1"><a class="reference internal" href="DeferredList.html">dojo.DeferredList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Evented.html">dojo/on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList.html">dojo.NodeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-data.html">dojo.NodeList-data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-dom.html">dojo/NodeList-dom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-fx.html">dojo.NodeList-fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-html.html">dojo.NodeList-html</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-manipulate.html">dojo.NodeList-manipulate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList-traverse.html">dojo.NodeList-traverse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList/attr.html">dojo.NodeList.attr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="NodeList/removeAttr.html">dojo.NodeList.removeAttr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Stateful.html">dojo.Stateful</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Url.html">dojo._Url</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base.html">dojo._base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/Color.html">dojo._base.Color</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/Deferred.html">dojo/_base/Deferred</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/NodeList.html">dojo._base.NodeList</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/array.html">dojo/_base/array</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/browser.html">dojo/_base/broswer</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/config.html">dojo.config (dojo/_base/config)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/connect.html">dojo._base.connect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/declare.html">dojo._base.declare</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/event.html">dojo/_base/event</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/fx.html">dojo/_base/fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/html.html">dojo/_base/html</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/index.html">dojo/_base</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/json.html">dojo._base.json</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/kernel.html">dojo/_base/kernel</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/lang.html">dojo/_base/lang</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/loader.html">dojo._base.loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/query.html">dojo._base.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/unload.html">dojo/</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/url.html">dojo/</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/window.html">dojo._base.window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="_base/xhr.html">dojo/_base/xhr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addClass.html">dojo.addClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addOnLoad.html">dojo.addOnLoad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addOnUnload.html">dojo.addOnUnload</a></li>
+<li class="toctree-l1"><a class="reference internal" href="addOnWindowUnload.html">dojo.addOnWindowUnload</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anim.html">dojo.anim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="animateProperty.html">dojo.animateProperty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="aspect.html">dojo/aspect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="attr.html">dojo.attr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="back.html">dojo.back</a></li>
+<li class="toctree-l1"><a class="reference internal" href="behavior.html">dojo.behavior</a></li>
+<li class="toctree-l1"><a class="reference internal" href="body.html">dojo.body</a></li>
+<li class="toctree-l1"><a class="reference internal" href="browser.html">dojo.browser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="byId.html">dojo.byId</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">dojo.cache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cldr.html">dojo.cldr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cldr/monetary.html">dojo.cldr.monetary</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cldr/supplemental.html">dojo.cldr.supplemental</a></li>
+<li class="toctree-l1"><a class="reference internal" href="clone.html">dojo.clone</a></li>
+<li class="toctree-l1"><a class="reference internal" href="colors.html">dojo.colors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connect.html">dojo.connect (dojo/_base/connect)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="connectPublisher.html">dojo.connectPublisher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contentBox.html">dojo.contentBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contentHandlers.html">dojo.contentHandlers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookie.html">dojo.cookie</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coords.html">dojo.coords</a></li>
+<li class="toctree-l1"><a class="reference internal" href="create.html">dojo.create</a></li>
+<li class="toctree-l1"><a class="reference internal" href="currency.html">dojo.currency</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">dojo.data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/ItemFileReadStore.html">dojo.data.ItemFileReadStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/ItemFileWriteStore.html">dojo.data.ItemFileWriteStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/ObjectStore.html">dojo.data.ObjectStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/api.html">dojo.data API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/api/Identity.html">dojo.data Identity API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/api/Notification.html">dojo.data Notification API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/api/Read.html">dojo.data Read API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data/api/Write.html">dojo.data Write API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date.html">dojo.date</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale.html">dojo.date.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/addCustomFormats.html">dojo.date.locale.addCustomFormats</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/format.html">dojo.date.locale.format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/getNames.html">dojo.date.locale.getNames</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/isWeekend.html">dojo.date.locale.isWeekend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/parse.html">dojo.date.locale.parse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/locale/regexp.html">dojo.date.locale.regexp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="date/stamp.html">dojo.date.stamp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="declare.html">dojo.declare (dojo/_base/declare)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="delegate.html">dojo.delegate</a></li>
+<li class="toctree-l1"><a class="reference internal" href="deprecated.html">dojo.deprecated</a></li>
+<li class="toctree-l1"><a class="reference internal" href="destroy.html">dojo.destroy</a></li>
+<li class="toctree-l1"><a class="reference internal" href="disconnect.html">dojo.disconnect</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnd.html">dojo.dnd package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dnd/Moveable.html">dojo.dnd.Moveable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="doc.html">dojo.doc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom.html">dojo/dom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-attr.html">dojo/dom-attr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-class.html">dojo/dom-class</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-construct.html">dojo/dom-construct</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-form.html">dojo/dom-form</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-geometry.html">dojo/dom-geometry</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-prop.html">dojo/dom-prop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="dom-style.html">dojo/dom-style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="domReady.html">dojo/domReady!</a></li>
+<li class="toctree-l1"><a class="reference internal" href="empty.html">dojo.empty</a></li>
+<li class="toctree-l1"><a class="reference internal" href="eval.html">dojo.eval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="every.html">dojo.every</a></li>
+<li class="toctree-l1"><a class="reference internal" href="exists.html">dojo.exists</a></li>
+<li class="toctree-l1"><a class="reference internal" href="extend.html">dojo.extend</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fadeIn.html">dojo.fadeIn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fadeOut.html">dojo.fadeOut</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fieldToObject.html">dojo.fieldToObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="filter.html">dojo.filter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="forEach.html">dojo.forEach</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formToJson.html">dojo.formToJson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formToObject.html">dojo.formToObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="formToQuery.html">dojo.formToQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fromJson.html">dojo.fromJson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx.html">dojo.fx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/Toggler.html">dojo.fx.Toggler</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/chain.html">dojo.fx.chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/chainCombineExamples.html">dojo.fx.chain / dojo.fx.combine Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/combine.html">dojo.fx.combine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/easing.html">dojo.fx.easing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/slideTo.html">dojo.fx.slideTo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/wipeIn.html">dojo.fx.wipeIn</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/wipeIn-examples.html">dojo.fx.wipeIn examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fx/wipeOut.html">dojo.fx.wipeOut</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gears.html">dojo.gears</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getAttr.html">dojo.getAttr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getComputedStyle.html">dojo.getComputedStyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getContentBox.html">dojo.getContentBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getMarginBox.html">dojo.getMarginBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getNodeProp.html">dojo.getNodeProp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getObject.html">dojo.getObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getProp.html">dojo.getProp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getStyle.html">dojo.getStyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="global.html">dojo.global</a></li>
+<li class="toctree-l1"><a class="reference internal" href="has.html">dojo/has</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hasAttr.html">dojo.hasAttr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hasClass.html">dojo.hasClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hash.html">dojo.hash</a></li>
+<li class="toctree-l1"><a class="reference internal" href="hitch.html">dojo.hitch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="html.html">dojo.html</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i18n.html">dojo.i18n</a></li>
+<li class="toctree-l1"><a class="reference internal" href="index.html">Dojo Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="indexOf.html">dojo.indexOf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io.html">dojo.io</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io-query.html">dojo/io-query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io-query.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/iframe.html">dojo.io.iframe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io/script.html">dojo.io.script</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioPipelineTopics.html">IO Pipeline Topics</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isAlien.html">dojo.isAlien</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isArray.html">dojo.isArray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isArrayLike.html">dojo.isArrayLike</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isFunction.html">dojo.isFunction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isObject.html">dojo.isObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="isString.html">dojo.isString</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json.html">dojo/json</a></li>
+<li class="toctree-l1"><a class="reference internal" href="keys.html">dojo/keys Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lastIndexOf.html">dojo.lastIndexOf</a></li>
+<li class="toctree-l1"><a class="reference internal" href="load.html">dojo/load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="loadInit.html">dojo/loadInit</a></li>
+<li class="toctree-l1"><a class="reference internal" href="locale.html">dojo.locale</a></li>
+<li class="toctree-l1"><a class="reference internal" href="map.html">dojo.map</a></li>
+<li class="toctree-l1"><a class="reference internal" href="marginBox.html">dojo.marginBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mixin.html">dojo.mixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="moduleUrl.html">dojo.moduleUrl</a></li>
+<li class="toctree-l1"><a class="reference internal" href="mouse.html">dojo/mouse</a></li>
+<li class="toctree-l1"><a class="reference internal" href="node.html"><em>Proposal</em> for dojo.Node object</a></li>
+<li class="toctree-l1"><a class="reference internal" href="number.html">dojo.number</a></li>
+<li class="toctree-l1"><a class="reference internal" href="objectToQuery.html">dojo.objectToQuery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="on.html">dojo/on</a></li>
+<li class="toctree-l1"><a class="reference internal" href="parser.html">The Dojo Parser</a></li>
+<li class="toctree-l1"><a class="reference internal" href="partial.html">dojo.partial</a></li>
+<li class="toctree-l1"><a class="reference internal" href="place.html">dojo.place</a></li>
+<li class="toctree-l1"><a class="reference internal" href="position.html">dojo.position</a></li>
+<li class="toctree-l1"><a class="reference internal" href="prop.html">dojo.prop</a></li>
+<li class="toctree-l1"><a class="reference internal" href="provide.html">dojo.provide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="publish.html">dojo.publish</a></li>
+<li class="toctree-l1"><a class="reference internal" href="query.html">dojo.query</a></li>
+<li class="toctree-l1"><a class="reference internal" href="queryToObject.html">dojo.queryToObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rawXhrPost.html">dojo.rawXhrPost</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rawXhrPut.html">dojo.rawXhrPut</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ready.html">dojo.ready</a></li>
+<li class="toctree-l1"><a class="reference internal" href="regexp.html">dojo.regexp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="registerModulePath.html">dojo.registerModulePath</a></li>
+<li class="toctree-l1"><a class="reference internal" href="removeAttr.html">dojo.removeAttr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="removeClass.html">dojo.removeClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replace.html">dojo.replace</a></li>
+<li class="toctree-l1"><a class="reference internal" href="replaceClass.html">dojo.replaceClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="require.html">dojo.require</a></li>
+<li class="toctree-l1"><a class="reference internal" href="requireLocalization.html">dojo.requireLocalization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot.html">dojo/robot</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robot.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robotx.html">dojo/robotx</a></li>
+<li class="toctree-l1"><a class="reference internal" href="robotx.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc.html">dojo.rpc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/JsonService.html">dojo.rpc.JsonService</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/JsonpService.html">dojo.rpc.JsonpService</a></li>
+<li class="toctree-l1"><a class="reference internal" href="rpc/RpcService.html">dojo.rpc.RpcService</a></li>
+<li class="toctree-l1"><a class="reference internal" href="safeMixin.html">dojo.safeMixin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selector.html">dojo/selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selector/_loader.html">dojo/selector/_loader</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selector/acme.html">dojo/selector/acme</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selector/index.html">dojo/selector</a></li>
+<li class="toctree-l1"><a class="reference internal" href="selector/lite.html">dojo/selector/lite</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setAttr.html">dojo.setAttr</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setContentSize.html">dojo.setContentSize</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setContext.html">dojo.setContext</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setMarginBox.html">dojo.setMarginBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setObject.html">dojo.setObject</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setProp.html">dojo.setProp</a></li>
+<li class="toctree-l1"><a class="reference internal" href="setStyle.html">dojo.setStyle</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sniff.html">dojo/sniff</a></li>
+<li class="toctree-l1"><a class="reference internal" href="some.html">dojo.some</a></li>
+<li class="toctree-l1"><a class="reference internal" href="stopEvent.html">dojo.stopEvent</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store.html">dojo.store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/Cache.html">dojo.store.Cache</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/DataStore.html">dojo.store.DataStore</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/JsonRest.html">dojo/store/JsonRest</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/Memory.html">dojo.store.Memory</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/Observable.html">dojo.store.Observable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/Observable.html#introduction">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/Observable.html#examples">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/api.html">dojo/store/api</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/util/QueryResults.html">dojo.store.util.QueryResults</a></li>
+<li class="toctree-l1"><a class="reference internal" href="store/util/SimpleQueryEngine.html">dojo.store.util.SimpleQueryEngine</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string.html">dojo.string (dojo/string)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="string/trim.html">dojo.string.trim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="style.html">dojo.style</a></li>
+<li class="toctree-l1"><a class="reference internal" href="subscribe.html">dojo.subscribe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="text.html">dojo/text</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toDom.html">dojo.toDom</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toJson.html">dojo.toJson</a></li>
+<li class="toctree-l1"><a class="reference internal" href="toggleClass.html">dojo.toggleClass</a></li>
+<li class="toctree-l1"><a class="reference internal" href="topic.html">dojo/topic</a></li>
+<li class="toctree-l1"><a class="reference internal" href="touch.html">dojo.touch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="trim.html">dojo.trim</a></li>
+<li class="toctree-l1"><a class="reference internal" href="uacss.html">dojo.uacss</a></li>
+<li class="toctree-l1"><a class="reference internal" href="unsubscribe.html">dojo.unsubscribe</a></li>
+<li class="toctree-l1"><a class="reference internal" href="version.html">dojo.version</a></li>
+<li class="toctree-l1"><a class="reference internal" href="when.html">Deferred.when/dojo.when</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window.html">dojo.window</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window.html#features">Features</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window.html#see-also">See also</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window/get.html">dojo.window.get</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window/getBox.html">dojo.window.getBox</a></li>
+<li class="toctree-l1"><a class="reference internal" href="window/scrollIntoView.html">dojo.window.scrollIntoView</a></li>
+<li class="toctree-l1"><a class="reference internal" href="windowUnloaded.html">dojo.windowUnloaded</a></li>
+<li class="toctree-l1"><a class="reference internal" href="withDoc.html">dojo.withDoc</a></li>
+<li class="toctree-l1"><a class="reference internal" href="withGlobal.html">dojo.withGlobal</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xhrDelete.html">dojo.xhrDelete</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xhrGet.html">dojo.xhrGet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xhrPost.html">dojo.xhrPost</a></li>
+<li class="toctree-l1"><a class="reference internal" href="xhrPut.html">dojo.xhrPut</a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../quickstart/writingWidgets/example.html"
+                        title="previous chapter">Building a widget from scratch</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="AdapterRegistry.html"
+                        title="next chapter">dojo.AdapterRegistry</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

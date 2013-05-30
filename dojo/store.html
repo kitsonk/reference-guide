@@ -1,0 +1,388 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.store &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.store.Cache" href="store/Cache.html" />
+    <link rel="prev" title="dojo.stopEvent" href="stopEvent.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-store">
+<span id="id1"></span><h1><a class="toc-backref" href="#id2">dojo.store</a><a class="headerlink" href="#dojo-store" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Project owner:</th><td class="field-body">Kris Zyp</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">1.6.0</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-store" id="id2">dojo.store</a><ul>
+<li><a class="reference internal" href="#dojo-store-api" id="id3">Dojo Store API</a></li>
+<li><a class="reference internal" href="#returned-objects" id="id4">Returned Objects</a></li>
+<li><a class="reference internal" href="#observing-result-sets" id="id5">Observing Result Sets</a></li>
+<li><a class="reference internal" href="#core-stores-included-with-dojo" id="id6">Core Stores included with Dojo</a></li>
+<li><a class="reference internal" href="#design-goals" id="id7">Design Goals</a></li>
+<li><a class="reference internal" href="#see-also" id="id8">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Dojo Store is an uniform interface for the access and manipulation of stored data. Dojo Store is intended to supersede, integrate, and improve upon the Dojo Data API and Dojo Storage API with a simple, easy to implement and extend API, based on <a class="reference external" href="http://www.w3.org/TR/IndexedDB/#object-store-sync">HTML5/W3C&#8217;s IndexedDB object store API</a>. The Dojo Storage API (implemented in <a class="reference external" href="dojox/storage">dojox.storage</a>)  is already a compatible subset of the Dojo object store API.</p>
+<div class="section" id="dojo-store-api">
+<h2><a class="toc-backref" href="#id3">Dojo Store API</a><a class="headerlink" href="#dojo-store-api" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<p>Every method in the API is optional, it&#8217;s presence indicating support for that feature. Every method can return a promise (except where noted otherwise) to represent an asynchronous completion of the action. (Some of these are still wavering a bit in W3C&#8217;s object store API):</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="91%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Method</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>get(id)</td>
+<td>Retrieves an object by its identifier, returning the object.</td>
+</tr>
+<tr class="row-odd"><td>query(query, options)</td>
+<td><p class="first">Queries the store using the provided query.</p>
+<p>The returned value should be an array or a promise with forEach, map, filter, reduce, subscribe, and optional close and watch methods, and a total property (the total may be a promise). The options parameter may include the following properties (all our optional):</p>
+<ul class="last simple">
+<li>start - Starting offset</li>
+<li>count - Number of objects to return</li>
+<li>sort - This is an array of sort definitions, where each definition contains an &#8220;attribute&#8221; property indicating which property to sort on and a &#8220;descending&#8221; property indicating the direction of sort. For example: [{attribute:&#8221;price, descending: true}]. If the sort parameter is omitted, then the natural order of the store may be applied if there is a natural order.</li>
+</ul>
+</td>
+</tr>
+<tr class="row-even"><td>put(object, options)</td>
+<td><p class="first">Saves the given object. The (optional) options argument may be an object with the following properties (each of these is optional and advisory, stores are not required to implement or respond to each property):</p>
+<ul class="last simple">
+<li>id - Indicates the identity of the object if a new object is created</li>
+<li>before - If the collection of objects in the store has a natural ordering, this indicates that the created or updated object should be placed before the object specified by the value of this property. A value of null indicates that the object should be last.</li>
+<li>parent - If the store is hierarchical (with single parenting) this property indicates the new parent of the created or updated object.</li>
+<li>overwrite - If this is provided as a boolean it indicates that the object should or should not overwrite an existing object. A value of true indicates that a new object should not be created, the operation should update an existing object. A value of false indicates that an existing object should not be updated, a new object should be created (which is the same as an add() operation). When this property is not provided, either an update or creation is acceptable.</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>add(object, options)</td>
+<td>Create a new object. The (optional) options argument is defined the same as put() (except overwrite is assumed to be false).</td>
+</tr>
+<tr class="row-even"><td>remove(id)</td>
+<td>Delete the object by id.</td>
+</tr>
+<tr class="row-odd"><td>getIdentity(object)</td>
+<td>Returns an object&#8217;s identity</td>
+</tr>
+<tr class="row-even"><td>queryEngine(query, options)</td>
+<td>This takes a query and query options and returns a function that can execute the provided query on a JavaScript array. The queryEngine may be replace to provide more sophisticated querying capabilities. The returned query function may have a &#8220;matches&#8221; property that can be used to determine if an object matches the query.</td>
+</tr>
+<tr class="row-odd"><td>transaction()</td>
+<td><p class="first">Starts a transaction and returns a transaction object.</p>
+<p>The transaction object should include:</p>
+<ul class="simple">
+<li>commit() - Commits all the changes that took place during the transaction.</li>
+<li>abort() - Aborts all the changes that took place during the transaction.</li>
+</ul>
+<p class="last">Note that a store user might not call transaction() prior to using put, delete, etc. in which case these operations effectively could be thought of as  &#8220;auto-commit&#8221; style actions.</p>
+</td>
+</tr>
+<tr class="row-even"><td>getChildren(object, options)</td>
+<td>Returns the children of an object. The options parameter may include the same properties as query options</td>
+</tr>
+<tr class="row-odd"><td>getMetadata(object)</td>
+<td>Returns any metadata about the object.
+This may include attribution, cache directives, history, or version information. (addresses #3126, #3127)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="properties">
+<h3>Properties<a class="headerlink" href="#properties" title="Permalink to this headline">¶</a></h3>
+<table border="1" class="docutils">
+<colgroup>
+<col width="4%" />
+<col width="6%" />
+<col width="89%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Property</th>
+<th class="head">Type</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>idProperty</td>
+<td>String</td>
+<td>Name of the property to use as the identifier</td>
+</tr>
+<tr class="row-odd"><td>data</td>
+<td>Array of Objects</td>
+<td>If the store has a collection of cached objects, it can make this available in this property. This is included so an additional layer could add referential integrity cleanup on object deletion (which is a pain to implement).</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="returned-objects">
+<h2><a class="toc-backref" href="#id4">Returned Objects</a><a class="headerlink" href="#returned-objects" title="Permalink to this headline">¶</a></h2>
+<p>Objects returned from store should primarily be treated as normal hash objects and have standard JavaScript properties to access their data and modify their data. However, methods may also be defined on the objects returned by the store (once again, they are optional). These methods should &#8216;&#8217;&#8216;not&#8217;&#8216;&#8217; be the object&#8217;s own properties (hasOwnProperty(methodName) should return false), but rather should be inherited from one of the object&#8217;s prototypes). This is to ensure ease of enumeration of data properties.  In particular, a store may choose to return objects that are instances of dojo.Stateful (although none of the core stores do this).</p>
+</div>
+<div class="section" id="observing-result-sets">
+<h2><a class="toc-backref" href="#id5">Observing Result Sets</a><a class="headerlink" href="#observing-result-sets" title="Permalink to this headline">¶</a></h2>
+<p>When a store is wrapped with <tt class="docutils literal"><span class="pre">dojo.store.Observable</span></tt>, one can listen for changes in data through the observe method on the result set (the object returned from a query). The observe method has the following signature:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="18%" />
+<col width="82%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Method</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>observe(listener)</td>
+<td><p class="first">The listener function is called with following arguments:
+listener(object, removedFrom, insertedInto);</p>
+<ul class="last simple">
+<li>The object parameter indicates the object that was create, modified, or deleted.</li>
+<li>The removedFrom parameter indicates the index in the result array where the object used to be. If the value is -1, then the object is an addition to this result set (due to a new object being created, or changed such that it is a part of the result set).</li>
+<li>The insertedInto parameter indicates the index in the result array where the object should be now. If the value is -1, then the object is a removal from this result set (due to an object being deleted, or changed such that it is not a part of the result set).</li>
+</ul>
+</td>
+</tr>
+<tr class="row-odd"><td>close</td>
+<td>When close() is called on a result set, notifications will no longer be fired.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="core-stores-included-with-dojo">
+<h2><a class="toc-backref" href="#id6">Core Stores included with Dojo</a><a class="headerlink" href="#core-stores-included-with-dojo" title="Permalink to this headline">¶</a></h2>
+<p>The following stores, store wrappers, and utilities ship with Dojo. These provide a solid base of good modular components for using stores and building more complex store technology. The following two core stores based on the typical pattern of in-memory and server-based data stores:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="store/Memory.html#dojo-store-memory"><em>dojo.store.Memory</em></a></p>
+<p>An in-memory object store that queries, modifies, and accesses client-side in-memory data. This can be created with a simple array of JavaScript objects.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="store/JsonRest.html#dojo-store-jsonrest"><em>dojo.store.JsonRest</em></a></p>
+<p>An server-oriented JSON/REST object store that queries, modifies, and accesses data through RESTful HTTP requests. This would fulfill the conceptual role of JsonRestStore/QueryReadStore/ServiceStore.</p>
+</li>
+</ul>
+<p>There is also an adapter store for using legacy Dojo Data stores with the new API:</p>
+<ul class="simple">
+<li><a class="reference internal" href="store/DataStore.html#dojo-store-datastore"><em>dojo.store.DataStore</em></a></li>
+</ul>
+<p>We are also moving in the direction of providing composable functionality by providing store &#8220;wrappers&#8221; or store &#8220;middleware&#8221; that takes a store and adds functionality. Several key store wrappers:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="store/Observable.html#dojo-store-observable"><em>dojo.store.Observable</em></a> This augments a store with the data monitoring capability, adding a observe method on the query result sets that notifies of data changes.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="store/Cache.html#dojo-store-cache"><em>dojo.store.Cache</em></a></p>
+<p>Adds caching capability to the store. This eliminates the need for a base store to deal with caching concerns.</p>
+</li>
+<li><p class="first">Future: JsonSchema</p>
+<p>Handles validation of data through JSON Schema as well object referencing through JSON Schema&#8217;s link definitions.</p>
+</li>
+</ul>
+<p>With this one can easily mix and match wrappers and base stores to achieve various types of functionality. A common pattern may be:</p>
+<div class="highlight"><pre><span class="nx">store</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">Observable</span><span class="p">(</span><span class="k">new</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">store</span><span class="p">.</span><span class="nx">Memory</span><span class="p">({</span><span class="nx">data</span><span class="o">:</span> <span class="nx">someData</span><span class="p">}));</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">store = dojo.store.Observable(new dojo.store.Memory({data: someData}));</textarea></div><p>There are also a couple of utility modules:</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="store/util/SimpleQueryEngine.html#dojo-store-util-simplequeryengine"><em>dojo.store.util.SimpleQueryEngine</em></a></p>
+<p>This is basic query engine that provides simple object hash style filtering or function based filtering.</p>
+</li>
+<li><p class="first"><a class="reference internal" href="store/util/QueryResults.html#dojo-store-util-queryresults"><em>dojo.store.util.QueryResults</em></a></p>
+<p>This utility will take an array or a promise for an array and return a result set object with all the standard iterative methods that should be available on a result set (forEach, map, and filter).</p>
+</li>
+</ul>
+<div class="section" id="rationale">
+<h3>Rationale<a class="headerlink" href="#rationale" title="Permalink to this headline">¶</a></h3>
+<p>[Rationale: The purpose of using this style of notifications (instead of the Dojo Data notification style of events on the store) is to deal with several problems I have seen with Dojo Data notifications. First, it neglects that fact that most of the time users only want to listen to events from the queried subset of the items in the store, and that subscriptions can be costly. While subscriptions are usually cheap on the client side, carte blanche subscriptions can actually be very expensive on the server side (with Comet-style notifications), forcing the server to send excessive events and then forcing the client to filter them.</p>
+<p>Also this subscription deals with an issue we have experience with Dojo Data in that often new items and item changes can affect query results in ways that the widget can not understand because the queries are opaque to the widget. With the grid, all onNew items result in an addition of a row, regardless of whether the new item actually matches the query. The grid itself knows nothing (and should know nothing) of how queries work, and so it can&#8217;t filter these events. By putting notifications on the query action itself, notifications can be stated in terms of how they affect a given query result set, which is what the widget ultimately cares about.</p>
+<p>I have intentionally used different event names to be clear that the semantics are different than the Dojo Data notifications. The distinctive events are defined by how they affect the query result set (not whether they have come into or gone out of existence by some definition of existence). Also, the onUpdate applies to an entire object, not per property modifications.</p>
+<p>It also may be worth considering adding the notification events to an options parameter for get(id) calls.</p>
+<p>We will need to include a helper mixin or wrapper to make it easy to implement the query function.]</p>
+<p>I believe this generally facilitates all of the Dojo Data functionality. Some of it may require some composition, but I think most of the needed things would be in place to achieve anything you could with Dojo Data. The one thing I did intentionally omit was getLabel/getLabelAttributes, as I think is clearly a UI concern. It would be easy enough to include a labelProperty property on the store, but I don&#8217;t think it is necessary.</p>
+</div>
+</div>
+<div class="section" id="design-goals">
+<h2><a class="toc-backref" href="#id7">Design Goals</a><a class="headerlink" href="#design-goals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>We want to make it very easy to for people to implement their own object stores, essentially one should easily be able to write something up handle the communication to their server without having to deal with much more than writing the <em class="xref std std-ref">XHR calls</em>. Higher level functionality can be built on this. A key to this strategy is a very simple API, that requires a minimal amount of required complexity to implement.</li>
+<li>We want to maintain the same level of functionality that <a class="reference internal" href="data.html#dojo-data"><em>Dojo Data</em></a> provided. While there will be very little (if any) core parts of the object store API that MUST be implemented, there will numerous parts that can be implemented to incrementally add functionality. Optional functionality will be determined through feature detection (checking to see if a method exists). As I noted in the meeting, having lots of optional features does shift some complexity from the store implementors to the anyone who wishes to use stores in a completely generic fashion. However, I believe that our widgets are the primary generic store users, and that most application developers are working with a known store, with a known set of implemented features. In particular, if they know they are using a sync store, the interaction with the store becomes extremely simple. For now I will suggest that basically every method is optional, and the presence of the method indicates support for that feature. However, practically one would at least need to implement get and query, a store without read capabilities is pretty useless, but that should be self-evident.</li>
+<li>Every method can be implemented sync or async. The interface is the exactly the same for sync and async except that async returns promises/deferreds instead of plain values. The interface requires no other knowledge of specific callbacks to operate.</li>
+<li>Objects returned from the data store (via query or get) should be plain JavaScript objects whose properties can be typically accessed and modified through standard property access.</li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id8">See Also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.sitepen.com/blog/2011/02/15/dojo-object-stores/">SitePen Blog Post on Object Stores</a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.store</a><ul>
+<li><a class="reference internal" href="#dojo-store-api">Dojo Store API</a><ul>
+<li><a class="reference internal" href="#methods">Methods</a></li>
+<li><a class="reference internal" href="#properties">Properties</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#returned-objects">Returned Objects</a></li>
+<li><a class="reference internal" href="#observing-result-sets">Observing Result Sets</a></li>
+<li><a class="reference internal" href="#core-stores-included-with-dojo">Core Stores included with Dojo</a><ul>
+<li><a class="reference internal" href="#rationale">Rationale</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#design-goals">Design Goals</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="stopEvent.html"
+                        title="previous chapter">dojo.stopEvent</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="store/Cache.html"
+                        title="next chapter">dojo.store.Cache</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

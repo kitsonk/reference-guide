@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.hitch &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.html" href="html.html" />
+    <link rel="prev" title="dojo.hash" href="hash.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-hitch">
+<span id="id1"></span><h1>dojo.hitch<a class="headerlink" href="#dojo-hitch" title="Permalink to this headline">¶</a></h1>
+<p>Dojo.hitch is a neat function. It returns a function that will execute a given function in a given scope.  This function allows you to control how a function executes, particularly in asynchronous operations.  How many times have you done something like:</p>
+<p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">load</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataLoaded</span>
+  <span class="p">};</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/xhr&quot;], function(xhr){
+  var args = {
+    url: &quot;foo&quot;,
+    load: this.dataLoaded
+  };
+  xhr.get(args);
+});</textarea></div><p>[ Dojo &lt; 1.7 ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="k">this</span><span class="p">.</span><span class="nx">dataLoaded</span>
+<span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var args = {
+  url: &quot;foo&quot;,
+  load: this.dataLoaded
+};
+dojo.xhrGet(args);</textarea></div><p>Only to have it fail with a cryptic error like:
+dataLoaded is not a function, or errors about unresolved variables?   Why does that occur?  Well, because in asynchronous callbacks such as above, you&#8217;re changing the scope of &#8216;dataLoaded&#8217; when you assign it into an associative map.  It will no longer refer to the widget that originally provided it, but its scope will now refer to the enclosing object, the xhr arguments!  To get around this, you can use hitch to force the function to retain its original scope.  The same code done properly will look like:</p>
+<p>[ Dojo 1.7 AMD ]</p>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/xhr&quot;</span><span class="p">,</span> <span class="s2">&quot;dojo/_base/lang&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">xhr</span><span class="p">,</span> <span class="nx">lang</span><span class="p">){</span>
+  <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+    <span class="nx">load</span><span class="o">:</span> <span class="nx">lang</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;dataLoaded&quot;</span><span class="p">)</span>
+  <span class="p">};</span>
+  <span class="nx">xhr</span><span class="p">.</span><span class="nx">get</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/xhr&quot;, &quot;dojo/_base/lang&quot;], function(xhr, lang){
+  var args = {
+    url: &quot;foo&quot;,
+    load: lang.hitch(this, &quot;dataLoaded&quot;)
+  };
+  xhr.get(args);
+});</textarea></div><p>[ Dojo &lt; 1.7 ]</p>
+<div class="highlight"><pre><span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;foo&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="s2">&quot;dataLoaded&quot;</span><span class="p">)</span>
+<span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var args = {
+  url: &quot;foo&quot;,
+  load: dojo.hitch(this, &quot;dataLoaded&quot;)
+};
+dojo.xhrGet(args);</textarea></div><p>And now when the xhrGet call runs the load function, it will run in the appropriate widget scope.</p>
+<div class="section" id="basic-example">
+<h2>Basic Example<a class="headerlink" href="#basic-example" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s look at a quick example:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar=""><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">myObj</span><span class="p">,</span> <span class="kd">function</span><span class="p">(){</span>
+  <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="nx">func</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;
+};
+var func = dojo.hitch(myObj, function(){
+  console.log(this.foo);
+});
+func();</textarea></div></div></div><p>When we open up firebug, we should get &#8220;bar&#8221; printed. That&#8217;s because the scope we provided in dojo.hitch was &#8216;myObj&#8217;, so inside the function, &#8216;this&#8217; refers to &#8216;myObj&#8217;.</p>
+</div>
+<div class="section" id="using-methods-in-the-scope">
+<h2>Using Methods in the Scope<a class="headerlink" href="#using-methods-in-the-scope" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s say I want to call a method in a given scope. I could do:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someArg</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">myObj</span><span class="p">,</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">method</span><span class="p">);</span>
+<span class="nx">func</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;,
+  method: function(someArg){
+    console.log(this.foo);
+  }
+};
+var func = dojo.hitch(myObj, myObj.method);
+func();</textarea></div></div></div><p>But that is too much typing. If there&#8217;s a method that you want to use that&#8217;s already in the scope, you can just provide the method&#8217;s name as the second argument:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someArg</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">myObj</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">);</span>
+<span class="nx">func</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;,
+  method: function(someArg){
+    console.log(this.foo);
+  }
+};
+var func = dojo.hitch(myObj, &quot;method&quot;);
+func();</textarea></div></div></div><p>Firebug should output &#8220;bar&#8221;.</p>
+</div>
+<div class="section" id="providing-arguments">
+<h2>Providing Arguments<a class="headerlink" href="#providing-arguments" title="Permalink to this headline">¶</a></h2>
+<p>You can also provide arguments to the function you&#8217;re calling. Here&#8217;s an example:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someArg</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">someArg</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="kd">var</span> <span class="nx">func</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">myObj</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">,</span> <span class="s2">&quot;baz&quot;</span><span class="p">);</span>
+<span class="nx">func</span><span class="p">();</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;,
+  method: function(someArg){
+    console.log(someArg+&quot; &quot;+this.foo);
+  }
+};
+var func = dojo.hitch(myObj, &quot;method&quot;, &quot;baz&quot;);
+func();</textarea></div></div></div><p>The output from firebug should be &#8220;baz bar&#8221;. Any arguments provided after the first two will be passed to the function.</p>
+</div>
+<div class="section" id="real-world-examples">
+<h2>Real-World Examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h2>
+<p>Let&#8217;s say I want to stop right clicking on my page. This is a one-liner with dojo.hitch:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="nb">document</span><span class="p">.</span><span class="nx">onconextmenu</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">dojo</span><span class="p">,</span> <span class="s2">&quot;stopEvent&quot;</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">document.onconextmenu = dojo.hitch(dojo, &quot;stopEvent&quot;);</textarea></div></div></div><p>Ok, so another issue is, if I want to pass a function in dojo.xhrGet, and it&#8217;s in an object, I can&#8217;t use &#8216;this&#8217; anymore in that function.</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">someArg</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">({</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;/something.php&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="nx">myObj</span><span class="p">.</span><span class="nx">method</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;,
+  method: function(someArg){
+    console.log(this.foo+&quot; &quot;+data);
+  }
+};
+dojo.xhrGet({
+  url: &quot;/something.php&quot;,
+  load: myObj.method
+});</textarea></div></div></div><p>The above example won&#8217;t work. If we want to access this.foo, we need to have &#8216;method&#8217; called inside of &#8216;myObj&#8217;. Giving myObj.method to dojo.xhrGet only passes the function. You can use dojo.hitch to get around this:</p>
+<div data-dojo-type="docs.MiniGlass" class="CodeGlassMini" type="inline" pluginArgs="{dojoConfig:'parseOnLoad: true', version:''}" width="700" height="400" toolbar="none"><div class="CodeGlassMiniInner"><div class="highlight"><pre><span class="kd">var</span> <span class="nx">myObj</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="nx">foo</span><span class="o">:</span> <span class="s2">&quot;bar&quot;</span><span class="p">,</span>
+  <span class="nx">method</span><span class="o">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">data</span><span class="p">){</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">foo</span><span class="o">+</span><span class="s2">&quot; &quot;</span><span class="o">+</span><span class="nx">data</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">xhrGet</span><span class="p">({</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s2">&quot;/something.php&quot;</span><span class="p">,</span>
+  <span class="nx">load</span><span class="o">:</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">hitch</span><span class="p">(</span><span class="nx">myObj</span><span class="p">,</span> <span class="s2">&quot;method&quot;</span><span class="p">)</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">var myObj = {
+  foo: &quot;bar&quot;,
+  method: function(data){
+    console.log(this.foo+&quot; &quot;+data);
+  }
+};
+dojo.xhrGet({
+  url: &quot;/something.php&quot;,
+  load: dojo.hitch(myObj, &quot;method&quot;)
+});</textarea></div></div></div></div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.hitch</a><ul>
+<li><a class="reference internal" href="#basic-example">Basic Example</a></li>
+<li><a class="reference internal" href="#using-methods-in-the-scope">Using Methods in the Scope</a></li>
+<li><a class="reference internal" href="#providing-arguments">Providing Arguments</a></li>
+<li><a class="reference internal" href="#real-world-examples">Real-World Examples</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="hash.html"
+                        title="previous chapter">dojo.hash</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="html.html"
+                        title="next chapter">dojo.html</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

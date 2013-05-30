@@ -1,0 +1,334 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojo.connect (dojo/_base/connect) &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../index.html" />
+    <link rel="up" title="Dojo" href="contents.html" />
+    <link rel="next" title="dojo.connectPublisher" href="connectPublisher.html" />
+    <link rel="prev" title="dojo.colors" href="colors.html" />
+
+    <link rel="stylesheet" href="../_static/css/site.css">
+    <link rel="stylesheet" href="../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojo-connect-dojo-base-connect">
+<span id="dojo-connect"></span><h1><a class="toc-backref" href="#id1">dojo.connect (dojo/_base/connect)</a><a class="headerlink" href="#dojo-connect-dojo-base-connect" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Project owner:</th><td class="field-body">?&#8211;</td>
+</tr>
+<tr class="field-even field"><th class="field-name">since:</th><td class="field-body">V?</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic" id="contents">
+<p class="topic-title first">Contents</p>
+<ul class="simple">
+<li><a class="reference internal" href="#dojo-connect-dojo-base-connect" id="id1">dojo.connect (dojo/_base/connect)</a><ul>
+<li><a class="reference internal" href="#preferred-event-handling-mechanism-is-now-dojo-on" id="id2">Preferred event handling mechanism is now dojo/on</a></li>
+<li><a class="reference internal" href="#introduction" id="id3">Introduction</a></li>
+<li><a class="reference internal" href="#usage" id="id4">Usage</a></li>
+<li><a class="reference internal" href="#examples" id="id5">Examples</a></li>
+<li><a class="reference internal" href="#see-also" id="id6">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>dojo.connect connects events to methods, so that after the event occurs, the new connected method is called too.</p>
+<div class="section" id="preferred-event-handling-mechanism-is-now-dojo-on">
+<h2><a class="toc-backref" href="#id2">Preferred event handling mechanism is now dojo/on</a><a class="headerlink" href="#preferred-event-handling-mechanism-is-now-dojo-on" title="Permalink to this headline">¶</a></h2>
+<p>Dojo versions prior to 1.7 used the connect module for event handling.  As of Dojo 1.7, the preferred way of handling events is to use the new lightweight dojo/on module.  For compatibility reasons, the dojo.connect api&#8217;s will remain fully supported through remaining 1.x releases, but will likely be removed in Dojo 2.0.  Migration from connect() to on() should be straightforward as the api signature is very similar.</p>
+</div>
+<div class="section" id="introduction">
+<h2><a class="toc-backref" href="#id3">Introduction</a><a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p><cite>dojo.connect</cite> is the core event handling and delegation method in Dojo. It allows one function to &#8220;listen in&#8221; on the execution of any other, triggering the second whenever the first is called. Many listeners may be attached to a function, and source functions may be either regular function calls or DOM events.</p>
+<p><cite>dojo.connect</cite> connects listeners to actions, so that after event fires, a listener is called with the same arguments passed to the original function.</p>
+<p>Since <cite>dojo.connect</cite> allows the source of events to be either a &#8220;regular&#8221; JavaScript function or a DOM event, it provides a uniform interface for listening to all the types of events that an application is likely to deal with though a single, unified interface. DOM programmers may want to think of it as &#8220;addEventListener for everything and anything&#8221;.</p>
+<p>When setting up a connection, the <cite>event</cite> parameter must be a string that is the name of the method/event to be listened for. If <cite>obj</cite> is null, <cite>dojo.global</cite> is assumed, meaning that connections to global methods are supported but also that you may inadvertently connect to a global by passing an incorrect object name or invalid reference.</p>
+<p><cite>dojo.connect</cite> generally is forgiving. If you pass the name of a function or method that does not yet exist on <cite>obj</cite>, connect will not fail, but will instead set up a stub method. Similarly, null arguments may simply be omitted such that fewer than 4 arguments may be required to set up a connection See the examples for details.</p>
+<p>The return value is a handle that is needed to remove this connection with <cite>dojo.disconnect</cite>.</p>
+</div>
+<div class="section" id="usage">
+<h2><a class="toc-backref" href="#id4">Usage</a><a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="highlight"><pre><span class="c1">// Dojo 1.7 (AMD)</span>
+<span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/connect&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">connect</span><span class="p">){</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">dontFix</span><span class="p">);</span>
+<span class="p">});</span>
+<span class="c1">// Dojo &lt; 1.7</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">event</span><span class="p">,</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">method</span><span class="p">,</span> <span class="nx">dontFix</span><span class="p">);</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// Dojo 1.7 (AMD)
+require([&quot;dojo/_base/connect&quot;], function(connect){
+  connect.connect(obj, event, context, method, dontFix);
+});
+// Dojo &lt; 1.7
+dojo.connect(obj, event, context, method, dontFix);</textarea></div></div>
+<div class="section" id="examples">
+<h2><a class="toc-backref" href="#id5">Examples</a><a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="dojo-1-7-amd">
+<h3>Dojo 1.7 (AMD)<a class="headerlink" href="#dojo-1-7-amd" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="nx">require</span><span class="p">([</span><span class="s2">&quot;dojo/_base/connect&quot;</span><span class="p">],</span> <span class="kd">function</span><span class="p">(</span><span class="nx">connect</span><span class="p">){</span>
+  <span class="c1">// When obj.onchange(), do ui.update():</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="s2">&quot;update&quot;</span><span class="p">);</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">update</span><span class="p">);</span> <span class="c1">// same</span>
+
+  <span class="c1">// Using return value for disconnect:</span>
+  <span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="s2">&quot;update&quot;</span><span class="p">);</span>
+  <span class="p">...</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+
+  <span class="c1">// When onglobalevent executes, watcher.handler is invoked:</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;onglobalevent&quot;</span><span class="p">,</span> <span class="nx">watcher</span><span class="p">,</span> <span class="s2">&quot;handler&quot;</span><span class="p">);</span>
+
+  <span class="c1">// When ob.onCustomEvent executes, customEventHandler is invoked:</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;customEventHandler&quot;</span><span class="p">);</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;customEventHandler&quot;</span><span class="p">);</span> <span class="c1">// same</span>
+
+  <span class="c1">// When ob.onCustomEvent executes, customEventHandler is invoked</span>
+  <span class="c1">// with the same scope (this):</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">customEventHandler</span><span class="p">);</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="nx">customEventHandler</span><span class="p">);</span> <span class="c1">// same</span>
+
+  <span class="c1">// When globalEvent executes, globalHandler is invoked</span>
+  <span class="c1">// with the same scope (this):</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;globalEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">globalHandler</span><span class="p">);</span>
+  <span class="nx">connect</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;globalEvent&quot;</span><span class="p">,</span> <span class="nx">globalHandler</span><span class="p">);</span> <span class="c1">// same</span>
+<span class="p">});</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">require([&quot;dojo/_base/connect&quot;], function(connect){
+  // When obj.onchange(), do ui.update():
+  connect.connect(obj, &quot;onchange&quot;, ui, &quot;update&quot;);
+  connect.connect(obj, &quot;onchange&quot;, ui, ui.update); // same
+
+  // Using return value for disconnect:
+  var link = connect.connect(obj, &quot;onchange&quot;, ui, &quot;update&quot;);
+  ...
+  connect.disconnect(link);
+
+  // When onglobalevent executes, watcher.handler is invoked:
+  connect.connect(null, &quot;onglobalevent&quot;, watcher, &quot;handler&quot;);
+
+  // When ob.onCustomEvent executes, customEventHandler is invoked:
+  connect.connect(ob, &quot;onCustomEvent&quot;, null, &quot;customEventHandler&quot;);
+  connect.connect(ob, &quot;onCustomEvent&quot;, &quot;customEventHandler&quot;); // same
+
+  // When ob.onCustomEvent executes, customEventHandler is invoked
+  // with the same scope (this):
+  connect.connect(ob, &quot;onCustomEvent&quot;, null, customEventHandler);
+  connect.connect(ob, &quot;onCustomEvent&quot;, customEventHandler); // same
+
+  // When globalEvent executes, globalHandler is invoked
+  // with the same scope (this):
+  connect.connect(null, &quot;globalEvent&quot;, null, globalHandler);
+  connect.connect(&quot;globalEvent&quot;, globalHandler); // same
+});</textarea></div></div>
+<div class="section" id="dojo-1-7">
+<h3>Dojo &lt; 1.7<a class="headerlink" href="#dojo-1-7" title="Permalink to this headline">¶</a></h3>
+<div class="highlight"><pre><span class="c1">// When obj.onchange(), do ui.update():</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="s2">&quot;update&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="nx">ui</span><span class="p">.</span><span class="nx">update</span><span class="p">);</span> <span class="c1">// same</span>
+
+<span class="c1">// Using return value for disconnect:</span>
+<span class="kd">var</span> <span class="nx">link</span> <span class="o">=</span> <span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="s2">&quot;onchange&quot;</span><span class="p">,</span> <span class="nx">ui</span><span class="p">,</span> <span class="s2">&quot;update&quot;</span><span class="p">);</span>
+<span class="p">...</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">disconnect</span><span class="p">(</span><span class="nx">link</span><span class="p">);</span>
+
+<span class="c1">// When onglobalevent executes, watcher.handler is invoked:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;onglobalevent&quot;</span><span class="p">,</span> <span class="nx">watcher</span><span class="p">,</span> <span class="s2">&quot;handler&quot;</span><span class="p">);</span>
+
+<span class="c1">// When ob.onCustomEvent executes, customEventHandler is invoked:</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;customEventHandler&quot;</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="s2">&quot;customEventHandler&quot;</span><span class="p">);</span> <span class="c1">// same</span>
+
+<span class="c1">// When ob.onCustomEvent executes, customEventHandler is invoked</span>
+<span class="c1">// with the same scope (this):</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">customEventHandler</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="nx">ob</span><span class="p">,</span> <span class="s2">&quot;onCustomEvent&quot;</span><span class="p">,</span> <span class="nx">customEventHandler</span><span class="p">);</span> <span class="c1">// same</span>
+
+<span class="c1">// When globalEvent executes, globalHandler is invoked</span>
+<span class="c1">// with the same scope (this):</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="kc">null</span><span class="p">,</span> <span class="s2">&quot;globalEvent&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">globalHandler</span><span class="p">);</span>
+<span class="nx">dojo</span><span class="p">.</span><span class="nx">connect</span><span class="p">(</span><span class="s2">&quot;globalEvent&quot;</span><span class="p">,</span> <span class="nx">globalHandler</span><span class="p">);</span> <span class="c1">// same</span>
+</pre></div>
+<div class="CodeGlassMiniRaw" label="" lang="javascript"><textarea style="display:none">// When obj.onchange(), do ui.update():
+dojo.connect(obj, &quot;onchange&quot;, ui, &quot;update&quot;);
+dojo.connect(obj, &quot;onchange&quot;, ui, ui.update); // same
+
+// Using return value for disconnect:
+var link = dojo.connect(obj, &quot;onchange&quot;, ui, &quot;update&quot;);
+...
+dojo.disconnect(link);
+
+// When onglobalevent executes, watcher.handler is invoked:
+dojo.connect(null, &quot;onglobalevent&quot;, watcher, &quot;handler&quot;);
+
+// When ob.onCustomEvent executes, customEventHandler is invoked:
+dojo.connect(ob, &quot;onCustomEvent&quot;, null, &quot;customEventHandler&quot;);
+dojo.connect(ob, &quot;onCustomEvent&quot;, &quot;customEventHandler&quot;); // same
+
+// When ob.onCustomEvent executes, customEventHandler is invoked
+// with the same scope (this):
+dojo.connect(ob, &quot;onCustomEvent&quot;, null, customEventHandler);
+dojo.connect(ob, &quot;onCustomEvent&quot;, customEventHandler); // same
+
+// When globalEvent executes, globalHandler is invoked
+// with the same scope (this):
+dojo.connect(null, &quot;globalEvent&quot;, null, globalHandler);
+dojo.connect(&quot;globalEvent&quot;, globalHandler); // same</textarea></div></div>
+</div>
+<div class="section" id="see-also">
+<h2><a class="toc-backref" href="#id6">See also</a><a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../quickstart/events.html#quickstart-events"><em>Event QuickStart</em></a> for a good introduction</li>
+<li><a class="reference internal" href="connectPublisher.html#dojo-connectpublisher"><em>dojo.connectPublisher</em></a></li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../index.html">Startpage</a></li>
+                            <li><a href="index.html">Dojo</a></li>
+                            <li><a href="../dijit/index.html">Dijit</a></li>
+                            <li><a href="../dojox/index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojo.connect (dojo/_base/connect)</a><ul>
+<li><a class="reference internal" href="#preferred-event-handling-mechanism-is-now-dojo-on">Preferred event handling mechanism is now dojo/on</a></li>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+<li><a class="reference internal" href="#examples">Examples</a><ul>
+<li><a class="reference internal" href="#dojo-1-7-amd">Dojo 1.7 (AMD)</a></li>
+<li><a class="reference internal" href="#dojo-1-7">Dojo &lt; 1.7</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="colors.html"
+                        title="previous chapter">dojo.colors</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="connectPublisher.html"
+                        title="next chapter">dojo.connectPublisher</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,195 @@
+
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>dojox.grid.EnhancedGrid.plugins &mdash; The Dojo Toolkit - Reference Guide</title>
+    
+    <link rel="stylesheet" href="../../../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../../../',
+        VERSION:     '1.8.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <link rel="top" title="The Dojo Toolkit - Reference Guide" href="../../../index.html" />
+    <link rel="up" title="DojoX" href="../../contents.html" />
+    <link rel="next" title="dojox.grid.EnhancedGrid.plugins.CellMerge" href="plugins/CellMerge.html" />
+    <link rel="prev" title="dojox.grid.EnhancedGrid" href="../EnhancedGrid.html" />
+
+    <link rel="stylesheet" href="../../../_static/css/site.css">
+    <link rel="stylesheet" href="../../../_static/js/docs/resources/guide.css">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true
+		};
+	</script>
+    <script type="text/javascript" src="../../../_static/js/dojo/dojo.js"></script>
+    <script type="text/javascript" src="../../../_static/js/docs/guide.js"></script>
+
+  </head>
+  <body>  
+
+    <div class="document">
+    <div id="accessibilityNode">
+        <a href="#intro">Skip to Content</a> | <a href="#nav">Skip to Navigation</a>
+    </div>
+    <hr class="hide">
+    <div id="page" class="docPage">
+        <div id="header">
+            <div class="container">
+                <span id="logo"><a title="Home" href="http://dojotoolkit.org">
+                    <img alt="Dojo Toolkit" src="../../../_static/images/logo.png"></a>
+                </span>
+                <ul id="navigation">
+                    <li class="home"><a href="/"><span class="homeIcon"></span></a></li>
+                    <li class="download"><a href="/download/">Download</a></li>
+                    <li class="features"><a href="/features/">Features</a></li>
+                    <li class="docs active"><a href="/documentation/">Documentation</a></li>
+                    <li class="community"><a href="/community/">Community</a></li>
+                    <li class="about"><a href="/blog/">Blog</a></li>
+                </ul>
+            </div>
+        </div>
+    
+        <hr class="hide" />
+    
+        <div id="main">
+            <div id="content" class="innerBox">
+                <div class="pageTitleContainer">
+                    <h1>Documentation</h1>
+                    <ul class="subnav">
+                        <li><a href="/documentation/"><span>Tutorials</span></a></li>
+                        <li class="active"><a href="/reference-guide/"><span>Reference Guide</span></a></li>
+                        <li><a href="/api/"><span>API Documentation</span></a></li>
+                    </ul>
+                </div>
+                <div class="line">
+                    <div class="unit size3of4 firstUnit">
+                        <div class="spacer">
+                            
+  <div class="section" id="dojox-grid-enhancedgrid-plugins">
+<span id="id1"></span><h1>dojox.grid.EnhancedGrid.plugins<a class="headerlink" href="#dojox-grid-enhancedgrid-plugins" title="Permalink to this headline">¶</a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Authors:</th><td class="field-body">Oliver Zhu</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Project owner:</th><td class="field-body">Evan Huang</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">since:</th><td class="field-body">V.1.6</td>
+</tr>
+</tbody>
+</table>
+<p>EnhancedGrid provides a plugin framework, which can support a rich set of new features as plugins.
+The followings are implemented in Dojo 1.6:</p>
+<div class="section" id="plugin-list">
+<h2>Plugin List<a class="headerlink" href="#plugin-list" title="Permalink to this headline">¶</a></h2>
+<p>These plugins are loaded on demand, so they must be required and declared before being used.</p>
+<ul class="simple">
+<li><a class="reference internal" href="plugins/NestedSorting.html#dojox-grid-enhancedgrid-plugins-nestedsorting"><em>Nested Sorting</em></a> - Multiple column sorting</li>
+<li><a class="reference internal" href="plugins/IndirectSelection.html#dojox-grid-enhancedgrid-plugins-indirectselection"><em>Indirect Selection</em></a> - Selecting rows with radio button or check box</li>
+<li><a class="reference internal" href="plugins/Menus.html#dojox-grid-enhancedgrid-plugins-menus"><em>Declarative context menus</em></a> - Context menus for row, column, header and selected regions</li>
+<li><a class="reference internal" href="plugins/Filter.html#dojox-grid-enhancedgrid-plugins-filter"><em>Filter</em></a> - Support for defining rules to filter grid content with various data types.</li>
+<li><a class="reference internal" href="plugins/Exporter.html#dojox-grid-enhancedgrid-plugins-exporter"><em>Exporter</em></a> - Exporting grid content to various formats.</li>
+<li><a class="reference internal" href="plugins/Printer.html#dojox-grid-enhancedgrid-plugins-printer"><em>Printer</em></a> - Providing convenient ways to print grid.</li>
+<li><a class="reference internal" href="plugins/Selector.html#dojox-grid-enhancedgrid-plugins-selector"><em>Selector</em></a> - Unified extended selection support for rows, columns and cells.</li>
+<li><a class="reference internal" href="plugins/DnD.html#dojox-grid-enhancedgrid-plugins-dnd"><em>DnD</em></a> - Drag-and-drop support for rows/columns/cells, either within grid or out of grid.</li>
+<li><a class="reference internal" href="plugins/Pagination.html#dojox-grid-enhancedgrid-plugins-pagination"><em>Pagination</em></a> - Pagination approach to work with huge data set besides the default virtual scrolling way</li>
+<li><a class="reference internal" href="plugins/CellMerge.html#dojox-grid-enhancedgrid-plugins-cellmerge"><em>CellMerge</em></a> - Merging adjacent cells within a row.</li>
+<li><a class="reference internal" href="plugins/Cookie.html#dojox-grid-enhancedgrid-plugins-cookie"><em>Cookie</em></a> - Grid preferences persistence e.g column width|order and sorting order.</li>
+<li><a class="reference internal" href="plugins/Search.html#dojox-grid-enhancedgrid-plugins-search"><em>Search</em></a> - Searching grid content by regular expressions or simple wildcard pattern.</li>
+</ul>
+</div>
+<div class="section" id="see-also">
+<h2>See Also<a class="headerlink" href="#see-also" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference internal" href="../DataGrid.html#dojox-grid-datagrid"><em>dojox.grid.DataGrid</em></a> - The base grid</li>
+<li><a class="reference internal" href="../EnhancedGrid.html#dojox-grid-enhancedgrid"><em>dojox.grid.EnhancedGrid</em></a> - The enhanced grid supporting plugins</li>
+<li><a class="reference internal" href="../TreeGrid.html#dojox-grid-treegrid"><em>dojox.grid.TreeGrid</em></a> - Grid with collapsible rows and model-based (<a class="reference internal" href="../../../dijit/tree/ForestStoreModel.html#dijit-tree-foreststoremodel"><em>dijit.tree.ForestStoreModel</em></a>) structure</li>
+</ul>
+</div>
+</div>
+
+
+                        </div>
+                    </div>
+                    <div class="sidebar unit size1of4 lastUnit">
+                        <h4>Reference Guide</h4>
+						<div id="dtkVersion">
+							<label for="refver">Dojo Version</label>
+							<select id="refver" name="refver">
+								<option value="1.6">1.6</option>
+								<option value="1.7">1.7</option>
+								<option value="1.8" selected="selected">1.8</option>
+                                <option value="1.9">1.9</option>
+							</select>
+						</div>
+                        <ul>
+                            <li><a href="../../../index.html">Startpage</a></li>
+                            <li><a href="../../../dojo/index.html">Dojo</a></li>
+                            <li><a href="../../../dijit/index.html">Dijit</a></li>
+                            <li><a href="../../index.html">DojoX</a></li>
+                        </ul>
+                        
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../../../contents.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">dojox.grid.EnhancedGrid.plugins</a><ul>
+<li><a class="reference internal" href="#plugin-list">Plugin List</a></li>
+<li><a class="reference internal" href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../EnhancedGrid.html"
+                        title="previous chapter">dojox.grid.EnhancedGrid</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="plugins/CellMerge.html"
+                        title="next chapter">dojox.grid.EnhancedGrid.plugins.CellMerge</a></p>
+    <div id="searchbox" style="display: none">
+        <h3>Quick search</h3>
+        <form class="search" action="../../../search.html" method="get">
+            <input type="text" name="q" size="18" />
+            <input type="submit" value="Go" />
+            <input type="hidden" name="check_keywords" value="yes" />
+            <input type="hidden" name="area" value="default" />
+         </form>
+         <p class="searchtip" style="font-size: 90%">
+             Enter search terms or a module, class or function name.
+         </p>
+    </div>
+        </div>
+      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="hide" />
+        <div id="foot">
+            <div class="innerBox">
+                <script type="text/javascript">document.write('<a href="https://docs.google.com/spreadsheet/viewform?hl=en_US&amp;formkey=dFlDcHEyaHMwbEd4MFBObkNrX0E1MFE6MQ&amp;entry_0=' + encodeURIComponent(window.location.href) + '">Error in the documentation? Can’t find what you are looking for? Let us know!</a>');</script>
+                <div class="footer">
+                      &copy; Copyright 2005-2012, Dojo Foundation.
+                      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+                </div>
+            </div>  
+        </div>
+        <script src="http://www.google.com/jsapi?key=ABQIAAAAbTW5DVaTIHKHQe5Q75sB0BSaOaO_TgJ5c3mtQFnk5JO2zD5dZBSGHlRJ8HAPlCQCEO_FxSmyNAHSLw" type="text/javascript"></script>
+    </div>
+      <div class="clearer"></div>
+    </div>
+  </body>
+</html>
